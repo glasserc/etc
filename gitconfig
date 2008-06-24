@@ -1,0 +1,9 @@
+[gui]
+	diffcontext = 2
+	fontui = -family helvetica -size 13 -weight bold -slant roman -underline 0 -overstrike 0
+	fontdiff = -family Courier -size 13 -weight normal -slant roman -underline 0 -overstrike 0
+[user]
+	email = ethan@10gen.com
+[color]
+	status = auto
+	diff = auto
