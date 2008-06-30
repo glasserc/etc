@@ -98,3 +98,11 @@ alias unerh='sudo afp_client unmount /media/erh'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
+
+
+#for x in `mr ls | grep mr | grep /home | cut -d " " -f 3`; do
+# (echo $x;
+# cd $x;
+# git tag -l;
+# )
+# done
