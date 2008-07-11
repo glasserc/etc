@@ -106,3 +106,7 @@ fi
 # git tag -l;
 # )
 # done
+
+function afpcli () {
+    afpcmd "afp://;AUTH=No User Authent:@$1"
+}
