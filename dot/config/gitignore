@@ -1,0 +1,3 @@
+db/oplog.*
+db/makefile.local
+db/nohup.out

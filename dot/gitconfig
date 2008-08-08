@@ -7,3 +7,7 @@
 [color]
 	status = auto
 	diff = auto
+
+; FIXME -- could be user-agnostic
+[core]
+        excludesfile = /home/ethan/.config/gitignore
