@@ -84,6 +84,8 @@ alias import="./runAnt.bash ed.db.ImportBinary "
 
 alias rundb="./db --dbpath ~/db/oom/ --port 2007 run "
 
+alias check_licenses="./runAnt.bash ed.util.LicenseHeaderCheck "
+
 alias sites="cd ~/gitroot/sites"
 alias corejs="cd ~/gitroot/corejs"
 
@@ -100,7 +102,6 @@ alias unerh='sudo afp_client unmount /media/erh'
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
 
 #for x in `mr ls | grep mr | grep /home | cut -d " " -f 3`; do
 # (echo $x;
