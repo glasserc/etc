@@ -2,6 +2,7 @@
 (require 'multi-mode)
 (require 'javascript-mode)
 (require 'css-mode)
+(require 'show-wspace)
 
 (defun jsp-mode () (interactive)
   (multi-mode 1
@@ -73,6 +74,17 @@
 ;	     (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
 
+(add-hook 'javascript-mode-hook 'elide-head)
+(add-hook 'jsp-mode-hook 'elide-head)
+(add-hook 'python-mode-hook 'elide-head)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
+(add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
+
+(setq space-color "#562626")
+(set-face-background 'show-ws-tab space-color)
+(set-face-background 'show-ws-trailing-whitespace space-color)
+(set-face-background 'trailing-whitespace space-color)
+
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -82,6 +94,7 @@
  '(elide-head-headers-to-hide (quote (("Copyright (C) 2008 10gen Inc\\." . "If not, see <http") ("is free software; you can redistribute it" . "Boston, MA 0211\\(1-1307\\|0-1301\\), USA\\.") ("The Regents of the University of California\\.  All rights reserved\\." . "SUCH DAMAGE\\.") ("Permission is hereby granted, free of charge" . "authorization from the X Consortium\\."))))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(show-trailing-whitespace t)
  '(transient-mark-mode t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
