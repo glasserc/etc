@@ -75,6 +75,7 @@
              ))
 
 (add-hook 'javascript-mode-hook 'elide-head)
+(add-hook 'java-mode-hook 'elide-head)
 (add-hook 'jsp-mode-hook 'elide-head)
 (add-hook 'python-mode-hook 'elide-head)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
