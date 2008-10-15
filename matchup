@@ -1,0 +1,32 @@
+#!/bin/sh
+SHALIST=$1
+shift
+
+if [[ "x--invert" == "x$1" ]]; then
+    INVERT=true
+    shift
+else
+    INVERT=""
+fi
+
+if [[ ! -a $1 ]]; then
+    DELIM=$1
+    shift
+else
+    DELIM=" "
+fi
+
+for x in "$@"; do
+    sha=`sha1sum "$x" | cut -f 1 -d ' '` 
+    if [ "x$sha" != "x" ]; then
+	if grep $sha "$SHALIST" > /dev/null; then 
+            if [[ -z "$INVERT" ]]; then
+	        echo $x$DELIM`grep $sha "$SHALIST" | cut -f 3- -d ' '`
+            fi
+        else
+            if [[ ! -z "$INVERT" ]]; then
+                echo "$x did not match any files"
+            fi
+	fi 
+    fi
+done 
