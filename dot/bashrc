@@ -82,7 +82,7 @@ alias serve="./runAnt.bash ed.appserver.AppServer --port 2008"
 alias runjs="./runAnt.bash ed.js.Shell"
 alias import="./runAnt.bash ed.db.ImportBinary "
 
-alias rundb="./db --dbpath ~/db/oom/ --port 2007 run "
+alias rundb="./db --dbpath /data/db/oom/ --port 2007 run "
 
 alias check_licenses="./runAnt.bash ed.util.LicenseHeaderCheck "
 
