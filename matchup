@@ -1,4 +1,22 @@
 #!/bin/sh
+# matchup - sorting out files which you already have somewhere else.
+#
+# To use, create an index, using something like the following.
+#
+# find backup-pictures/ -type "f" -print0 | xargs -0 sha1sum > sha1pics
+#
+# Then, to look up a file in the index:
+#
+# bash matchup sha1pics file [file...]
+
+if [[ -z "$*" ]]; then
+    echo "usage: matchup indexfile [--invert] [delimchar] file [file...]"
+    echo "   --invert      show results that aren't in the index"
+    echo "   delimchar     use this character as a delimiter after the filename"
+    exit
+fi
+
+
 SHALIST=$1
 shift
 
