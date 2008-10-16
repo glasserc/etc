@@ -1,0 +1,3 @@
+keycode 216 = F5 XF86_Switch_VT_5
+keycode 217 = F6 XF86_Switch_VT_6
+remove mod1 = Super_L
