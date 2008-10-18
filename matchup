@@ -35,11 +35,11 @@ else
 fi
 
 for x in "$@"; do
-    sha=`sha1sum "$x" | cut -f 1 -d ' '` 
+    sha=`sha1sum <"$x" | cut -f 1 -d ' '` 
     if [ "x$sha" != "x" ]; then
 	if grep $sha "$SHALIST" > /dev/null; then 
             if [[ -z "$INVERT" ]]; then
-	        echo $x$DELIM`grep $sha "$SHALIST" | cut -f 3- -d ' '`
+	        echo "$x"$DELIM`grep $sha "$SHALIST" | cut -f 3- -d ' '`
             fi
         else
             if [[ ! -z "$INVERT" ]]; then
