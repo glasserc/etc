@@ -78,7 +78,7 @@ export db_port=2007
 alias lcl="db_ip=127.0.0.1 db_port=2007 "
 alias dev="db_ip=iad-sb-n6.10gen.com db_port=27017 "
 
-alias serve="./runAnt.bash ed.appserver.AppServer --port 2008"
+alias serve="./runAnt.bash ed.appserver.AppServer --port 2008 "
 alias runjs="./runAnt.bash ed.js.Shell"
 alias import="./runAnt.bash ed.db.ImportBinary "
 
