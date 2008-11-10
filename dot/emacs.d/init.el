@@ -96,7 +96,9 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(show-trailing-whitespace t)
- '(transient-mark-mode t))
+ '(transient-mark-mode t)
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
+ '(uniquify-separator "/"))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
