@@ -1,6 +1,5 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d"))
 (require 'multi-mode)
-(require 'javascript-mode)
 (require 'css-mode)
 (require 'show-wspace)
 
@@ -17,7 +16,7 @@
   )
 
 (setq auto-mode-alist
-      (cons '("\\.js$" . javascript-mode)
+      (cons '("\\.js$" . js2-mode)
             auto-mode-alist))
 
 
