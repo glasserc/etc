@@ -3,6 +3,8 @@
 (require 'css-mode)
 (require 'show-wspace)
 
+(iswitchb-mode 1)
+
 (defun jsp-mode () (interactive)
   (multi-mode 1
               'html-mode
@@ -31,6 +33,7 @@
 
 (require 'git)
 (require 'redo)
+
 
 (define-key global-map (kbd "M-_") 'redo)
 (define-key global-map (kbd "M-g") 'goto-line)
