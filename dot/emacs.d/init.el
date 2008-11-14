@@ -3,6 +3,7 @@
 (require 'css-mode)
 (require 'show-wspace)
 (require 'java-mode-indent-annotations)
+(require 'elide-head)
 
 (iswitchb-mode 1)
 
@@ -77,9 +78,7 @@
 ;	     (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
 
-(add-hook 'java-mode-hook 'elide-head)
-(add-hook 'jsp-mode-hook 'elide-head)
-(add-hook 'python-mode-hook 'elide-head)
+(add-hook 'find-file-hook 'elide-head)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
 
@@ -94,7 +93,6 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(elide-head-headers-to-hide (quote (("Copyright (C) 2008 10gen Inc\\." . "If not, see <http") ("is free software; you can redistribute it" . "Boston, MA 0211\\(1-1307\\|0-1301\\), USA\\.") ("The Regents of the University of California\\.  All rights reserved\\." . "SUCH DAMAGE\\.") ("Permission is hereby granted, free of charge" . "authorization from the X Consortium\\."))))
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(show-trailing-whitespace t)
@@ -143,6 +141,12 @@
 (setq mmm-submode-decoration-level 0)
 ;; End of jxp mode
 
+(setq elide-head-headers-to-hide
+      (append
+       '(("Copyright (C) 2008 10gen Inc\\." . "If not, see <http")   ; AGPL
+         ("Copyright (C) 2008 10gen Inc\\." . "under the License\\.") ; APL
+         )
+       elide-head-headers-to-hide))
 (setq default-emacs-font "Terminus-13")
 
 (if (>= emacs-major-version 23)
