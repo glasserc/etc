@@ -2,6 +2,7 @@
 (require 'multi-mode)
 (require 'css-mode)
 (require 'show-wspace)
+(require 'java-mode-indent-annotations)
 
 (iswitchb-mode 1)
 
@@ -76,7 +77,6 @@
 ;	     (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
 
-(add-hook 'javascript-mode-hook 'elide-head)
 (add-hook 'java-mode-hook 'elide-head)
 (add-hook 'jsp-mode-hook 'elide-head)
 (add-hook 'python-mode-hook 'elide-head)
