@@ -96,6 +96,7 @@
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(compilation-scroll-output (quote first-error))
+ '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(show-trailing-whitespace t)
