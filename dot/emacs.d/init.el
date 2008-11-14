@@ -149,6 +149,13 @@
          ("Copyright (C) 2008 10gen Inc\\." . "under the License\\.") ; APL
          )
        elide-head-headers-to-hide))
+
+; desktop-mode config -- don't expect to ever use it, but it's nice to
+; have.  Save session with desktop-save, then read using desktop-read.
+; desktop-save doesn't overwrite it's previous save.. not sure why or
+; how to fix. Maybe desktop-save-mode?
+(set-default 'desktop-path (list (expand-file-name "~/.emacs.d/")))
+
 (setq default-emacs-font "Terminus-13")
 
 (if (>= emacs-major-version 23)
