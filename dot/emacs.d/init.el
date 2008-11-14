@@ -94,6 +94,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(compilation-scroll-output t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(show-trailing-whitespace t)
