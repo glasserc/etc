@@ -80,6 +80,7 @@
 
 (add-hook 'find-file-hook 'elide-head)
 (add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
+; FIXME: take font-lock off in *Completions* buffers
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
 
