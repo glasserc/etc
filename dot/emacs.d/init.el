@@ -142,3 +142,9 @@
 ;; mmm-mode conveniently displays jxp code as white-on-white unless the highlight level is set to 0
 (setq mmm-submode-decoration-level 0)
 ;; End of jxp mode
+
+(setq default-emacs-font "Terminus-13")
+
+(if (>= emacs-major-version 23)
+    (set-frame-font default-emacs-font))
+(add-to-list 'default-frame-alist (cons 'font default-emacs-font))
