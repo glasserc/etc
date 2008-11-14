@@ -79,6 +79,7 @@
              ))
 
 (add-hook 'find-file-hook 'elide-head)
+(add-hook 'java-mode-hook 'java-mode-indent-annotations-setup)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
 (add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
 
