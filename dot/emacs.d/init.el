@@ -38,7 +38,7 @@
 
 
 (define-key global-map (kbd "M-_") 'redo)
-(define-key global-map (kbd "M-g") 'goto-line)
+;(define-key global-map (kbd "M-g") 'goto-line)
 
 (defun scroll-up-one (arg)
   (interactive "p")
