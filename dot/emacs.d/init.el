@@ -1,4 +1,4 @@
-(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages"))
 (require 'multi-mode)
 (require 'css-mode)
 (require 'show-wspace)
