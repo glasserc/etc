@@ -166,5 +166,6 @@
 (setq default-emacs-font "Terminus-13")
 
 (if (>= emacs-major-version 23)
-    (set-frame-font default-emacs-font))
-(add-to-list 'default-frame-alist (cons 'font default-emacs-font))
+    (progn (set-frame-font default-emacs-font)
+           (add-to-list 'default-frame-alist (cons 'font default-emacs-font))))
+
