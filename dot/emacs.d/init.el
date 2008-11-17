@@ -126,6 +126,8 @@
 
 
 (defun java-mode-untabify ()
+  ;;; Does both untabification as well as end-of-line-whitespace removal.
+  ;;; Stolen from jwz's webpage.
   (save-excursion
     (goto-char (point-min))
     (while (re-search-forward "[ \t]+$" nil t)
