@@ -164,7 +164,7 @@
 ;;; This is a symlink to a file that might get updated and on some
 ;;; machines doesn't even exist, so we wrap it in a condition-case (in
 ;;; case it doesn't exist here).
-(condition-case 'jxp-error
+(condition-case jxp-error
     (progn (require 'jxp-mode)
            (require 'mmm-mode)
 
