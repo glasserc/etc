@@ -1,4 +1,7 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/packages"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/src"))  ; my elisp hacks
+; FIXME: should I have a separate repo for emacs-lisp stuff?
+; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
 
 (iswitchb-mode 1)
