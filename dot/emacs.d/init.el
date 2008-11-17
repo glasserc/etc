@@ -158,6 +158,7 @@
 	     (make-local-variable 'write-contents-hooks)
 ;	     (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
+;;; end programming language modes
 
 ;;; jxp-mode stuff.
 ;;;
@@ -195,7 +196,6 @@
            (setq mmm-submode-decoration-level 0))
   (error (message "Failed to load jxp mode: %s" jxp-error)))
 ; FIXME: fall back on JSP mode?
-;;; end programming language modes
-
+;;; end jxp-mode stuff
 
 
