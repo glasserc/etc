@@ -73,6 +73,8 @@
 (define-key global-map (kbd "M-<down>") 'scroll-up-one)
 ;(define-key global-map (kbd "M-g") 'goto-line)
 
+(global-set-key [?\C-c ?>] 'increase-left-margin)
+(global-set-key [?\C-c ?<] 'decrease-left-margin)
 ;;; end generic editing keybindings
 
 ;;; git -- I never use this any more since git-cola, but hey!
@@ -199,3 +201,41 @@
 ;;; end jxp-mode stuff
 
 
+;;; esvn-mode
+(require 'esvn)
+
+(define-derived-mode journal-mode text-mode "Journal"
+  "Major mode for editing Ethan's diary."
+  (setq esvn-default-commit-message "Entry.")
+  (setq esvn-default-autocommit-message "autocommit")
+  (setq esvn-default-add-message "New day.")
+  (esvn-mode)
+  (local-set-key [?\C-x ?\C-s] 'esvn-save-or-autocommit))
+
+(defun enable-esvn ()
+  (message (buffer-file-name))
+  (when (string-match "writing/" (buffer-file-name))
+    (setq esvn-default-commit-message "Edit.")
+    (setq esvn-default-add-message "Begin.")
+    (setq require-final-newline t)
+    (setq esvn-svn-command "hg")
+    (esvn-mode t)
+    (when (string-match "journal/" (buffer-file-name))
+      (local-set-key [?\C-x ?\C-s] 'esvn-save-or-autocommit))))
+
+;(add-hook 'find-file-not-found-hooks 'enable-esvn)
+(add-hook 'find-file-hooks 'enable-esvn)
+
+(setq auto-mode-alist
+      (append
+       '(
+         ("writing/journal/"     . journal-mode)
+         ("writing/"             . text-mode)
+         ) auto-mode-alist))
+;;; esvn-mode
+
+(setq auto-mode-alist
+      (append
+       '(
+         ("\\.mdwn$"             . mdwn-mode)
+         ) auto-mode-alist))
