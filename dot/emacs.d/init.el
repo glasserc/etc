@@ -134,12 +134,12 @@
       (delete-region (match-beginning 0) (match-end 0)))
     (goto-char (point-min))
     (if (search-forward "\t" nil t)
-	(untabify (1- (point)) (point-max))))
+        (untabify (1- (point)) (point-max))))
   nil)
 
 (add-hook 'javascript-mode-hook
-	  '(lambda ()
-	     (make-local-variable 'write-contents-hooks)
+          '(lambda ()
+             (make-local-variable 'write-contents-hooks)
 ;             (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
 
@@ -158,9 +158,9 @@
   )
 
 (add-hook 'jsp-mode-hook
-	  '(lambda ()
-	     (make-local-variable 'write-contents-hooks)
-;	     (add-hook 'write-contents-hooks 'java-mode-untabify)
+          '(lambda ()
+             (make-local-variable 'write-contents-hooks)
+;            (add-hook 'write-contents-hooks 'java-mode-untabify)
              ))
 ;;; end programming language modes
 
