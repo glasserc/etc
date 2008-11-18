@@ -12,3 +12,6 @@ compinit
 # End of lines added by compinstall
 
 alias ls='ls --color=auto'
+
+setopt nomenucomplete
+setopt auto_pushd
