@@ -13,3 +13,8 @@
         excludesfile = /home/ethan/.config/gitignore
 [cola]
 	fontdiff = Terminus,12,-1,5,50,0,0,0,0,0
+
+[alias]
+        graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+        stat = status
+        st = status
