@@ -12,12 +12,6 @@ sourced from bashrc.
 
 Additional niceties include:
 
-* generate-gitconfig-local.sh, which reads dot/gitconfig and appends a
-  stanza for user.email, and outputs to dot/gitconfig.local. The
-  intent is that you symlink ~/etc/dot/gitconfig.local to
-  ~/.gitconfig. [FIXME: perhaps dot/gitconfig should just be here in
-  etc/gitconfig?]
-
 * strip_empty_stanzas.py, which filters the output of "mr status" to remove
   "on branch master / nothing to commit" blocks.
 
