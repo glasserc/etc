@@ -1,0 +1,23 @@
+The expected use of this repository is:
+
+- clone it to ~/etc/
+- symlink every ~/etc/dot/foo to ~/.foo except ~/.config
+- symlink every ~/etc/dot/config/foo to ~/.config/foo
+
+I don't have a script to generate/refresh these symlink farms yet, sorry!
+
+This set of configuration files has primitive support for machine-specific
+customization. Drop a file in ~/.config/etc.machine/`hostname`.rc and it'll get
+sourced from bashrc.
+
+Additional niceties include:
+
+* generate-gitconfig-local.sh, which reads dot/gitconfig and appends a
+  stanza for user.email, and outputs to dot/gitconfig.local. The
+  intent is that you symlink ~/etc/dot/gitconfig.local to
+  ~/.gitconfig. [FIXME: perhaps dot/gitconfig should just be here in
+  etc/gitconfig?]
+
+* strip_empty_stanzas.py, which filters the output of "mr status" to remove
+  "on branch master / nothing to commit" blocks.
+
