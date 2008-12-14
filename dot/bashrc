@@ -139,6 +139,6 @@ function afpcli () {
 GITPS1='$(__git_ps1 ":%s")'
 export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:\w${RS}${YELLOW}${GITPS1}${RS}\\$ "
 
-if [ -f ~/.config/`hostname`.rc ]; then
-   source ~/.config/`hostname`.rc
+if [ -f ~/.config/etc.machine/`hostname`.rc ]; then
+   source ~/.config/etc.machine/`hostname`.rc
 fi
