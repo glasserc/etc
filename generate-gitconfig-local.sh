@@ -3,5 +3,10 @@
 DIR=`dirname $0`
 DOT=$DIR/dot
 
-(cat $DOT/gitconfig; echo "[user]"; echo "        email = $EMAIL") > $DOT/gitconfig.local
-
+(
+    cat $DOT/gitconfig;
+    if [ "x$EMAIL" != "x" ]; then
+        echo "[user]"
+        echo "        email = $EMAIL"
+    fi
+) > $DOT/gitconfig.local
