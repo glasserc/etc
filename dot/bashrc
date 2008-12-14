@@ -95,6 +95,10 @@ export EDITOR=emacs
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
 export CLASSPATH=/usr/lib/jvm/java-6-sun-1.6.0.06/lib/tools.jar
 #export db_ip=ofc-n1.10gen.com
 export db_ip=127.0.0.1
@@ -123,9 +127,6 @@ status(){
 
 alias erh='sudo afp_client mount -a "No User Authent" 192.168.19.17:10gen_db_backup /media/erh '
 alias unerh='sudo afp_client unmount /media/erh'
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
 
 #for x in `mr ls | grep mr | grep /home | cut -d " " -f 3`; do
 # (echo $x;
@@ -145,3 +146,6 @@ export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:\w${RS}${YELLOW}${GI
 if [ -f ~/.config/etc.machine/`hostname`.rc ]; then
    source ~/.config/etc.machine/`hostname`.rc
 fi
+
+export EDITOR=emacs
+export NETHACKOPTIONS=number_pad:1,pickup_types:$,!rest_on_space,time,color,showexp
