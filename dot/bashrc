@@ -44,10 +44,12 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 init_colors(){
-        # FIXME: more colors; better names; actually learn ANSI escape sequences
-        export GREEN="\[\033[01;32m\]"
-        export YELLOW="\[\033[01;33m\]"
-        export RS="\[\033[00m\]"
+    # FIXME: more colors; better names; actually learn ANSI escape sequences
+    # The intent is that if this function doesn't get run, all these escape
+    # sequences will expand to empty strings, and do nothing.
+    export GREEN="\[\033[01;32m\]"
+    export YELLOW="\[\033[01;33m\]"
+    export RS="\[\033[00m\]"
 }
 
 if [ "$color_prompt" = yes ]; then
