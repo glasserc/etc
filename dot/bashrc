@@ -138,3 +138,7 @@ function afpcli () {
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
 GITPS1='$(__git_ps1 ":%s")'
 export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:\w${RS}${YELLOW}${GITPS1}${RS}\\$ "
+
+if [ -f ~/.config/`hostname`.rc ]; then
+   source ~/.config/`hostname`.rc
+fi
