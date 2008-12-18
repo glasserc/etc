@@ -29,8 +29,12 @@
 ;;; wspace
 ; FIXME: take font-lock off in *Completions* buffers
 (require 'show-wspace)
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-tabs)
-(add-hook 'font-lock-mode-hook 'show-ws-highlight-trailing-whitespace)
+(add-hook 'font-lock-mode-hook
+          (lambda ()
+            (if (not (string-match (buffer-name) "\*Completions\*"))
+                (progn
+                  (show-ws-highlight-tabs)
+                  (show-ws-highlight-trailing-whitespace)))))
 
 ; FIXME: compute this color based on the current color-theme
 (setq space-color "#562626")
