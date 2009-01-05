@@ -1,3 +1,6 @@
+(defun emacs-d (filename)
+  (concat (expand-file-name "~/.emacs.d/") filename))
+
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/packages"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/src"))  ; my elisp hacks
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
@@ -260,3 +263,4 @@
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory (concat yasnippet-directory "/snippets"))
+(yas/load-directory (emacs-d "my-snippets"))
