@@ -245,3 +245,18 @@
        '(
          ("\\.mdwn$"             . mdwn-mode)
          ) auto-mode-alist))
+
+;;; yasnippet
+
+(setq yasnippet-directory
+      (car
+       (last
+        ; FIXME: not sorted, since I don't want to parse version numbers
+        (directory-files
+         (expand-file-name "~/.emacs.d/packages/")
+         t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
+(add-to-list 'load-path yasnippet-directory)
+
+(require 'yasnippet)
+(yas/initialize)
+(yas/load-directory (concat yasnippet-directory "/snippets"))
