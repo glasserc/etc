@@ -144,10 +144,8 @@
 (make-variable-buffer-local 'buffer-whitespace-was-clean)
 
 (defun clean-whitespace-tentative ()
-  (progn
-    (if buffer-whitespace-was-clean
-        (clean-whitespace)
-      nil)
+  (if buffer-whitespace-was-clean
+      (clean-whitespace)
     nil))
 
 (defun clean-whitespace-check ()
@@ -162,8 +160,8 @@
       nil)))
 
 (add-hook 'find-file-hook 'clean-whitespace-check)
-; mdirolf puts this in a before-save-hook (which is much cleaner?)
-(set-default 'write-contents-hooks (cons 'clean-whitespace-tentative write-contents-hooks))
+; FIXME: gosh, write-files-functions, before-save-hook, write-contents-functions
+(add-hook 'before-save-hook 'clean-whitespace-tentative)
 
 
 (require 'multi-mode)
