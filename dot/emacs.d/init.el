@@ -132,9 +132,10 @@
             auto-mode-alist))
 
 
-(defun java-mode-untabify ()
+(defun clean-whitespace ()
   ;;; Does both untabification as well as end-of-line-whitespace removal.
-  ;;; Stolen from jwz's webpage.
+  ;;; Stolen from jwz's webpage (as java-mode-untabify)
+  ; FIXME: (interactive)?
   (save-excursion
     (goto-char (point-min))
     (while (re-search-forward "[ \t]+$" nil t)
@@ -144,11 +145,29 @@
         (untabify (1- (point)) (point-max))))
   nil)
 
-(add-hook 'javascript-mode-hook
-          '(lambda ()
-             (make-local-variable 'write-contents-hooks)
-;             (add-hook 'write-contents-hooks 'java-mode-untabify)
-             ))
+(defvar buffer-whitespace-was-clean nil)
+(make-variable-buffer-local 'buffer-whitespace-was-clean)
+
+(defun clean-whitespace-tentative ()
+  (progn
+    (if buffer-whitespace-was-clean
+        (clean-whitespace)
+      nil)
+    nil))
+
+(defun clean-whitespace-check ()
+  "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace."
+  ; FIXME: weird buffers, like if you open a binary file?
+  (save-excursion
+    (goto-char (point-min))
+    (if (not (or
+         (re-search-forward "\t" nil t)
+         (re-search-forward "[ \t]+$" nil t)))
+        (setq buffer-whitespace-was-clean t)
+      nil)))
+
+(add-hook 'find-file-hook 'clean-whitespace-check)
+(set-default 'write-contents-hooks (cons 'clean-whitespace-tentative write-contents-hooks))
 
 
 (require 'multi-mode)
@@ -164,11 +183,6 @@
               )
   )
 
-(add-hook 'jsp-mode-hook
-          '(lambda ()
-             (make-local-variable 'write-contents-hooks)
-;            (add-hook 'write-contents-hooks 'java-mode-untabify)
-             ))
 ;;; end programming language modes
 
 ;;; jxp-mode stuff.
