@@ -134,15 +134,10 @@
 
 (defun clean-whitespace ()
   ;;; Does both untabification as well as end-of-line-whitespace removal.
-  ;;; Stolen from jwz's webpage (as java-mode-untabify)
   ; FIXME: (interactive)?
   (save-excursion
-    (goto-char (point-min))
-    (while (re-search-forward "[ \t]+$" nil t)
-      (delete-region (match-beginning 0) (match-end 0)))
-    (goto-char (point-min))
-    (if (search-forward "\t" nil t)
-        (untabify (1- (point)) (point-max))))
+    (delete-trailing-whitespace)
+    (untabify (point-min) (point-max)))
   nil)
 
 (defvar buffer-whitespace-was-clean nil)
@@ -167,6 +162,7 @@
       nil)))
 
 (add-hook 'find-file-hook 'clean-whitespace-check)
+; mdirolf puts this in a before-save-hook (which is much cleaner?)
 (set-default 'write-contents-hooks (cons 'clean-whitespace-tentative write-contents-hooks))
 
 
