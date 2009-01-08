@@ -149,3 +149,23 @@ fi
 
 export EDITOR=emacs
 export NETHACKOPTIONS=number_pad:1,pickup_types:$,!rest_on_space,time,color,showexp
+
+# I freakin' hate history expansion, because it always tries to expand
+# exclamation marks in commit messages, and I never actually use it. I
+# always either use Meta-. to fetch "last word" (rarely) or more often
+# just use up/down/C-k/C-y to slice and dice whatever commands I need
+# to.  Some people seem to think it's a great time-saver to do !$ or
+# whatever, but if you have to struggle harder to think about what's
+# actually going to happen, it's a false economy in my opinion. I'd
+# much rather take the extra fraction-of-a-second and see what command
+# I'm about to execute.
+
+# Another great joke: ^foo^bar^ only replaces the first foo! And
+# ^foo^bar^g replaces the first foo with bar, then adds a g to the end
+# of whatever command you were executing. Totally useless.  This could
+# actually be a useful function but I'm not willing to type
+# !!:s/foo/bar/g in order to make it happen. Haven't found a better
+# way, though.
+
+set +H
+
