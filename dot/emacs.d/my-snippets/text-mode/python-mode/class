@@ -4,6 +4,8 @@
 # contributor: Nishio Hirokazu
 # contributor: Yasser González Fernández <yglez@uh.cu>
 # fixme: highlights differently from original, due to concat of 8 spaces
+# fixme: no way to pull this common functionality out of def, defm, class?
+# fixme: can't even pull it out of the two places in class?
 # --
 class ${1:ClassName}(${2:object}):
     """$3
