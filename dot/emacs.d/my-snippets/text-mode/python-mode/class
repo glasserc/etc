@@ -41,7 +41,7 @@ ${4:$
          '(lambda (pair)
             (let ((name (car pair))
                   (default nil))  ; FIXME?
-              (if (not (string= name ""))
+              (if (not (string= name ""))  ; arguments list like "a, , c"?
                   (concat "self._" name " = " name))))
           (mapcar '(lambda (x) (split-string x "="))
                   (split-string text "[, \r\t\n]+"))
