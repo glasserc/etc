@@ -39,8 +39,8 @@ ${4:$
         ${4:$
         (mapconcat
          '(lambda (x)
-            (if (not (string= (nth 0 x) ""))
-                (concat "self._" (nth 0 x) " = " (nth 0 x))))
+            (if (not (string= (car x) ""))
+                (concat "self._" (car x) " = " (car x))))
          (mapcar
           '(lambda (x)
              (mapcar
