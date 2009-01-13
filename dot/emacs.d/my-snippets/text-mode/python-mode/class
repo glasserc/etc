@@ -44,7 +44,7 @@ ${4:$
          (mapcar
           '(lambda (x)
              (mapcar
-              '(lambda (x)
+              '(lambda (x)  ; string-trim
                  (replace-regexp-in-string "[[:blank:]]*$" ""
                   (replace-regexp-in-string "^[[:blank:]]*" "" x)))
               x))
