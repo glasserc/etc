@@ -151,6 +151,8 @@
 (defun clean-whitespace-check ()
   "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace."
   ; FIXME: weird buffers, like if you open a binary file?
+  ; This could use nuke-trailing-whitespace and friends, but that wouldn't
+  ; untabify
   (save-excursion
     (goto-char (point-min))
     (if (not (or
