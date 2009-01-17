@@ -72,8 +72,8 @@
   (interactive "p")
   (scroll-up 1))
 
-(defun scroll-down-one (arg) 
-  (interactive "p") 
+(defun scroll-down-one (arg)
+  (interactive "p")
   (scroll-down 1))
 
 (define-key global-map (kbd "M-<up>") 'scroll-down-one)
