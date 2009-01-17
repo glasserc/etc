@@ -68,6 +68,18 @@
 ;;; end desktop-mode
 
 ;;; generic editing keybindings
+(defun count-words (&optional begin end)
+  "Runs wc on region (if active) or otherwise the whole buffer."
+  (interactive
+   (list
+    (if (and transient-mark-mode mark-active)
+        (region-beginning)
+      (point-min))
+    (if (and transient-mark-mode mark-active)
+        (region-end)
+      (point-max))))
+  (shell-command-on-region begin end "wc"))
+
 (defun scroll-up-one (arg)
   (interactive "p")
   (scroll-up 1))
@@ -79,6 +91,7 @@
 (define-key global-map (kbd "M-<up>") 'scroll-down-one)
 (define-key global-map (kbd "M-<down>") 'scroll-up-one)
 ;(define-key global-map (kbd "M-g") 'goto-line)
+(define-key esc-map "=" 'count-words)
 
 (global-set-key [?\C-c ?>] 'increase-left-margin)
 (global-set-key [?\C-c ?<] 'decrease-left-margin)
