@@ -1,5 +1,6 @@
 ; esvn-mode: pennyante SVN mode for emacs
 ; version 0.1.3
+; FIXME: switching major modes turns this off??
 
 (defvar esvn-mode nil)
 (make-variable-buffer-local 'esvn-mode)
