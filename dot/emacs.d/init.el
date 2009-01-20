@@ -287,3 +287,6 @@
 (yas/initialize)
 (yas/load-directory (concat yasnippet-directory "/snippets"))
 (yas/load-directory (emacs-d "my-snippets"))
+
+;;; haskell-mode
+(add-hook 'haskell-mode-hook (lambda () (require 'inf-haskell)))
