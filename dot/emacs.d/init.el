@@ -290,3 +290,7 @@
 
 ;;; haskell-mode
 (add-hook 'haskell-mode-hook (lambda () (require 'inf-haskell)))
+
+;;; hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
