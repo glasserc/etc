@@ -2,7 +2,25 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+
 bindkey -e
+# The zsh emacs-*-word family commands are all weird -- in bash/emacs,
+# doing a backward-word command would take you to the previous non-alnum
+# character. So if your line looks like this:
+#
+# foo bar baz.1^
+# (cursor is indicated by ^)
+#
+# Doing a M-b should take you to between the . and the 1.
+# You can make zsh stop treating non-alnums as parts of words by unsetting
+# WORDCHARS:
+export WORDCHARS=''
+# This still doesn't affect M-d.
+#
+# A more involved fix would have different commands for skipping over
+# command line arguments versus skipping over sub-words. Too complicated right
+# now.
+
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/ethan/.zshrc'
