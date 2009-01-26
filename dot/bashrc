@@ -152,7 +152,7 @@ export NETHACKOPTIONS=number_pad:1,pickup_types:$,!rest_on_space,time,color,show
 
 # Not sure about the best way to do this, but in lieu of a better way to
 # make git understand my email is not ethan@sundance..
-export EMAIL=ethan.glasser.camp@gmail.com
+export EMAIL=ethan@betacantrips.com
 
 # I freakin' hate history expansion, because it always tries to expand
 # exclamation marks in commit messages, and I never actually use it. I
