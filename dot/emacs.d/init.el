@@ -45,6 +45,8 @@
 (set-face-background 'show-ws-trailing-whitespace space-color)
 (set-face-background 'trailing-whitespace space-color)
 
+(require 'rst)
+
 (set-face-background 'rst-level-1-face "#565656")
 (set-face-background 'rst-level-2-face "#4d4d4d")
 (set-face-background 'rst-level-3-face "#464646")
