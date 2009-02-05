@@ -302,3 +302,13 @@
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
 
+;;; pymacs, ropemacs
+(require 'pymacs)
+(setq python-ropemacs-setup nil)
+(add-hook 'python-mode-hook
+          (lambda ()
+            (if (not python-ropemacs-setup)
+                (progn
+                  (pymacs-load "ropemacs" "rope-")
+                  (setq python-ropemacs-setup t)))))
+
