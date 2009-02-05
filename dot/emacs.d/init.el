@@ -305,10 +305,13 @@
 ;;; pymacs, ropemacs
 (require 'pymacs)
 (setq python-ropemacs-setup nil)
+(add-hook 'python-mode-hook 'ropemacs-mode)
 (add-hook 'python-mode-hook
           (lambda ()
             (if (not python-ropemacs-setup)
                 (progn
                   (pymacs-load "ropemacs" "rope-")
-                  (setq python-ropemacs-setup t)))))
+                  (setq python-ropemacs-setup t)
+                  (define-key ropemacs-local-keymap
+                    (kbd "M-/") 'hippie-expand)))))
 
