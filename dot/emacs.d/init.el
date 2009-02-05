@@ -313,5 +313,6 @@
                   (pymacs-load "ropemacs" "rope-")
                   (setq python-ropemacs-setup t)
                   (define-key ropemacs-local-keymap
-                    (kbd "M-/") 'hippie-expand)))))
+                    (kbd "M-/") (key-binding (kbd "M-/")))
+                  ))))
 
