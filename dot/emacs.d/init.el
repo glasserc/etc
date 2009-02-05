@@ -30,14 +30,25 @@
 ;;; end Emacs 23 font hacking
 
 ;;; wspace
-; FIXME: take font-lock off in *Completions* buffers
 (require 'show-wspace)
 (add-hook 'font-lock-mode-hook
           (lambda ()
-            (if (not (string-match (buffer-name) "\*Completions\*"))
+            (if (and (not (string-match (buffer-name) "\*Completions\*"))
+                     (not dont-show-ws-this-buffer))
                 (progn
                   (show-ws-highlight-tabs)
                   (show-ws-highlight-trailing-whitespace)))))
+
+(defvar dont-show-ws-this-buffer nil)
+(make-variable-buffer-local 'dont-show-ws-this-buffer)
+(defun dont-show-ws ()
+  (setq show-trailing-whitespace nil)
+  (setq dont-show-ws-this-buffer t))
+
+; FIXME: This could hide illegitimate whitespace in a diff
+(add-hook 'diff-mode-hook 'dont-show-ws)
+
+
 
 ; FIXME: compute this color based on the current color-theme
 (setq space-color "#562626")
@@ -134,7 +145,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- )
+ '(diff-added ((t (:inherit diff-changed :foreground "green"))))
+ '(diff-removed ((t (:inherit diff-changed :foreground "red")))))
 ;;; customize stuff
 
 ;;; other programming language modes
@@ -316,3 +328,6 @@
                     (kbd "M-/") (key-binding (kbd "M-/")))
                   ))))
 
+;;; dvc
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
+(require 'dvc-autoloads)
