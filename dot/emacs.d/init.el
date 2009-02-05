@@ -45,9 +45,16 @@
   (setq show-trailing-whitespace nil)
   (setq dont-show-ws-this-buffer t))
 
-; FIXME: This could hide illegitimate whitespace in a diff
 (add-hook 'diff-mode-hook 'dont-show-ws)
+; The regex matches whitespace that only comes at
+; the end of a line with non-space in it.
 
+; FIXME: This also makes the diff-mode font lock break a little --
+; changes text color on lines that match.
+(add-hook 'diff-mode-hook
+          (lambda ()
+            (font-lock-add-keywords nil
+                                    '(("\\S-\\([\240\040\t]+\\)$" (1 'show-ws-trailing-whitespace t))))))
 
 
 ; FIXME: compute this color based on the current color-theme
