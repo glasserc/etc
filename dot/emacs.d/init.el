@@ -29,40 +29,11 @@
            (add-to-list 'default-frame-alist (cons 'font default-emacs-font))))
 ;;; end Emacs 23 font hacking
 
-;;; wspace
-(require 'show-wspace)
-(add-hook 'font-lock-mode-hook
-          (lambda ()
-            (if (and (not (string-match (buffer-name) "\*Completions\*"))
-                     (not dont-show-ws-this-buffer))
-                (progn
-                  (show-ws-highlight-tabs)
-                  (show-ws-highlight-trailing-whitespace)))))
+;;; wspace -- both displaying, and editing
+(require 'ethan-wspace)
 
-(defvar dont-show-ws-this-buffer nil)
-(make-variable-buffer-local 'dont-show-ws-this-buffer)
-(defun dont-show-ws ()
-  (setq show-trailing-whitespace nil)
-  (setq dont-show-ws-this-buffer t))
-
-(add-hook 'diff-mode-hook 'dont-show-ws)
-; The regex matches whitespace that only comes at
-; the end of a line with non-space in it.
-
-; FIXME: This also makes the diff-mode font lock break a little --
-; changes text color on lines that match.
-(add-hook 'diff-mode-hook
-          (lambda ()
-            (font-lock-add-keywords nil
-                                    '(("\\S-\\([\240\040\t]+\\)$" (1 'show-ws-trailing-whitespace t))))))
-
-
-; FIXME: compute this color based on the current color-theme
-(setq space-color "#562626")
-(set-face-background 'show-ws-tab space-color)
-(set-face-background 'show-ws-trailing-whitespace space-color)
-(set-face-background 'trailing-whitespace space-color)
-
+;;; rst face customizations
+; FIXME: ugly colors
 (require 'rst)
 
 (set-face-background 'rst-level-1-face "#565656")
@@ -70,7 +41,6 @@
 (set-face-background 'rst-level-3-face "#464646")
 (set-face-background 'rst-level-4-face "#3d3d3d")
 (set-face-background 'rst-level-5-face "#363636")
-;;; end wspace
 
 ;;; elide-head
 (require 'elide-head)
@@ -171,39 +141,6 @@
       (cons '("\\.js$" . js2-mode)
             auto-mode-alist))
 
-
-(defun clean-whitespace ()
-  ;;; Does both untabification as well as end-of-line-whitespace removal.
-  ; FIXME: (interactive)?
-  (save-excursion
-    (delete-trailing-whitespace)
-    (untabify (point-min) (point-max)))
-  nil)
-
-(defvar buffer-whitespace-was-clean nil)
-(make-variable-buffer-local 'buffer-whitespace-was-clean)
-
-(defun clean-whitespace-tentative ()
-  (if buffer-whitespace-was-clean
-      (clean-whitespace)
-    nil))
-
-(defun clean-whitespace-check ()
-  "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace."
-  ; FIXME: weird buffers, like if you open a binary file?
-  ; This could use nuke-trailing-whitespace and friends, but that wouldn't
-  ; untabify
-  (save-excursion
-    (goto-char (point-min))
-    (if (not (or
-         (re-search-forward "\t" nil t)
-         (re-search-forward "[ \t]+$" nil t)))
-        (setq buffer-whitespace-was-clean t)
-      nil)))
-
-(add-hook 'find-file-hook 'clean-whitespace-check)
-; FIXME: gosh, write-files-functions, before-save-hook, write-contents-functions
-(add-hook 'before-save-hook 'clean-whitespace-tentative)
 
 
 (require 'multi-mode)
