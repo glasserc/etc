@@ -44,6 +44,9 @@
 ;; end-with-newline thing? But basically all three are the same --
 ;; check on find-file whether it's fine, and fix it if it is, and
 ;; highlight if it's not?
+;
+; FIXME: These are all essentially minor modes, should be able to turn
+; them off?
 
 (defvar buffer-whitespace-was-clean nil
   "Keep track, per-buffer, whether the whitespace was clean initially.
