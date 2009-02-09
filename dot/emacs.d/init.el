@@ -84,6 +84,7 @@
   (interactive "p")
   (scroll-down 1))
 
+; At present, emacs does not define bindings for these keys
 (define-key global-map (kbd "M-<up>") 'scroll-down-one)
 (define-key global-map (kbd "M-<down>") 'scroll-up-one)
 ;(define-key global-map (kbd "M-g") 'goto-line)
@@ -275,3 +276,16 @@
 ;;; dvc
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
 (require 'dvc-autoloads)
+
+;;; org-mode
+;(require 'org-install)
+(require 'org)
+(add-to-list 'auto-mode-alist '("/TODO$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+
+; Get off my movement keys!
+; (M-S-<up> and M-S-<down> behave almost exactly the same way)
+(define-key org-mode-map [(meta up)]    nil)
+(define-key org-mode-map [(meta down)]  nil)
