@@ -289,3 +289,6 @@
 ; (M-S-<up> and M-S-<down> behave almost exactly the same way)
 (define-key org-mode-map [(meta up)]    nil)
 (define-key org-mode-map [(meta down)]  nil)
+; I use this for esvn-mode. What ever happened to "reserved for users"?
+(define-key org-mode-map "\C-c\C-c" nil)
+
