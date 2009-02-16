@@ -76,16 +76,19 @@ Used as a save-file-hook."
 (defun clean-whitespace-check ()
   "Sets buffer-local variable buffer-whitespace-was-clean if there's nothing weird in the whitespace.
 
-Used as a find-file-hook."
+Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
   ; FIXME: weird buffers, like if you open a binary file?
   ; FIXME: if interactive, report current status of ws
   (interactive)
+  (setq buffer-whitespace-was-clean (buffer-whitespace-clean-p)))
+
+(defun buffer-whitespace-clean-p ()
   (save-excursion
     (goto-char (point-min))
     (if (not (or
          (re-search-forward "\t" nil t)
          (re-search-forward "[ \t]+$" nil t)))
-        (setq buffer-whitespace-was-clean t)
+        t
       nil)))
 
 (add-hook 'find-file-hook 'clean-whitespace-check)
@@ -108,7 +111,7 @@ Used as a find-file-hook."
           (lambda ()
             (if (and (buffer-file-name)
                      (not dont-show-ws-this-buffer)
-                     (not buffer-whitespace-was-clean))
+                     (not (buffer-whitespace-clean-p)))
                 (progn
                   (show-ws-highlight-tabs)
                   (show-ws-highlight-trailing-whitespace)))))
