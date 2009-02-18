@@ -42,13 +42,10 @@
 ;;
 ;; NOTE: take out any customizations like this:
 ;; '(show-trailing-whitespace t)
-;; show-trailing-whitespace will get confused with ethan-wspace.
+;; show-trailing-whitespace will be turned on by ethan-wspace.
 ;;
-;; FIXME: That shouldn't happen!
-;;
-;; FIXME: Steal the behavior of show-trailing-whitespace where
-;; trailing whitespace doesn't get highlit if point is
-;; afterwards. Probably a regex trick.
+;; I would re-implement show-trailing-whitespace, but it's handled
+;; specially by the emacs core. Probably just as well..
 ;;
 ;; FIXME: treat separately the trailing-whitespace, tabs, and
 ;; end-with-newline thing? But basically all three are the same --
