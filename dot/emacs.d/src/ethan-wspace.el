@@ -40,6 +40,16 @@
 ;; There are a few exceptions -- if I'm looking at a patch, or hacking
 ;; a Makefile, whitespace is different. More about those later.
 ;;
+;; NOTE: take out any customizations like this:
+;; '(show-trailing-whitespace t)
+;; show-trailing-whitespace will get confused with ethan-wspace.
+;;
+;; FIXME: That shouldn't happen!
+;;
+;; FIXME: Steal the behavior of show-trailing-whitespace where
+;; trailing whitespace doesn't get highlit if point is
+;; afterwards. Probably a regex trick.
+;;
 ;; FIXME: treat separately the trailing-whitespace, tabs, and
 ;; end-with-newline thing? But basically all three are the same --
 ;; check on find-file whether it's fine, and fix it if it is, and
@@ -117,7 +127,7 @@ Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
                   (show-ws-highlight-trailing-whitespace)))))
 
 (defun dont-show-ws ()
-  (setq show-trailing-whitespace nil)  ; I have this variable customized
+;  (setq show-trailing-whitespace nil)  ; I have this variable customized
   (setq dont-show-ws-this-buffer t))
 
 (add-hook 'diff-mode-hook 'dont-show-ws)
