@@ -40,6 +40,11 @@
 ;; There are a few exceptions -- if I'm looking at a patch, or hacking
 ;; a Makefile, whitespace is different. More about those later.
 ;;
+;; This file adds hooks to make this stuff happen -- check whether the
+;; whitespace is clean when a file is first found, and preserve that
+;; cleanliness if so, and highlight that dirtiness if not. It does
+;; this by setting show-trailing-whitespace when necessary.
+;;
 ;; NOTE: take out any customizations like this:
 ;; '(show-trailing-whitespace t)
 ;; show-trailing-whitespace will be turned on by ethan-wspace.
@@ -121,7 +126,7 @@ Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
                      (not (buffer-whitespace-clean-p)))
                 (progn
                   (show-ws-highlight-tabs)
-                  (show-ws-highlight-trailing-whitespace)))))
+                  (setq show-trailing-whitespace t)))))
 
 (defun dont-show-ws ()
 ;  (setq show-trailing-whitespace nil)  ; I have this variable customized
