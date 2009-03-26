@@ -1,0 +1,54 @@
+#! /usr/bin/python
+#
+# link-to-dotfiles: create/maintain symlink farm to dot files kept in
+#   a git repo
+#
+# Usage:
+#
+# Given this script at ~/bin/link-to-dotfiles, and a directory called
+# ~/etc/dot with files like ~/etc/dot/foo
+#
+# $ cd ~
+# $ ~/bin/link-to-dotfiles ~/etc/dot
+#
+# will generate a symlink at ~/.foo which points to ~/etc/dot/foo.
+#
+# ~/etc/dot/config, if it exists, will be treated specially,
+# corresponding to the special role ~/.config has in the XDG spec. Any
+# files in ~/etc/dot/config will be symlinked in to ~/.config with
+# their real names -- ~/.config/foo will point to
+# ~/etc/dot/config/foo.
+
+import os.path
+import sys
+
+def usage():
+    print "Usage: %s ~/path/to/dotfiles"%(sys.argv[0],)
+    sys.exit(127)
+
+def link_all(src, target, prefix, config_special=True):
+    for filename in os.listdir(src):
+        child = os.path.join(src, filename)
+        if config_special and filename == "config":
+            link_all(child, os.path.join(target, '.config'), prefix='',
+                     config_special=False)
+            continue
+
+        linktarget = os.path.abspath(child)
+        dest = os.path.join(target, prefix+filename)
+        if os.path.exists(dest) and os.path.islink(dest):
+            link = os.readlink(dest)
+            if link == linktarget:
+                continue  # previously existing; don't change it
+            else:
+                raise ValueError, "Error when symlinking %s to %s: file exists, and points to %s"%(dest, linktarget, link)
+
+        os.symlink(linktarget, dest)
+
+if len(sys.argv) < 2:
+    usage()
+
+SRC = sys.argv[1]
+TARGET = os.path.abspath('.')
+
+link_all(SRC, TARGET, '.')
