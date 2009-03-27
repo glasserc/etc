@@ -21,14 +21,25 @@
 
 import os.path
 import sys
+import re
 
 def usage():
     print "Usage: %s ~/path/to/dotfiles"%(sys.argv[0],)
     sys.exit(127)
 
+def exclude(child):
+    for pattern in EXCLUDE_PATTERNS:
+        if pattern.search(child):
+            return True
+    return False
+
+
 def link_all(src, target, prefix, config_special=True):
     for filename in os.listdir(src):
         child = os.path.join(src, filename)
+        if exclude(child):
+            continue
+
         if config_special and filename == "config":
             link_all(child, os.path.join(target, '.config'), prefix='',
                      config_special=False)
@@ -47,6 +58,10 @@ def link_all(src, target, prefix, config_special=True):
 
 if len(sys.argv) < 2:
     usage()
+
+EXCLUDE_PATTERNS = [
+    re.compile("~$"),
+]
 
 SRC = sys.argv[1]
 TARGET = os.path.abspath('.')
