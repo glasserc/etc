@@ -6,6 +6,9 @@
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
+; FIXME: Is there a non-Debian run-directories function?
+(debian-run-directories (emacs-d "startup"))
+
 
 (iswitchb-mode 1)
 
@@ -93,10 +96,6 @@
 (global-set-key [?\C-c ?>] 'increase-left-margin)
 (global-set-key [?\C-c ?<] 'decrease-left-margin)
 ;;; end generic editing keybindings
-
-;;; git -- I never use this any more since git-cola, but hey!
-(require 'git)
-;;; end git
 
 ;;; java-mode-indent-annotations
 (require 'java-mode-indent-annotations)
@@ -272,9 +271,13 @@
                     (kbd "M-/") (key-binding (kbd "M-/")))
                   ))))
 
+;;; git -- I never use this any more since git-cola, but hey!
+;(require 'git)
+;;; end git
+
 ;;; dvc
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
-(require 'dvc-autoloads)
+;(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
+;(require 'dvc-autoloads)
 
 ;;; org-mode
 ;(require 'org-install)
