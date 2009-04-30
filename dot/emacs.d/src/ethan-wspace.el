@@ -158,6 +158,7 @@ Used as a find-file-hook. (Seems to run after font-lock-mode hooks.)"
 ; FIXME: compute this color based on the current color-theme
 (setq space-color "#562626")
 (set-face-background 'show-ws-tab space-color)
+; FIXME: show-ws-trailing-whitespace should be strongly deprecated!
 (set-face-background 'show-ws-trailing-whitespace space-color)
 (set-face-background 'trailing-whitespace space-color)
 
