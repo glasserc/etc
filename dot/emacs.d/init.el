@@ -7,7 +7,8 @@
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
 ; FIXME: Is there a non-Debian run-directories function?
-(debian-run-directories (emacs-d "startup"))
+(if (functionp 'debian-run-directories)
+  (debian-run-directories (emacs-d "startup")))
 
 
 (iswitchb-mode 1)
@@ -21,6 +22,8 @@
 ;;; color theme
 (require 'color-theme)
 (setq color-theme-is-global t)
+(if (functionp 'color-theme-initialize)
+    (color-theme-initialize))
 (color-theme-charcoal-black)
 ;;; end color theme
 
