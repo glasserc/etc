@@ -41,19 +41,24 @@ def link_all(src, target, prefix, config_special=True):
             continue
 
         if config_special and filename == "config":
-            link_all(child, os.path.join(target, '.config'), prefix='',
+            config_dir = os.path.join(target, '.config')
+            if not os.path.exists(config_dir): # OS X or other weird system
+                os.mkdir(config_dir)
+            link_all(child, config_dir, prefix='',
                      config_special=False)
             continue
 
         linktarget = os.path.abspath(child)
         dest = os.path.join(target, prefix+filename)
-        if os.path.exists(dest) and os.path.islink(dest):
-            link = os.readlink(dest)
-            if link == linktarget:
-                continue  # previously existing; don't change it
-            else:
-                raise ValueError, "Error when symlinking %s to %s: file exists, and points to %s"%(dest, linktarget, link)
-
+        if os.path.exists(dest):
+            if os.path.islink(dest): # if it's a link
+                link = os.readlink(dest)
+                if link == linktarget: # and it points to the right place
+                    continue  # previously existing; don't change it
+                else:
+                    raise ValueError, "Error when symlinking %s to %s: file exists, and points to %s"%(dest, linktarget, link)
+            else: # not a link -- directory, regular file
+                raise ValueError, "can't symlink %s to %s: file exists"% (dest, linktarget)
         os.symlink(linktarget, dest)
 
 if len(sys.argv) < 2:
