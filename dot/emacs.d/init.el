@@ -7,8 +7,10 @@
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
 ; FIXME: Is there a non-Debian run-directories function?
-(if (functionp 'debian-run-directories)
-  (debian-run-directories (emacs-d "startup")))
+(if (not (functionp 'debian-run-directories))
+    (require 'debian-startup))
+
+(debian-run-directories (emacs-d "startup"))
 
 
 (iswitchb-mode 1)

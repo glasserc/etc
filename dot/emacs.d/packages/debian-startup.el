@@ -158,3 +158,5 @@ running.  Something like 'emacs20, 'xemacs20, etc."))
   (let ((common-dir "/etc/emacs/site-start.d")
         (flavor-dir (concat "/etc/" (symbol-name flavor) "/site-start.d")))
     (debian-run-directories flavor-dir common-dir)))
+
+(provide 'debian-startup)
