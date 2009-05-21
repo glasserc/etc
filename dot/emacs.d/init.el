@@ -6,7 +6,6 @@
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
-; FIXME: Is there a non-Debian run-directories function?
 (if (not (functionp 'debian-run-directories))
     (require 'debian-startup))
 

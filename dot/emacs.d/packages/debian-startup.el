@@ -29,6 +29,10 @@
 ;; This file contains startup code needed by all the various flavors
 ;; of Emacs for a Debian system.
 
+;; I (Ethan) modified it a little bit to make it work with "require",
+;; because it was the easiest way to get a cross-platform thing
+;; suitable for loading directories.
+
 
 (defun debian-pkg-add-load-path-item (item)
   "Takes a path item (a string) and adds it to load path in the
