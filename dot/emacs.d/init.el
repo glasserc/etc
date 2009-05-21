@@ -287,6 +287,11 @@
 ;(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
 ;(require 'dvc-autoloads)
 
+;;; magit -- I still use this
+; Weirdness on OS X -- PATH doesn't get set or something when running emacs
+(setq magit-git-executable "/usr/local/git/bin/git")
+;;; end magit
+
 ;;; org-mode
 ;(require 'org-install)
 (require 'org)
