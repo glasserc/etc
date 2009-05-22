@@ -1,5 +1,6 @@
 *~
 *.pyc
+*.elc
 dot/emacs.d/auto-save-list
 dot/emacs.d/.emacs.desktop.lock
 dot/gitconfig.local
