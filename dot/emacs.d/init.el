@@ -289,7 +289,8 @@
 
 ;;; magit -- I still use this
 ; Weirdness on OS X -- PATH doesn't get set or something when running emacs
-(setq magit-git-executable "/usr/local/git/bin/git")
+(if (file-exists-p "/usr/local/git/bin/git")
+    (setq magit-git-executable "/usr/local/git/bin/git"))
 ;;; end magit
 
 ;;; org-mode
