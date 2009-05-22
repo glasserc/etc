@@ -2702,7 +2702,14 @@ Prefix arg means justify as well."
     (magit-with-section 'wazzupbuf nil
       (insert (format "Wazzup, %s\n\n" head))
       (let* ((excluded (magit-file-lines ".git/info/wazzup-exclude"))
-	     (all-branches (magit-git-lines "branch -a | cut -c3-"))
+             (unclean-branches (magit-git-lines "branch -a | cut -c3-"))
+	     (all-branches  ; git 1.6.3 returns "master -> origin/master" etc
+              (mapcar (lambda (line)
+                        (let ((arrow-loc (string-match " -> " line)))
+                          (if arrow-loc
+                              (substring line 0 arrow-loc)
+                            line)))
+                      unclean-branches))
 	     (branches (if all all-branches
 			 (remove-if (lambda (b) (member b excluded))
 				    all-branches)))
