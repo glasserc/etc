@@ -2697,19 +2697,28 @@ Prefix arg means justify as well."
       (magit-write-file-lines ignore-file ignored)
       (magit-need-refresh))))
 
+(defun magit-directory-ls (dir)
+  (let ((files (directory-files dir)))
+    (filter (lambda (d) (not (string-match "^\\." d))) files)))
+
+(defun magit-all-branches ()
+  (let* ((gitdir (magit-get-top-dir default-directory))
+         (branches (magit-directory-ls (concat gitdir "/.git/refs/heads")))
+         (remotes (magit-directory-ls (concat gitdir "/.git/refs/remotes")))
+         (rbranches (mapcan
+                     (lambda (remote)
+                       (let ((branches (magit-directory-ls (concat gitdir "/.git/refs/remotes/" remote))))
+                         (mapcar (lambda (b) (concat "remotes/" remote "/" b)) branches)))
+                     remotes)))
+    (append branches rbranches)))
+
+
 (defun magit-refresh-wazzup-buffer (head all)
   (magit-create-buffer-sections
     (magit-with-section 'wazzupbuf nil
       (insert (format "Wazzup, %s\n\n" head))
       (let* ((excluded (magit-file-lines ".git/info/wazzup-exclude"))
-             (unclean-branches (magit-git-lines "branch -a | cut -c3-"))
-	     (all-branches  ; git 1.6.3 returns "master -> origin/master" etc
-              (mapcar (lambda (line)
-                        (let ((arrow-loc (string-match " -> " line)))
-                          (if arrow-loc
-                              (substring line 0 arrow-loc)
-                            line)))
-                      unclean-branches))
+	     (all-branches (magit-all-branches))
 	     (branches (if all all-branches
 			 (remove-if (lambda (b) (member b excluded))
 				    all-branches)))
