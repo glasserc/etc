@@ -98,8 +98,30 @@
 ;(define-key global-map (kbd "M-g") 'goto-line)
 (define-key esc-map "=" 'count-words)
 
+; In theory these are reserved for major modes, but I like the python-mode
+; bindings, so I'm making them global.
 (global-set-key [?\C-c ?>] 'increase-left-margin)
 (global-set-key [?\C-c ?<] 'decrease-left-margin)
+
+; Handy function when I just did a git reset or something that touched
+; a bunch of files at once
+(defun revert-all ()
+  "Revert all unchanged buffers."
+  (interactive)
+  (let ((buffers (buffer-list)))
+    (filter (lambda (buffer)
+              (if (buffer-modified-p buffer)
+                  (progn
+                    (condition-case revert-error
+                        (save-excursion
+                          (save-window-excursion
+                            (switch-to-buffer buffer)
+                            (revert-buffer t t t)))
+                      (error (message "Reverting %s failed: %s" buffer revert-error))))
+                )) buffers)
+    ))
+
+
 ;;; end generic editing keybindings
 
 ;;; java-mode-indent-annotations
