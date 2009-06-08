@@ -11,8 +11,9 @@
 
 (debian-run-directories (emacs-d "startup"))
 
-
-(iswitchb-mode 1)
+;(iswitchb-mode 1) ;; subsumed by ido-mode
+(require 'ido)
+(ido-mode)
 
 
 ;;; redo
