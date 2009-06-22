@@ -110,7 +110,7 @@
   (interactive)
   (let ((buffers (buffer-list)))
     (filter (lambda (buffer)
-              (if (buffer-modified-p buffer)
+              (if (not (buffer-modified-p buffer))
                   (progn
                     (condition-case revert-error
                         (save-excursion
