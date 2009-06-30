@@ -15,6 +15,8 @@
 (require 'ido)
 (ido-mode)
 
+(tool-bar-mode -1)
+;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
 
 ;;; redo
 (require 'redo)
