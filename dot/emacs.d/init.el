@@ -6,6 +6,8 @@
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
+(add-to-list 'load-path (emacs-d "packages/org-mode"))
+
 (if (not (functionp 'debian-run-directories))
     (require 'debian-startup))
 
