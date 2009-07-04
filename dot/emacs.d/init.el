@@ -144,6 +144,7 @@
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(require-final-newline ask)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
