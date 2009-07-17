@@ -336,3 +336,6 @@
 ; I use this for esvn-mode. What ever happened to "reserved for users"?
 (define-key org-mode-map "\C-c\C-c" nil)
 
+;;; php-mode
+(add-hook 'php-mode-hook (lambda ()
+  (c-set-offset 'arglist-intro '+)))
