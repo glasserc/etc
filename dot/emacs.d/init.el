@@ -329,15 +329,29 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+(setq org-todo-keywords '((sequence "TODO" "BLOCKING" "WORKING" "|" "FINISHED" "DONE")))
+; customize?
+;org-enforce-todo-dependencies
+;org-track-ordered-property-with-tag
+;org-agenda-dim-blocked-tasks   ; Except, I want "BLOCKING" tasks to match too
+;org-log-into-drawer
+;org-tag-alist
+
 ; Get off my movement keys!
 ; (M-S-<up> and M-S-<down> behave almost exactly the same way)
 (define-key org-mode-map [(meta up)]    nil)
 (define-key org-mode-map [(meta down)]  nil)
-; I use this for esvn-mode. What ever happened to "reserved for users"?
+; I use this for esvn-mode.
+; FIXME: org-mode + esvn mode needs work.
+; C-c C-c should work outside of esvn mode?
+; (Maybe esvn-mode should use a different key?)
 (define-key org-mode-map "\C-c\C-c" nil)
+
+; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
 ;;; php-mode
 (add-hook 'php-mode-hook (lambda ()
   (c-set-offset 'arglist-intro '+)
   (c-set-offset 'arglist-close '0)
   ))
+
