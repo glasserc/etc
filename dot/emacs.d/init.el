@@ -144,6 +144,7 @@
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(org-agenda-files (quote ("~/TODO")))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(require-final-newline ask)
  '(transient-mark-mode t)
@@ -329,7 +330,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-(setq org-todo-keywords '((sequence "TODO" "BLOCKING" "WORKING" "|" "FINISHED" "DONE")))
+(setq org-todo-keywords '((sequence "TODO" "BLOCKING" "WORKING" "|" "DONE")))
 ; customize?
 ;org-enforce-todo-dependencies
 ;org-track-ordered-property-with-tag
