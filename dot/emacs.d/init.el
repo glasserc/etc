@@ -140,6 +140,7 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
+ '(visible-bell t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
