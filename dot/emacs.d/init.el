@@ -331,7 +331,8 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-(setq org-todo-keywords '((sequence "TODO" "BLOCKING" "WORKING" "|" "DONE")))
+(setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)")))
+(setq org-use-fast-todo-selection t)
 ; customize?
 ;org-enforce-todo-dependencies
 ;org-track-ordered-property-with-tag
