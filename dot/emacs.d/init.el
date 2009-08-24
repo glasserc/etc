@@ -359,7 +359,9 @@
   ))
 
 ;;; haml-mode
-(require 'haml-mode nil 't)
+(autoload 'haml-mode "haml-mode" "Mode for editing HAML code.")
+(autoload 'sass-mode "sass-mode" "Mode for editing SASS code.")
+
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
