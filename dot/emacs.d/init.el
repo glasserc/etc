@@ -15,7 +15,7 @@
 
 ;(iswitchb-mode 1) ;; subsumed by ido-mode
 (require 'ido)
-(ido-mode)
+(ido-mode 1)
 
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
