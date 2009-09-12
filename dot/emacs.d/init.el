@@ -353,6 +353,8 @@
 ; Not sure about this -- just stole it to try to get yasnippet working with
 ; org mode. Looks like yasnippet falls back to the org keybinding if
 ; it can't do anything?
+; FIXME: maybe not define-key here, but just re-set the keybindings somewhere
+; before calling yas/initialize?
 (add-hook 'org-mode-hook
           (lambda ()
             (org-set-local 'yas/trigger-key [tab])
