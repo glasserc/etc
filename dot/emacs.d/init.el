@@ -355,11 +355,11 @@
 ; it can't do anything?
 (add-hook 'org-mode-hook
           (lambda ()
+            (org-set-local 'yas/trigger-key [tab])
             ; FIXME: this wasn't needed in yasnippet-0.5.7,
             ; maybe not needed in emacs22 -- file a bug report?
             (define-key yas/minor-mode-map [tab] 'yas/expand)
-            (org-set-local 'yas/trigger-key [tab])
-            (define-key yas/keymap [tab] 'yas/next-field-group)))
+            (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)))
 
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
