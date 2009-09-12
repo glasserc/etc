@@ -1,0 +1,10 @@
+# -*- coding: utf-8 -*-
+# name: * Category
+# comment: Useful for creating top-level categories in org-mode
+# contributor: Ethan Glasser-Camp
+# --
+$0* $1
+:PROPERTIES:
+:CATEGORY: ${1:$(upcase yas/text)}
+:ARCHIVE:  %s_archive::* $1
+:END:
