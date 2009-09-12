@@ -348,7 +348,9 @@
 ; FIXME: org-mode + esvn mode needs work.
 ; C-c C-c should work outside of esvn mode?
 ; (Maybe esvn-mode should use a different key?)
-(define-key org-mode-map "\C-c\C-c" nil)
+; FIXME: taking this out -- all org stuff happens in another repo, not using
+; esvn. This is a very commonly used binding in org mode
+;(define-key org-mode-map "\C-c\C-c" nil)
 
 ; Not sure about this -- just stole it to try to get yasnippet working with
 ; org mode. Looks like yasnippet falls back to the org keybinding if
