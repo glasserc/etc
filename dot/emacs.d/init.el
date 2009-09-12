@@ -350,6 +350,15 @@
 ; (Maybe esvn-mode should use a different key?)
 (define-key org-mode-map "\C-c\C-c" nil)
 
+; Not sure about this -- just stole it to try to get yasnippet working with
+; org mode. Looks like yasnippet falls back to the org keybinding if
+; it can't do anything?
+(add-hook 'org-mode-hook
+          (lambda ()
+            (make-variable-buffer-local 'yas/trigger-key)
+            (setq yas/trigger-key [tab])
+            (define-key yas/keymap [tab] 'yas/next-field-group)))
+
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
 ;;; php-mode
