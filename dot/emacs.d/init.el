@@ -353,6 +353,7 @@
 ; FIXME: taking this out -- all org stuff happens in another repo, not using
 ; esvn. This is a very commonly used binding in org mode
 ;(define-key org-mode-map "\C-c\C-c" nil)
+(setq org-completion-use-ido t)
 
 ; Not sure about this -- just stole it to try to get yasnippet working with
 ; org mode. Looks like yasnippet falls back to the org keybinding if
