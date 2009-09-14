@@ -326,6 +326,8 @@
 ;;; org-mode
 ;(require 'org-install)
 (require 'org)
+; FIXME: this doesn't seem necessary on sundance, but does on colt -- why?
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("/TODO$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
@@ -366,6 +368,11 @@
             (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)))
 
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
+;;; remember
+(org-remember-insinuate)
+(setq org-directory "~/")
+(setq org-default-notes-file (concat org-directory "/notes.org"))
+(define-key global-map "\C-cr" 'org-remember)
 
 ;;; php-mode
 (add-hook 'php-mode-hook (lambda ()
