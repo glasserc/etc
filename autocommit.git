@@ -23,7 +23,7 @@ GITREPO = $1
 
 cd $GITREPO
 
-git ls-files --deleted -z | xargs -0gitrm> /dev/null 2>&1
+git ls-files --deleted -z | xargs -0 git rm > /dev/null 2>&1
 git add . > /dev/null 2>&1
 git commit -m "autocommit at $(date)"
 
