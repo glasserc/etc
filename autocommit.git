@@ -6,7 +6,7 @@ function usage(){
     echo
     echo "Updates git status with newly-added and deleted files, and then commits."
     echo "Suitable for use as a cronjob:"
-    echo 
+    echo
     echo "   0 * * * * ~/bin/autocommit.git ~/src/org-files >/dev/null"
     echo
     echo "Note that this will add any files kept in this git repo! If you want to keep"
@@ -23,7 +23,11 @@ GITREPO=$1
 
 cd $GITREPO
 
+# Do a pull and push to make sure that we're in sync with the upstream repo
+git pull
+
 git ls-files --deleted -z | xargs -0 git rm > /dev/null 2>&1
 git add . > /dev/null 2>&1
 git commit -m "autocommit at $(date)"
 
+git push
