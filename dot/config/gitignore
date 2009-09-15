@@ -2,3 +2,7 @@ db/oplog.*
 db/makefile.local
 db/nohup.out
 *~
+# emacs lock files
+.#*
+# emacs autosaves -- this might not match all of them
+*#
