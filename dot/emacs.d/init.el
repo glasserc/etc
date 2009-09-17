@@ -145,6 +145,7 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
+ '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(require-final-newline ask)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
@@ -363,6 +364,12 @@
 ; esvn. This is a very commonly used binding in org mode
 ;(define-key org-mode-map "\C-c\C-c" nil)
 (setq org-completion-use-ido t)
+(setq org-tag-alist '((:startgroup)
+                      ("@work" . ?w)
+                      ("@home" . ?h)
+                      (:endgroup)
+                      ("SOMEDAY" . ?s)  ; Not sure about this
+                      ))
 
 ; Not sure about this -- just stole it to try to get yasnippet working with
 ; org mode. Looks like yasnippet falls back to the org keybinding if
@@ -384,6 +391,10 @@
 (org-remember-insinuate)
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
+
+(setq org-remember-templates '(("todo" ?t "* TODO %?
+%u
+%a" nil bottom nil)))
 
 ;;; php-mode
 (add-hook 'php-mode-hook (lambda ()
