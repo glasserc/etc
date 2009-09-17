@@ -363,8 +363,10 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (org-set-local 'yas/trigger-key [tab])
-            ; FIXME: this wasn't needed in yasnippet-0.5.7,
-            ; maybe not needed in emacs22 -- file a bug report?
+            ; FIXME: probably need to file a bug report to the yasnippet people,
+            ; or the org people, or both. This shouldn't be necessary once
+            ; you set yas/trigger-key, but it only handles strings,
+            ; silently ignores event vectors.
             (define-key yas/minor-mode-map [tab] 'yas/expand)
             (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)))
 
