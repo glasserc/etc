@@ -144,7 +144,6 @@
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/src/org-files/ivillage.org")))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(require-final-newline ask)
  '(transient-mark-mode t)
@@ -329,9 +328,19 @@
 ; FIXME: this doesn't seem necessary on sundance, but does on colt -- why?
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("/TODO$" . org-mode))
+(setq org-directory "~/src/org-files")
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
+(setq org-clock-into-drawer t)
+
+; I keep someday.org files, can't include those. Maybe a better
+; approach is needed?
+(setq all-org-files (directory-files org-directory t ".org$" t))
+(setq org-agenda-files (filter
+                        (lambda (filename)
+                          (not (string-match "someday.org$" filename)))
+                        all-org-files))
 
 (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
 (setq org-use-fast-todo-selection t)
@@ -373,7 +382,6 @@
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 ;;; remember
 (org-remember-insinuate)
-(setq org-directory "~/")
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 (define-key global-map "\C-cr" 'org-remember)
 
