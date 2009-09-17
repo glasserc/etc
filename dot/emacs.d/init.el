@@ -140,17 +140,17 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(visible-bell t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(org-agenda-files (quote ("~/TODO")))
+ '(org-agenda-files (quote ("~/src/org-files/ivillage.org")))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(require-final-newline ask)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
- '(uniquify-separator "/"))
+ '(uniquify-separator "/")
+ '(visible-bell t))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -333,7 +333,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
-(setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
 (setq org-use-fast-todo-selection t)
 ; customize?
 ;org-enforce-todo-dependencies
