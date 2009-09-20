@@ -334,6 +334,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-clock-into-drawer t)
+(run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
 ; I keep someday.org files, can't include those. Maybe a better
 ; approach is needed?
