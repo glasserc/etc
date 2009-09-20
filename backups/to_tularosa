@@ -1,0 +1,10 @@
+#! /bin/bash
+
+if ! ping -c 1 tularosa.local > /dev/null; then
+   echo "couldn't find tularosa.local" >2
+fi
+
+ssh-add ~/.ssh/id_dsa_tularosa >/dev/null 2>&1
+
+time rsync -az ~/ backups@tularosa.local:/c/backups/ethan/homedir/ \
+    --exclude-from=$HOME/bin/backups/excludes
