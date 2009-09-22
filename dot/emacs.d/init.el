@@ -372,20 +372,17 @@
                       ("SOMEDAY" . ?s)  ; Not sure about this
                       ))
 
-; Not sure about this -- just stole it to try to get yasnippet working with
-; org mode. Looks like yasnippet falls back to the org keybinding if
-; it can't do anything?
-; FIXME: maybe not define-key here, but just re-set the keybindings somewhere
-; before calling yas/initialize?
+; yasnippet config from org-mode mailing list
+(defun yas/org-very-safe-expand ()
+  (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+
 (add-hook 'org-mode-hook
-          (lambda ()
-            (org-set-local 'yas/trigger-key [tab])
-            ; FIXME: probably need to file a bug report to the yasnippet people,
-            ; or the org people, or both. This shouldn't be necessary once
-            ; you set yas/trigger-key, but it only handles strings,
-            ; silently ignores event vectors.
-            (define-key yas/minor-mode-map [tab] 'yas/expand)
-            (define-key yas/keymap [tab] 'yas/next-field-or-maybe-expand)))
+         (lambda ()
+           ;; yasnippet (using the new org-cycle hooks)
+           (make-variable-buffer-local 'yas/trigger-key)
+           (setq yas/trigger-key [tab])
+           (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+           (define-key yas/keymap [tab] 'yas/next-field)))
 
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 ;;; remember
