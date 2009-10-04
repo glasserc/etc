@@ -93,6 +93,17 @@ class WordPressUser():
         self.nickname = nickname or ''
         self.email = email or ''
 
+    @classmethod
+    def from_xmlrpc(cls, userinfo):
+        return WordPressUser(
+            id        = userinfo['userid'],
+            firstName = userinfo['firstname'],
+            lastName  = userinfo['lastname'],
+            nickname  = userinfo['nickname'],
+            email     = userinfo['email'],
+            )
+
+
 class WordPressCategory():
     """Represents category item
     """
@@ -100,6 +111,13 @@ class WordPressCategory():
         self.id = id or 0
         self.name = name or ''
         self.isPrimary = isPrimary or False
+
+    @classmethod
+    def from_xmlrpc(cls, cat):
+        return cls(id        = int(cat['categoryId']),
+                   name      = cat['categoryName'],
+                   isPrimary = cat.get('isPrimary', False))
+
 
 class WordPressPost():
     """Represents post item
@@ -166,12 +184,7 @@ class WordPressClient():
     def _filterCategory(self, cat):
         """Transform category struct in WordPressCategory instance
         """
-        catObj = WordPressCategory()
-        catObj.id               = int(cat['categoryId'])
-        catObj.name             = cat['categoryName']
-        if cat.has_key('isPrimary'):
-            catObj.isPrimary    = cat['isPrimary']
-        return catObj
+        return WordPressCategory.from_xmlrpc(cat)
 
     def selectBlog(self, blogId):
         # FIXME: this doesn't seem very pythonic
@@ -216,13 +229,7 @@ class WordPressClient():
         """Get user info
         """
         userinfo = self._server.blogger.getUserInfo('', self.user, self.password)
-        userObj = WordPressUser()
-        userObj.id = userinfo['userid']
-        userObj.firstName = userinfo['firstname']
-        userObj.lastName = userinfo['lastname']
-        userObj.nickname = userinfo['nickname']
-        userObj.email = userinfo['email']
-        return userObj
+        return WordPressUser.from_xmlrpc(userinfo)
 
     get_user_info = getUserInfo
 
