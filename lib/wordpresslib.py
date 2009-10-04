@@ -56,6 +56,7 @@ import os
 import xmlrpclib
 import datetime
 import time
+from functools import wraps
 
 class WordPressException(exceptions.Exception):
     """Custom exception for WordPress client operations
@@ -116,6 +117,17 @@ class WordPressPost():
         self.allowComments = False
 
 
+def wordpress_call(func):
+    '''Decorator that handles the try/catch XMLRPC wrapping'''
+    @wraps(func)
+    def call(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except xmlrpclib.Fault, fault:
+            raise WordPressException(fault)
+
+    return call
+
 class WordPressClient():
     """Client for connect to WordPress XML-RPC interface
     """
@@ -169,54 +181,46 @@ class WordPressClient():
         """
         return tuple(self.getRecentPosts(1))[0]
 
+    @wordpress_call
     def getRecentPosts(self, numPosts=5):
         """Get recent posts
         """
-        try:
-            posts = self._server.metaWeblog.getRecentPosts(self.blogId, self.user,
-                                                    self.password, numPosts)
-            for post in posts:
-                yield self._filterPost(post)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        posts = self._server.metaWeblog.getRecentPosts(self.blogId, self.user,
+                                                       self.password, numPosts)
+        for post in posts:
+            yield self._filterPost(post)
 
+    @wordpress_call
     def getPost(self, postId):
         """Get post item
         """
-        try:
-            return self._filterPost(self._server.metaWeblog.getPost(str(postId), self.user, self.password))
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return self._filterPost(self._server.metaWeblog.getPost(str(postId), self.user, self.password))
 
+    @wordpress_call
     def getUserInfo(self):
         """Get user info
         """
-        try:
-            userinfo = self._server.blogger.getUserInfo('', self.user, self.password)
-            userObj = WordPressUser()
-            userObj.id = userinfo['userid']
-            userObj.firstName = userinfo['firstname']
-            userObj.lastName = userinfo['lastname']
-            userObj.nickname = userinfo['nickname']
-            userObj.email = userinfo['email']
-            return userObj
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        userinfo = self._server.blogger.getUserInfo('', self.user, self.password)
+        userObj = WordPressUser()
+        userObj.id = userinfo['userid']
+        userObj.firstName = userinfo['firstname']
+        userObj.lastName = userinfo['lastname']
+        userObj.nickname = userinfo['nickname']
+        userObj.email = userinfo['email']
+        return userObj
 
+    @wordpress_call
     def getUsersBlogs(self):
         """Get blog's users info
         """
-        try:
-            blogs = self._server.blogger.getUsersBlogs('', self.user, self.password)
-            for blog in blogs:
-                blogObj = WordPressBlog()
-                blogObj.id = blog['blogid']
-                blogObj.name = blog['blogName']
-                blogObj.isAdmin = blog['isAdmin']
-                blogObj.url = blog['url']
-                yield blogObj
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        blogs = self._server.blogger.getUsersBlogs('', self.user, self.password)
+        for blog in blogs:
+            blogObj = WordPressBlog()
+            blogObj.id = blog['blogid']
+            blogObj.name = blog['blogName']
+            blogObj.isAdmin = blog['isAdmin']
+            blogObj.url = blog['url']
+            yield blogObj
 
     def newPost(self, post, publish):
         """Insert new post
@@ -248,17 +252,16 @@ class WordPressClient():
 
         return idNewPost
 
+    @wordpress_call
     def getPostCategories(self, postId):
         """Get post's categories
         """
-        try:
-            categories = self._server.mt.getPostCategories(postId, self.user,
-                                                    self.password)
-            for cat in categories:
-                yield self._filterCategory(cat)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        categories = self._server.mt.getPostCategories(postId, self.user,
+                                                self.password)
+        for cat in categories:
+            yield self._filterCategory(cat)
 
+    @wordpress_call
     def setPostCategories(self, postId, categories):
         """Set post's categories
         """
@@ -302,29 +305,25 @@ class WordPressClient():
         if publish:
             self.publishPost(postId)
 
+    @wordpress_call
     def deletePost(self, postId):
         """Delete post
         """
-        try:
-            return self._server.blogger.deletePost('', postId, self.user,
-                                             self.password)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return self._server.blogger.deletePost('', postId, self.user,
+                                         self.password)
 
+    @wordpress_call
     def getCategoryList(self):
         """Get blog's categories list
         """
-        try:
-            if not self.categories:
-                self.categories = []
-                categories = self._server.mt.getCategoryList(self.blogId,
-                                                self.user, self.password)
-                for cat in categories:
-                    self.categories.append(self._filterCategory(cat))
+        if not self.categories:
+            self.categories = []
+            categories = self._server.mt.getCategoryList(self.blogId,
+                                            self.user, self.password)
+            for cat in categories:
+                self.categories.append(self._filterCategory(cat))
 
-            return self.categories
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return self.categories
 
     def getCategoryIdFromName(self, name):
         """Get category id from category name
@@ -333,47 +332,38 @@ class WordPressClient():
             if c.name == name:
                 return c.id
 
+    @wordpress_call
     def getTrackbackPings(self, postId):
         """Get trackback pings of post
         """
-        try:
-            return self._server.mt.getTrackbackPings(postId)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return self._server.mt.getTrackbackPings(postId)
 
+    @wordpress_call
     def publishPost(self, postId):
         """Publish post
         """
-        try:
-            return (self._server.mt.publishPost(postId, self.user, self.password) == 1)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return (self._server.mt.publishPost(postId, self.user, self.password) == 1)
 
+    @wordpress_call
     def getPingbacks(self, postUrl):
         """Get pingbacks of post
         """
-        try:
-            return self._server.pingback.extensions.getPingbacks(postUrl)
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        return self._server.pingback.extensions.getPingbacks(postUrl)
 
+    @wordpress_call
     def newMediaObject(self, mediaFileName):
         """Add new media object (image, movie, etc...)
         """
-        try:
-            f = file(mediaFileName, 'rb')
-            mediaBits = f.read()
-            f.close()
+        f = file(mediaFileName, 'rb')
+        mediaBits = f.read()
+        f.close()
 
-            mediaStruct = {
-                'name' : os.path.basename(mediaFileName),
-                'bits' : xmlrpclib.Binary(mediaBits)
-            }
+        mediaStruct = {
+            'name' : os.path.basename(mediaFileName),
+            'bits' : xmlrpclib.Binary(mediaBits)
+        }
 
-            result = self._server.metaWeblog.newMediaObject(self.blogId,
-                                    self.user, self.password, mediaStruct)
-            return result['url']
-
-        except xmlrpclib.Fault, fault:
-            raise WordPressException(fault)
+        result = self._server.metaWeblog.newMediaObject(self.blogId,
+                                self.user, self.password, mediaStruct)
+        return result['url']
 
