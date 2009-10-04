@@ -221,6 +221,12 @@ class WordPressClient():
 
     supported_methods = supportedMethods
 
+    @wordpress_call
+    def get_options(self):
+        return self._server.wp.getOptions(self.blogId, self.user, self.password)
+
+    getOptions = get_options
+
     def getLastPost(self):
         """Get last post
         """
