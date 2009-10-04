@@ -58,6 +58,7 @@ import datetime
 import time
 from functools import wraps
 import mimetypes
+import warnings
 
 class WordPressException(exceptions.Exception):
     """Custom exception for WordPress client operations
@@ -85,13 +86,25 @@ class WordPressBlog():
 class WordPressUser():
     """Represents user item
     """
-    def __init__(self, id=None, firstName=None, lastName=None, nickname=None,
+    def __init__(self, id=None, firstname=None, lastname=None, nickname=None,
                  email=None):
         self.id = id or ''
-        self.firstName = firstName or ''
-        self.lastName = lastName or ''
+        self.firstname = firstname or ''
+        self.lastname = lastname or ''
         self.nickname = nickname or ''
         self.email = email or ''
+
+    def get_firstName(self):
+        warnings.warn('firstName is deprecated; use firstname',
+                      DeprecationWarning)
+        return self.firstname
+    firstName = property(get_firstName)
+
+    def get_lastName(self):
+        warnings.warn('lastName is deprecated; use lastname',
+                      DeprecationWarning)
+        return self.lastname
+    lastName = property(get_lastName)
 
     @classmethod
     def from_xmlrpc(cls, userinfo):
@@ -400,7 +413,6 @@ class WordPressClient():
     def newMediaObject(self, mediaFileName):
         """Add new media object (image, movie, etc...)
         """
-        import warnings
         warnings.warn('newMediaObject is deprecated; use uploadFile instead',
                       DeprecationWarning)
 
