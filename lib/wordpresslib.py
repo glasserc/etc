@@ -76,46 +76,50 @@ class WordPressException(exceptions.Exception):
 class WordPressBlog():
     """Represents blog item
     """
-    def __init__(self):
-        self.id = ''
-        self.name = ''
-        self.url = ''
-        self.isAdmin = False
+    def __init__(self, id=None, name=None, url=None, isAdmin=None):
+        self.id = id or ''
+        self.name = name or ''
+        self.url = url or ''
+        self.isAdmin = isAdmin or False
 
 class WordPressUser():
     """Represents user item
     """
-    def __init__(self):
-        self.id = ''
-        self.firstName = ''
-        self.lastName = ''
-        self.nickname = ''
-        self.email = ''
+    def __init__(self, id=None, firstName=None, lastName=None, nickname=None,
+                 email=None):
+        self.id = id or ''
+        self.firstName = firstName or ''
+        self.lastName = lastName or ''
+        self.nickname = nickname or ''
+        self.email = email or ''
 
 class WordPressCategory():
     """Represents category item
     """
-    def __init__(self):
-        self.id = 0
-        self.name = ''
-        self.isPrimary = False
+    def __init__(self, id=None, name=None, isPrimary=None):
+        self.id = id or 0
+        self.name = name or ''
+        self.isPrimary = isPrimary or False
 
 class WordPressPost():
     """Represents post item
     """
-    def __init__(self):
-        self.id = 0
-        self.title = ''
-        self.date = None
-        self.permaLink = ''
-        self.description = ''
-        self.textMore = ''
-        self.excerpt = ''
-        self.link = ''
-        self.categories = []
-        self.user = ''
-        self.allowPings = False
-        self.allowComments = False
+    def __init__(self, id=None, title=None, date=None, permaLink=None,
+                 description=None, textMore=None, excerpt=None, link=None,
+                 categories=None, user=None, allowPings=None,
+                 allowComments=None):
+        self.id = id or 0
+        self.title = title or ''
+        self.date = date or None
+        self.permaLink = permaLink or ''
+        self.description = description or ''
+        self.textMore = textMore or ''
+        self.excerpt = excerpt or ''
+        self.link = link or ''
+        self.categories = categories or []
+        self.user = user or ''
+        self.allowPings = allowPings or False
+        self.allowComments = allowComments or False
 
 
 def wordpress_call(func):
