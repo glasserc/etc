@@ -48,20 +48,24 @@ if config.has_option('account', 'verbose'):
 print "Connecting to WP server at", url
 
 wp = wordpresslib.WordPressClient(url, username, password)
-blogs = list(wp.get_users_blogs())
 
-blog = blogs[0]
-print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
-
-wp.selectBlog(blog.id)
+if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
+    blogs = list(wp.get_users_blogs())
+    blog = blogs[0]
+    print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
+    wp.selectBlog(blog.id)
+else:
+    blog_id = config.get_int('account', 'blog_id')
+    print "Using blog id %s from config" % (blog_id,)
+    wp.selectBlog(blog_id)
 
 if VERBOSE:
     options = wp.get_options()
     print "Talking to %s version %s"%(options['software_name'], options['software_version'])
 
+print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
 
-print wp._server, wp._server.system.listMethods()
+#print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
 print wp._server.mt.getPostCategories(346, username, password)
-print wp._server.wp.getOptions(0, username, password)
 #print wp._server.system.methodSignature('mt.getPostCategories')
 #print list(wp.get_recent_posts())[2].__dict__
