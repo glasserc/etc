@@ -83,6 +83,16 @@ class WordPressBlog():
         self.url = url or ''
         self.isAdmin = isAdmin or False
 
+    @classmethod
+    def from_xmlrpc(cls, blog):
+        return cls(
+            id      = blog['blogid'],
+            name    = blog['blogName'],
+            isAdmin = blog['isAdmin'],
+            url     = blog['url'],
+            )
+
+
 class WordPressUser():
     """Represents user item
     """
@@ -108,7 +118,7 @@ class WordPressUser():
 
     @classmethod
     def from_xmlrpc(cls, userinfo):
-        return WordPressUser(
+        return cls(
             id        = userinfo['userid'],
             firstName = userinfo['firstname'],
             lastName  = userinfo['lastname'],
@@ -252,11 +262,7 @@ class WordPressClient():
         """
         blogs = self._server.blogger.getUsersBlogs('', self.user, self.password)
         for blog in blogs:
-            blogObj = WordPressBlog()
-            blogObj.id = blog['blogid']
-            blogObj.name = blog['blogName']
-            blogObj.isAdmin = blog['isAdmin']
-            blogObj.url = blog['url']
+            blogObj = WordPressBlog.from_xmlrpc(blog)
             yield blogObj
 
     get_users_blogs = getUsersBlogs
