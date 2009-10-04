@@ -421,13 +421,18 @@ class WordPressClient():
 
     get_pingbacks = getPingbacks
 
-    @wordpress_call
     def newMediaObject(self, mediaFileName):
         """Add new media object (image, movie, etc...)
         """
-        warnings.warn('newMediaObject is deprecated; use uploadFile instead',
-                      DeprecationWarning)
+        return self.__upload_file(mediaFileName)
 
+    def upload_file(self, filename, overwrite=False):
+        '''Same as newMediaObject, but passes WP-specific fields'''
+        return self.__upload_file(type=mimetypes.guess_type(filename),
+                                  overwrite=overwrite)
+
+    @wordpress_call
+    def __upload_file(mediaFileName, **fields):
         f = file(mediaFileName, 'rb')
         mediaBits = f.read()
         f.close()
@@ -437,22 +442,11 @@ class WordPressClient():
             'bits' : xmlrpclib.Binary(mediaBits)
         }
 
+        mediaStruct.update(fields)
+
+        # N.B. wnp.uploadFile is alias for newMediaObject,
+        # so it doesn't matter which one we call
         result = self._server.metaWeblog.newMediaObject(self.blogId,
                                 self.user, self.password, mediaStruct)
         return result['url']
 
-    def upload_file(self, filename, overwrite=False):
-        f = file(filename, 'rb')
-        bits = f.read()
-        f.close()
-
-        media_structZ = {
-            'name': os.path.basename(filename),
-            'bits': xmlrpclib.Binary(bits),
-            'type': mimetypes.guess_type(filename),
-            'overwrite': overwrite,
-            }
-
-        result = self._server.wp.uploadFile(self.blogId,
-                                self.user, self.password, media_struct)
-        return result['url']
