@@ -71,7 +71,7 @@ class WordPressException(exceptions.Exception):
     def __str__(self):
         return '<%s %d: \'%s\'>' % (self.__class__.__name__, self.id, self.message)
 
-class WordPressBlog:
+class WordPressBlog():
     """Represents blog item
     """
     def __init__(self):
@@ -80,7 +80,7 @@ class WordPressBlog:
         self.url = ''
         self.isAdmin = False
 
-class WordPressUser:
+class WordPressUser():
     """Represents user item
     """
     def __init__(self):
@@ -90,7 +90,7 @@ class WordPressUser:
         self.nickname = ''
         self.email = ''
 
-class WordPressCategory:
+class WordPressCategory():
     """Represents category item
     """
     def __init__(self):
@@ -98,7 +98,7 @@ class WordPressCategory:
         self.name = ''
         self.isPrimary = False
 
-class WordPressPost:
+class WordPressPost():
     """Represents post item
     """
     def __init__(self):
@@ -116,7 +116,7 @@ class WordPressPost:
         self.allowComments = False
 
 
-class WordPressClient:
+class WordPressClient():
     """Client for connect to WordPress XML-RPC interface
     """
 
@@ -132,7 +132,7 @@ class WordPressClient:
         """Transform post struct in WordPressPost instance
         """
         postObj = WordPressPost()
-        postObj.permaLink           = post['permaLink']
+        postObj.permaLink       = post['permaLink']
         postObj.description     = post['description']
         postObj.title           = post['title']
         postObj.excerpt         = post['mt_excerpt']
@@ -141,9 +141,9 @@ class WordPressClient:
         postObj.link            = post['link']
         postObj.textMore        = post['mt_text_more']
         postObj.allowComments   = post['mt_allow_comments'] == 1
-        postObj.id                  = int(post['postid'])
-        postObj.categories          = post['categories']
-        postObj.allowPings          = post['mt_allow_pings'] == 1
+        postObj.id              = int(post['postid'])
+        postObj.categories      = post['categories']
+        postObj.allowPings      = post['mt_allow_pings'] == 1
         return postObj
 
     def _filterCategory(self, cat):
@@ -151,7 +151,7 @@ class WordPressClient:
         """
         catObj = WordPressCategory()
         catObj.id               = int(cat['categoryId'])
-        catObj.name         = cat['categoryName']
+        catObj.name             = cat['categoryName']
         if cat.has_key('isPrimary'):
             catObj.isPrimary    = cat['isPrimary']
         return catObj
