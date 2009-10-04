@@ -170,17 +170,23 @@ class WordPressClient():
         return catObj
 
     def selectBlog(self, blogId):
+        # FIXME: this doesn't seem very pythonic
         self.blogId = blogId
 
     def supportedMethods(self):
         """Get supported methods list
         """
+        # FIXME: shouldn't this be self._server.system.listMethods?
         return self._server.mt.supportedMethods()
+
+    supported_methods = supportedMethods
 
     def getLastPost(self):
         """Get last post
         """
         return tuple(self.getRecentPosts(1))[0]
+
+    get_last_post = getLastPost
 
     @wordpress_call
     def getRecentPosts(self, numPosts=5):
@@ -191,11 +197,15 @@ class WordPressClient():
         for post in posts:
             yield self._filterPost(post)
 
+    get_recent_posts = getRecentPosts
+
     @wordpress_call
     def getPost(self, postId):
         """Get post item
         """
         return self._filterPost(self._server.metaWeblog.getPost(str(postId), self.user, self.password))
+
+    get_post = getPost
 
     @wordpress_call
     def getUserInfo(self):
@@ -210,6 +220,8 @@ class WordPressClient():
         userObj.email = userinfo['email']
         return userObj
 
+    get_user_info = getUserInfo
+
     @wordpress_call
     def getUsersBlogs(self):
         """Get blog's users info
@@ -222,6 +234,8 @@ class WordPressClient():
             blogObj.isAdmin = blog['isAdmin']
             blogObj.url = blog['url']
             yield blogObj
+
+    get_users_blogs = getUsersBlogs
 
     def newPost(self, post, publish):
         """Insert new post
@@ -253,6 +267,8 @@ class WordPressClient():
 
         return idNewPost
 
+    new_post = newPost
+
     @wordpress_call
     def getPostCategories(self, postId):
         """Get post's categories
@@ -262,11 +278,15 @@ class WordPressClient():
         for cat in categories:
             yield self._filterCategory(cat)
 
+    get_post_categories = getPostCategories
+
     @wordpress_call
     def setPostCategories(self, postId, categories):
         """Set post's categories
         """
         self._server.mt.setPostCategories(postId, self.user, self.password, categories)
+
+    set_post_categories = setPostCategories
 
     def editPost(self, postId, post, publish):
         """Edit post
@@ -306,12 +326,16 @@ class WordPressClient():
         if publish:
             self.publishPost(postId)
 
+    edit_post = editPost
+
     @wordpress_call
     def deletePost(self, postId):
         """Delete post
         """
         return self._server.blogger.deletePost('', postId, self.user,
                                          self.password)
+
+    delete_post = deletePost
 
     @wordpress_call
     def getCategoryList(self):
@@ -326,6 +350,8 @@ class WordPressClient():
 
         return self.categories
 
+    get_category_list = getCategoryList
+
     def getCategoryIdFromName(self, name):
         """Get category id from category name
         """
@@ -333,11 +359,15 @@ class WordPressClient():
             if c.name == name:
                 return c.id
 
+    get_category_id_from_name = getCategoryIdFromName
+
     @wordpress_call
     def getTrackbackPings(self, postId):
         """Get trackback pings of post
         """
         return self._server.mt.getTrackbackPings(postId)
+
+    get_trackback_pings = getTrackbackPings
 
     @wordpress_call
     def publishPost(self, postId):
@@ -345,11 +375,15 @@ class WordPressClient():
         """
         return (self._server.mt.publishPost(postId, self.user, self.password) == 1)
 
+    publish_post = publishPost
+
     @wordpress_call
     def getPingbacks(self, postUrl):
         """Get pingbacks of post
         """
         return self._server.pingback.extensions.getPingbacks(postUrl)
+
+    get_pingbacks = getPingbacks
 
     @wordpress_call
     def newMediaObject(self, mediaFileName):
