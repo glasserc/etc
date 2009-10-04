@@ -1,0 +1,67 @@
+#!/usr/bin/env python
+
+# Wordpress Upload Script, etc.
+from xdg import BaseDirectory
+import ConfigParser
+import sys
+import os.path
+sys.path.insert(0, os.path.expanduser("~/bin/lib"))
+
+import wordpresslib
+
+config = ConfigParser.SafeConfigParser()
+VERBOSE = False
+
+for dir in BaseDirectory.load_config_paths('etc-extended'):
+    filename = os.path.join(dir, 'wordpressrc')
+    if not os.path.exists(filename): continue
+    print "loading config from", filename
+    with file(filename) as f:
+        config.readfp(f)
+    print 'config loaded'
+
+DEFAULT_WORDPRESS_URL = 'http://wordpress.example.com/wordpress/xmlrpc.php'
+
+if not config.has_section('account'):
+    config.add_section('account')
+    # Fill in some default values
+    config.set('account', 'url', DEFAULT_WORDPRESS_URL)
+    config.set('account', 'username', 'joe_user')
+    config.set('account', 'password', 'trustNo1')
+
+    path = os.path.join(BaseDirectory.save_config_path('etc-extended'), 'wordpressrc')
+    print 'Need configuration! Edit %s'%(path,)
+    with file(path, 'wb') as fp:
+        config.write(fp)
+    sys.exit()
+
+if config.get('account', 'url') == DEFAULT_WORDPRESS_URL:
+    # Don't wipe out what they might have configured
+    print 'Still needs configuration! Edit %s'%(path,)
+
+url = config.get('account', 'url')
+username = config.get('account', 'username')
+password = config.get('account', 'password')
+if config.has_option('account', 'verbose'):
+    VERBOSE = config.get('account', 'verbose')
+
+print "Connecting to WP server at", url
+
+wp = wordpresslib.WordPressClient(url, username, password)
+blogs = list(wp.get_users_blogs())
+
+blog = blogs[0]
+print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
+
+wp.selectBlog(blog.id)
+
+if VERBOSE:
+    options = wp.get_options()
+    print "Talking to %s version %s"%(options['software_name'], options['software_version'])
+
+
+print wp._server, wp._server.system.listMethods()
+print wp._server.mt.getPostCategories(346, username, password)
+print wp._server.wp.getOptions(0, username, password)
+#print wp._server.system.methodSignature('mt.getPostCategories')
+#print list(wp.get_recent_posts())[2].__dict__
