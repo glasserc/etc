@@ -57,6 +57,7 @@ import xmlrpclib
 import datetime
 import time
 from functools import wraps
+import mimetypes
 
 class WordPressException(exceptions.Exception):
     """Custom exception for WordPress client operations
@@ -354,6 +355,10 @@ class WordPressClient():
     def newMediaObject(self, mediaFileName):
         """Add new media object (image, movie, etc...)
         """
+        import warnings
+        warnings.warn('newMediaObject is deprecated; use uploadFile instead',
+                      DeprecationWarning)
+
         f = file(mediaFileName, 'rb')
         mediaBits = f.read()
         f.close()
@@ -367,3 +372,18 @@ class WordPressClient():
                                 self.user, self.password, mediaStruct)
         return result['url']
 
+    def upload_file(self, filename, overwrite=False):
+        f = file(filename, 'rb')
+        bits = f.read()
+        f.close()
+
+        media_structZ = {
+            'name': os.path.basename(filename),
+            'bits': xmlrpclib.Binary(bits),
+            'type': mimetypes.guess_type(filename),
+            'overwrite': overwrite,
+            }
+
+        result = self._server.wp.uploadFile(self.blogId,
+                                self.user, self.password, media_struct)
+        return result['url']
