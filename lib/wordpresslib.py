@@ -284,20 +284,11 @@ class WordPressClient():
             'description' : post.description
         }
 
-        # add categories
-        i = 0
-        categories = []
-        for cat in post.categories:
-            if i == 0:
-                categories.append({'categoryId' : cat})
-            else:
-                categories.append({'categoryId' : cat})
-            i += 1
-
         # insert new post
         idNewPost = int(self._server.metaWeblog.newPost(self.blogId, self.user, self.password, blogContent, 0))
 
         # set categories for new post
+        categories = self._marshal_categories_ids(post.categories)
         self.setPostCategories(idNewPost, categories)
 
         # publish post if publish set at True
@@ -307,6 +298,9 @@ class WordPressClient():
         return idNewPost
 
     new_post = newPost
+
+    def _marshal_categories_ids(categories):
+        return [{'categoryId': cat.id} for cat in categories]
 
     @wordpress_call
     def getPostCategories(self, postId):
@@ -344,16 +338,6 @@ class WordPressClient():
         if post.date:
             blogcontent['dateCreated'] = xmlrpclib.DateTime(post.date)
 
-        # add categories
-        i = 0
-        categories = []
-        for cat in post.categories:
-            if i == 0:
-                categories.append({'categoryId' : cat})
-            else:
-                categories.append({'categoryId' : cat})
-            i += 1
-
         result = self._server.metaWeblog.editPost(postId, self.user, self.password,
                                               blogcontent, 0)
 
@@ -361,6 +345,7 @@ class WordPressClient():
             raise WordPressException('Post edit failed')
 
         # set categories for new post
+        categories = self._marshal_categories_ids(post.categories)
         self.setPostCategories(postId, categories)
 
         # publish new post
