@@ -134,16 +134,14 @@ class WordPressUser():
 class WordPressCategory():
     """Represents category item
     """
-    def __init__(self, id=None, name=None, isPrimary=None):
+    def __init__(self, id=None, name=None):
         self.id = id or 0
         self.name = name or ''
-        self.isPrimary = isPrimary or False
 
     @classmethod
     def from_xmlrpc(cls, cat):
         return cls(id        = int(cat['categoryId']),
-                   name      = cat['categoryName'],
-                   isPrimary = cat.get('isPrimary', False))
+                   name      = cat['categoryName'])
 
 
 class WordPressPost():
@@ -291,9 +289,9 @@ class WordPressClient():
         categories = []
         for cat in post.categories:
             if i == 0:
-                categories.append({'categoryId' : cat, 'isPrimary' : 1})
+                categories.append({'categoryId' : cat})
             else:
-                categories.append({'categoryId' : cat, 'isPrimary' : 0})
+                categories.append({'categoryId' : cat})
             i += 1
 
         # insert new post
@@ -351,9 +349,9 @@ class WordPressClient():
         categories = []
         for cat in post.categories:
             if i == 0:
-                categories.append({'categoryId' : cat, 'isPrimary' : 1})
+                categories.append({'categoryId' : cat})
             else:
-                categories.append({'categoryId' : cat, 'isPrimary' : 0})
+                categories.append({'categoryId' : cat})
             i += 1
 
         result = self._server.metaWeblog.editPost(postId, self.user, self.password,
