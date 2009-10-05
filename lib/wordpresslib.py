@@ -345,11 +345,7 @@ class WordPressClient():
         # Get remote method: e.g. self._server.metaWeblog.editPost
         meth = getattr(self._server.metaWeblog, method_name)
         # call remote method: arg0 is blogId for newPost, postId for editPost
-        result = meth(arg0, self.user, self.password, blogContent, 0)
-
-        # publish post if publish set at True
-        if publish:
-            self.publishPost(post.id or int(result))
+        result = meth(arg0, self.user, self.password, blogContent, int(publish))
 
         return result
 
