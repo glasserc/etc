@@ -130,18 +130,38 @@ class WordPressUser():
 # - mt_getCategoryList (just name, id) versus mw_getCategories (parent_id, descr, etc.)
 # FIXME: need fields: description, slug, parent_id -- for use with wp.newCategory
 # FIXME: Need to add code for wp.newCategory
-# FIXME: delete isPrimary; it isn't used by WP at all
 class WordPressCategory():
     """Represents category item
     """
-    def __init__(self, id=None, name=None):
+    def __init__(self, id=None, name=None, description=None, slug=None, parent_id=None, html_url=None, rss_url=None):
         self.id = id or -1
         self.name = name or ''
+        self.parent_id = parent_id
+        self.description = description
+        self.slug = slug
+        self.html_url = html_url
+        self.rss_url = rss_url
 
     @classmethod
     def from_xmlrpc(cls, cat):
-        return cls(id        = int(cat['categoryId']),
-                   name      = cat['categoryName'])
+        # N.B. WP's many APIs are pretty inconsistent with what they
+        # return.
+        #
+        # metaWeblog.getCategories returns all of the below fields.
+        #
+        # mt.getCategoryList returns only the first two, as do
+        # mt.getPostCategories.
+        #
+        # Any getPost call will just return category names -- you'll
+        # have to deal with those somewhere else.
+        return cls(id          = int(cat['categoryId']),
+                   name        = cat['categoryName'],
+                   description = cat.get('description'),
+                   #slug       = cat.get('category_nicename'),
+                   parent_id   = cat.get('parentId'),
+                   html_url    = cat.get('htmlUrl'),
+                   rss_url     = cat.get('rssUrl'),
+                   )
 
     def __repr__(self):
         id_badge = '(no id)'
@@ -328,14 +348,18 @@ class WordPressClient():
 
     @wordpress_call
     def setPostCategories(self, postId, categories):
-        """Set post's categories
+        """Set post's categories.
+
+        @param categories is an array of IDs.
         """
         self._server.mt.setPostCategories(postId, self.user, self.password, categories)
 
     set_post_categories = setPostCategories
 
     def editPost(self, postId, post, publish):
-        """Edit post
+        """Save post.
+
+        @param publish True if you want to also publish this post
         """
         # FIXME: we could pass categories as part of the XML-RPC call, rather
         # than calling setPostCategories later
@@ -380,6 +404,8 @@ class WordPressClient():
     def getCategoryList(self):
         """Get blog's categories list
         """
+        warnings.warn('getCategoryList is deprecated; use getCategories instead',
+                      DeprecationWarning)
         if not self.categories:
             self.categories = []
             categories = self._server.mt.getCategoryList(self.blogId,
@@ -390,6 +416,20 @@ class WordPressClient():
         return self.categories
 
     get_category_list = getCategoryList
+
+    @wordpress_call
+    def getCategories(self):
+        if not self.categories:
+            self.categories = []
+            categories = self._server.metaWeblog.getCategories(self.blogId,
+                                                               self.user,
+                                                               self.password)
+            for cat in categories:
+                self.categories.append(self._filterCategory(cat))
+
+        return self.categories
+
+    get_categories = getCategories
 
     def getCategoryIdFromName(self, name):
         """Get category id from category name
