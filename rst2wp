@@ -40,16 +40,13 @@ class MyImageDirective(directives.images.Image):
         #print "returned:", filename, headers
 
         document = self.state_machine.document
-        wp = document.settings.wordpress_instance
-        #print wp
-        #filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
 
         # Call the super here to update options, etc.
         result_nodes = directives.images.Image.run(self)
 
         # Use a pending to do stuff here -- download after all the
         # checking is done
-        pending = nodes.pending(MyImageTransform, rawsource=self.block_text)
+        pending = nodes.pending(DownloadImageTransform, rawsource=self.block_text)
         pending.details.update(self.options)
         document.note_pending(pending)
 
@@ -65,19 +62,23 @@ class MyImageDirective(directives.images.Image):
 
 directives.register_directive('image', MyImageDirective)
 
-class MyImageTransform(docutils.transforms.Transform):
+class DownloadImageTransform(docutils.transforms.Transform):
     default_priority = 100
     def apply(self, **kwargs):
-        print self.startnode.details
-        contents = [nodes.image(uri='foo.png')]
-        print self.startnode.parent
-        print
-        print self.document
+        contents = self.build_downloaded_node()
         if self.startnode.parent:
             self.startnode.parent.replace_self(contents)
-            #self.startnode.parent.remove(self.startnode)
+
+    def build_downloaded_node(self):
+        filename = uri = self.startnode.details['uri']
         #filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
-        #return directives.images.Image.run(self)
+        # FIXME: testing. Take out later
+        filename += 'hi there sexy'
+        image = nodes.image(uri=filename)
+        if filename.startswith(TEMP_DIRECTORY):
+            # FIXME?
+            os.path.unlink(filename)
+        return image
 
 
 class Application(object):
