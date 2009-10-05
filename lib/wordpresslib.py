@@ -156,7 +156,7 @@ class WordPressCategory():
         # have to deal with those somewhere else.
         return cls(id          = int(cat['categoryId']),
                    name        = cat['categoryName'],
-                   description = cat.get('description'),
+                   description = cat.get('categoryDescription'),
                    #slug       = cat.get('category_nicename'),
                    parent_id   = cat.get('parentId'),
                    html_url    = cat.get('htmlUrl'),
