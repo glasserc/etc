@@ -308,7 +308,26 @@ class WordPressClient():
     def newPost(self, post, publish):
         """Insert new post
         """
-        # FIXME: need to refactor with editPost
+        id = int(self._save_post('newPost', self.blogId, post, publish))
+        post.id = id
+        return id
+
+    new_post = newPost
+
+
+    def editPost(self, postId, post, publish):
+        """Save post.
+
+        @param publish True if you want to also publish this post
+        """
+        result = self._save_post('editPost', postId, post, publish)
+        if result == 0:
+            raise WordPressException('Post edit failed')
+        return result
+
+    edit_post = editPost
+
+    def _save_post(self, method_name, arg0, post, publish):
         # FIXME: does permaLink do anything here?? Doesn't seem so, but wp_slug might
         blogContent = {
             'title' : post.title,
@@ -320,16 +339,19 @@ class WordPressClient():
             'categories' : self._marshal_categories_names(post.categories),
         }
 
-        # insert new post
-        idNewPost = int(self._server.metaWeblog.newPost(self.blogId, self.user, self.password, blogContent, 0))
+        if post.date:
+            blogContent['dateCreated'] = xmlrpclib.DateTime(post.date)
+
+        # Get remote method: e.g. self._server.metaWeblog.editPost
+        meth = getattr(self._server.metaWeblog, method_name)
+        # call remote method: arg0 is blogId for newPost, postId for editPost
+        result = meth(arg0, self.user, self.password, blogContent, 0)
 
         # publish post if publish set at True
         if publish:
-            self.publishPost(idNewPost)
+            self.publishPost(post.id or int(result))
 
-        return idNewPost
-
-    new_post = newPost
+        return result
 
     def _marshal_categories_ids(self, categories):
         for c in categories:
@@ -360,40 +382,6 @@ class WordPressClient():
         self._server.mt.setPostCategories(postId, self.user, self.password, categories)
 
     set_post_categories = setPostCategories
-
-    def editPost(self, postId, post, publish):
-        """Save post.
-
-        @param publish True if you want to also publish this post
-        """
-        # FIXME: we could pass categories as part of the XML-RPC call, rather
-        # than calling setPostCategories later
-        blogcontent = {
-            'title' : post.title,
-            'description' : post.description,
-            'permaLink' : post.permaLink,
-            'mt_allow_pings' : post.allowPings,
-            'mt_text_more' : post.textMore,
-            'mt_excerpt' : post.excerpt,
-            'categories' : self._marshal_categories_names(post.categories),
-        }
-
-        if post.date:
-            blogcontent['dateCreated'] = xmlrpclib.DateTime(post.date)
-
-        result = self._server.metaWeblog.editPost(postId, self.user, self.password,
-                                              blogcontent, 0)
-
-        if result == 0:
-            raise WordPressException('Post edit failed')
-
-        # publish new post
-        if publish:
-            self.publishPost(postId)
-
-        return result
-
-    edit_post = editPost
 
     @wordpress_call
     def deletePost(self, postId):
