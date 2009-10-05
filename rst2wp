@@ -4,87 +4,130 @@
 from xdg import BaseDirectory
 import ConfigParser
 import sys
+
 import os.path
 sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib"))
 
 import wordpresslib
 
-config = ConfigParser.SafeConfigParser()
-VERBOSE = False
+class UsageError(Exception):
+    @classmethod
+    def usage_message(cls):
+        return \
+'''Usage: {name} filename
+Converts an RST file into HTML and posts it to Wordpress.'''.format(name=os.path.basename(sys.argv[0]))
 
-for dir in BaseDirectory.load_config_paths('etc-extended'):
-    filename = os.path.join(dir, 'wordpressrc')
-    if not os.path.exists(filename): continue
-    print "loading config from", filename
-    with file(filename) as f:
-        config.readfp(f)
-    print 'config loaded'
+    def error_message(self):
+        return "{error}\nSee '{path} --help'.".format(error=self.args[0],
+                                                      path=self.args[1])
 
-DEFAULT_WORDPRESS_URL = 'http://wordpress.example.com/wordpress/xmlrpc.php'
+class Application(object):
+    def __init__(self):
+        super(Application, self).__init__()
+        self._config = None
 
-if not config.has_section('account'):
-    config.add_section('account')
-    # Fill in some default values
-    config.set('account', 'url', DEFAULT_WORDPRESS_URL)
-    config.set('account', 'username', 'joe_user')
-    config.set('account', 'password', 'trustNo1')
+    @property
+    def config(self):
+        if self._config: return self._config
+        return self._load_config()
 
-    path = os.path.join(BaseDirectory.save_config_path('etc-extended'), 'wordpressrc')
-    print 'Need configuration! Edit %s'%(path,)
-    with file(path, 'wb') as fp:
-        config.write(fp)
-    sys.exit()
+    def _load_config(self):
+        config = ConfigParser.SafeConfigParser()
+        VERBOSE = False
 
-if config.get('account', 'url') == DEFAULT_WORDPRESS_URL:
-    # Don't wipe out what they might have configured
-    print 'Still needs configuration! Edit %s'%(path,)
+        for dir in BaseDirectory.load_config_paths('etc-extended'):
+            filename = os.path.join(dir, 'wordpressrc')
+            if not os.path.exists(filename): continue
+            print "loading config from", filename
+            with file(filename) as f:
+                config.readfp(f)
+            print 'config loaded'
 
-url = config.get('account', 'url')
-username = config.get('account', 'username')
-password = config.get('account', 'password')
-if config.has_option('account', 'verbose'):
-    VERBOSE = config.get('account', 'verbose')
+        DEFAULT_WORDPRESS_URL = 'http://wordpress.example.com/wordpress/xmlrpc.php'
 
-print "Connecting to WP server at", url
+        if not config.has_section('account'):
+            config.add_section('account')
+            # Fill in some default values
+            config.set('account', 'url', DEFAULT_WORDPRESS_URL)
+            config.set('account', 'username', 'joe_user')
+            config.set('account', 'password', 'trustNo1')
 
-wp = wordpresslib.WordPressClient(url, username, password)
+            path = os.path.join(BaseDirectory.save_config_path('etc-extended'), 'wordpressrc')
+            print 'Need configuration! Edit %s'%(path,)
+            with file(path, 'wb') as fp:
+                config.write(fp)
+            sys.exit()
 
-if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
-    blogs = list(wp.get_users_blogs())
-    blog = blogs[0]
-    print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
-    wp.selectBlog(blog.id)
-else:
-    blog_id = config.get_int('account', 'blog_id')
-    print "Using blog id %s from config" % (blog_id,)
-    wp.selectBlog(blog_id)
+        if config.get('account', 'url') == DEFAULT_WORDPRESS_URL:
+            # Don't wipe out what they might have configured
+            print 'Still needs configuration! Edit %s'%(path,)
+            sys.exit()
 
-if VERBOSE:
-    options = wp.get_options()
-    print "Talking to %s version %s"%(options['software_name'], options['software_version'])
+        self._config = config
+        return config
 
-#print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
+class Rst2Wp(Application):
+    def parse_args(self, args):
+        filename = None
+        if len(args) > 1:
+            filename = args[1]
+        if filename == None:
+            raise UsageError, ("%s needs a filename."%(args[0],), args[0])
 
-# Closed questions:
-# - blogger.getPost vs. metaWeblog.getPost
-#   - blogger API only allows a single "string" content, and parses the crap out of it, single category, etc.
-# - xmlrpc_getpostcategory: regex-matches the body of the content to find categories, separated by commas. Not useful for us. That eliminates blogger.newPost and blogger.editPost, but not mw.newpost and mw.editpost.
-# - passing categories: there are different APIs with different interfaces.
-#   You should be able to pass an array of category names to newPost/editPost,
-#   but mt.setPostCategories wants an array of ids and isPrimary
-#   (isPrimary is ignored by WP)
+        self.filename = filename
 
-#print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
-print wp._server.mt.getPostCategories(346, username, password)
-#print wp._server.system.methodSignature('mt.getPostCategories')
-#print list(wp.get_recent_posts())[0].__dict__
-post = wp.get_recent_posts().next()
-post.categories = [wordpresslib.WordPressCategory(name=name) for name in ['future', 'quality Apple hardware', 'oh, Japan!']]
-#print wp.editPost(post.id, post, False)
-#print list(wp.get_recent_posts())[2].categories
-print wp.upload_file('/home/ethan/software/wordpresslib/python.jpg')
-#print wp.get_categories()[7].description
-#post.categories.extend([31, 3])
-#wp.edit_post(post.id, post, False)
+    def run(self, *args, **kwargs):
+        if not args: args = sys.argv
+        self.parse_args(args)
+        config = self.config
 
-#wp.getPostCategories(post.id)
+        url = config.get('account', 'url')
+        username = config.get('account', 'username')
+        password = config.get('account', 'password')
+        if config.has_option('account', 'verbose'):
+            VERBOSE = config.get('account', 'verbose')
+
+        print "Connecting to WP server at", url
+
+        wp = wordpresslib.WordPressClient(url, username, password)
+
+        if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
+            blogs = list(wp.get_users_blogs())
+            blog = blogs[0]
+            print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
+            wp.selectBlog(blog.id)
+        else:
+            blog_id = config.get_int('account', 'blog_id')
+            print "Using blog id %s from config" % (blog_id,)
+            wp.selectBlog(blog_id)
+
+        if VERBOSE:
+            options = wp.get_options()
+            print "Talking to %s version %s"%(options['software_name'], options['software_version'])
+
+
+        #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
+        #print wp._server.mt.getPostCategories(346, username, password)
+        #print wp._server.system.methodSignature('mt.getPostCategories')
+        #print list(wp.get_recent_posts())[0].__dict__
+        post = wp.get_recent_posts().next()
+        post.categories = [wordpresslib.WordPressCategory(name=name) for name in ['future', 'quality Apple hardware', 'oh, Japan!']]
+        #print wp.editPost(post.id, post, False)
+        #print list(wp.get_recent_posts())[2].categories
+        #print wp.upload_file('/home/ethan/software/wordpresslib/python.jpg')
+        #print wp.get_categories()[7].description
+        #post.categories.extend([31, 3])
+        #wp.edit_post(post.id, post, False)
+
+        #wp.getPostCategories(post.id)
+
+if __name__ == '__main__':
+    if '--help' in sys.argv:
+        print UsageError.usage_message()
+        sys.exit(1)
+
+    try:
+        Rst2Wp().run()
+    except UsageError, u:
+        print u.error_message()
+        sys.exit(1)

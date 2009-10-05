@@ -74,6 +74,19 @@ class WordPressException(exceptions.Exception):
     def __str__(self):
         return '<%s %d: \'%s\'>' % (self.__class__.__name__, self.id, self.message)
 
+# N.B. The wordpress API is not especially consistent. Here are some notes:
+
+# Blogger.getPost vs. metaWeblog.getPost. Blogger API was superceded
+# by metaWeblog API. The Blogger API only allows a single "string"
+# content, and parses the crap out of it; only allows one category;
+# etc.
+
+# Passing categories: there are different APIs with different
+# interfaces.  You should be able to pass an array of category names
+# to newPost/editPost, but mt.setPostCategories wants an array of ids
+# and a field called isPrimary (isPrimary is ignored by WP).
+
+
 class WordPressBlog():
     """Represents blog item
     """
