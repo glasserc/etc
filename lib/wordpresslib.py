@@ -135,7 +135,7 @@ class WordPressCategory():
     """Represents category item
     """
     def __init__(self, id=None, name=None):
-        self.id = id or 0
+        self.id = id or -1
         self.name = name or ''
 
     @classmethod
@@ -143,6 +143,12 @@ class WordPressCategory():
         return cls(id        = int(cat['categoryId']),
                    name      = cat['categoryName'])
 
+    def __repr__(self):
+        id_badge = '(no id)'
+        if self.id != -1:
+            id_badge = '(id=%s)'%(self.id)
+
+        return '<WordPressCategory %r %s at %#x>'%(self.name, id_badge, id(self))
 
 class WordPressPost():
     """Represents post item
@@ -202,7 +208,11 @@ class WordPressClient():
         postObj.textMore        = post['mt_text_more']
         postObj.allowComments   = post['mt_allow_comments'] == 1
         postObj.id              = int(post['postid'])
-        postObj.categories      = post['categories']
+        categories = []
+        for catname in post['categories']:
+            categories.append(WordPressCategory(name=catname))
+
+        postObj.categories      = categories
         postObj.allowPings      = post['mt_allow_pings'] == 1
         return postObj
 
@@ -300,6 +310,9 @@ class WordPressClient():
     new_post = newPost
 
     def _marshal_categories_ids(categories):
+        for c in categories:
+            if c.id == -1:
+                raise TypeError, "bad mojo -- categories need IDs"
         return [{'categoryId': cat.id} for cat in categories]
 
     @wordpress_call
