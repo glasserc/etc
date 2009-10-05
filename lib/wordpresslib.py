@@ -465,11 +465,11 @@ class WordPressClient():
 
     def upload_file(self, filename, overwrite=False):
         '''Same as newMediaObject, but passes WP-specific fields'''
-        return self.__upload_file(type=mimetypes.guess_type(filename),
+        return self.__upload_file(filename, type=mimetypes.guess_type(filename)[0],
                                   overwrite=overwrite)
 
     @wordpress_call
-    def __upload_file(mediaFileName, **fields):
+    def __upload_file(self, mediaFileName, **fields):
         f = file(mediaFileName, 'rb')
         mediaBits = f.read()
         f.close()

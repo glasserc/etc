@@ -80,9 +80,10 @@ print wp._server.mt.getPostCategories(346, username, password)
 #print list(wp.get_recent_posts())[0].__dict__
 post = wp.get_recent_posts().next()
 post.categories = [wordpresslib.WordPressCategory(name=name) for name in ['future', 'quality Apple hardware', 'oh, Japan!']]
-print wp.editPost(post.id, post, False)
-print list(wp.get_recent_posts())[2].categories
-print wp.get_categories()[7].description
+#print wp.editPost(post.id, post, False)
+#print list(wp.get_recent_posts())[2].categories
+print wp.upload_file('/home/ethan/software/wordpresslib/python.jpg')
+#print wp.get_categories()[7].description
 #post.categories.extend([31, 3])
 #wp.edit_post(post.id, post, False)
 
