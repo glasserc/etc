@@ -308,18 +308,20 @@ class WordPressClient():
     def newPost(self, post, publish):
         """Insert new post
         """
-        # FIXME: same as editPost, we could pass categories here
+        # FIXME: need to refactor with editPost
+        # FIXME: does permaLink do anything here?? Doesn't seem so, but wp_slug might
         blogContent = {
             'title' : post.title,
-            'description' : post.description
+            'description' : post.description,
+            'permaLink' : post.permaLink,
+            'mt_allow_pings' : post.allowPings,
+            'mt_text_more' : post.textMore,
+            'mt_excerpt' : post.excerpt,
+            'categories' : self._marshal_categories_names(post.categories),
         }
 
         # insert new post
         idNewPost = int(self._server.metaWeblog.newPost(self.blogId, self.user, self.password, blogContent, 0))
-
-        # set categories for new post
-        categories = self._marshal_categories_ids(post.categories)
-        self.setPostCategories(idNewPost, categories)
 
         # publish post if publish set at True
         if publish:
@@ -329,11 +331,14 @@ class WordPressClient():
 
     new_post = newPost
 
-    def _marshal_categories_ids(categories):
+    def _marshal_categories_ids(self, categories):
         for c in categories:
             if c.id == -1:
                 raise TypeError, "bad mojo -- categories need IDs"
         return [{'categoryId': cat.id} for cat in categories]
+
+    def _marshal_categories_names(self, categories):
+        return [cat.name for cat in categories]
 
     @wordpress_call
     def getPostCategories(self, postId):
@@ -369,7 +374,8 @@ class WordPressClient():
             'permaLink' : post.permaLink,
             'mt_allow_pings' : post.allowPings,
             'mt_text_more' : post.textMore,
-            'mt_excerpt' : post.excerpt
+            'mt_excerpt' : post.excerpt,
+            'categories' : self._marshal_categories_names(post.categories),
         }
 
         if post.date:
@@ -381,13 +387,11 @@ class WordPressClient():
         if result == 0:
             raise WordPressException('Post edit failed')
 
-        # set categories for new post
-        categories = self._marshal_categories_ids(post.categories)
-        self.setPostCategories(postId, categories)
-
         # publish new post
         if publish:
             self.publishPost(postId)
+
+        return result
 
     edit_post = editPost
 

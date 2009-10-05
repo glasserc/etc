@@ -63,7 +63,7 @@ if VERBOSE:
     options = wp.get_options()
     print "Talking to %s version %s"%(options['software_name'], options['software_version'])
 
-print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
+#print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
 
 # Closed questions:
 # - blogger.getPost vs. metaWeblog.getPost
@@ -78,9 +78,11 @@ print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
 print wp._server.mt.getPostCategories(346, username, password)
 #print wp._server.system.methodSignature('mt.getPostCategories')
 #print list(wp.get_recent_posts())[0].__dict__
-#post = wp.get_recent_posts().next()
+post = wp.get_recent_posts().next()
+post.categories = [wordpresslib.WordPressCategory(name=name) for name in ['future', 'quality Apple hardware', 'oh, Japan!']]
+print wp.editPost(post.id, post, False)
 print list(wp.get_recent_posts())[2].categories
-print wp.get_categories()
+print wp.get_categories()[7].description
 #post.categories.extend([31, 3])
 #wp.edit_post(post.id, post, False)
 
