@@ -127,8 +127,6 @@ class WordPressUser():
             )
 
 
-# - mt_getCategoryList (just name, id) versus mw_getCategories (parent_id, descr, etc.)
-# FIXME: need fields: description, slug, parent_id -- for use with wp.newCategory
 # FIXME: Need to add code for wp.newCategory
 class WordPressCategory():
     """Represents category item
@@ -248,7 +246,9 @@ class WordPressClient():
     def supportedMethods(self):
         """Get supported methods list
         """
-        # FIXME: shouldn't this be self._server.system.listMethods?
+        # N.B. not _server.system.listMethods, because that includes
+        # the 'standard' XML-RPC methods like system.listMethods,
+        # system.listCapabilities, etc.
         return self._server.mt.supportedMethods()
 
     supported_methods = supportedMethods
@@ -307,6 +307,8 @@ class WordPressClient():
 
     def newPost(self, post, publish):
         """Insert new post
+
+        See the documentation for editPost.
         """
         id = int(self._save_post('newPost', self.blogId, post, publish))
         post.id = id
@@ -317,6 +319,9 @@ class WordPressClient():
 
     def editPost(self, postId, post, publish):
         """Save post.
+
+        The post's categories are sent as names. If the names aren't
+        recognized, they are silently dropped (on the server side).
 
         @param publish True if you want to also publish this post
         """
