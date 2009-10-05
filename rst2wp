@@ -14,6 +14,8 @@ import urllib
 
 sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib"))
 
+TEMP_DIRECTORY = '/tmp'
+
 import wordpresslib
 
 class UsageError(Exception):
@@ -39,21 +41,27 @@ class MyImageDirective(directives.images.Image):
 
         document = self.state_machine.document
         wp = document.settings.wordpress_instance
-        print wp
-        #filename, headers = urllib.urlretrieve(uri, os.path.join('/tmp', target_filename))
+        #print wp
+        #filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
 
+        # Call the super here to update options, etc.
+        result_nodes = directives.images.Image.run(self)
+
+        # Use a pending to do stuff here -- download after all the
+        # checking is done
         pending = nodes.pending(MyImageTransform, rawsource=self.block_text)
         pending.details.update(self.options)
         document.note_pending(pending)
 
-#        things = directives.images.Image.run(self)
-        #print things[0].__class__
-#        print dir(things[0])
-        title = nodes.title('', "What the heck?")
-        title += pending
-        #image = nodes.image(uri='hi.jpg')
-        #image += pending
-        return [title]
+        # This could be any inline element, but we use the image we'd
+        # normally have to look coherent.
+        last_node = result_nodes[-1]
+        if isinstance(last_node, nodes.reference):
+            last_node = last_node.children[0]
+
+        # Embed the pending in the image node
+        last_node += pending
+        return result_nodes
 
 directives.register_directive('image', MyImageDirective)
 
@@ -63,9 +71,12 @@ class MyImageTransform(docutils.transforms.Transform):
         print self.startnode.details
         contents = [nodes.image(uri='foo.png')]
         print self.startnode.parent
+        print
+        print self.document
         if self.startnode.parent:
-            #self.startnode.parent.replace_self(contents)
-            self.startnode.parent.remove(self.startnode)
+            self.startnode.parent.replace_self(contents)
+            #self.startnode.parent.remove(self.startnode)
+        #filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
         #return directives.images.Image.run(self)
 
 
