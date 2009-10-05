@@ -4,8 +4,14 @@
 from xdg import BaseDirectory
 import ConfigParser
 import sys
-
 import os.path
+from docutils import core, io, nodes, utils
+from docutils.parsers.rst import roles, directives, languages
+import docutils.parsers.rst.directives.images
+import docutils.transforms
+import yaml
+import urllib
+
 sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib"))
 
 import wordpresslib
@@ -20,6 +26,48 @@ Converts an RST file into HTML and posts it to Wordpress.'''.format(name=os.path
     def error_message(self):
         return "{error}\nSee '{path} --help'.".format(error=self.args[0],
                                                       path=self.args[1])
+
+class MyImageDirective(directives.images.Image):
+    def run(self):
+        uri = directives.uri(self.arguments[0])
+        print 'Got a call to my image thingy:', uri
+        # FIXME: this might not work on non-Unix -- but who cares?
+        target_filename = os.path.split(uri)[1]
+        if '.' not in target_filename:
+            raise TypeError, 'FIXME: prompt for a filename for %s'%(target_filename,)
+        #print "returned:", filename, headers
+
+        document = self.state_machine.document
+        wp = document.settings.wordpress_instance
+        print wp
+        #filename, headers = urllib.urlretrieve(uri, os.path.join('/tmp', target_filename))
+
+        pending = nodes.pending(MyImageTransform, rawsource=self.block_text)
+        pending.details.update(self.options)
+        document.note_pending(pending)
+
+#        things = directives.images.Image.run(self)
+        #print things[0].__class__
+#        print dir(things[0])
+        title = nodes.title('', "What the heck?")
+        title += pending
+        #image = nodes.image(uri='hi.jpg')
+        #image += pending
+        return [title]
+
+directives.register_directive('image', MyImageDirective)
+
+class MyImageTransform(docutils.transforms.Transform):
+    default_priority = 100
+    def apply(self, **kwargs):
+        print self.startnode.details
+        contents = [nodes.image(uri='foo.png')]
+        print self.startnode.parent
+        if self.startnode.parent:
+            #self.startnode.parent.replace_self(contents)
+            self.startnode.parent.remove(self.startnode)
+        #return directives.images.Image.run(self)
+
 
 class Application(object):
     def __init__(self):
@@ -88,8 +136,18 @@ class Rst2Wp(Application):
             VERBOSE = config.get('account', 'verbose')
 
         print "Connecting to WP server at", url
-
         wp = wordpresslib.WordPressClient(url, username, password)
+
+        with file(self.filename) as f:
+            text = f.read()
+        output = core.publish_parts(source=text, writer_name='html',
+                                    settings_overrides={
+                'wordpress_instance' : wp,
+                })
+        #print yaml.dump(output, default_flow_style=False)
+        print output['body']
+        sys.exit(0)
+
 
         if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
             blogs = list(wp.get_users_blogs())
