@@ -127,6 +127,10 @@ class WordPressUser():
             )
 
 
+# - mt_getCategoryList (just name, id) versus mw_getCategories (parent_id, descr, etc.)
+# FIXME: need fields: description, slug, parent_id -- for use with wp.newCategory
+# FIXME: Need to add code for wp.newCategory
+# FIXME: delete isPrimary; it isn't used by WP at all
 class WordPressCategory():
     """Represents category item
     """
@@ -276,6 +280,7 @@ class WordPressClient():
     def newPost(self, post, publish):
         """Insert new post
         """
+        # FIXME: same as editPost, we could pass categories here
         blogContent = {
             'title' : post.title,
             'description' : post.description
@@ -327,6 +332,8 @@ class WordPressClient():
     def editPost(self, postId, post, publish):
         """Edit post
         """
+        # FIXME: we could pass categories as part of the XML-RPC call, rather
+        # than calling setPostCategories later
         blogcontent = {
             'title' : post.title,
             'description' : post.description,

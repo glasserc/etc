@@ -65,7 +65,21 @@ if VERBOSE:
 
 print [meth for meth in wp.supportedMethods() if 'categor' in meth.lower()]
 
+# Closed questions:
+# - blogger.getPost vs. metaWeblog.getPost
+#   - blogger API only allows a single "string" content, and parses the crap out of it, single category, etc.
+# - xmlrpc_getpostcategory: regex-matches the body of the content to find categories, separated by commas. Not useful for us. That eliminates blogger.newPost and blogger.editPost, but not mw.newpost and mw.editpost.
+# - passing categories: there are different APIs with different interfaces.
+#   You should be able to pass an array of category names to newPost/editPost,
+#   but mt.setPostCategories wants an array of ids and isPrimary
+#   (isPrimary is ignored by WP)
+
 #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
 print wp._server.mt.getPostCategories(346, username, password)
 #print wp._server.system.methodSignature('mt.getPostCategories')
-#print list(wp.get_recent_posts())[2].__dict__
+#print list(wp.get_recent_posts())[0].__dict__
+post = wp.get_recent_posts().next()
+#post.categories.extend([31, 3])
+#wp.edit_post(post.id, post, False)
+
+#wp.getPostCategories(post.id)
