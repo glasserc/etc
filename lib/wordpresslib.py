@@ -164,7 +164,7 @@ class WordPressCategory():
                    )
 
     def __repr__(self):
-        id_badge = '(no id)'
+        id_badge = '(id unknown)'
         if self.id != -1:
             id_badge = '(id=%s)'%(self.id)
 
@@ -405,7 +405,7 @@ class WordPressClient():
         """Get blog's categories list
         """
         warnings.warn('getCategoryList is deprecated; use getCategories instead',
-                      DeprecationWarning)
+                      DeprecationWarning, 3)
         if not self.categories:
             self.categories = []
             categories = self._server.mt.getCategoryList(self.blogId,
@@ -419,6 +419,7 @@ class WordPressClient():
 
     @wordpress_call
     def getCategories(self):
+        '''Returns more data then getCategoryList, including description'''
         if not self.categories:
             self.categories = []
             categories = self._server.metaWeblog.getCategories(self.blogId,
