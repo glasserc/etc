@@ -428,11 +428,14 @@ class WordPressClient():
     def getCategoryIdFromName(self, name):
         """Get category id from category name
         """
-        for c in self.getCategoryList():
+        for c in self.getCategories():
             if c.name == name:
                 return c.id
 
     get_category_id_from_name = getCategoryIdFromName
+
+    def has_category(self, name):
+        return self.getCategoryIdFromName(name) != None
 
     @wordpress_call
     def getTrackbackPings(self, postId):
