@@ -8,6 +8,7 @@ import os.path
 from docutils import core, io, nodes, utils
 from docutils.parsers.rst import roles, directives, languages
 import docutils.parsers.rst.directives.images
+from docutils.readers import standalone
 import docutils.transforms
 import yaml
 import urllib
@@ -63,6 +64,7 @@ class MyImageDirective(directives.images.Image):
 directives.register_directive('image', MyImageDirective)
 
 class DownloadImageTransform(docutils.transforms.Transform):
+    # No idea what this means
     default_priority = 100
     def apply(self, **kwargs):
         contents = self.build_downloaded_node()
@@ -79,6 +81,58 @@ class DownloadImageTransform(docutils.transforms.Transform):
             # FIXME?
             os.path.unlink(filename)
         return image
+
+class CategoryTransform(docutils.transforms.Transform):
+    default_priority = 100
+    def apply(self, **kwargs):
+        header = self.document[0]
+        if not isinstance(header, nodes.field_list):
+            raise TypeError, "Document did not start with a header"
+
+        fields = self.get_header_as_dict(header)
+
+        if 'categories' not in fields and 'category' not in fields:
+            raise TypeError, "No categories supplied"
+
+        if 'title' not in fields:
+            raise TypeError, "title missing"
+
+        print fields
+
+    def get_header_as_dict(self, header):
+        fields = {}
+        for field in header.children:
+            field_name, field_body = field.children
+
+            # field_name is a node with a Text child
+            assert len(field_name.children) == 1, "don't know how to handle"
+            assert isinstance(field_name.children[0], nodes.Text)
+            key = field_name.children[0].astext()
+
+            # field_body is a node with either a bulleted_list child, or
+            # a single Text child, or..?
+            if len(field_body.children) == 0:
+                fields[key] = None
+                continue
+
+            assert len(field_body.children) == 1, "don't know how to handle"
+            data = field_body.children[0]
+            if isinstance(data, nodes.bullet_list):
+                value = [node.astext() for node in data.children]
+            elif isinstance(data, nodes.Text):
+                value = data.astext()
+            else:
+                raise TypeError, "don't know how to handle a %s in the header %s"%(
+                    data.__class__, key)
+            fields[key] = value
+
+        return fields
+
+class WordPressReader(standalone.Reader):
+    def get_transforms(self):
+        transforms = standalone.Reader.get_transforms(self)
+        transforms.insert(0, CategoryTransform)
+        return transforms
 
 
 class Application(object):
@@ -153,6 +207,7 @@ class Rst2Wp(Application):
         with file(self.filename) as f:
             text = f.read()
         output = core.publish_parts(source=text, writer_name='html',
+                                    reader=WordPressReader(),
                                     settings_overrides={
                 'wordpress_instance' : wp,
                 })
