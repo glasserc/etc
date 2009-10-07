@@ -261,19 +261,27 @@ class Rst2Wp(Application):
         fields = reader.document.settings.bibliographic_fields
         # FIXME: fields['date']
 
+        new_post_data = {
+            'title' : fields['title'],
+            'categories': fields['categories'],
+            'description': body,
+            }
+
+
         if 'id' in fields:
             post_id = int(fields['id'])
             post = wp.get_post(post_id)
 
-            print post.__dict__
+            post.__dict__.update(new_post_data)
+
+            wp.edit_post(post_id, post, False)
 
         else:
-            post = wordpresslib.WordPressPost(
-                title=fields['title'],
-                description=body,
-                categories=fields['categories'],
-                user=username,  # FIXME
-                )
+            user = wp.get_user_info()
+            data['user'] = user.id
+            post = wordpresslib.WordPressPost(**new_post_data)
+
+            wp.new_post(post, False)
         #sys.exit(0)
 
 
