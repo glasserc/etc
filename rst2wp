@@ -34,12 +34,6 @@ class MyImageDirective(directives.images.Image):
     def run(self):
         uri = directives.uri(self.arguments[0])
         print 'Got a call to my image thingy:', uri
-        # FIXME: this might not work on non-Unix -- but who cares?
-        target_filename = os.path.split(uri)[1]
-        if '.' not in target_filename:
-            raise TypeError, 'FIXME: prompt for a filename for %s'%(target_filename,)
-        #print "returned:", filename, headers
-
         document = self.state_machine.document
 
         # Call the super here to update options, etc.
@@ -72,20 +66,31 @@ class DownloadImageTransform(docutils.transforms.Transform):
             self.startnode.parent.replace_self(contents)
 
     def build_downloaded_node(self):
+        # FIXME: disabling for now
+        return nodes.image(uri=self.startnode.details['uri'])
+
         filename = uri = self.startnode.details['uri']
-        #filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
-        # FIXME: testing. Take out later
-        filename += 'hi there sexy'
-        image = nodes.image(uri=filename)
+
+        # FIXME: this might not work on non-Unix -- but who cares?
+        target_filename = os.path.split(uri)[1]
+        if '.' not in target_filename:
+            raise TypeError, 'FIXME: prompt for a filename for %s'%(target_filename,)
+        #print "returned:", filename, headers
+
+        filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
+        wp = self.document.settings.wordpress_instance
+
+        new_uri = wp.upload_file(filename)
+
+        image = nodes.image(uri=new_uri)
         if filename.startswith(TEMP_DIRECTORY):
             # FIXME?
             os.path.unlink(filename)
         return image
 
 class CategoryTransform(docutils.transforms.Transform):
-    default_priority = 100
+    default_priority = 99
     def __init__(self, *args, **kwargs):
-        print "Creating transform:", args, kwargs
         docutils.transforms.Transform.__init__(self, *args, **kwargs)
 
     def apply(self, **kwargs):
@@ -110,7 +115,7 @@ class CategoryTransform(docutils.transforms.Transform):
 
     def check_existing_category(self, wp, cat):
         if not wp.has_category(cat):
-            raise NotImplemented, "FIXME: prompt for confirmation"
+            raise ValueError, "FIXME: prompt for confirmation"
 
     def get_header_as_dict(self, header):
         fields = {}
