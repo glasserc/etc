@@ -58,7 +58,6 @@ class MyImageDirective(directives.images.Image):
 directives.register_directive('image', MyImageDirective)
 
 class DownloadImageTransform(docutils.transforms.Transform):
-    # No idea what this means
     default_priority = 100
     def apply(self, **kwargs):
         contents = self.build_downloaded_node()
@@ -88,8 +87,10 @@ class DownloadImageTransform(docutils.transforms.Transform):
             os.path.unlink(filename)
         return image
 
-class CategoryTransform(docutils.transforms.Transform):
-    default_priority = 99
+class BibliographicTransform(docutils.transforms.Transform):
+    '''Parses the crap out of the bibliographic fields in the document
+    and sticks them in document.settings.bibliographic_fields.'''
+    default_priority = 98
     def __init__(self, *args, **kwargs):
         docutils.transforms.Transform.__init__(self, *args, **kwargs)
 
@@ -99,23 +100,7 @@ class CategoryTransform(docutils.transforms.Transform):
             raise TypeError, "Document did not start with a header"
 
         fields = self.get_header_as_dict(header)
-
-        if 'categories' not in fields and 'category' not in fields:
-            raise TypeError, "No categories supplied"
-
-        if 'title' not in fields:
-            raise TypeError, "title missing"
-
-        categories = fields.get('categories') or fields.get('category')
-        wp = self.document.settings.wordpress_instance
-        for cat in categories:
-            self.check_existing_category(wp, cat)
-
-        print yaml.dump(fields)
-
-    def check_existing_category(self, wp, cat):
-        if not wp.has_category(cat):
-            raise ValueError, "FIXME: prompt for confirmation"
+        self.document.settings.bibliographic_fields = fields
 
     def get_header_as_dict(self, header):
         fields = {}
@@ -148,10 +133,31 @@ class CategoryTransform(docutils.transforms.Transform):
 
         return fields
 
+class ValidityCheckerTransform(docutils.transforms.Transform):
+    default_priority = 99
+    def apply(self):
+        fields = self.document.settings.bibliographic_fields
+        if 'categories' not in fields and 'category' not in fields:
+            raise TypeError, "No categories supplied"
+
+        if 'title' not in fields:
+            raise TypeError, "title missing"
+
+        categories = fields.get('categories') or fields.get('category')
+        wp = self.document.settings.wordpress_instance
+        for cat in categories:
+            self.check_existing_category(wp, cat)
+
+    def check_existing_category(self, wp, cat):
+        if not wp.has_category(cat):
+            raise ValueError, "FIXME: prompt for confirmation"
+
+
 class WordPressReader(standalone.Reader):
     def get_transforms(self):
         transforms = standalone.Reader.get_transforms(self)
-        transforms.insert(0, CategoryTransform)
+        transforms.insert(0, BibliographicTransform)
+        transforms.insert(1, ValidityCheckerTransform)
         return transforms
 
 
@@ -240,14 +246,18 @@ class Rst2Wp(Application):
 
         with file(self.filename) as f:
             text = f.read()
+        reader = WordPressReader()
+
         output = core.publish_parts(source=text, writer_name='html',
-                                    reader=WordPressReader(),
+                                    reader=reader,
                                     settings_overrides={
                 'wordpress_instance' : wp,
                 })
         #print yaml.dump(output, default_flow_style=False)
         print output['body']
-        sys.exit(0)
+        fields = reader.document.settings.bibliographic_fields
+        print fields
+        #sys.exit(0)
 
 
         #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
