@@ -84,6 +84,10 @@ class DownloadImageTransform(docutils.transforms.Transform):
 
 class CategoryTransform(docutils.transforms.Transform):
     default_priority = 100
+    def __init__(self, *args, **kwargs):
+        print "Creating transform:", args, kwargs
+        docutils.transforms.Transform.__init__(self, *args, **kwargs)
+
     def apply(self, **kwargs):
         header = self.document[0]
         if not isinstance(header, nodes.field_list):
@@ -97,7 +101,16 @@ class CategoryTransform(docutils.transforms.Transform):
         if 'title' not in fields:
             raise TypeError, "title missing"
 
-        print fields
+        categories = fields.get('categories') or fields.get('category')
+        wp = self.document.settings.wordpress_instance
+        for cat in categories:
+            self.check_existing_category(wp, cat)
+
+        print yaml.dump(fields)
+
+    def check_existing_category(self, wp, cat):
+        if not wp.has_category(cat):
+            raise NotImplemented, "FIXME: prompt for confirmation"
 
     def get_header_as_dict(self, header):
         fields = {}
@@ -121,6 +134,8 @@ class CategoryTransform(docutils.transforms.Transform):
                 value = [node.astext() for node in data.children]
             elif isinstance(data, nodes.Text):
                 value = data.astext()
+            elif isinstance(data, nodes.paragraph):
+                value = data.children[0].astext()
             else:
                 raise TypeError, "don't know how to handle a %s in the header %s"%(
                     data.__class__, key)
@@ -147,7 +162,7 @@ class Application(object):
 
     def _load_config(self):
         config = ConfigParser.SafeConfigParser()
-        VERBOSE = False
+        self.VERBOSE = False
 
         for dir in BaseDirectory.load_config_paths('etc-extended'):
             filename = os.path.join(dir, 'wordpressrc')
@@ -199,22 +214,10 @@ class Rst2Wp(Application):
         username = config.get('account', 'username')
         password = config.get('account', 'password')
         if config.has_option('account', 'verbose'):
-            VERBOSE = config.get('account', 'verbose')
+            self.VERBOSE = config.get('account', 'verbose')
 
         print "Connecting to WP server at", url
         wp = wordpresslib.WordPressClient(url, username, password)
-
-        with file(self.filename) as f:
-            text = f.read()
-        output = core.publish_parts(source=text, writer_name='html',
-                                    reader=WordPressReader(),
-                                    settings_overrides={
-                'wordpress_instance' : wp,
-                })
-        #print yaml.dump(output, default_flow_style=False)
-        print output['body']
-        sys.exit(0)
-
 
         if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
             blogs = list(wp.get_users_blogs())
@@ -226,9 +229,20 @@ class Rst2Wp(Application):
             print "Using blog id %s from config" % (blog_id,)
             wp.selectBlog(blog_id)
 
-        if VERBOSE:
+        if self.VERBOSE:
             options = wp.get_options()
             print "Talking to %s version %s"%(options['software_name'], options['software_version'])
+
+        with file(self.filename) as f:
+            text = f.read()
+        output = core.publish_parts(source=text, writer_name='html',
+                                    reader=WordPressReader(),
+                                    settings_overrides={
+                'wordpress_instance' : wp,
+                })
+        #print yaml.dump(output, default_flow_style=False)
+        print output['body']
+        sys.exit(0)
 
 
         #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
