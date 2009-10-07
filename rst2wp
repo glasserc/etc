@@ -137,7 +137,10 @@ class ValidityCheckerTransform(docutils.transforms.Transform):
     default_priority = 99
     def apply(self):
         fields = self.document.settings.bibliographic_fields
-        if 'categories' not in fields and 'category' not in fields:
+        if 'category' in fields:
+            fields['categories'] = fields.pop('category')
+
+        if 'categories' not in fields:
             raise TypeError, "No categories supplied"
 
         if 'title' not in fields:
@@ -254,10 +257,24 @@ class Rst2Wp(Application):
                 'wordpress_instance' : wp,
                 })
         #print yaml.dump(output, default_flow_style=False)
-        print output['body']
+        body = output['body']
         fields = reader.document.settings.bibliographic_fields
-        print fields
+        if 'id' in fields:
+            post_id = int(fields['id'])
+            post = wp.get_post(post_id)
+
+            print post.__dict__
+
+        else:
+            post = wordpresslib.WordPressPost(
+                title=fields['title'],
+                description=body,
+                categories=fields['categories'],
+                user=username,  # FIXME
+                )
         #sys.exit(0)
+
+
 
 
         #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
