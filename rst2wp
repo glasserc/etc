@@ -259,6 +259,8 @@ class Rst2Wp(Application):
         #print yaml.dump(output, default_flow_style=False)
         body = output['body']
         fields = reader.document.settings.bibliographic_fields
+        # FIXME: fields['date']
+
         if 'id' in fields:
             post_id = int(fields['id'])
             post = wp.get_post(post_id)

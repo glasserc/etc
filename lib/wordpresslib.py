@@ -188,7 +188,7 @@ class WordPressPost():
                  description=None, textMore=None, excerpt=None, link=None,
                  categories=None, user=None, allowPings=None,
                  allowComments=None):
-        self.id = id or 0
+        self.id = id or None  # indicates not-yet-saved
         self.title = title or ''
         self.date = date or None
         self.permaLink = permaLink or ''
@@ -197,7 +197,7 @@ class WordPressPost():
         self.excerpt = excerpt or ''
         self.link = link or ''
         self.categories = categories or []
-        self.user = user or ''
+        self.user = user or ''  # N.B. userid as string
         self.allowPings = allowPings or False
         self.allowComments = allowComments or False
 
