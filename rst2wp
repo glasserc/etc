@@ -261,9 +261,10 @@ class Rst2Wp(Application):
         fields = reader.document.settings.bibliographic_fields
         # FIXME: fields['date']
 
+        categories = [wordpresslib.WordPressCategory(name=cat) for cat in fields['categories']]
         new_post_data = {
             'title' : fields['title'],
-            'categories': fields['categories'],
+            'categories': categories,
             'description': body,
             }
 
