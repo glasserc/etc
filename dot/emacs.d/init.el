@@ -407,3 +407,17 @@
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 
+;;; rnc-mode
+(defun rnc-define-simple-elements (start end)
+  "Useful for grinding out schemae. You probably have something like:
+
+foo.element = element foo {
+  bar.element
+& baz.element
+& fubar.element
+}
+
+Copy those element references and run this regexp over them to
+create definitions."
+  (interactive "r")
+  (replace-regexp "^ *&? ?\\([[:alnum:]_]*\\).element *$" "\\1.element = element \\1 { text }" nil start end))
