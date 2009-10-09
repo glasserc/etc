@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: foo.element
+# comment: Useful for referring to element definitions
+# contributor: Ethan Glasser-Camp
+# --
+$1.element$0

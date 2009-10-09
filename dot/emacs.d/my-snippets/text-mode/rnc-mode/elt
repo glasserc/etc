@@ -1,0 +1,6 @@
+# -*- coding: utf-8 -*-
+# name: foo.element = element foo { text }
+# comment: element reference definition for simple text element
+# contributor: Ethan Glasser-Camp
+# --
+$1.element = element $1 { text }$0
