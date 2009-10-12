@@ -11,6 +11,7 @@ This script also has some nice features:
 '''
 # FIXME: could save :id: arguments and write new image:: nodes
 # FIXME: could store :id and image::s in a separate thing
+# FIXME: robust against missing configuration keys
 # FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 
@@ -220,6 +221,8 @@ class Application(object):
             config.set('account', 'username', 'joe_user')
             config.set('account', 'password', 'trustNo1')
 
+            config.set('config', 'data_storage', 'both')
+
             path = os.path.join(BaseDirectory.save_config_path('etc-extended'), 'wordpressrc')
             print 'Need configuration! Edit %s'%(path,)
             with file(path, 'wb') as fp:
@@ -251,6 +254,12 @@ class Rst2Wp(Application):
         "Usage: app.save_info(document, 'post ' + filename, 'id', '365')"
         location = location or POSTS_LOCATION
         print "saving", key, "=", value, "for document", document.settings.filename
+        data_storage = self.config.get('config', 'data_storage')
+        if data_storage in ['both', 'dotrc']:
+            pass
+
+        if data_storage in ['both', 'file']:
+            self.replace_field(document, key, value)
 
     def get_info(self, document, section, key, location=None):
         location = location or POSTS_LOCATION
@@ -260,7 +269,31 @@ class Rst2Wp(Application):
     def has_info(self, document, section, key, location=None):
         location = location or POSTS_LOCATION
         print "getting", key, 'for document', document.settings.filename
-        return key in document.settings.bibliographic_fields
+        return (key in document.settings.bibliographic_fields)
+
+    def replace_field(self, document, key, value):
+        keystring = ':{key}:'.format(key=key)
+        new_line = '{keystring} {value}'.format(keystring=keystring, value=value)
+
+        lines = self.text.split('\n')
+        for i in range(len(lines)):
+            if lines[i].strip() == '':
+                # Didn't have that field
+                lines.insert(i, new_line)
+                break
+            if lines[i].startswith(keystring):
+                lines[i] = new_line
+                break
+
+        self.text = '\n'.join(lines)
+
+    def replace_image(self, document, key, value):
+        pass
+
+    def should_save_file(self):
+        data_storage = self.config.get('config', 'data_storage')
+        save_to_file = data_storage in ['both', 'file']
+        return self.text != file(self.filename).read() and save_to_file
 
     def posts_location(self):
         return os.path.join(BaseDirectory.save_config_path('rst2wp', 'published'),
@@ -301,7 +334,7 @@ class Rst2Wp(Application):
             print "Talking to %s version %s"%(options['software_name'], options['software_version'])
 
         with file(self.filename) as f:
-            text = f.read()
+            self.text = text = f.read()
         reader = WordPressReader()
 
         output = core.publish_parts(source=text, writer_name='html',
@@ -345,6 +378,10 @@ class Rst2Wp(Application):
 
         self.save_info(reader.document, "post " + self.filename,
                        'title', fields['title'])
+
+        if self.should_save_file():
+            print "Saving file with new data"
+            file(self.filename, 'w').write(self.text)
         #sys.exit(0)
 
 
