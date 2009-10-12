@@ -84,6 +84,16 @@ class DownloadImageTransform(docutils.transforms.Transform):
 
         filename = uri = self.startnode.details['uri']
 
+        self.upload_image(uri)
+
+        app = self.document.settings.application
+        new_uri = app.get_info(self.document, 'image urls', uri, location=IMAGES_LOCATION)
+
+        image = nodes.image(uri=new_uri)
+        return image
+
+
+    def upload_image(self, uri):
         # FIXME: this might not work on non-Unix -- but who cares?
         target_filename = os.path.split(uri)[1]
         if '.' not in target_filename:
@@ -95,15 +105,12 @@ class DownloadImageTransform(docutils.transforms.Transform):
 
         new_uri = wp.upload_file(filename, overwrite=True)
 
-        app = self.document.settings.application
-        app.save_info(self.document, 'image urls', uri, new_uri, IMAGES_LOCATION)
-
-
-        image = nodes.image(uri=new_uri)
         if filename.startswith(TEMP_DIRECTORY):
             # FIXME?
             os.path.unlink(filename)
-        return image
+
+        app = self.document.settings.application
+        app.save_info(self.document, 'image urls', uri, new_uri, IMAGES_LOCATION)
 
 class BibliographicTransform(docutils.transforms.Transform):
     '''Parses the crap out of the bibliographic fields in the document
@@ -245,6 +252,15 @@ class Rst2Wp(Application):
         location = location or POSTS_LOCATION
         print "saving", key, "=", value, "for document", document.settings.filename
 
+    def get_info(self, document, section, key, location=None):
+        location = location or POSTS_LOCATION
+        print "getting", key, "for document", document.settings.filename
+        return document.settings.bibliographic_fields[key]
+
+    def has_info(self, document, section, key, location=None):
+        location = location or POSTS_LOCATION
+        print "getting", key, 'for document', document.settings.filename
+        return key in document.settings.bibliographic_fields
 
     def posts_location(self):
         return os.path.join(BaseDirectory.save_config_path('rst2wp', 'published'),
@@ -309,8 +325,8 @@ class Rst2Wp(Application):
             }
 
 
-        if 'id' in fields:
-            post_id = int(fields['id'])
+        if self.has_info(reader.document, "post " + self.filename, 'id'):
+            post_id = self.get_info(reader.document, "post " + self.filename, 'id')
             post = wp.get_post(post_id)
 
             post.__dict__.update(new_post_data)
@@ -326,6 +342,9 @@ class Rst2Wp(Application):
             id = 346
             self.save_info(reader.document, "post " + self.filename,
                            'id', id)
+
+        self.save_info(reader.document, "post " + self.filename,
+                       'title', fields['title'])
         #sys.exit(0)
 
 
