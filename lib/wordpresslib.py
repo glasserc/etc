@@ -8,6 +8,10 @@
     black.bird@tiscali.it
     http://www.blackbirdblog.it
 
+    With some additions by Ethan Glasser-Camp
+    ethan.glasser.camp@gmail.com
+    http://www.betacantrips.com
+
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License
     as published by the Free Software Foundation; either version 2
@@ -37,6 +41,7 @@
         * getTrackbackPings
         * publishPost
         * getPingbacks
+        * newCategory
 
     References:
         * http://codex.wordpress.org/XML-RPC_Support
@@ -147,7 +152,7 @@ class WordPressCategory():
     def __init__(self, id=None, name=None, description=None, slug=None, parent_id=None, html_url=None, rss_url=None):
         self.id = id or -1
         self.name = name or ''
-        self.parent_id = parent_id
+        self.parent_id = parent_id or '0'  # '0' means no parent
         self.description = description
         self.slug = slug
         self.html_url = html_url
@@ -173,6 +178,15 @@ class WordPressCategory():
                    html_url    = cat.get('htmlUrl'),
                    rss_url     = cat.get('rssUrl'),
                    )
+
+    def to_xmlrpc(self):
+        data = {'name': self.name,
+                'description': self.description,
+                'slug': self.slug,
+                'parent_id': self.parent_id}
+
+        return data
+
 
     def __repr__(self):
         id_badge = '(id unknown)'
@@ -398,6 +412,27 @@ class WordPressClient():
     set_post_categories = setPostCategories
 
     @wordpress_call
+    def newCategory(self, category, parent=None):
+        """Create a new category and get its id.
+
+        @param category the category to create
+        @param parent (optional) the id or category to create a child of. You can also set parent_id on category.
+        @returns the new category
+        """
+        data = category.to_xmlrpc()
+        if parent:
+            if isinstance(parent, WordPressCategory):
+                parent = parent.id
+            data['parent_id'] = parent
+
+        id = self._server.wp.newCategory(self.blogId, self.user, self.password,
+                                         data)
+        category.id = id
+        return category
+
+    new_category = newCategory
+
+    @wordpress_call
     def deletePost(self, postId):
         """Delete post
         """
@@ -481,6 +516,7 @@ class WordPressClient():
 
     def upload_file(self, filename, overwrite=False):
         '''Same as newMediaObject, but passes WP-specific fields'''
+        # FIXME: this doesn't seem to overwrite anything. Not sure why.
         return self.__upload_file(filename, type=mimetypes.guess_type(filename)[0],
                                   overwrite=overwrite)
 
