@@ -258,10 +258,26 @@ class Rst2Wp(Application):
         print "saving", key, "=", value, "for document", document.settings.filename
         data_storage = self.config.get('config', 'data_storage')
         if data_storage in ['both', 'dotrc']:
-            pass
+            config = ConfigParser.SafeConfigParser()
+            filename = location(self)
+            if os.path.exists(filename):
+                with file(filename) as f:
+                    config.readfp(f)
+
+            if not config.has_section(section):
+                config.add_section(section)
+
+            config.set(section, key, value)
+            with file(filename, 'wb') as fp:
+                config.write(fp)
 
         if data_storage in ['both', 'file']:
-            self.replace_field(document, key, value)
+            if location == POSTS_LOCATION:
+                self.replace_field(document, key, value)
+            elif location == IMAGES_LOCATION:
+                self.replace_image(document, key, value)
+            else:
+                raise ValueError, "couldn't save data in {location}".format(location=location)
 
     def get_info(self, document, section, key, location=None):
         location = location or POSTS_LOCATION
@@ -374,7 +390,7 @@ class Rst2Wp(Application):
             post = wordpresslib.WordPressPost(**new_post_data)
 
             #id = wp.new_post(post, False)
-            id = 346
+            id = '362'
             self.save_info(reader.document, "post " + self.filename,
                            'id', id)
 
