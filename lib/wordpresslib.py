@@ -133,10 +133,10 @@ class WordPressUser():
     def from_xmlrpc(cls, userinfo):
         return cls(
             id        = userinfo['userid'],
-            firstName = userinfo['firstname'],
-            lastName  = userinfo['lastname'],
+            firstname = userinfo['firstname'],
+            lastname  = userinfo['lastname'],
             nickname  = userinfo['nickname'],
-            email     = userinfo['email'],
+            email     = userinfo.get('email', '') # FIXME: ?
             )
 
 
