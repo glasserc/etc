@@ -387,7 +387,6 @@ class Rst2Wp(Application):
                   image=None):
         "Usage: app.save_info(document, 'post ' + filename, 'id', '365')"
         location = location or POSTS_LOCATION
-        print "saving", key, "=", value, "for document", document.settings.filename
         data_storage = self.data_storage
         if data_storage in ['both', 'dotrc']:
             config = ConfigParser.SafeConfigParser()
@@ -418,8 +417,6 @@ class Rst2Wp(Application):
                 raise ValueError, "couldn't save data in {location}".format(location=location)
 
     def get_info(self, document, section, key, location=None):
-        print "getting", key, "for document", document.settings.filename
-
         location = location or POSTS_LOCATION
         if self.data_storage in ['both', 'file']:
             if location == POSTS_LOCATION:
@@ -578,25 +575,6 @@ class Rst2Wp(Application):
         if self.should_save_file():
             print "Saving file with new data"
             file(self.filename, 'w').write(self.text)
-        #sys.exit(0)
-
-
-
-
-        #print wp._server, wp._server.system.listMethods(), wp.supportedMethods()
-        #print wp._server.mt.getPostCategories(346, username, password)
-        #print wp._server.system.methodSignature('mt.getPostCategories')
-        #print list(wp.get_recent_posts())[0].__dict__
-        post = wp.get_recent_posts().next()
-        post.categories = [wordpresslib.WordPressCategory(name=name) for name in ['future', 'quality Apple hardware', 'oh, Japan!']]
-        #print wp.editPost(post.id, post, False)
-        #print list(wp.get_recent_posts())[2].categories
-        #print wp.upload_file('/home/ethan/software/wordpresslib/python.jpg')
-        #print wp.get_categories()[7].description
-        #post.categories.extend([31, 3])
-        #wp.edit_post(post.id, post, False)
-
-        #wp.getPostCategories(post.id)
 
 POSTS_LOCATION = Rst2Wp.posts_location
 IMAGES_LOCATION = Rst2Wp.images_location
