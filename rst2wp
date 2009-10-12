@@ -63,7 +63,7 @@ config.data_storage.
 # FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
-
+# FIXME: 
 
 # Configuration:
 # - config.data_storage = one of "file", "dotrc", or "both".
@@ -321,7 +321,7 @@ class Application(object):
         config = ConfigParser.SafeConfigParser()
         self.VERBOSE = False
 
-        for dir in BaseDirectory.load_config_paths('etc-extended'):
+        for dir in BaseDirectory.load_config_paths('rst2wp'):
             filename = os.path.join(dir, 'wordpressrc')
             if not os.path.exists(filename): continue
             print "loading config from", filename
@@ -340,7 +340,7 @@ class Application(object):
 
             config.set('config', 'data_storage', 'both')
 
-            path = os.path.join(BaseDirectory.save_config_path('etc-extended'), 'wordpressrc')
+            path = os.path.join(BaseDirectory.save_config_path('rst2wp'), 'wordpressrc')
             print 'Need configuration! Edit %s'%(path,)
             with file(path, 'wb') as fp:
                 config.write(fp)
