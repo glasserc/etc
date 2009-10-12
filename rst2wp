@@ -1,5 +1,19 @@
 #!/usr/bin/env python
 
+'''Script to translate rst into HTML and post it to a Wordpress server.
+
+This script also has some nice features:
+
+- image:: directives upload images using the WordPress API and point
+  at the uploaded URL. If the image is non-local, it will be downloaded using
+  urllib and deleted after it's been uploaded.
+- categories are read from bibliographic fields at the top of the file.
+'''
+# FIXME: could save :id: arguments and write new image:: nodes
+# FIXME: could store :id and image::s in a separate thing
+# FIXME: still need to confirm categories, get new information about them
+# FIXME: prompt for a good filename/extension for unknown weird files
+
 # Wordpress Upload Script, etc.
 from xdg import BaseDirectory
 import ConfigParser
