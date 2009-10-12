@@ -93,7 +93,11 @@ class DownloadImageTransform(docutils.transforms.Transform):
         filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
         wp = self.document.settings.wordpress_instance
 
-        new_uri = wp.upload_file(filename)
+        new_uri = wp.upload_file(filename, overwrite=True)
+
+        app = self.document.settings.application
+        app.save_info(self.document, 'image urls', uri, new_uri, IMAGES_LOCATION)
+
 
         image = nodes.image(uri=new_uri)
         if filename.startswith(TEMP_DIRECTORY):
@@ -233,6 +237,25 @@ class Rst2Wp(Application):
 
         self.filename = filename
 
+    def prompt(self, msg):
+        return raw_input(msg)
+
+    def save_info(self, document, section, key, value, location=None):
+        "Usage: app.save_info(document, 'post ' + filename, 'id', '365')"
+        location = location or POSTS_LOCATION
+        print "saving", key, "=", value, "for document", document.settings.filename
+
+
+    def posts_location(self):
+        return os.path.join(BaseDirectory.save_config_path('rst2wp', 'published'),
+                            'posts')
+
+    def images_location(self):
+        return os.path.join(BaseDirectory.save_config_path('rst2wp', 'published'),
+                            'images')
+
+
+
     def run(self, *args, **kwargs):
         if not args: args = sys.argv
         self.parse_args(args)
@@ -269,6 +292,9 @@ class Rst2Wp(Application):
                                     reader=reader,
                                     settings_overrides={
                 'wordpress_instance' : wp,
+                'application': self,
+                # FIXME: probably a nicer way to do this
+                'filename': self.filename,
                 })
         #print yaml.dump(output, default_flow_style=False)
         body = output['body']
@@ -293,10 +319,13 @@ class Rst2Wp(Application):
 
         else:
             user = wp.get_user_info()
-            data['user'] = user.id
+            new_post_data['user'] = user.id
             post = wordpresslib.WordPressPost(**new_post_data)
 
-            wp.new_post(post, False)
+            #id = wp.new_post(post, False)
+            id = 346
+            self.save_info(reader.document, "post " + self.filename,
+                           'id', id)
         #sys.exit(0)
 
 
@@ -316,6 +345,9 @@ class Rst2Wp(Application):
         #wp.edit_post(post.id, post, False)
 
         #wp.getPostCategories(post.id)
+
+POSTS_LOCATION = Rst2Wp.posts_location
+IMAGES_LOCATION = Rst2Wp.images_location
 
 if __name__ == '__main__':
     if '--help' in sys.argv:
