@@ -63,7 +63,6 @@ config.data_storage.
 # FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
-# FIXME: --preview
 
 
 # Configuration:
@@ -80,10 +79,12 @@ config.data_storage.
 # as what's in the dotrc, and if different, confirm
 
 import re
+import getopt
 from xdg import BaseDirectory
 import ConfigParser
 import sys
 import os.path
+import tempfile, subprocess, time
 from docutils import core, io, nodes, utils
 from docutils.parsers.rst import roles, directives, languages
 import docutils.parsers.rst.directives.images
@@ -292,8 +293,14 @@ If you don't want to categorize this post, use the "Uncategorized" category.
 
 
 class WordPressReader(standalone.Reader):
+    def __init__(self, preview=False):
+        standalone.Reader.__init__(self)
+        self.preview = preview
+
     def get_transforms(self):
         transforms = standalone.Reader.get_transforms(self)
+        if self.preview: return transforms
+
         transforms.insert(0, BibliographicTransform)
         transforms.insert(1, ValidityCheckerTransform)
         return transforms
@@ -372,8 +379,13 @@ class Rst2Wp(Application):
 
     def parse_args(self, args):
         filename = None
-        if len(args) > 1:
-            filename = args[1]
+        opts, leftover = getopt.getopt(args[1:], 'p', ['preview'])
+        for opt, val in opts:
+            if opt in ['-p', '--preview']:
+                self.preview = True
+
+        if len(leftover) > 0:
+            filename = leftover[0]
         if filename == None:
             raise UsageError, ("%s needs a filename."%(args[0],), args[0])
 
@@ -490,7 +502,6 @@ class Rst2Wp(Application):
                             'images')
 
 
-
     def run(self, *args, **kwargs):
         if not args: args = sys.argv
         self.parse_args(args)
@@ -521,7 +532,7 @@ class Rst2Wp(Application):
 
         with file(self.filename) as f:
             self.text = text = f.read()
-        reader = WordPressReader()
+        reader = WordPressReader(self.preview)
 
         used_images = {}
 
@@ -536,6 +547,11 @@ class Rst2Wp(Application):
                 })
         #print yaml.dump(output, default_flow_style=False)
         body = output['body']
+
+        if self.preview:
+            return self.run_preview(output)
+            
+
         fields = reader.document.settings.bibliographic_fields
 
         categories = [wordpresslib.WordPressCategory(name=cat) for cat in fields['categories']]
@@ -575,6 +591,20 @@ class Rst2Wp(Application):
         if self.should_save_file():
             print "Saving file with new data"
             file(self.filename, 'w').write(self.text)
+
+    def run_preview(self, output):
+        body = output['body']
+        fp = tempfile.NamedTemporaryFile(suffix='-rst2wp-preview.html',
+                                         delete=False)
+        fp.write(body)
+        fp.close()
+        browser = os.getenv('BROWSER') or 'sensible-browser'
+        subprocess.call([browser, fp.name])
+        # FIXME: better way to know when it gets loaded?
+        time.sleep(5)
+
+        os.unlink(fp.name)
+
 
 POSTS_LOCATION = Rst2Wp.posts_location
 IMAGES_LOCATION = Rst2Wp.images_location
