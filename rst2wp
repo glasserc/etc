@@ -268,16 +268,18 @@ class ValidityCheckerTransform(docutils.transforms.Transform):
         if 'category' in fields:
             fields['categories'] = fields.pop('category')
 
-        if 'categories' not in fields:
+        if not fields.get('categories'):
             _no_field("No categories supplied", """
-If you don't want any categories on your post, use an empty field, like this:
+WordPress requires at least one category.
 
-:categories:
+If you don't want to categorize this post, use the "Uncategorized" category.
+
+:categories: Uncategorized
 """)
 
         categories = fields.get('categories') or fields.get('category')
-        if categories == None:
-            fields['categories'] = categories = []
+        if categories == None:  # shouldn't happen
+            fields['categories'] = categories = ['Uncategorized']
 
         wp = self.document.settings.wordpress_instance
         for cat in categories:
