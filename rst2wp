@@ -239,7 +239,29 @@ class Application(object):
         self._config = config
         return config
 
+    def search_configs(self, configfile, section, key, default=None):
+        '''Looks through all configs name configfile for (section, key)'''
+        for dir in BaseDirectory.load_config_paths('rst2wp'):
+            filename = os.path.join(dir, configfile)
+            if not os.path.exists(filename): continue
+
+            config = ConfigParser.SafeConfigParser()
+            with file(filename) as f:
+                config.readfp(f)
+            if not config.has_section(section): continue
+
+            if not config.has(section, key): continue
+
+            return config.get(section, key)
+
+        return default
+
+
 class Rst2Wp(Application):
+    @property
+    def data_storage(self):
+        return self.config.get('config', 'data_storage')
+
     def parse_args(self, args):
         filename = None
         if len(args) > 1:
@@ -256,7 +278,7 @@ class Rst2Wp(Application):
         "Usage: app.save_info(document, 'post ' + filename, 'id', '365')"
         location = location or POSTS_LOCATION
         print "saving", key, "=", value, "for document", document.settings.filename
-        data_storage = self.config.get('config', 'data_storage')
+        data_storage = self.data_storage
         if data_storage in ['both', 'dotrc']:
             config = ConfigParser.SafeConfigParser()
             filename = location(self)
@@ -280,14 +302,26 @@ class Rst2Wp(Application):
                 raise ValueError, "couldn't save data in {location}".format(location=location)
 
     def get_info(self, document, section, key, location=None):
-        location = location or POSTS_LOCATION
         print "getting", key, "for document", document.settings.filename
-        return document.settings.bibliographic_fields[key]
+
+        location = location or POSTS_LOCATION
+        if self.data_storage in ['both', 'file']:
+            return document.settings.bibliographic_fields[key]
+
+        return self.search_configs(location(self), section, key)
 
     def has_info(self, document, section, key, location=None):
+        print "searching", key, 'for document', document.settings.filename
+
         location = location or POSTS_LOCATION
-        print "getting", key, 'for document', document.settings.filename
-        return (key in document.settings.bibliographic_fields)
+        if self.data_storage in ['both', 'file']:
+            return (key in document.settings.bibliographic_fields)
+
+        class NO_DEFAULT:
+            pass
+
+        return self.search_configs(location(self), section, key, NO_DEFAULT) is not NO_DEFAULT
+
 
     def replace_field(self, document, key, value):
         keystring = ':{key}:'.format(key=key)
