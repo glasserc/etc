@@ -8,16 +8,78 @@ This script also has some nice features:
   at the uploaded URL. If the image is non-local, it will be downloaded using
   urllib and deleted after it's been uploaded.
 - categories are read from bibliographic fields at the top of the file.
+- an id: field is saved at the top of the file, as well as in a dotrc
+  file in ~/.config (or as specified by xdg), and if an id is known
+  for a post, that post is edited (instead of a new one being created)
+
+Getting started
+===============
+
+Just run the script once to create ~/.config/rst2wp/wordpressrc.
+Account settings and configuration stuff goes in there.
+
+Usage
+=====
+
+Run rst2wp with the name of a post as its argument. The post is just
+an ordinary RST file, except that the (normally optional)
+bibliographic fields at the top of the file are required in order to
+provide a title to the post.
+
+Here's a sample post::
+
+    :title: This is a brand new test!
+
+    This is just a test, of course. Here's an image:
+
+    |my_image|
+
+    I'd like to close with a quote:
+
+        Four score and seven years ago..
+
+
+    .. |my_image| image:: http://travelogue.betacantrips.com/wp-content/uploads/2009/09/tumblr_kqlgm7DjDq1qz59y9o1_500.gif
+       :target: http://travelogue.betacantrips.com/
+
+Once you run rst2wp on this file, the file will be modified. Particularly,
+you'll see::
+
+    :id: 362
+
+in the bibliographic fields at the top, and in the `image::` directive, you'll see::
+
+    :saved_as: http://travelogue.betacantrips.com/wp-content/uploads/2009/09/tumblr_kqlgm7DjDq1qz59y9o1_500.gif
+
+In the future, this blog post will be altered instead of new ones
+being uploaded, and the uploaded image won't be re-uploaded.
+
+You might find this annoying because you might have to re-load the
+file in your text editor, so this information is also saved in
+~/.config/rst2wp. You can choose one or the other by editing
+config.data_storage.
 '''
-# FIXME: could save :id: arguments and write new image:: nodes
-# FIXME: could store :id and image::s in a separate thing
 # FIXME: robust against missing configuration keys
 # FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
 # FIXME: --preview
+# FIXME: make sure files get "attached" to blog posts
 
-# Wordpress Upload Script, etc.
+
+# Configuration:
+# - config.data_storage = one of "file", "dotrc", or "both".
+#   "dotrc" means to store URLs of uploaded images in ~/.config/rst2wp/images
+#   and ids of posts in ~/.config/rst2wp/posts. "file" means to store that
+#   information in the .rst file itself. "both" stores in both places,
+#   and generally trusts the file over the dotrc files.
+#
+# N.B.: if config.data_storage = "dotrc", the filename of the post is
+# assumed to be unique across all blog posts. This means if you re-use
+# a filename, you could potentially edit an existing blog-post. To
+# help guard against this, FIXME: need to check if title is the same
+# as what's in the dotrc, and if different, confirm
+
 import re
 from xdg import BaseDirectory
 import ConfigParser
@@ -152,10 +214,10 @@ class BibliographicTransform(docutils.transforms.Transform):
 
     def apply(self, **kwargs):
         header = self.document[0]
-        if not isinstance(header, nodes.field_list):
-            raise TypeError, "Document did not start with a header"
-
-        fields = self.get_header_as_dict(header)
+        if isinstance(header, nodes.field_list):
+            fields = self.get_header_as_dict(header)
+        else:
+            fields = {}
         self.document.settings.bibliographic_fields = fields
 
     def get_header_as_dict(self, header):
@@ -193,16 +255,30 @@ class ValidityCheckerTransform(docutils.transforms.Transform):
     default_priority = 99
     def apply(self):
         fields = self.document.settings.bibliographic_fields
+
+        def _no_field(msg, msg2=''):
+            if msg2: msg = msg+msg2
+            raise TypeError, msg
+
+        if 'title' not in fields:
+            _no_field("title missing", """
+- Make sure you have a bibliographic field list at the top of your file.
+- Make sure that a title field is included.""")
+
         if 'category' in fields:
             fields['categories'] = fields.pop('category')
 
         if 'categories' not in fields:
-            raise TypeError, "No categories supplied"
+            _no_field("No categories supplied", """
+If you don't want any categories on your post, use an empty field, like this:
 
-        if 'title' not in fields:
-            raise TypeError, "title missing"
+:categories:
+""")
 
         categories = fields.get('categories') or fields.get('category')
+        if categories == None:
+            fields['categories'] = categories = []
+
         wp = self.document.settings.wordpress_instance
         for cat in categories:
             self.check_existing_category(wp, cat)
@@ -269,7 +345,7 @@ class Application(object):
         return config
 
     def search_configs(self, configfile, section, key, default=None):
-        '''Looks through all configs name configfile for (section, key)'''
+        '''Looks through all configs named configfile for (section, key)'''
         for dir in BaseDirectory.load_config_paths('rst2wp'):
             filename = os.path.join(dir, configfile)
             if not os.path.exists(filename): continue
