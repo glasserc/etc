@@ -624,13 +624,19 @@ class Rst2Wp(Application):
             }
 
 
+        publish = fields.get('publish', False)
+        if publish == 'yes': publish = True
+
         if self.has_info(reader.document, "post " + self.filename, 'id'):
             post_id = self.get_info(reader.document, "post " + self.filename, 'id')
             post = wp.get_post(post_id)
 
             post.__dict__.update(new_post_data)
 
-            wp.edit_post(post_id, post, False)
+            if fields['type'] == 'page':
+                wp.edit_page(post_id, post, publish)
+            else:
+                wp.edit_post(post_id, post, publish)
 
         else:
             # FIXME: fields['date']
@@ -638,8 +644,10 @@ class Rst2Wp(Application):
             new_post_data['user'] = user.id
             post = wordpresslib.WordPressPost(**new_post_data)
 
-            #post_id = wp.new_post(post, False)
-            post_id = '362'
+            if fields['type'] == 'page':
+                post_id = wp.new_page(post, publish)
+            else:
+                post_id = wp.new_post(post, publish)
             self.save_info(reader.document, "post " + self.filename,
                            'id', post_id)
 
