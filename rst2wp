@@ -421,7 +421,7 @@ class Rst2Wp(Application):
 
     def parse_args(self, args):
         filename = None
-        opts, leftover = getopt.getopt(args[1:], 'p', ['preview'])
+        opts, leftover = getopt.gnu_getopt(args[1:], 'p', ['preview'])
         for opt, val in opts:
             if opt in ['-p', '--preview']:
                 self.preview = True
