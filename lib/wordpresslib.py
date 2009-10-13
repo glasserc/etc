@@ -145,18 +145,48 @@ class WordPressUser():
             )
 
 
-# FIXME: Need to add code for wp.newCategory
-class WordPressCategory():
+class CategoryBase(object):
+    """Base class for both categories and tags
+    """
+
+    def __init__(self, id=None, name=None, description=None, slug=None,
+                 html_url=None, rss_url=None):
+        self.id = id or -1
+        self.name = name or ''
+        self.description = description or ''
+        self.slug = slug or ''
+        self.html_url = html_url
+        self.rss_url = rss_url
+
+    def __repr__(self):
+        id_badge = '(id unknown)'
+        if self.id != -1:
+            id_badge = '(id=%s)'%(self.id)
+
+        return '<%s %r %s at %#x>'%(self.__class__.__name__, self.name, id_badge, id(self))
+
+class WordPressTag(CategoryBase):
+    def __init__(self, id=None, name=None, description=None, count=None, slug=None, html_url=None, rss_url=None):
+        super(WordPressTag, self).__init__(id=id, name=name, description=description,
+                                           slug=slug, html_url=html_url, rss_url=rss_url)
+        self.count = count or 0
+
+    @classmethod
+    def from_xmlrpc(cls, tag):
+        return cls(id          = int(tag['tag_id']),
+                   name        = tag['name'],
+                   count       = int(tag['count']),
+                   slug        = tag['slug'],
+                   html_url    = tag.get('html_url'),
+                   rss_url     = tag.get('rss_url'),
+                   )
+
+class WordPressCategory(CategoryBase):
     """Represents category item
     """
     def __init__(self, id=None, name=None, description=None, slug=None, parent_id=None, html_url=None, rss_url=None):
-        self.id = id or -1
-        self.name = name or ''
+        super(WordPressCategory, self).__init__(id=id, name=name, description=description, slug=slug, html_url=html_url, rss_url=rss_url)
         self.parent_id = parent_id or '0'  # '0' means no parent
-        self.description = description
-        self.slug = slug
-        self.html_url = html_url
-        self.rss_url = rss_url
 
     @classmethod
     def from_xmlrpc(cls, cat):
@@ -186,14 +216,6 @@ class WordPressCategory():
                 'parent_id': self.parent_id}
 
         return data
-
-
-    def __repr__(self):
-        id_badge = '(id unknown)'
-        if self.id != -1:
-            id_badge = '(id=%s)'%(self.id)
-
-        return '<WordPressCategory %r %s at %#x>'%(self.name, id_badge, id(self))
 
 class WordPressPost():
     """Represents post item
@@ -237,6 +259,7 @@ class WordPressClient():
         self.password = password
         self.blogId = 0
         self.categories = None
+        self.tags = None
         self._server = xmlrpclib.ServerProxy(self.url)
 
     def _filterPost(self, post):
@@ -473,6 +496,19 @@ class WordPressClient():
 
     get_categories = getCategories
 
+    @wordpress_call
+    def getTags(self):
+        if not self.tags:
+            self.tags = []
+            tags = self._server.wp.getTags(self.blogId, self.user, self.password)
+
+            for t in tags:
+                self.tags.append(WordPressTag.from_xmlrpc(t))
+
+        return self.tags
+
+    get_tags = getTags
+
     def getCategoryIdFromName(self, name):
         """Get category id from category name
         """
@@ -482,8 +518,16 @@ class WordPressClient():
 
     get_category_id_from_name = getCategoryIdFromName
 
+    def getTagIdFromName(self, name):
+        for t in self.getTags():
+            if t.name == name:
+                return t.id
+
     def has_category(self, name):
         return self.getCategoryIdFromName(name) != None
+
+    def has_tag(self, name):
+        return self.getTagIdFromName(name) != None
 
     @wordpress_call
     def getTrackbackPings(self, postId):
