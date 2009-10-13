@@ -611,11 +611,15 @@ class Rst2Wp(Application):
 
         categories = [wordpresslib.WordPressCategory(name=cat) for cat in fields['categories']]
         tags = []
-        for tag in fields['tags']:
+        for tag in fields.get('tags', []):
             if wp.has_tag(tag):
                 tags.append(wp.get_tag(tag))
             else:
                 tags.append(wordpresslib.WordPressTag(name=tag))
+        # WP will replace \n with <br/>, which isn't what RST is
+        # designed for. We short-circuit this by replacing all newlines
+        body = re.sub('\n', body, '')
+
         new_post_data = {
             'title' : fields['title'],
             'categories': categories,
@@ -633,7 +637,7 @@ class Rst2Wp(Application):
 
             post.__dict__.update(new_post_data)
 
-            if fields['type'] == 'page':
+            if fields.get('type') == 'page':
                 wp.edit_page(post_id, post, publish)
             else:
                 wp.edit_post(post_id, post, publish)
@@ -644,7 +648,7 @@ class Rst2Wp(Application):
             new_post_data['user'] = user.id
             post = wordpresslib.WordPressPost(**new_post_data)
 
-            if fields['type'] == 'page':
+            if fields.get('type') == 'page':
                 post_id = wp.new_page(post, publish)
             else:
                 post_id = wp.new_post(post, publish)
