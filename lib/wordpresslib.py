@@ -432,10 +432,12 @@ class WordPressClient():
     def _marshal_tags_names(self, tags):
         tag_data = []
         for tag in tags:
-            if tag.id:
-                tag_data.append(tag.id)
-            else:
-                tag_data.append(tag.name)
+            # This would have hopefully allowed you use existing tags
+            # even if they had funny names. OH WELL.
+#             if tag.id:
+#                 tag_data.append(str(tag.id))
+#             else:
+            tag_data.append(tag.name)
         return ','.join(tag_data)
 
     def _marshal_categories_names(self, categories):
