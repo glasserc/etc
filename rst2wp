@@ -297,6 +297,10 @@ Set config.default_category to do this automatically.
                 self.check_existing_tag(wp, tag)
 
     def check_existing_tag(self, wp, tag):
+        if ',' in tag:
+            raise ValueError, """Cannot use tags with ',' in the name.
+
+WordPress will break tags at commas. If you really want a tag with a comma, add it via the web interface."""
         if not wp.has_tag(tag):
             tag = self.read_tag(tag)
 
