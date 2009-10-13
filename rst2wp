@@ -60,7 +60,6 @@ file in your text editor, so this information is also saved in
 config.data_storage.
 '''
 # FIXME: robust against missing configuration keys
-# FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
 
