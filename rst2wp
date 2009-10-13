@@ -618,7 +618,8 @@ class Rst2Wp(Application):
                 tags.append(wordpresslib.WordPressTag(name=tag))
         # WP will replace \n with <br/>, which isn't what RST is
         # designed for. We short-circuit this by replacing all newlines
-        body = re.sub('\n', body, '')
+        body = re.sub('\n', '', body)
+
 
         new_post_data = {
             'title' : fields['title'],
