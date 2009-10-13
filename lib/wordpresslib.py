@@ -151,7 +151,7 @@ class CategoryBase(object):
 
     def __init__(self, id=None, name=None, description=None, slug=None,
                  html_url=None, rss_url=None):
-        self.id = id or -1
+        self.id = id or None
         self.name = name or ''
         self.description = description or ''
         self.slug = slug or ''
@@ -160,7 +160,7 @@ class CategoryBase(object):
 
     def __repr__(self):
         id_badge = '(id unknown)'
-        if self.id != -1:
+        if self.id != None:
             id_badge = '(id=%s)'%(self.id)
 
         return '<%s %r %s at %#x>'%(self.__class__.__name__, self.name, id_badge, id(self))
@@ -222,7 +222,7 @@ class WordPressPost():
     """
     def __init__(self, id=None, title=None, date=None, permaLink=None,
                  description=None, textMore=None, excerpt=None, link=None,
-                 categories=None, user=None, allowPings=None,
+                 categories=None, tags=None, user=None, allowPings=None,
                  allowComments=None):
         self.id = id or None  # indicates not-yet-saved
         self.title = title or ''
@@ -233,6 +233,7 @@ class WordPressPost():
         self.excerpt = excerpt or ''
         self.link = link or ''
         self.categories = categories or []
+        self.tags = tags or []
         self.user = user or ''  # N.B. userid as string
         self.allowPings = allowPings or False
         self.allowComments = allowComments or False
@@ -391,6 +392,7 @@ class WordPressClient():
             'mt_allow_pings' : post.allowPings,
             'mt_text_more' : post.textMore,
             'mt_excerpt' : post.excerpt,
+            'mt_keywords': self._marshal_tags_names(post.tags),
             'categories' : self._marshal_categories_names(post.categories),
         }
 
@@ -409,6 +411,15 @@ class WordPressClient():
             if c.id == -1:
                 raise TypeError, "bad mojo -- categories need IDs"
         return [{'categoryId': cat.id} for cat in categories]
+
+    def _marshal_tags_names(self, tags):
+        tag_data = []
+        for tag in tags:
+            if tag.id:
+                tag_data.append(tag.id)
+            else:
+                tag_data.append(tag.name)
+        return ','.join(tag_data)
 
     def _marshal_categories_names(self, categories):
         return [cat.name for cat in categories]
@@ -522,6 +533,15 @@ class WordPressClient():
         for t in self.getTags():
             if t.name == name:
                 return t.id
+
+    get_tag_id_from_name = getTagIdFromName
+
+    def getTag(self, name):
+        for t in self.getTags():
+            if t.name == name:
+                return t
+
+    get_tag = getTag
 
     def has_category(self, name):
         return self.getCategoryIdFromName(name) != None
