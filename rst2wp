@@ -63,7 +63,6 @@ config.data_storage.
 # FIXME: still need to confirm categories, get new information about them
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
-# FIXME: 
 
 # Configuration:
 # - config.data_storage = one of "file", "dotrc", or "both".
@@ -257,6 +256,7 @@ class ValidityCheckerTransform(docutils.transforms.Transform):
     default_priority = 99
     def apply(self):
         fields = self.document.settings.bibliographic_fields
+        app = self.document.settings.application
 
         def _no_field(msg, msg2=''):
             if msg2: msg = msg+msg2
@@ -270,18 +270,21 @@ class ValidityCheckerTransform(docutils.transforms.Transform):
         if 'category' in fields:
             fields['categories'] = fields.pop('category')
 
-        if not fields.get('categories'):
+        if not fields.get('categories') and \
+                not app.config.has_option('config', 'default_category'):
             _no_field("No categories supplied", """
 WordPress requires at least one category.
 
 If you don't want to categorize this post, use the "Uncategorized" category.
 
+Set config.default_category to do this automatically.
+
 :categories: Uncategorized
 """)
 
         categories = fields.get('categories') or fields.get('category')
-        if categories == None:  # shouldn't happen
-            fields['categories'] = categories = ['Uncategorized']
+        if categories == None:
+            fields['categories'] = categories = [app.config.get('config', 'default_category')]
 
         wp = self.document.settings.wordpress_instance
         for cat in categories:
