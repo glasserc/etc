@@ -361,12 +361,19 @@ class WordPressClient():
 
         See the documentation for editPost.
         """
-        id = int(self._save_post('newPost', self.blogId, post, publish))
+        id = int(self._save_post('metaWeblog', 'newPost', [self.blogId], post, publish))
         post.id = id
         return id
 
     new_post = newPost
 
+    def newPage(self, page, publish):
+        # FIXME: probably wrong
+        id = int(self._save_page('wp', 'newPage', [], page, publish))
+        page.id = id
+        return id
+
+    new_page = newPage
 
     def editPost(self, postId, post, publish):
         """Save post.
@@ -376,14 +383,23 @@ class WordPressClient():
 
         @param publish True if you want to also publish this post
         """
-        result = self._save_post('editPost', postId, post, publish)
+        result = self._save_post('metaWeblog', 'editPost', [postId], post, publish)
         if result == 0:
             raise WordPressException('Post edit failed')
         return result
 
     edit_post = editPost
 
-    def _save_post(self, method_name, arg0, post, publish):
+    def editPage(self, pageId, post, publish):
+        '''FIXME: hacked up extremely roughly'''
+        result = self._save_post('wp', 'editPage', [self.blogId, pageId], post, publish)
+        if result == 0:
+            raise WordPressException('Post edit failed')
+        return result
+
+    edit_page = editPage
+
+    def _save_post(self, namespace, method_name, args, post, publish):
         # FIXME: does permaLink do anything here?? Doesn't seem so, but wp_slug might
         blogContent = {
             'title' : post.title,
@@ -400,9 +416,10 @@ class WordPressClient():
             blogContent['dateCreated'] = xmlrpclib.DateTime(post.date)
 
         # Get remote method: e.g. self._server.metaWeblog.editPost
-        meth = getattr(self._server.metaWeblog, method_name)
+        ns = getattr(self._server, namespace)
+        meth = getattr(ns, method_name)
         # call remote method: arg0 is blogId for newPost, postId for editPost
-        result = meth(arg0, self.user, self.password, blogContent, int(publish))
+        result = meth(*(args+[self.user, self.password, blogContent, int(publish)]))
 
         return result
 
