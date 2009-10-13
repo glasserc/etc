@@ -351,7 +351,6 @@ class Application(object):
     def __init__(self):
         super(Application, self).__init__()
         self._config = None
-        self.preview = False
 
     @property
     def config(self):
@@ -414,16 +413,26 @@ class Application(object):
 
 
 class Rst2Wp(Application):
+    def __init__(self):
+        super(Rst2Wp, self).__init__()
+        self.preview = False
+        self.list_tags = False
+        self.list_categories = False
+
     @property
     def data_storage(self):
         return self.config.get('config', 'data_storage')
 
     def parse_args(self, args):
         filename = None
-        opts, leftover = getopt.gnu_getopt(args[1:], 'p', ['preview'])
+        opts, leftover = getopt.gnu_getopt(args[1:], 'n', ['preview', 'list-tags', 'list-categories'])
         for opt, val in opts:
-            if opt in ['-p', '--preview']:
+            if opt in ['-n', '--preview']:
                 self.preview = True
+            elif opt in ['--list-tags']:
+                self.list_tags = True
+            elif opt in ['--list-categories']:
+                self.list_categories = True
 
         if len(leftover) > 0:
             filename = leftover[0]
@@ -555,7 +564,7 @@ class Rst2Wp(Application):
             self.VERBOSE = config.get('account', 'verbose')
 
         print "Connecting to WP server at", url
-        wp = wordpresslib.WordPressClient(url, username, password)
+        self.wp = wp = wordpresslib.WordPressClient(url, username, password)
 
         if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
             blogs = list(wp.get_users_blogs())
@@ -570,6 +579,11 @@ class Rst2Wp(Application):
         if self.VERBOSE:
             options = wp.get_options()
             print "Talking to %s version %s"%(options['software_name'], options['software_version'])
+
+        if self.list_tags:
+            return self.run_list_tags()
+        elif self.list_categories:
+            return self.run_list_categories()
 
         with file(self.filename) as f:
             self.text = text = f.read()
@@ -652,6 +666,14 @@ class Rst2Wp(Application):
         time.sleep(5)
 
         os.unlink(fp.name)
+
+    def run_list_tags(self):
+        tags = self.wp.get_tags()
+        for tag in tags:
+            print '{name} (id {id}): {count} posts'.format(**tag.__dict__)
+
+    def run_list_categories(self):
+        print self.wp.get_categories()
 
 
 POSTS_LOCATION = Rst2Wp.posts_location
