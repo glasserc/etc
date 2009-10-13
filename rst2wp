@@ -290,9 +290,48 @@ Set config.default_category to do this automatically.
         for cat in categories:
             self.check_existing_category(wp, cat)
 
+        if 'tag' in fields:
+            fields['tags'] = fields.pop('tag')
+
+        if 'tags' in fields:
+            for tag in fields['tags']:
+                self.check_existing_tag(wp, tag)
+
+    def check_existing_tag(self, wp, tag):
+        if not wp.has_tag(tag):
+            tag = self.read_tag(tag)
+
     def check_existing_category(self, wp, cat):
         if not wp.has_category(cat):
-            raise ValueError, "FIXME: prompt for confirmation"
+            cat = self.read_category(cat)
+
+    def read_base(self, name):
+        fmt = {'name': repr(str(name))}
+        slug = raw_input("Slug for {name} [auto-generate]: ".format(**fmt))
+        description = raw_input("Description for {name} [none]: ".format(**fmt))
+        return {'slug': slug, 'description': description, 'name': name}
+
+    def read_tag(self, tag):
+        fmt = {'tag': repr(str(tag))}
+        if ',' in tag:
+            raise ValueError, """Cannot create tag with ',' in the name.
+
+If you really want a tag with a comma in the name, create it via the web interface first."""
+
+        print "Post has non-existent tag {tag}. Ctrl-C to cancel.".format(**fmt)
+        print "rst2wp can create the tag automatically, but can't set description or slug via XML-RPC API. If you want to edit these things, log in to the blog!"
+        raw_input("Confirm creation? [yes]")
+
+    def read_category(self, cat):
+        fmt = {'category': repr(str(cat))}
+        print "Post has non-existent category {category}. Ctrl-C to cancel.".format(**fmt)
+        raw_input("Confirm? [yes]")
+
+        data = self.read_base(cat)
+        parent_id = raw_input("Parent id for {category} [none]: ".format(**fmt))
+            
+        c = wordpresslib.WordPressCategory(parent_id=parent_id, **data)
+        wp.new_category(c)
 
 
 class WordPressReader(standalone.Reader):
@@ -558,9 +597,16 @@ class Rst2Wp(Application):
         fields = reader.document.settings.bibliographic_fields
 
         categories = [wordpresslib.WordPressCategory(name=cat) for cat in fields['categories']]
+        tags = []
+        for tag in fields['tags']:
+            if wp.has_tag(tag):
+                tags.append(wp.get_tag(tag))
+            else:
+                tags.append(wordpresslib.WordPressTag(name=tag))
         new_post_data = {
             'title' : fields['title'],
             'categories': categories,
+            'tags': tags,
             'description': body,
             }
 
