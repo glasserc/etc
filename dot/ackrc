@@ -1,2 +1,3 @@
 --type-add=jsp=.jxp
 --type-set=djang10=.djang10
+--type-set=haml=.haml
