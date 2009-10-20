@@ -619,7 +619,7 @@ class Rst2Wp(Application):
 
         if self.preview:
             return self.run_preview(output)
-            
+
 
         fields = reader.document.settings.bibliographic_fields
 
@@ -686,7 +686,7 @@ class Rst2Wp(Application):
         body = output['body']
         fp = tempfile.NamedTemporaryFile(suffix='-rst2wp-preview.html',
                                          delete=False)
-        fp.write(body)
+        fp.write(body.encode('utf8'))
         fp.close()
         browser = os.getenv('BROWSER') or 'sensible-browser'
         subprocess.call([browser, fp.name])
