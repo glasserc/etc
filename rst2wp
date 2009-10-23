@@ -170,7 +170,7 @@ class DownloadImageTransform(docutils.transforms.Transform):
         if self.document.settings.application.preview:
             print "Not downloading image because we're previewing document"
             if self.startnode:
-                self.startnode.remove_self()
+                self.startnode.replace_self([])
 
             return
 
