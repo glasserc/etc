@@ -395,6 +395,7 @@ class Application(object):
             config.set('account', 'password', 'trustNo1')
 
             config.set('config', 'data_storage', 'both')
+            config.set('config', 'publish_default', 'no')
 
             path = os.path.join(BaseDirectory.save_config_path('rst2wp'), 'wordpressrc')
             print 'Need configuration! Edit %s'%(path,)
