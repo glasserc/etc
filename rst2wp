@@ -71,7 +71,6 @@ Options
 # FIXME: robust against missing configuration keys
 # FIXME: prompt for a good filename/extension for unknown weird files
 # FIXME: could use fields['date'] for publish date
-# FIXME: publish by default, as specified by rst2wp/wordpresrc
 # FIXME: weird date disordering thing -- is it screwing up timezones?
 
 # Configuration:
@@ -435,6 +434,7 @@ class Rst2Wp(Application):
         self.preview = False
         self.list_tags = False
         self.list_categories = False
+        self.publish = None
 
     @property
     def data_storage(self):
@@ -442,7 +442,9 @@ class Rst2Wp(Application):
 
     def parse_args(self, args):
         filename = None
-        opts, leftover = getopt.gnu_getopt(args[1:], 'n', ['preview', 'list-tags', 'list-categories'])
+        long_args = ['preview', 'list-tags', 'list-categories', 'publish', 'no-publish']
+        opts, leftover = getopt.gnu_getopt(args[1:], 'n', long_args)
+
         for opt, val in opts:
             if opt in ['-n', '--preview']:
                 self.preview = True
@@ -450,6 +452,10 @@ class Rst2Wp(Application):
                 self.list_tags = True
             elif opt in ['--list-categories']:
                 self.list_categories = True
+            elif opt in ['--publish']:
+                self.publish = True
+            elif opt in ['--no-publish']:
+                self.publish = False
 
         if len(leftover) > 0:
             filename = leftover[0]
@@ -647,10 +653,18 @@ class Rst2Wp(Application):
             }
 
 
-        publish = fields.get('publish', None)
+        # Publish priority:
+        # 1. --publish/--no-publish
+        # 2. :publish: yes
+        # 3. config publish_default
+        # 4. default to false
+        publish = None
+        if publish == None: publish = self.publish
+        if publish == None:
+            publish = fields.get('publish', None)
+            if publish == 'yes': publish = True
         if publish == None and config.has_option('config', 'publish_default'):
             publish = config.getboolean('config', 'publish_default')
-        if publish == 'yes': publish = True
         if publish == None: publish = False
 
         if self.has_info(reader.document, "post " + self.filename, 'id'):
