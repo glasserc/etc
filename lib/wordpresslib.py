@@ -91,6 +91,14 @@ class WordPressException(exceptions.Exception):
 # to newPost/editPost, but mt.setPostCategories wants an array of ids
 # and a field called isPrimary (isPrimary is ignored by WP).
 
+# Timezones aren't really dealt with; when getting a post, we use
+# date_created_gmt and post back using date_created_gmt. This is at
+# least consistent; when you post back using dateCreated it seems to
+# interpret this as GMT, even though when you read dateCreated it
+# seems to be in the local timezone. It isn't clear if this is by
+# design or what, but other people seem to have run into similar issues:
+#
+# http://www.simmonsconsulting.com/2008/02/29/daylight-saving-time-and-wordpress-xmlrpc/
 
 class WordPressBlog():
     """Represents blog item
@@ -272,7 +280,8 @@ class WordPressClient():
         postObj.title           = post['title']
         postObj.excerpt         = post['mt_excerpt']
         postObj.user            = post['userid']
-        postObj.date            = time.strptime(str(post['dateCreated']), "%Y%m%dT%H:%M:%S")
+        postObj.date            = time.strptime(str(post['date_created_gmt']), "%Y%m%dT%H:%M:%S")
+        print "Parsing date:", postObj.date, post['dateCreated'], post
         postObj.link            = post['link']
         postObj.textMore        = post['mt_text_more']
         postObj.allowComments   = post['mt_allow_comments'] == 1
@@ -413,7 +422,8 @@ class WordPressClient():
         }
 
         if post.date:
-            blogContent['dateCreated'] = xmlrpclib.DateTime(post.date)
+            blogContent['date_created_gmt'] = xmlrpclib.DateTime(post.date)
+            print "Back-converting dateCreated:", post.date, blogContent['date_created_gmt']
 
         # Get remote method: e.g. self._server.metaWeblog.editPost
         ns = getattr(self._server, namespace)
