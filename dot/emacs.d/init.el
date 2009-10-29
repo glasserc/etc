@@ -54,6 +54,10 @@
 (set-face-background 'rst-level-4-face "#3d3d3d")
 (set-face-background 'rst-level-5-face "#363636")
 
+(setq auto-mode-alist
+      (cons '("\\.rst$" . rst-mode)
+            auto-mode-alist))
+
 ;;; elide-head
 (require 'elide-head)
 
@@ -421,3 +425,26 @@ Copy those element references and run this regexp over them to
 create definitions."
   (interactive "r")
   (replace-regexp "^ *&? ?\\([[:alnum:]_]*\\).element *$" "\\1.element = element \\1 { text }" nil start end))
+
+;;; travelogue
+
+(setq travelogue-location (expand-file-name "~/src/travelogue/posts/"))
+(defun travelogue-now ()
+  (interactive)
+  (find-file (concat travelogue-location (format-time-string "%Y-%m-%d-%T.rst"))))
+
+(setq journal-location (expand-file-name "~/writing/journal/"))
+(defun journal-today ()
+  (interactive)
+  (let* ((now (current-time))
+         (decoded (decode-time now))
+         (hr (caddr decoded))
+         (appropriate-time (if (< hr 5) ; not yet 5 AM; it's still yesterday
+                               (progn
+                                 (setf (cadddr decoded) (- (cadddr decoded) 1))
+                                 decoded)
+                             decoded))
+         (filename (concat journal-location
+                           (format-time-string "%Y-%m-%d"
+                                               (apply 'encode-time decoded)))))
+    (find-file filename)))
