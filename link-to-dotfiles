@@ -13,6 +13,11 @@
 #
 # will generate a symlink at ~/.foo which points to ~/etc/dot/foo.
 #
+# If you have a file called foo:bar, a directory will be created
+# ~/.foo with ~/.foo/bar symlinked to ~/etc/dot/foo:bar. This is nice
+# if you have one or two "private" files that go in a "public" or
+# non-private directory.
+#
 # ~/etc/dot/config, if it exists, will be treated specially,
 # corresponding to the special role ~/.config has in the XDG spec. Any
 # files in ~/etc/dot/config will be symlinked in to ~/.config with
@@ -49,7 +54,15 @@ def link_all(src, target, prefix, config_special=True):
             continue
 
         linktarget = os.path.abspath(child)
-        dest = os.path.join(target, prefix+filename)
+        parts = filename.split(':')
+        dest = os.path.join(target, prefix+parts[0], *parts[1:])
+
+        try:
+            # FIXME: sorta hacky
+            os.makedirs(os.path.dirname(dest))
+        except OSError:
+            pass
+
         if os.path.exists(dest):
             if os.path.islink(dest): # if it's a link
                 link = os.readlink(dest)

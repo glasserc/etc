@@ -1,4 +1,6 @@
 #!/bin/sh
+# DEPRECATED -- look at sha1deep if you need this kind of functionality
+#
 # matchup - sorting out files which you already have somewhere else.
 #
 # To use, create an index, using something like the following.
