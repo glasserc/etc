@@ -1,0 +1,32 @@
+#! /usr/bin/python
+
+import sys, subprocess, os.path
+
+extensions = {
+    'image/gif': 'gif',
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+    'text/html': 'html',
+    'text/plain': 'txt',
+    'text/x-c++': 'cpp',
+    'text/x-c': 'c',
+    'text/x-lisp': 'el',
+    'text/x-pascal': 'psc',
+    'text/x-shellscript': 'sh',
+    'audio/mpeg': 'mp3',
+    'application/xml': 'xml',
+    'application/x-shockwave-flash': 'swf',
+    'application/x-gzip': 'gz',
+    'application/x-archive': 'ar',
+    'application/x-object': 'o',
+    'application/octet-stream': 'bin',
+}
+
+for filename in sys.argv[1:]:
+    forked = subprocess.Popen(["file", "--mime-type", "-b", filename],
+                              stdout=subprocess.PIPE)
+    mimetype = forked.stdout.read().strip()
+
+    base, ext = os.path.splitext(filename)
+    if ext != '.' + extensions[mimetype]:
+        os.rename(filename, filename + '.' + extensions[mimetype])
