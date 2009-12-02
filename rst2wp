@@ -689,6 +689,8 @@ class Rst2Wp(Application):
         with file(self.filename) as f:
             self.text = text = f.read()
 
+        # self.text is the version we eventually save;
+        # text is the version we render
         text = text+self._known_link_stanza()
         reader = WordPressReader(self.preview)
 
