@@ -689,7 +689,7 @@ class Rst2Wp(Application):
         with file(self.filename) as f:
             self.text = text = f.read()
 
-        self.text = text = text+self._known_link_stanza()
+        text = text+self._known_link_stanza()
         reader = WordPressReader(self.preview)
 
         used_images = {}
