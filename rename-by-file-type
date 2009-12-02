@@ -11,14 +11,22 @@ extensions = {
     'text/x-c++': 'cpp',
     'text/x-c': 'c',
     'text/x-lisp': 'el',
+    'text/x-perl': 'pl',
+    'text/x-asm': 's',
     'text/x-pascal': 'psc',
+    'text/x-java': 'java',
     'text/x-shellscript': 'sh',
+    'text/x-makefile': 'Makefile',  # uh...
     'audio/mpeg': 'mp3',
     'application/xml': 'xml',
     'application/x-shockwave-flash': 'swf',
     'application/x-gzip': 'gz',
+    'application/zip': 'zip',
     'application/x-archive': 'ar',
     'application/x-object': 'o',
+    'application/vnd.ms-office': 'doc',
+    'application/msword': 'doc',
+    'application/x-executable': 'exe',
     'application/octet-stream': 'bin',
 }
 
