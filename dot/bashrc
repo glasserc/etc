@@ -99,6 +99,7 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# previous employer stuff -- probably not useful
 export CLASSPATH=/usr/lib/jvm/java-6-sun-1.6.0.06/lib/tools.jar
 #export db_ip=ofc-n1.10gen.com
 export db_ip=127.0.0.1
@@ -117,14 +118,6 @@ alias check_licenses="./runAnt.bash ed.util.LicenseHeaderCheck "
 alias sites="cd ~/gitroot/sites"
 alias corejs="cd ~/gitroot/corejs"
 
-status(){
-    (
-        cd
-        export GIT_CONFIG=~/.gitconfig.status
-        mr status | python ~/.config/scripts/strip_empty_stanzas.py
-    )
-}
-
 alias erh='sudo afp_client mount -a "No User Authent" 192.168.19.17:10gen_db_backup /media/erh '
 alias unerh='sudo afp_client unmount /media/erh'
 
@@ -138,6 +131,23 @@ alias unerh='sudo afp_client unmount /media/erh'
 function afpcli () {
     afpcmd "afp://;AUTH=No User Authent:@$1"
 }
+# -----
+
+status(){
+    (
+        cd
+        export GIT_CONFIG=~/.gitconfig.status
+        mr status | python ~/.config/scripts/strip_empty_stanzas.py
+    )
+}
+
+# --- employer ---
+bless_new_branch(){
+    BRANCH=$1
+    chmod 777 $1/application/logs
+    for x in config/*; do ln -s `pwd`/$x $1/application/config; done
+}
+# ----------------
 
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
 GITPS1='$(__git_ps1 ":%s")'
