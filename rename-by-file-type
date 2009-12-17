@@ -17,6 +17,7 @@ extensions = {
     'text/x-java': 'java',
     'text/x-shellscript': 'sh',
     'text/x-makefile': 'Makefile',  # uh...
+    'text/troff': '1',   # ?
     'audio/mpeg': 'mp3',
     'application/xml': 'xml',
     'application/x-shockwave-flash': 'swf',
@@ -28,9 +29,11 @@ extensions = {
     'application/msword': 'doc',
     'application/x-executable': 'exe',
     'application/octet-stream': 'bin',
+    'application/x-executable': 'exe',
 }
 
 for filename in sys.argv[1:]:
+    if os.path.isdir(filename): continue
     forked = subprocess.Popen(["file", "--mime-type", "-b", filename],
                               stdout=subprocess.PIPE)
     mimetype = forked.stdout.read().strip()
