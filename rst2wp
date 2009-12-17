@@ -110,6 +110,7 @@ from docutils import core, io, nodes, utils
 from docutils.parsers.rst import roles, directives, languages
 import docutils.parsers.rst.directives.images
 from docutils.readers import standalone
+import docutils.writers.html4css1
 import docutils.transforms
 import yaml
 import urllib
@@ -134,11 +135,12 @@ See the source for more details.'''.format(name=os.path.basename(sys.argv[0]))
 
 class MyImageDirective(directives.images.Image):
     option_spec = directives.images.Image.option_spec.copy()
-    option_spec.update({'saved_as': directives.unchanged})
+    option_spec.update({'saved_as': directives.unchanged,
+                        'title': directives.unchanged})
 
     def run(self):
         uri = directives.uri(self.arguments[0])
-        print 'Handling image directive:', uri
+        print 'Handling image directive:', uri, self.options
         document = self.state_machine.document
         app = document.settings.application
 
@@ -175,6 +177,14 @@ class MyImageDirective(directives.images.Image):
         return result_nodes
 
 directives.register_directive('image', MyImageDirective)
+
+class MyTranslator(docutils.writers.html4css1.HTMLTranslator):
+    def visit_image(self, node):
+        docutils.writers.html4css1.HTMLTranslator.visit_image(self, node)
+        image = self.body[-1]
+        if 'title' in node.attributes:
+            # Hackishly insert the image title into the image tag
+            self.body[-1] = image.replace('/>', 'title="%s" />'%self.attval(node['title']))
 
 class DownloadImageTransform(docutils.transforms.Transform):
     default_priority = 100
@@ -695,8 +705,10 @@ class Rst2Wp(Application):
         reader = WordPressReader(self.preview)
 
         used_images = {}
+        writer = docutils.writers.html4css1.Writer()
+        writer.translator_class = MyTranslator
 
-        output = core.publish_parts(source=text, writer_name='html',
+        output = core.publish_parts(source=text, writer=writer,
                                     reader=reader,
                                     settings_overrides={
                 'wordpress_instance' : wp,
