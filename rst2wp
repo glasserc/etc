@@ -577,7 +577,7 @@ class Rst2Wp(Application):
 
     def replace_field(self, document, key, value):
         keystring = ':{key}:'.format(key=key)
-        new_line = '{keystring} {value}'.format(keystring=keystring, value=value)
+        new_line = '{keystring} {value}'.format(keystring=keystring, value=value.encode('utf8'))
 
         lines = self.text.split('\n')
         for i in range(len(lines)):
