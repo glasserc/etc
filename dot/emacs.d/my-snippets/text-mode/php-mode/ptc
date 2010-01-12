@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: ptc
+# key: ptc
+# --
+PHPUnit_Framework_TestCase
