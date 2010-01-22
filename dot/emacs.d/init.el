@@ -148,6 +148,8 @@
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-archive-mark-done nil)
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(require-final-newline ask)
@@ -296,6 +298,11 @@
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;;; abbrev
+(setq abbrev-file-name (emacs-d "abbrev_defs.el"))
+(read-abbrev-file abbrev-file-name t)
+(setq abbrev-mode t)   ; not really sure about this... RST has some abbrevs too
 
 ;;; pymacs, ropemacs
 (if (require 'pymacs nil t)
