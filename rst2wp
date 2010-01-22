@@ -222,6 +222,8 @@ class DownloadImageTransform(docutils.transforms.Transform):
     def upload_image(self, uri):
         # FIXME: this might not work on non-Unix -- but who cares?
         target_filename = os.path.split(uri)[1]
+        if '?' in target_filename:
+            target_filename = target_filename[:target_filename.index('?')]
         if '.' not in target_filename:
             raise TypeError, 'FIXME: prompt for a filename for %s'%(target_filename,)
         #print "returned:", filename, headers
@@ -229,7 +231,7 @@ class DownloadImageTransform(docutils.transforms.Transform):
         filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
         wp = self.document.settings.wordpress_instance
 
-        print 'uploading file', uri
+        print 'uploading file', uri, filename
         new_uri = wp.upload_file(filename, overwrite=True)
 
         if filename.startswith(TEMP_DIRECTORY):
