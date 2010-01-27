@@ -1,3 +1,6 @@
 [submodule "dot/emacs.d/contrib/org-mode.git"]
 	path = dot/emacs.d/contrib/org-mode.git
 	url = git://repo.or.cz/org-mode.git
+[submodule "dot/emacs.d/contrib/phpunit-el.git"]
+	path = dot/emacs.d/contrib/phpunit-el.git
+	url = git://github.com/ieure/phpunit-el.git
