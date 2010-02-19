@@ -167,6 +167,24 @@
  '(diff-removed ((t (:inherit diff-changed :foreground "red")))))
 ;;; customize stuff
 
+;;; customize explicit sets
+(setq completion-ignored-extensions
+      '("~" ; backup files
+        ".o" ".bin" ".lbin" ".so" ".a" ".lib" ; object/output files
+        ".pyc" ".pyo" ".elc"
+        "CVS/" "_darcs/" "_MTN/"    ; VCS
+        ; ".svn/" ".hg/" ".git/" ".bzr/"   ;; don't ignore project.git
+
+        ; No idea what any of these are
+        ".ln" ".blg" ".bbl" ".lof" ".glo" ".idx" ".lot" ".fmt"
+        ".tfm" ".class" ".fas" ".mem" ".x86f" ".sparcf" ".fasl"
+        ".ufsl" ".fsl" ".dxl" ".pfsl" ".dfsl" ".p64fsl" ".d64fsl"
+        ".dx64fsl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux"
+        ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns"
+        ".kys" ".pgs" ".tps" ".vrs"))
+(setq ido-ignore-files (append '("^.bzr/" "^.git/" "^.hg/") ido-ignore-files))
+;;;
+
 ;;; other programming language modes
 (require 'css-mode)
 (setq auto-mode-alist
