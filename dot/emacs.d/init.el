@@ -1,3 +1,4 @@
+(require 'cl)
 (defun emacs-d (filename)
   (concat (expand-file-name "~/.emacs.d/") filename))
 
@@ -168,22 +169,21 @@
 ;;; customize stuff
 
 ;;; customize explicit sets
-(setq completion-ignored-extensions
-      '("~" ; backup files
-        ".o" ".bin" ".lbin" ".so" ".a" ".lib" ; object/output files
-        ".pyc" ".pyo" ".elc"
-        "CVS/" "_darcs/" "_MTN/"    ; VCS
-        ; ".svn/" ".hg/" ".git/" ".bzr/"   ;; don't ignore project.git
 
-        ; No idea what any of these are
-        ".ln" ".blg" ".bbl" ".lof" ".glo" ".idx" ".lot" ".fmt"
-        ".tfm" ".class" ".fas" ".mem" ".x86f" ".sparcf" ".fasl"
-        ".ufsl" ".fsl" ".dxl" ".pfsl" ".dfsl" ".p64fsl" ".d64fsl"
-        ".dx64fsl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux"
-        ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns"
-        ".kys" ".pgs" ".tps" ".vrs"))
-; But do ignore files that are just .git, .hg, .svn, etc.
-(setq ido-ignore-files (append '("^.bzr/" "^.git/" "^.hg/" "^.svn/") ido-ignore-files))
+(defun remove-all (needles haystack)
+  (remove* needles haystack :test '(lambda (needles elt)
+                                     (member elt needles))))
+
+(let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
+  ;; don't ignore project.git
+  (setq completion-ignored-extensions
+        (remove-all vcs-extensions completion-ignored-extensions))
+  (setq ido-ignore-files
+        (append
+         ;; But do ignore files that are just .git, .hg, .svn, etc.
+         ;; generate regexes that are ^.git, etc.
+         (mapcar '(lambda (arg) (concat "^" arg)) vcs-extensions)
+         ido-ignore-files)))
 ;;;
 
 ;;; other programming language modes
