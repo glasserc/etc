@@ -152,7 +152,7 @@
  '(org-archive-mark-done nil)
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
- '(require-final-newline ask)
+ '(require-final-newline t)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
  '(uniquify-separator "/")
