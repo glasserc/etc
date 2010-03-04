@@ -182,7 +182,8 @@
         ".dx64fsl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux"
         ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns"
         ".kys" ".pgs" ".tps" ".vrs"))
-(setq ido-ignore-files (append '("^.bzr/" "^.git/" "^.hg/") ido-ignore-files))
+; But do ignore files that are just .git, .hg, .svn, etc.
+(setq ido-ignore-files (append '("^.bzr/" "^.git/" "^.hg/" "^.svn/") ido-ignore-files))
 ;;;
 
 ;;; other programming language modes
