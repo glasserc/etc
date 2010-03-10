@@ -1,3 +1,4 @@
+(require 'cl)
 (defun emacs-d (filename)
   (concat (expand-file-name "~/.emacs.d/") filename))
 
@@ -148,9 +149,11 @@
  '(display-buffer-reuse-frames t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-archive-mark-done nil)
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
- '(require-final-newline ask)
+ '(require-final-newline t)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
  '(uniquify-separator "/")
@@ -164,6 +167,24 @@
  '(diff-added ((t (:inherit diff-changed :foreground "green"))))
  '(diff-removed ((t (:inherit diff-changed :foreground "red")))))
 ;;; customize stuff
+
+;;; customize explicit sets
+
+(defun remove-all (needles haystack)
+  (remove* needles haystack :test '(lambda (needles elt)
+                                     (member elt needles))))
+
+(let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
+  ;; don't ignore project.git
+  (setq completion-ignored-extensions
+        (remove-all vcs-extensions completion-ignored-extensions))
+  (setq ido-ignore-files
+        (append
+         ;; But do ignore files that are just .git, .hg, .svn, etc.
+         ;; generate regexes that are ^.git, etc.
+         (mapcar '(lambda (arg) (concat "^" arg)) vcs-extensions)
+         ido-ignore-files)))
+;;;
 
 ;;; other programming language modes
 (require 'css-mode)
@@ -296,6 +317,11 @@
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;;; abbrev
+(setq abbrev-file-name (emacs-d "abbrev_defs.el"))
+(read-abbrev-file abbrev-file-name t)
+(setq abbrev-mode t)   ; not really sure about this... RST has some abbrevs too
 
 ;;; pymacs, ropemacs
 (if (require 'pymacs nil t)

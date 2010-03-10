@@ -145,9 +145,12 @@ status(){
 bless_new_branch(){
     BRANCH=$1
     chmod 777 $1/application/logs
+    rm $1/application/logs/*
     for x in config/*; do ln -s `pwd`/$x $1/application/config; done
 }
 # ----------------
+
+alias parse_epoch='python -c "import sys, datetime; print datetime.datetime.fromtimestamp(int(sys.argv[1]))"'
 
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
 GITPS1='$(__git_ps1 ":%s")'
