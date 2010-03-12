@@ -1,0 +1,35 @@
+# Don't want to use ^A as escape key since I often use emacs/bash
+# inside screen. But then what choice would be better?
+# I've seen people online using the following:
+#
+# - ^O: open-line or similar: interferes with org-mode (^C^X^O
+#   org-clock-out)
+#
+# - ^T: transpose-chars
+#
+# - ^Z: suspend-frame: the rationale being that if you're in screen,
+#   you won't miss job control.
+#
+# - `: backtick: used in shell scripting, but avoidable using $().
+#   Also shows up in ReStructuredText a lot.. I'm hesitant to use this.
+#
+# Lots of characters won't be passed by OS X's Terminal.app. The ones
+# that are include:
+#
+# - ^^ (ctrl-caret), which is kind of a pain to type but isn't used by
+#   anything that I know of
+#
+# - ^\ (ctrl-backslash), which is only used by emacs
+#   toggle-input-method, but backslash is in such a prime location
+#   that maybe we'll leave it alone for now.
+#
+# I use the formulation "escape [command]e" so that no matter what
+# character I use as my escape character, I'm not shadowing a screen
+# command to generate a literal one. For example, if I used ^Tt, to
+# generate a literal ^T would be ^T t, and this would shadow screen's
+# "time" keybinding (itself [command]-t). Screen doesn't have
+# a binding for [command]-e, but it could, so maybe this should be changed?
+
+escape ^Te
+
+
