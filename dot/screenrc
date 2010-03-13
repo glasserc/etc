@@ -5,7 +5,7 @@
 # - ^O: open-line or similar: interferes with org-mode (^C^X^O
 #   org-clock-out)
 #
-# - ^T: transpose-chars
+# - ^T: transpose-chars: org-mode ^C^T org-todo
 #
 # - ^Z: suspend-frame: the rationale being that if you're in screen,
 #   you won't miss job control.
@@ -30,6 +30,6 @@
 # "time" keybinding (itself [command]-t). Screen doesn't have
 # a binding for [command]-e, but it could, so maybe this should be changed?
 
-escape ^Te
+escape ^^e
 
 
