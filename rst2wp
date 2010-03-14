@@ -112,7 +112,7 @@ import docutils.parsers.rst.directives.images
 from docutils.readers import standalone
 import docutils.writers.html4css1
 import docutils.transforms
-import yaml
+#import yaml
 import urllib
 
 sys.path.insert(0, os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib"))
@@ -425,6 +425,7 @@ class Application(object):
             config.set('account', 'username', 'joe_user')
             config.set('account', 'password', 'trustNo1')
 
+            config.add_section('config')
             config.set('config', 'data_storage', 'both')
             config.set('config', 'publish_default', 'no')
 
