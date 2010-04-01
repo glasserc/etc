@@ -1,0 +1,4 @@
+$CONFIG{'owner'} = q{Ethan Glasser-Camp};
+$CONFIG{'email'} = q{ethan@betacantrips.com};
+$CONFIG{'keyid'} = [ qw{2FAF0357657B1DBA} ];
+
