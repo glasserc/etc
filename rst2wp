@@ -182,9 +182,12 @@ class MyTranslator(docutils.writers.html4css1.HTMLTranslator):
     def visit_image(self, node):
         docutils.writers.html4css1.HTMLTranslator.visit_image(self, node)
         image = self.body[-1]
-        if 'title' in node.attributes:
+        # Default title to alt text
+        title = node.attributes.get('title', node.attributes.get('alt', None))
+
+        if title:
             # Hackishly insert the image title into the image tag
-            self.body[-1] = image.replace('/>', 'title="%s" />'%self.attval(node['title']))
+            self.body[-1] = image.replace('/>', 'title="%s" />'%self.attval(title))
 
 class DownloadImageTransform(docutils.transforms.Transform):
     default_priority = 100
