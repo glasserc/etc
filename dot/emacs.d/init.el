@@ -424,6 +424,8 @@
 (setq org-remember-templates '(("todo" ?t "* TODO %?
 %u
 %a" nil bottom nil)))
+;; I'm not sure about this: perhaps default to Incoming, or ivillage Talking?
+(setq org-remember-store-without-prompt nil)
 
 ;;; php-mode
 (add-hook 'php-mode-hook (lambda ()
