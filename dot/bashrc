@@ -156,6 +156,7 @@ bless_new_branch(){
 # ----------------
 
 alias parse_epoch='python -c "import sys, datetime; print datetime.datetime.fromtimestamp(int(sys.argv[1]))"'
+alias svn-cleanup="svn st | grep ^? | cut -c2- | xargs rm"
 
 if [ -f ~/.config/etc.machine/`hostname -s`.rc ]; then
    source ~/.config/etc.machine/`hostname -s`.rc
