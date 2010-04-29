@@ -218,7 +218,9 @@ class DownloadImageTransform(docutils.transforms.Transform):
         new_uri = app.get_info(self.document, 'image ' + uri, 'new uri', location=IMAGES_LOCATION)
         self.document.settings.used_images[uri] = True
 
-        image = nodes.image(uri=new_uri)
+        details = self.startnode.details.copy()
+        details['uri'] = new_uri
+        image = nodes.image(**details)
         return image
 
 
