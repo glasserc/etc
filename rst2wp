@@ -230,7 +230,7 @@ class DownloadImageTransform(docutils.transforms.Transform):
         if '?' in target_filename:
             target_filename = target_filename[:target_filename.index('?')]
         if '.' not in target_filename:
-            raise TypeError, 'FIXME: prompt for a filename for %s'%(target_filename,)
+            target_filename = raw_input("Image specified by %s doesn't have a filename.\nWhat would you like this image to be named?\n> "%(uri,))
         #print "returned:", filename, headers
 
         filename, headers = urllib.urlretrieve(uri, os.path.join(TEMP_DIRECTORY, target_filename))
