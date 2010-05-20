@@ -7,3 +7,6 @@
 [submodule "dot/emacs.d/contrib/ethan-wspace.git"]
 	path = dot/emacs.d/contrib/ethan-wspace.git
 	url = git://github.com/glasserc/ethan-wspace.git
+[submodule "dot/emacs.d/contrib/magit.git"]
+	path = dot/emacs.d/contrib/magit.git
+	url = http://github.com/philjackson/magit.git
