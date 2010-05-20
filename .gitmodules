@@ -4,3 +4,6 @@
 [submodule "dot/emacs.d/contrib/phpunit-el.git"]
 	path = dot/emacs.d/contrib/phpunit-el.git
 	url = git://github.com/ieure/phpunit-el.git
+[submodule "dot/emacs.d/contrib/ethan-wspace.git"]
+	path = dot/emacs.d/contrib/ethan-wspace.git
+	url = git://github.com/glasserc/ethan-wspace.git

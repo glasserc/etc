@@ -8,6 +8,7 @@
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
 (add-to-list 'load-path (emacs-d "packages/org-mode"))
+(add-to-list 'load-path (emacs-d "packages/ethan-wspace"))
 
 (if (not (functionp 'debian-run-directories))
     (require 'debian-startup))
@@ -44,6 +45,7 @@
 
 ;;; wspace -- both displaying, and editing
 (require 'ethan-wspace)
+(global-ethan-wspace-mode 1)
 
 ;;; rst face customizations
 ; FIXME: ugly colors
@@ -153,7 +155,6 @@
  '(org-archive-mark-done nil)
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
- '(require-final-newline t)
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
  '(uniquify-separator "/")
