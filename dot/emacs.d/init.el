@@ -458,13 +458,21 @@ create definitions."
 
 ;;; travelogue
 
-(setq travelogue-location (expand-file-name "~/src/travelogue/posts/"))
-(defun travelogue-now ()
-  (interactive)
-  (let* ((target (concat travelogue-location (format-time-string "%Y/%m/%d/%T.rst")))
+(defun find-blog-entry-for-now (base)
+  (let* ((target (concat base (format-time-string "%Y/%m/%d/%T.rst")))
         (directory (file-name-directory target)))
     (make-directory directory t)
     (find-file target)))
+
+(setq travelogue-location (expand-file-name "~/src/travelogue/posts/"))
+(defun travelogue-now ()
+  (interactive)
+  (find-blog-entry-for-now travelogue-location))
+
+(setq cameroon-location (expand-file-name "~/src/cameroon/posts/"))
+(defun cameroon-now ()
+  (interactive)
+  (find-blog-entry-for-now cameroon-location))
 
 (setq journal-location (expand-file-name "~/writing/journal/"))
 (defun journal-today ()
