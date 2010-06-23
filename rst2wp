@@ -671,6 +671,21 @@ class Rst2Wp(Application):
         txt = txt[:start] + txt[start:].replace('\n', ' ')
         return txt
 
+    def create_client(self, url, username, password):
+        wp = wordpresslib.WordPressClient(url, username, password)
+
+        if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
+            blogs = list(wp.get_users_blogs())
+            blog = blogs[0]
+            print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
+            wp.selectBlog(blog.id)
+        else:
+            blog_id = config.get_int('account', 'blog_id')
+            print "Using blog id %s from config" % (blog_id,)
+            wp.selectBlog(blog_id)
+
+        return wp
+
     def run(self, *args, **kwargs):
         if not args: args = sys.argv
         self.parse_args(args)
@@ -683,26 +698,19 @@ class Rst2Wp(Application):
             self.VERBOSE = config.get('account', 'verbose')
 
         print "Connecting to WP server at", url
-        self.wp = wp = wordpresslib.WordPressClient(url, username, password)
-
-        if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
-            blogs = list(wp.get_users_blogs())
-            blog = blogs[0]
-            print "Arbitrarily picking first blog: %s at %s"%(blog.name, blog.url)
-            wp.selectBlog(blog.id)
-        else:
-            blog_id = config.get_int('account', 'blog_id')
-            print "Using blog id %s from config" % (blog_id,)
-            wp.selectBlog(blog_id)
+        wp = None
+        if not self.preview:
+            self.wp = wp = self.create_client(url, username, password)
 
         if self.VERBOSE:
             options = wp.get_options()
             print "Talking to %s version %s"%(options['software_name'], options['software_version'])
 
-        if self.list_tags:
-            return self.run_list_tags()
-        elif self.list_categories:
-            return self.run_list_categories()
+        if not self.preview:
+            if self.list_tags:
+                return self.run_list_tags()
+            elif self.list_categories:
+                return self.run_list_categories()
 
         with file(self.filename) as f:
             self.text = text = f.read()
