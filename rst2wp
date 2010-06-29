@@ -673,6 +673,7 @@ class Rst2Wp(Application):
 
     def create_client(self, url, username, password):
         wp = wordpresslib.WordPressClient(url, username, password)
+        config = self.config
 
         if not config.has_option('account', 'blog_id') or config.get('account', 'blog_id') == '':
             blogs = list(wp.get_users_blogs())
