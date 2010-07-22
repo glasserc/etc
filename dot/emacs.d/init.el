@@ -1,4 +1,3 @@
-(require 'cl)
 (defun emacs-d (filename)
   (concat (expand-file-name "~/.emacs.d/") filename))
 
@@ -171,6 +170,7 @@
 
 ;;; customize explicit sets
 
+(require 'cl)
 (defun remove-all (needles haystack)
   (remove* needles haystack :test '(lambda (needles elt)
                                      (member elt needles))))
