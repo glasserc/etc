@@ -39,7 +39,7 @@
 (setq default-emacs-font "Terminus-13")
 
 (if (>= emacs-major-version 23)
-    (progn (set-frame-font default-emacs-font)
+    (progn (set-frame-font default-emacs-font t)
            (add-to-list 'default-frame-alist (cons 'font default-emacs-font))))
 ;;; end Emacs 23 font hacking
 
