@@ -148,6 +148,7 @@
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
+ '(ido-max-directory-size 36864)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(org-agenda-restore-windows-after-quit t)
