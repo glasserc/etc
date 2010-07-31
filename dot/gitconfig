@@ -8,7 +8,7 @@
 
 ; FIXME -- could be user-agnostic
 [core]
-        excludesfile = /home/ethan/.config/gitignore
+        excludesfile = /home/ethan/.config/git/gitignore
 [cola]
         fontdiff = Terminus,12,-1,5,50,0,0,0,0,0
 

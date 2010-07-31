@@ -141,7 +141,7 @@ function afpcli () {
 status(){
     (
         cd
-        export GIT_CONFIG=~/.gitconfig.status
+        export GIT_CONFIG=~/.config/git/gitconfig.status
         mr status | python ~/.config/scripts/strip_empty_stanzas.py
     )
 }

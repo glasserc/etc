@@ -4,4 +4,4 @@
 
 ; FIXME: should take other config from .gitconfig
 [core]
-        excludesfile = /home/ethan/.config/gitignore
+        excludesfile = /home/ethan/.config/git/gitignore
