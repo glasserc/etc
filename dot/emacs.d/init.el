@@ -183,61 +183,7 @@
   (visual-line-mode 1))
 
 (add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
-
-(require 'multi-mode)
-(defun jsp-mode () (interactive)
-  (multi-mode 1
-              'html-mode
-              '("<%--" indented-text-mode)
-              '("{" javascript-mode)
-              '("<%@" html-mode)
-              '("<%=" html-mode)
-              '("<%" java-mode)
-              '("%>" html-mode)
-              )
-  )
-
 ;;; end programming language modes
-
-;;; jxp-mode stuff.
-;;;
-;;; This is a symlink to a file that might get updated and on some
-;;; machines doesn't even exist, so we wrap it in a condition-case (in
-;;; case it doesn't exist here).
-(condition-case jxp-error
-    (progn (require 'jxp-mode)
-           (require 'mmm-mode)
-
-           (setq mmm-global-mode 'maybe)
-           (mmm-add-mode-ext-class 'html-mode "\\.jxp\\'" 'html-jxp)
-           (mmm-add-mode-ext-class 'html-mode "\\.jxp\\'" 'html-js)
-           (mmm-add-classes
-            '((html-jxp
-               :submode jxp-mode
-               :face mmm-declaration-submode-face
-               :front "<%=?"
-               :back "%>"
-               :include-front t
-               :include-back t
-               )))
-           (mmm-add-classes
-            '((html-js
-               :submode jxp-mode
-               :face mmm-output-submode-face
-               :front "<script[^>]*>"
-               :back "</script>"
-               :include-front t
-               :include-back t
-               )))
-           (autoload 'jxp-mode "jxp-mode" "JXP editing mode" t)
-           (add-to-list 'auto-mode-alist '("\\.jxp\\'" . html-mode))
-           ;; mmm-mode conveniently displays jxp code as white-on-white unless the highlight level is set to 0
-           (setq mmm-submode-decoration-level 0))
-  (error (message "Failed to load jxp mode: %s" jxp-error)))
-; FIXME: fall back on JSP mode?
-;;; end jxp-mode stuff
-
-
 ;;; esvn-mode
 (require 'esvn)
 
