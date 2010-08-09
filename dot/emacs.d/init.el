@@ -178,7 +178,11 @@
       (cons '("\\.js$" . js2-mode)
             auto-mode-alist))
 
+;; text mode
+(defun turn-on-visual-line-mode ()
+  (visual-line-mode 1))
 
+(add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
 
 (require 'multi-mode)
 (defun jsp-mode () (interactive)
