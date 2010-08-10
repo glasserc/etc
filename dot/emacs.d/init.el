@@ -354,6 +354,35 @@
 ;; I'm not sure about this: perhaps default to Incoming, or ivillage Talking?
 (setq org-remember-store-without-prompt nil)
 
+;; RST export for orgtbl
+(defun orgtbl-to-rst-line (line)
+  (apply 'format (cons *org-rst-lfmt* line)))
+
+(defun orgtbl-to-rst (table params)
+  "Convert the Orgtbl mode TABLE to ReStructuredText."
+  (message "WHOO")
+  (let* ((alignment (mapconcat (lambda (x) (if x "r" "l"))
+                               org-table-last-alignment ""))
+         (hline (concat
+                 "+-"
+                 (mapconcat (lambda (width) (apply 'string (make-list width ?-)))
+                            org-table-last-column-widths "-+-")
+                 "-+"))
+         (*org-rst-lfmt* (concat
+                          "| "
+                          (mapconcat (lambda (width) (format "%%-%ss" width))
+                                     org-table-last-column-widths " | ")
+                          " |"))
+         (params2
+          (list
+;;                :tstart (concat "\\begin{tabular}{" alignment "}")
+;;                :tend "\\end{tabular}"
+           :tstart hline
+           :hline hline
+           :lfmt 'orgtbl-to-rst-line
+           )))
+    (orgtbl-to-generic table (org-combine-plists params2 params))))
+
 ;;; php-mode
 (add-hook 'php-mode-hook (lambda ()
   (c-set-offset 'arglist-intro '+)
