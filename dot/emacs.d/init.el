@@ -360,10 +360,7 @@
 
 (defun orgtbl-to-rst (table params)
   "Convert the Orgtbl mode TABLE to ReStructuredText."
-  (message "WHOO")
-  (let* ((alignment (mapconcat (lambda (x) (if x "r" "l"))
-                               org-table-last-alignment ""))
-         (hline (concat
+  (let* ((hline (concat
                  "+-"
                  (mapconcat (lambda (width) (apply 'string (make-list width ?-)))
                             org-table-last-column-widths "-+-")
@@ -375,8 +372,6 @@
                           " |"))
          (params2
           (list
-;;                :tstart (concat "\\begin{tabular}{" alignment "}")
-;;                :tend "\\end{tabular}"
            :tstart hline
            :hline hline
            :lfmt 'orgtbl-to-rst-line
