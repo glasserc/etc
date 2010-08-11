@@ -299,11 +299,16 @@
 (setq all-org-files (directory-files org-directory t ".org$" t))
 (setq org-agenda-files (filter
                         (lambda (filename)
-                          (not (string-match "someday.org$" filename)))
+                          (not (or (string-match "someday.org$" filename)
+                                   (string-match "feeds.org$" filename))))
                         all-org-files))
 
 (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
 (setq org-use-fast-todo-selection t)
+
+;; Still messing around with this.
+(load (concat org-directory "/feeds-list.el"))
+
 ; customize?
 ;org-enforce-todo-dependencies
 ;org-track-ordered-property-with-tag
