@@ -12,7 +12,7 @@
  '(inhibit-startup-screen t)
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
- '(org-capture-templates (quote (("t" "todo" entry (file "~/src/org-files/notes.org") "* TODO %?
+ '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "* New") "* TODO %?
 %u
 %a"))))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
