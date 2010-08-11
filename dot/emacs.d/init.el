@@ -343,16 +343,9 @@
            (define-key yas/keymap [tab] 'yas/next-field)))
 
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
-;;; remember
-(org-remember-insinuate)
+;;; org-capture
 (setq org-default-notes-file (concat org-directory "/notes.org"))
-(define-key global-map "\C-cr" 'org-remember)
-
-(setq org-remember-templates '(("todo" ?t "* TODO %?
-%u
-%a" nil bottom nil)))
-;; I'm not sure about this: perhaps default to Incoming, or ivillage Talking?
-(setq org-remember-store-without-prompt nil)
+(define-key global-map "\C-cc" 'org-capture)
 
 ;; RST export for orgtbl
 (defun orgtbl-to-rst-line (line)

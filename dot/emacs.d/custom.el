@@ -12,6 +12,9 @@
  '(inhibit-startup-screen t)
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
+ '(org-capture-templates (quote (("t" "todo" entry (file "~/src/org-files/notes.org") "* TODO %?
+%u
+%a"))))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(transient-mark-mode t)
