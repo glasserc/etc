@@ -82,6 +82,7 @@
 ;;; end desktop-mode
 
 ;;; generic editing keybindings
+(load "~/.emacs.d/ethan-defuns.el")
 (defun count-words (&optional begin end)
   "Runs wc on region (if active) or otherwise the whole buffer."
   (interactive
@@ -116,25 +117,6 @@
 ;; Revert automatically. This might cause a lot of network traffic
 ;; when used with tramp?
 (global-auto-revert-mode 1)
-
-; Handy function when I just did a git reset or something that touched
-; a bunch of files at once
-(defun revert-all ()
-  "Revert all unchanged buffers."
-  (interactive)
-  (let ((buffers (buffer-list)))
-    (filter (lambda (buffer)
-              (if (not (buffer-modified-p buffer))
-                  (progn
-                    (condition-case revert-error
-                        (save-excursion
-                          (save-window-excursion
-                            (switch-to-buffer buffer)
-                            (revert-buffer t t t)))
-                      (error (message "Reverting %s failed: %s" buffer revert-error))))
-                )) buffers)
-    ))
-
 
 ;;; end generic editing keybindings
 
@@ -392,52 +374,3 @@
 
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
-
-;;; rnc-mode
-(defun rnc-define-simple-elements (start end)
-  "Useful for grinding out schemae. You probably have something like:
-
-foo.element = element foo {
-  bar.element
-& baz.element
-& fubar.element
-}
-
-Copy those element references and run this regexp over them to
-create definitions."
-  (interactive "r")
-  (replace-regexp "^ *&? ?\\([[:alnum:]_]*\\).element *$" "\\1.element = element \\1 { text }" nil start end))
-
-;;; travelogue
-
-(defun find-blog-entry-for-now (base)
-  (let* ((target (concat base (format-time-string "%Y/%m/%d/%T.rst")))
-        (directory (file-name-directory target)))
-    (make-directory directory t)
-    (find-file target)))
-
-(setq travelogue-location (expand-file-name "~/src/travelogue/posts/"))
-(defun travelogue-now ()
-  (interactive)
-  (find-blog-entry-for-now travelogue-location))
-
-(setq cameroon-location (expand-file-name "~/src/cameroon/posts/"))
-(defun cameroon-now ()
-  (interactive)
-  (find-blog-entry-for-now cameroon-location))
-
-(setq journal-location (expand-file-name "~/writing/journal/"))
-(defun journal-today ()
-  (interactive)
-  (let* ((now (current-time))
-         (decoded (decode-time now))
-         (hr (caddr decoded))
-         (appropriate-time (if (< hr 5) ; not yet 5 AM; it's still yesterday
-                               (progn
-                                 (setf (cadddr decoded) (- (cadddr decoded) 1))
-                                 decoded)
-                             decoded))
-         (filename (concat journal-location
-                           (format-time-string "%Y-%m-%d"
-                                               (apply 'encode-time decoded)))))
-    (find-file filename)))
