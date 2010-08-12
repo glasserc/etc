@@ -113,6 +113,10 @@
 (global-set-key [?\C-c ?>] 'increase-left-margin)
 (global-set-key [?\C-c ?<] 'decrease-left-margin)
 
+;; Revert automatically. This might cause a lot of network traffic
+;; when used with tramp?
+(global-auto-revert-mode 1)
+
 ; Handy function when I just did a git reset or something that touched
 ; a bunch of files at once
 (defun revert-all ()
