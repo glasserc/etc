@@ -6,9 +6,11 @@
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
+ '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(ido-max-directory-size 36864)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(mouse-yank-at-point t)
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
  '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "* New") "* TODO %?
