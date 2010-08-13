@@ -155,11 +155,6 @@
       (cons '("\\.css$" . css-mode)
             auto-mode-alist))
 
-;(setq auto-mode-alist
-;      (cons '("\\.jxp$" . jsp-mode)
-;            auto-mode-alist))
-
-
 (setq auto-mode-alist
       (cons '("\\.js$" . js2-mode)
             auto-mode-alist))
@@ -252,10 +247,6 @@
                         )))))
   (progn ; else
     (message "WARNING: pymacs missing -- ropemacs absent")))
-
-;;; git -- I never use this any more since git-cola, but hey!
-;(require 'git)
-;;; end git
 
 ;;; dvc
 ;(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages/dvc-2009-02-05"))
