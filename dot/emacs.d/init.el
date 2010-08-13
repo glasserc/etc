@@ -215,6 +215,13 @@
          t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
 (add-to-list 'load-path yasnippet-directory)
 
+;; I should probably be able to make this introspect or something
+(let ((tmp "~/.emacs.d/cache/"))
+  (custom-set-variables
+   (list 'ido-save-directory-list-file (concat tmp "ido.last"))
+   (list 'bookmark-default-file (concat tmp "emacs.bmk"))
+   (list 'recentf-save-file (concat tmp "recentf"))))
+
 (require 'yasnippet)
 (yas/initialize)
 (yas/load-directory (concat yasnippet-directory "/snippets"))
