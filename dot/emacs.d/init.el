@@ -229,6 +229,7 @@
 
 (require 'yasnippet)
 (yas/initialize)
+;; This takes a long time
 (yas/load-directory (concat yasnippet-directory "/snippets"))
 (yas/load-directory (emacs-d "my-snippets"))
 
@@ -271,7 +272,6 @@
 ;;; end magit
 
 ;;; org-mode
-;(require 'org-install)
 (require 'org)
 ; FIXME: this doesn't seem necessary on sundance, but does on colt -- why?
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
