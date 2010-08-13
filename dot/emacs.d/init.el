@@ -1,8 +1,10 @@
-(defun emacs-d (filename)
-  (concat (expand-file-name "~/.emacs.d/") filename))
+(setq emacs-d (expand-file-name "~/.emacs.d/"))
 
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/packages"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/src"))  ; my elisp hacks
+(defun emacs-d (filename)
+  (concat emacs-d filename))
+
+(add-to-list 'load-path (emacs-d "packages"))
+(add-to-list 'load-path (emacs-d "src"))  ; my elisp hacks
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
