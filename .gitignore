@@ -4,6 +4,4 @@
 dot/emacs.d/auto-save-list
 dot/emacs.d/.emacs.desktop.lock
 dot/gitconfig.local
-dot/emacs.d/tramp
-dot/emacs.d/ido.last
 dot/emacs.d/cache/*

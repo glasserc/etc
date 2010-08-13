@@ -218,6 +218,7 @@
 ;; I should probably be able to make this introspect or something
 (let ((tmp "~/.emacs.d/cache/"))
   (custom-set-variables
+   (list 'tramp-persistency-file-name (concat tmp "tramp"))
    (list 'ido-save-directory-list-file (concat tmp "ido.last"))
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
    (list 'recentf-save-file (concat tmp "recentf"))))
