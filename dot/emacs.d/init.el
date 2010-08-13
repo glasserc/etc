@@ -3,6 +3,7 @@
 (defun emacs-d (filename)
   (concat emacs-d filename))
 
+(add-to-list 'load-path emacs-d)
 (add-to-list 'load-path (emacs-d "packages"))
 (add-to-list 'load-path (emacs-d "src"))  ; my elisp hacks
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
@@ -84,7 +85,8 @@
 ;;; end desktop-mode
 
 ;;; generic editing keybindings
-(load "~/.emacs.d/ethan-defuns.el")
+(require 'ethan-defuns)
+(require 'ethan-misc)
 (defun count-words (&optional begin end)
   "Runs wc on region (if active) or otherwise the whole buffer."
   (interactive
