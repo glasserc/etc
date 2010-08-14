@@ -134,8 +134,6 @@
 (load custom-file)
 ;;; customize stuff
 
-;;; customize explicit sets
-
 (require 'cl)
 (defun remove-all (needles haystack)
   (remove* needles haystack :test '(lambda (needles elt)
@@ -218,16 +216,6 @@
          (expand-file-name "~/.emacs.d/packages/")
          t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
 (add-to-list 'load-path yasnippet-directory)
-
-;; I should probably be able to make this introspect or something
-(let ((tmp "~/.emacs.d/cache/"))
-  (custom-set-variables
-   (list 'oddmuse-directory (concat tmp "oddmuse"))
-   (list 'save-place-file (concat tmp "places"))
-   (list 'tramp-persistency-file-name (concat tmp "tramp"))
-   (list 'ido-save-directory-list-file (concat tmp "ido.last"))
-   (list 'bookmark-default-file (concat tmp "emacs.bmk"))
-   (list 'recentf-save-file (concat tmp "recentf"))))
 
 (require 'yasnippet)
 (yas/initialize)
