@@ -15,4 +15,25 @@
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
    (list 'recentf-save-file (concat tmp "recentf"))))
 
+;; Ido: don't ignore project.git, but ignore .git itself.
+(let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
+  ;; remove .git/ from completion-ignored-extensions, because it matches endings
+  (mapc '(lambda (extension)
+           (setq completion-ignored-extensions
+                 (remove extension completion-ignored-extensions)))
+        vcs-extensions)
+  (setq ido-ignore-files
+        (append
+         ;; But do ignore files that are just .git, .hg, .svn, etc.
+         ;; generate regexes that are ^.git, etc.
+         (mapcar '(lambda (arg) (concat "^" arg)) vcs-extensions)
+         ido-ignore-files)))
+;;;
+
+;;; magit -- I still use this
+; Weirdness on OS X -- PATH doesn't get set or something when running emacs
+(if (file-exists-p "/usr/local/git/bin/git")
+    (setq magit-git-executable "/usr/local/git/bin/git"))
+;;; end magit
+
 (provide 'ethan-misc)
