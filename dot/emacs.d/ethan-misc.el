@@ -87,4 +87,14 @@
 (set-default 'desktop-path (list (expand-file-name "~/.emacs.d/")))
 ;;; end desktop-mode
 
+;; Some modes
+(setq auto-mode-alist
+      (append
+       '(
+         ("writing/"             . text-mode)
+         ("\\.mdwn$"             . mdwn-mode)
+         ) auto-mode-alist))
+;; text mode
+(add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
+
 (provide 'ethan-misc)
