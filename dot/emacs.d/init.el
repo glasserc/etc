@@ -24,6 +24,20 @@
 
 (add-to-list 'load-path (emacs-d "packages/org-mode"))
 (add-to-list 'load-path (emacs-d "packages/ethan-wspace"))
+(add-to-list 'load-path (emacs-d "/elpa-to-submit"))
+
+(setq autoload-file (emacs-d "loaddefs.el"))
+(setq package-user-dir (emacs-d "elpa"))
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+(require 'ethan-elpa)
 
 (if (not (functionp 'debian-run-directories))
     (require 'debian-startup))
@@ -46,3 +60,5 @@
 (require 'ethan-java)
 (require 'ethan-haskell)
 (require 'ethan-js)
+
+(regen-autoloads)

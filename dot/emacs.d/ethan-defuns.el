@@ -85,6 +85,7 @@ Symbols matching the text at point are put first in the completion list."
 (add-hook 'coding-hook 'turn-on-save-place-mode)
 (add-hook 'coding-hook 'pretty-lambdas)
 (add-hook 'coding-hook 'add-watchwords)
+(add-hook 'coding-hook 'idle-highlight)
 
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
@@ -128,7 +129,7 @@ Symbols matching the text at point are put first in the completion list."
 (defun regen-autoloads (&optional force-regen)
   "Regenerate the autoload definitions file if necessary and load it."
   (interactive "P")
-  (let ((autoload-dir (concat dotfiles-dir "/elpa-to-submit"))
+  (let ((autoload-dir (emacs-d "/elpa-to-submit"))
         (generated-autoload-file autoload-file))
     (when (or force-regen
               (not (file-exists-p autoload-file))

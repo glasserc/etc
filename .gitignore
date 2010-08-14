@@ -5,3 +5,5 @@ dot/emacs.d/auto-save-list
 dot/emacs.d/.emacs.desktop.lock
 dot/gitconfig.local
 dot/emacs.d/cache/*
+dot/emacs.d/elpa/
+loaddefs.el*
