@@ -4,8 +4,6 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (add-to-list 'auto-mode-alist '("/TODO$" . org-mode))
 (setq org-directory "~/src/org-files")
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 (setq org-clock-into-drawer t)
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)

@@ -6,6 +6,7 @@
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
+ '(echo-keystrokes 0.1)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(ido-max-directory-size 36864)
  '(indent-tabs-mode nil)

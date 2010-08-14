@@ -9,6 +9,10 @@
 ;; a lot of network traffic when used with tramp?
 (global-auto-revert-mode 1)
 
+(show-paren-mode 1)
+;; I don't think I'll actually use this, but it doesn't hurt
+(recentf-mode 1)
+
 ;; I should probably be able to make this introspect or something
 (let ((tmp "~/.emacs.d/cache/"))
   (custom-set-variables
@@ -19,6 +23,13 @@
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
    (list 'recentf-save-file (concat tmp "recentf"))))
 
+;; Don't clutter up directories with files~
+(setq backup-directory-alist `(("." . ,(expand-file-name
+                                        (emacs-d "backups")))))
+
+;; I don't use imenu, but it's a better default
+(set-default 'imenu-auto-rescan t)
+
 ;;; redo: There may be a better way to do this, but my tiny brain can
 ;;; only handle so much.
 (require 'redo)
@@ -27,6 +38,8 @@
 
 (require 'ido)
 (ido-mode 1)
+(setq ido-enable-flex-matching t
+      ido-use-filename-at-point 'guess)
 
 ;; Ido: don't ignore project.git, but ignore .git itself.
 (let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
@@ -111,7 +124,24 @@
          ("writing/"             . text-mode)
          ("\\.mdwn$"             . mdwn-mode)
          ) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
+
+(setq diff-switches "-u")
+
 ;; text mode
 (add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
+(add-to-list 'text-mode-hook 'turn-on-flyspell)
+
+;; Get around the emacswiki spam protection
+(add-hook 'oddmuse-mode-hook
+          (lambda ()
+            (unless (string-match "question" oddmuse-post)
+              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
+
+(defvar coding-hook nil
+  "Hook that gets run on activation of any programming mode.")
 
 (provide 'ethan-misc)
