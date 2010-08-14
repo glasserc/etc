@@ -60,5 +60,6 @@
 (require 'ethan-java)
 (require 'ethan-haskell)
 (require 'ethan-js)
+(require 'ethan-lisp)
 
 (regen-autoloads)
