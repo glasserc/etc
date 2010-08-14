@@ -79,6 +79,23 @@
 (add-hook 'find-file-hook 'elide-head)
 ;;; end elide-head
 
+;;; yasnippet
+(setq yasnippet-directory
+      (car
+       (last
+        ; FIXME: not sorted, since I don't want to parse version numbers
+        (directory-files
+         (expand-file-name "~/.emacs.d/packages/")
+         t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
+(add-to-list 'load-path yasnippet-directory)
+
+(require 'yasnippet)
+(yas/initialize)
+;; This takes a long time
+(yas/load-directory (concat yasnippet-directory "/snippets"))
+(yas/load-directory (emacs-d "my-snippets"))
+
+
 ;;; desktop-mode config
 ; I don't expect to ever use it, but it's nice to
 ; have.  Save session with desktop-save, then read using desktop-read.

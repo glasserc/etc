@@ -9,4 +9,7 @@
 (global-set-key [?\C-c ?>] 'increase-left-margin)
 (global-set-key [?\C-c ?<] 'decrease-left-margin)
 
+;;; hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
 (provide 'ethan-bindings)
