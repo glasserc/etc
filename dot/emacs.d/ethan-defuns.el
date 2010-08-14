@@ -49,4 +49,33 @@
                                                (apply 'encode-time decoded)))))
     (find-file filename)))
 
+;; Useful editing keybindings:
+;; count-words (M-=, replaces default count-lines-region)
+(defun count-words (&optional begin end)
+  "Runs wc on region (if active) or otherwise the whole buffer."
+  (interactive
+   (list
+    (if (and transient-mark-mode mark-active)
+        (region-beginning)
+      (point-min))
+    (if (and transient-mark-mode mark-active)
+        (region-end)
+      (point-max))))
+  (shell-command-on-region begin end "wc"))
+
+;; scroll-up-one, M-down, maybe I should get rid of this, but I got used
+;; to it when I was using XEmacs
+(defun scroll-up-one (arg)
+  (interactive "p")
+  (scroll-up 1))
+
+;; scroll-down-one, ditto
+(defun scroll-down-one (arg)
+  (interactive "p")
+  (scroll-down 1))
+
+;; used in text-mode-hook
+(defun turn-on-visual-line-mode ()
+  (visual-line-mode 1))
+
 (provide 'ethan-defuns)
