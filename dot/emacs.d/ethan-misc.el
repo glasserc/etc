@@ -21,7 +21,9 @@
    (list 'tramp-persistency-file-name (concat tmp "tramp"))
    (list 'ido-save-directory-list-file (concat tmp "ido.last"))
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
-   (list 'recentf-save-file (concat tmp "recentf"))))
+   (list 'recentf-save-file (concat tmp "recentf")))
+  (setq *cheat-directory* (concat tmp "cheat")
+        *cheat-sheets-cache-file* (concat tmp "cheat/sheets")))
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
@@ -143,5 +145,24 @@
 
 (defvar coding-hook nil
   "Hook that gets run on activation of any programming mode.")
+
+(setq cheat-executable (expand-file-name "~/.gem/ruby/1.8/bin/cheat"))
+(eval-after-load 'cheat
+  '(progn
+     ;; Just make the cheat-executable path be configurable
+     (defun cheat-command (&rest rest)
+       "Run the cheat command with the given arguments, display the output."
+       (interactive "sArguments for cheat: \n")
+       (let* ((cmd (string-join " " rest))
+              (buffer (get-buffer-create
+                       (concat "*Cheat: " cmd "*"))))
+;         (message "Running: %s" (concat cheat-executable " " cmd))
+         (shell-command (concat cheat-executable " " cmd) buffer)))
+     (defun cheat-command-to-string (&rest rest)
+       "Run the cheat command with the given arguments and return the output as a
+  string.  Display nothing."
+       (shell-command-to-string (concat cheat-executable " " (string-join " " rest))))
+     ))
+
 
 (provide 'ethan-misc)
