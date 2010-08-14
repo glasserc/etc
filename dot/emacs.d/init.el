@@ -134,15 +134,12 @@
 (load custom-file)
 ;;; customize stuff
 
-(require 'cl)
-(defun remove-all (needles haystack)
-  (remove* needles haystack :test '(lambda (needles elt)
-                                     (member elt needles))))
-
 (let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
   ;; don't ignore project.git
-  (setq completion-ignored-extensions
-        (remove-all vcs-extensions completion-ignored-extensions))
+  (mapc '(lambda (extension)
+           (setq completion-ignored-extensions
+                 (remove extension completion-ignored-extensions)))
+        vcs-extensions)
   (setq ido-ignore-files
         (append
          ;; But do ignore files that are just .git, .hg, .svn, etc.
