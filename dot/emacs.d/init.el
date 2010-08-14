@@ -52,6 +52,7 @@
 (require 'ethan-defuns)
 (require 'ethan-misc)
 (require 'ethan-bindings)
+(require 'ethan-registers)
 (require 'ethan-esvn)
 (require 'ethan-org)
 (require 'ethan-python)
