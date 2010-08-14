@@ -13,11 +13,13 @@
 ; I keep someday.org files, can't include those. Maybe a better
 ; approach is needed?
 (setq all-org-files (directory-files org-directory t ".org$" t))
-(setq org-agenda-files (filter
-                        (lambda (filename)
-                          (not (or (string-match "someday.org$" filename)
-                                   (string-match "feeds.org$" filename))))
-                        all-org-files))
+(let
+    ((org-dir (expand-file-name org-directory)))
+     (setq org-agenda-files (remove
+                             (concat org-dir "/someday.org")
+                             (remove
+                              (concat org-dir "/feeds.org")
+                         all-org-files))))
 
 (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
 (setq org-use-fast-todo-selection t)
