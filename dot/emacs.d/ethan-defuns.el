@@ -122,9 +122,9 @@ Symbols matching the text at point are put first in the completion list."
 (defun recompile-init ()
   "Byte-compile all your dotfiles again."
   (interactive)
-  (byte-recompile-directory dotfiles-dir 0)
+  (byte-recompile-directory emacs-d 0)
   ;; TODO: remove elpa-to-submit once everything's submitted.
-  (byte-recompile-directory (concat dotfiles-dir "elpa-to-submit/") 0))
+  (byte-recompile-directory (emacs-d "elpa-to-submit/") 0))
 
 (defun regen-autoloads (&optional force-regen)
   "Regenerate the autoload definitions file if necessary and load it."
@@ -184,6 +184,7 @@ Symbols matching the text at point are put first in the completion list."
 
 ; Handy function when I just did a git reset or something that touched
 ; a bunch of files at once
+;; FIXME: remove "filter"
 (defun revert-all ()
   "Revert all unchanged buffers."
   (interactive)
