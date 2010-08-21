@@ -55,6 +55,7 @@
 (require 'ethan-registers)
 (require 'ethan-esvn)
 (require 'ethan-org)
+(require 'ethan-rst)
 (require 'ethan-python)
 (require 'ethan-php)
 (require 'ethan-haml)
