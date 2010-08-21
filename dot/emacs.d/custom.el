@@ -14,7 +14,7 @@
  '(mouse-yank-at-point t)
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
- '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "* New") "* TODO %?
+ '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "New") "* TODO %?
 %u
 %a"))))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
