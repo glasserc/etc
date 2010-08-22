@@ -184,4 +184,10 @@
 (define-key key-translation-map [Multi_key]
   (lookup-key key-translation-map (kbd "C-x 8")))
 
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; disable C-z on X11 sessions
+(when window-system
+  (global-unset-key "\C-z"))
+
 (provide 'ethan-misc)
