@@ -10,3 +10,6 @@
 [submodule "dot/emacs.d/contrib/magit.git"]
 	path = dot/emacs.d/contrib/magit.git
 	url = http://github.com/philjackson/magit.git
+[submodule "dot/emacs.d/contrib/rainbow.git"]
+	path = dot/emacs.d/contrib/rainbow.git
+	url = git://git.naquadah.org/rainbow.git
