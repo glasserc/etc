@@ -25,6 +25,8 @@
 (add-to-list 'load-path (emacs-d "packages/org-mode"))
 (add-to-list 'load-path (emacs-d "packages/ethan-wspace"))
 (add-to-list 'load-path (emacs-d "/elpa-to-submit"))
+;; Everything in contrib, maybe?
+(add-to-list 'load-path (emacs-d "contrib/rainbow.git"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
 (setq package-user-dir (emacs-d "elpa"))
