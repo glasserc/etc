@@ -158,7 +158,7 @@
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
 (defvar coding-hook nil
-  "Hook that gets run on activation of any programming mode.")
+  "hook that gets run on activation of any programming mode.")
 
 (setq cheat-executable (expand-file-name "~/.gem/ruby/1.8/bin/cheat"))
 (eval-after-load 'cheat
