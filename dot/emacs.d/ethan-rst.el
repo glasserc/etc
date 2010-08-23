@@ -11,3 +11,5 @@
 (setq auto-mode-alist
       (cons '("\\.rst$" . rst-mode)
             auto-mode-alist))
+
+(provide 'ethan-rst)

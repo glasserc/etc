@@ -1,5 +1,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (ansi-color-for-comint-mode-on)
 
@@ -10,7 +11,10 @@
 (global-auto-revert-mode 1)
 
 (show-paren-mode 1)
+(size-indication-mode t)
 ;; I don't think I'll actually use this, but it doesn't hurt
+(setq recentf-max-saved-items 100
+      recentf-max-menu-items 15)
 (recentf-mode 1)
 
 ;; I should probably be able to make this introspect or something
@@ -21,9 +25,14 @@
    (list 'tramp-persistency-file-name (concat tmp "tramp"))
    (list 'ido-save-directory-list-file (concat tmp "ido.last"))
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
-   (list 'recentf-save-file (concat tmp "recentf")))
+   (list 'recentf-save-file (concat tmp "recentf"))
+   (list 'auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")))
   (setq *cheat-directory* (concat tmp "cheat")
         *cheat-sheets-cache-file* (concat tmp "cheat/sheets")))
+
+;; overrride the default function....
+(defun emacs-session-filename (SESSION-ID)
+  (concat "~/.emacs.d/cache/session." SESSION-ID))
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
@@ -76,6 +85,10 @@
 (color-theme-charcoal-black)
 ;;; end color theme
 
+;; CUA Rectangle stuff
+(setq cua-enable-cua-keys nil)           ;; only for rectangles
+(cua-mode t)
+
 ;;; abbrev
 (setq abbrev-file-name (emacs-d "abbrev_defs.el"))
 (read-abbrev-file abbrev-file-name t)
@@ -109,7 +122,8 @@
 ;; This takes a long time
 (yas/load-directory (concat yasnippet-directory "/snippets"))
 (yas/load-directory (emacs-d "my-snippets"))
-
+(setq yas/wrap-around-region t
+      yas/prompt-functions '(yas/x-prompt yas/ido-prompt))
 
 ;;; desktop-mode config
 ; I don't expect to ever use it, but it's nice to
@@ -144,7 +158,7 @@
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
 (defvar coding-hook nil
-  "Hook that gets run on activation of any programming mode.")
+  "hook that gets run on activation of any programming mode.")
 
 (setq cheat-executable (expand-file-name "~/.gem/ruby/1.8/bin/cheat"))
 (eval-after-load 'cheat
@@ -164,5 +178,16 @@
        (shell-command-to-string (concat cheat-executable " " (string-join " " rest))))
      ))
 
+;; I'm not sure about this because maybe there's a better way to
+;; accomplish it, but this is how every other program on the system
+;; does compose keys, so..
+(define-key key-translation-map [Multi_key]
+  (lookup-key key-translation-map (kbd "C-x 8")))
+
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
+;; disable C-z on X11 sessions
+(when window-system
+  (global-unset-key "\C-z"))
 
 (provide 'ethan-misc)

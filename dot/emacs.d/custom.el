@@ -3,6 +3,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(bookmark-save-flag 0)
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(display-buffer-reuse-frames t)
@@ -14,7 +15,7 @@
  '(mouse-yank-at-point t)
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
- '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "* New") "* TODO %?
+ '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "New") "* TODO %?
 %u
 %a"))))
  '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
