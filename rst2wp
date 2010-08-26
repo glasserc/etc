@@ -756,12 +756,11 @@ class Rst2Wp(Application):
         body = self.replace_newlines(body)
 
         new_post_data = {
-            'title' : fields['title'],
+            'title' : unicode(fields['title']),
             'categories': categories,
             'tags': tags,
             'description': body,
             }
-
 
         # Publish priority:
         # 1. --publish/--no-publish
