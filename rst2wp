@@ -554,6 +554,7 @@ class Rst2Wp(Application):
         location = location or POSTS_LOCATION
         if self.data_storage in ['both', 'file']:
             if location == POSTS_LOCATION:
+                #print("Looking up {key} and finding {value}".format(key=key, value=document.settings.bibliographic_fields[key]))
                 return document.settings.bibliographic_fields[key]
             elif location == IMAGES_LOCATION:
                 # FIXME: as below
@@ -778,7 +779,7 @@ class Rst2Wp(Application):
 
         if self.has_info(reader.document, "post " + self.filename, 'id'):
             post_id = self.get_info(reader.document, "post " + self.filename, 'id')
-            post = wp.get_post(post_id)
+            post = wp.get_post(unicode(post_id))
 
             post.__dict__.update(new_post_data)
 
