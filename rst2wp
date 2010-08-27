@@ -779,7 +779,8 @@ class Rst2Wp(Application):
 
         if self.has_info(reader.document, "post " + self.filename, 'id'):
             post_id = self.get_info(reader.document, "post " + self.filename, 'id')
-            post = wp.get_post(unicode(post_id))
+            post_id = unicode(post_id)
+            post = wp.get_post(post_id)
 
             post.__dict__.update(new_post_data)
 
