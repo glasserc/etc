@@ -15,4 +15,6 @@
   (progn ; else
     (message "WARNING: pymacs missing -- ropemacs absent")))
 
+(add-hook 'python-mode-hook 'run-coding-hook)
+
 (provide 'ethan-python)
