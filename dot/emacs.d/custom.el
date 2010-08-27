@@ -31,4 +31,5 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(diff-added ((t (:inherit diff-changed :foreground "green"))))
- '(diff-removed ((t (:inherit diff-changed :foreground "red")))))
+ '(diff-removed ((t (:inherit diff-changed :foreground "red"))))
+ '(hl-line ((t (:background "#444444")))))
