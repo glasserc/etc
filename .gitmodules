@@ -4,3 +4,9 @@
 [submodule "contrib/markvl-git-svn-clone-externals"]
 	path = contrib/markvl-git-svn-clone-externals
 	url = git://github.com/markvl/git-svn-clone-externals.git
+[submodule "contrib/rst2wp"]
+	path = contrib/rst2wp
+	url = git@github.com:glasserc/rst2wp.git
+[submodule "contrib/fatcopy"]
+	path = contrib/fatcopy
+	url = git@github.com:glasserc/fatcopy.git
