@@ -27,6 +27,7 @@
 (add-to-list 'load-path (emacs-d "/elpa-to-submit"))
 ;; Everything in contrib, maybe?
 (add-to-list 'load-path (emacs-d "contrib/rainbow.git"))
+(add-to-list 'load-path (emacs-d "contrib/cedet-1.0"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
 (setq package-user-dir (emacs-d "elpa"))
@@ -55,6 +56,7 @@
 (require 'ethan-misc)
 (require 'ethan-bindings)
 (require 'ethan-registers)
+;(require 'ethan-cedet)
 (require 'ethan-esvn)
 (require 'ethan-org)
 (require 'ethan-rst)
