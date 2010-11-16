@@ -7,3 +7,4 @@ dot/gitconfig.local
 dot/emacs.d/cache/*
 dot/emacs.d/elpa/
 loaddefs.el*
+scratch.el*
