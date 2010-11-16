@@ -202,5 +202,6 @@
 (when (file-exists-p "~/.emacs.d/scratch.el")
     (setq initial-scratch-message (shell-command-to-string "cat ~/.emacs.d/scratch.el")))
 
+(require 'offlineimap)
 
 (provide 'ethan-misc)

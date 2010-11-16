@@ -28,6 +28,7 @@
 ;; Everything in contrib, maybe?
 (add-to-list 'load-path (emacs-d "contrib/rainbow.git"))
 (add-to-list 'load-path (emacs-d "contrib/cedet-1.0"))
+(add-to-list 'load-path (emacs-d "contrib/offlineimap-el.git"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
 (setq package-user-dir (emacs-d "elpa"))

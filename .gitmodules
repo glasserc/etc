@@ -13,3 +13,6 @@
 [submodule "dot/emacs.d/contrib/rainbow.git"]
 	path = dot/emacs.d/contrib/rainbow.git
 	url = git://git.naquadah.org/rainbow.git
+[submodule "dot/emacs.d/contrib/offlineimap-el.git"]
+	path = dot/emacs.d/contrib/offlineimap-el.git
+	url = git://git.naquadah.org/offlineimap-el.git
