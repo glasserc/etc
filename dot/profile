@@ -30,3 +30,11 @@ fi
 if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
    PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
 fi
+
+# Still playing with this; where do I want to put hand-compiled software?
+if [ -d "$HOME/local/bin" ] ; then
+   PATH="$HOME/local/bin:$PATH"
+fi
+if [ -d "$HOME/local/lib" ] ; then
+   LD_LIBRARY_PATH="$HOME/local/lib"
+fi
