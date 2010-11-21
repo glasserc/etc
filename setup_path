@@ -1,0 +1,23 @@
+# Set up $PATH appropriately
+if [ -d "$HOME/bin/contrib/" ] ; then
+    for contrib_dir in ~/bin/contrib/*; do
+        PATH="$contrib_dir:$PATH"
+    done
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
+   PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
+fi
+
+# Still playing with this; where do I want to put hand-compiled software?
+if [ -d "$HOME/local/bin" ] ; then
+   PATH="$HOME/local/bin:$PATH"
+fi
+if [ -d "$HOME/local/lib" ] ; then
+   export LD_LIBRARY_PATH="$HOME/local/lib"
+fi
