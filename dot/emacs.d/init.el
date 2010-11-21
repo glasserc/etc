@@ -69,5 +69,6 @@
 (require 'ethan-haskell)
 (require 'ethan-js)
 (require 'ethan-lisp)
+(require 'ethan-notmuch)
 
 (regen-autoloads)
