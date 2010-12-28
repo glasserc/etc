@@ -170,3 +170,11 @@ cdp () {
     print _.dirname(_.realpath(${1}.__file__[:-1]))"
   )"
 }
+
+# From http://ruslanspivak.com/2010/11/25/bash-history-incremental-search-forward/
+# 1.Disable terminal flow control altogether:
+stty -ixon
+# Now your Ctrl-S will work like a charm
+# 2.If you want to continue to use terminal flow control then you can just re-bind its Ctrl-S
+#    to, let’s say, Ctrl-X allowing BASH Ctrl-S to work as incremental history search forward:
+# stty stop ^X
