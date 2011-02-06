@@ -6,6 +6,7 @@
 (setq org-directory "~/src/org-files")
 (setq org-log-done t)
 (setq org-clock-into-drawer t)
+(setq org-footnote-section nil)
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
 ; I keep someday.org files, can't include those. Maybe a better
