@@ -26,7 +26,8 @@
    (list 'ido-save-directory-list-file (concat tmp "ido.last"))
    (list 'bookmark-default-file (concat tmp "emacs.bmk"))
    (list 'recentf-save-file (concat tmp "recentf"))
-   (list 'auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")))
+   (list 'auto-save-list-file-prefix (concat tmp "auto-save-list/saves-"))
+   (list 'url-cookie-file (concat tmp "url/cookies")))
   (setq *cheat-directory* (concat tmp "cheat")
         *cheat-sheets-cache-file* (concat tmp "cheat/sheets")))
 
