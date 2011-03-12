@@ -17,7 +17,6 @@
   (concat emacs-d filename))
 
 (add-to-list 'load-path emacs-d)
-(add-to-list 'load-path (emacs-d "packages"))
 (add-to-list 'load-path (emacs-d "src"))  ; my elisp hacks
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.

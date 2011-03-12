@@ -20,12 +20,6 @@
 ;; I don't use imenu, but it's a better default
 (set-default 'imenu-auto-rescan t)
 
-;;; redo: There may be a better way to do this, but my tiny brain can
-;;; only handle so much.
-;; (require 'redo)
-;; (define-key global-map (kbd "M-_") 'redo)
-;;; end redo
-
 (require 'ido)
 (ido-mode 1)
 (setq ido-enable-flex-matching t
@@ -85,16 +79,6 @@
 
 (add-hook 'find-file-hook 'elide-head)
 ;;; end elide-head
-
-;;; yasnippet
-(setq yasnippet-directory
-      (car
-       (last
-        ; FIXME: not sorted, since I don't want to parse version numbers
-        (directory-files
-         (expand-file-name "~/.emacs.d/packages/")
-         t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
-(add-to-list 'load-path yasnippet-directory)
 
 ;; This takes a long time
 ;(yas/load-directory (concat yasnippet-directory "/snippets"))
