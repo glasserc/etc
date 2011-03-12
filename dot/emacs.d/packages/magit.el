@@ -1,1 +1,0 @@
-../contrib/magit.git/magit.el

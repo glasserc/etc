@@ -32,12 +32,13 @@
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
 (add-to-list 'load-path (emacs-d "packages/org-mode"))
-(add-to-list 'load-path (emacs-d "packages/ethan-wspace"))
 (add-to-list 'load-path (emacs-d "/elpa-to-submit"))
 ;; Everything in contrib, maybe?
 (add-to-list 'load-path (emacs-d "contrib/rainbow.git"))
 (add-to-list 'load-path (emacs-d "contrib/cedet-1.0"))
 (add-to-list 'load-path (emacs-d "contrib/offlineimap-el.git"))
+(add-to-list 'load-path (emacs-d "contrib/ethan-wspace.git/lisp"))
+(add-to-list 'load-path (emacs-d "contrib/magit.git"))
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
