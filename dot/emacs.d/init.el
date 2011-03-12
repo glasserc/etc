@@ -2,6 +2,15 @@
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
 
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+(require 'el-get)
+(setq el-get-sources
+      '(
+        ( :name elhome
+                :after elhome-init)))
+
+(el-get)
+
 ;;; Emacs 23 font hacking
 (setq default-emacs-font "Terminus-13")
 
