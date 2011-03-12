@@ -45,8 +45,6 @@
   (package-initialize))
 (require 'ethan-elpa)
 
-(setq bcc-cache-directory (emacs-d "cache/byte-cache"))
-(setq url-cookie-file (emacs-d "cache/url/cookies"))
 (require 'ethan-el-get)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
