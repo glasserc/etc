@@ -31,7 +31,7 @@
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
 
-(add-to-list 'load-path (emacs-d "packages/org-mode"))
+(add-to-list 'load-path (emacs-d "contrib/org-mode.git/lisp"))
 (add-to-list 'load-path (emacs-d "/elpa-to-submit"))
 ;; Everything in contrib, maybe?
 (add-to-list 'load-path (emacs-d "contrib/rainbow.git"))
