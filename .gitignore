@@ -8,3 +8,4 @@ dot/emacs.d/cache/*
 dot/emacs.d/elpa/
 loaddefs.el*
 scratch.el*
+dot/emacs.d/url/cookies
