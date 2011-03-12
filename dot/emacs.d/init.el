@@ -5,7 +5,7 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (require 'el-get)
 (setq el-get-sources
-      '(iedit
+      '(iedit rst-mode
         (:name elhome
                :after elhome-init)))
 
