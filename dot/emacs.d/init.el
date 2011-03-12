@@ -45,6 +45,7 @@
   (package-initialize))
 (require 'ethan-elpa)
 
+(setq bcc-cache-directory (emacs-d "cache/byte-cache"))
 (require 'ethan-el-get)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
