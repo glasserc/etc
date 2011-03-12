@@ -54,11 +54,6 @@
   (package-initialize))
 (require 'ethan-elpa)
 
-(if (not (functionp 'debian-run-directories))
-    (require 'debian-startup))
-
-(debian-run-directories (emacs-d "startup"))
-
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
