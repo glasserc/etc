@@ -2,22 +2,6 @@
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
 
-;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
-(unless (file-exists-p "~/.emacs.d/el-get/el-get")
-  (save-excursion
-    (find-file-literally "~/.emacs.d/el-get-install.el")
-    (end-of-buffer)
-    (eval-last-sexp)))
-
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(require 'el-get)
-(setq el-get-sources
-      '(iedit rst-mode java-mode-indent-annotations haml-mode
-        (:name elhome
-               :after elhome-init)))
-
-(el-get)
-
 ;;; Emacs 23 font hacking
 (setq default-emacs-font "Terminus-13")
 
@@ -61,6 +45,7 @@
   (package-initialize))
 (require 'ethan-elpa)
 
+(require 'ethan-el-get)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)

@@ -118,11 +118,9 @@
          t "^yasnippet-[0-9]+\\.[0-9]+\.[0-9]+"))))
 (add-to-list 'load-path yasnippet-directory)
 
-(require 'yasnippet)
-(yas/initialize)
 ;; This takes a long time
-(yas/load-directory (concat yasnippet-directory "/snippets"))
-(yas/load-directory (emacs-d "my-snippets"))
+;(yas/load-directory (concat yasnippet-directory "/snippets"))
+
 (setq yas/wrap-around-region t
       yas/prompt-functions '(yas/x-prompt yas/ido-prompt))
 
