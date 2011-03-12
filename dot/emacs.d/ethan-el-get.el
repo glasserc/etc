@@ -16,13 +16,16 @@
 ;; Do this stuff first to init settings and stuff that might be needed
 ;; in installing/initing other packages
 (let ((el-get-sources
-       '(( :name elhome
+       '((:name elhome
                  :after elhome-init))))
   (el-get))
 
 (setq el-get-sources
       '(iedit rst-mode java-mode-indent-annotations haml-mode
                                         ;nxhtml
+              (:name undo-tree
+                     :load "undo-tree.el"
+                     :after global-undo-tree-mode)
               (:name yasnippet
                      :after
                      (lambda () (yas/load-directory (emacs-d "my-snippets"))))))

@@ -22,8 +22,8 @@
 
 ;;; redo: There may be a better way to do this, but my tiny brain can
 ;;; only handle so much.
-(require 'redo)
-(define-key global-map (kbd "M-_") 'redo)
+;; (require 'redo)
+;; (define-key global-map (kbd "M-_") 'redo)
 ;;; end redo
 
 (require 'ido)
