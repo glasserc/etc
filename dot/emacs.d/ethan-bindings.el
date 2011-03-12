@@ -11,7 +11,6 @@
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; iedit is like an interactive query-replace.
-(require 'iedit)
 (global-set-key (kbd "C-%") 'iedit-mode)
 
 ;; Jump to a definition in the current file. (This is awesome.)
