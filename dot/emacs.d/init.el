@@ -5,7 +5,7 @@
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (require 'el-get)
 (setq el-get-sources
-      '(iedit rst-mode
+      '(iedit rst-mode java-mode-indent-annotations
         (:name elhome
                :after elhome-init)))
 
@@ -75,7 +75,6 @@
 (require 'ethan-python)
 (require 'ethan-php)
 (require 'ethan-haml)
-(require 'ethan-java)
 (require 'ethan-haskell)
 (require 'ethan-js)
 (require 'ethan-lisp)
