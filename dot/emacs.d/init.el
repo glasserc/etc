@@ -15,10 +15,6 @@
   (concat user-emacs-directory filename))
 
 (add-to-list 'load-path user-emacs-directory)
-(add-to-list 'load-path (emacs-d "src"))  ; my elisp hacks
-; FIXME: should I have a separate repo for emacs-lisp stuff?
-; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
-
 (add-to-list 'load-path (emacs-d "contrib/org-mode.git/lisp"))
 (add-to-list 'load-path (emacs-d "/elpa-to-submit"))
 ;; Everything in contrib, maybe?
