@@ -21,7 +21,7 @@
   (el-get))
 
 (setq el-get-sources
-      '(iedit java-mode-indent-annotations haml-mode
+      '(iedit java-mode-indent-annotations haml-mode paredit
                                         ;nxhtml
               (:name rst-mode
                      :after (lambda ()
