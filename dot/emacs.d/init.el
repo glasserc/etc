@@ -52,7 +52,6 @@
 
 (require 'ethan-defuns)
 (require 'ethan-misc)
-(require 'ethan-bindings)
 (require 'ethan-registers)
 ;(require 'ethan-cedet)
 (require 'ethan-esvn)
