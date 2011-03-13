@@ -42,6 +42,5 @@
 (require 'ethan-misc)
 ;(require 'ethan-cedet)
 (require 'ethan-esvn)
-(require 'ethan-notmuch)
 
 (regen-autoloads)
