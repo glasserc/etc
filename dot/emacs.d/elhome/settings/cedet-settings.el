@@ -1,5 +1,4 @@
-;; CEDET is pretty neat
-(load "common/cedet.el")
+;;; I don't use CEDET, but these were settings I found useful
 ;(global-ede-mode t)
 (semantic-load-enable-excessive-code-helpers)
 (require 'semantic-ia)
@@ -8,5 +7,3 @@
 ;;(semantic-load-enable-primary-exuberent-ctags-support)
 
 ;;(require 'semantic-gcc)
-
-(provide 'ethan-cedet)

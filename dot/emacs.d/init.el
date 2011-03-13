@@ -40,7 +40,6 @@
 
 (require 'ethan-defuns)
 (require 'ethan-misc)
-;(require 'ethan-cedet)
 (require 'ethan-esvn)
 
 (regen-autoloads)
