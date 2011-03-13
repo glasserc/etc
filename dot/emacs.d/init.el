@@ -20,17 +20,6 @@
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
-(setq package-user-dir (emacs-d "elpa"))
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(load
- (expand-file-name "~/.emacs.d/elpa/package.el"))
-(when (featurep 'package)
-  (package-initialize))
-
 (require 'ethan-el-get)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
