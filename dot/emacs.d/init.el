@@ -58,7 +58,6 @@
 (require 'ethan-org)
 (require 'ethan-python)
 (require 'ethan-haskell)
-(require 'ethan-js)
 (require 'ethan-lisp)
 (require 'ethan-notmuch)
 
