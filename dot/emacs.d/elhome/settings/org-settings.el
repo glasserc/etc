@@ -30,10 +30,9 @@
 ;;org-log-into-drawer
 ;;org-tag-alist
 
-;; Get off my movement keys!
-;; (M-S-<up> and M-S-<down> behave almost exactly the same way)
-(define-key org-mode-map [(meta up)]    nil)
-(define-key org-mode-map [(meta down)]  nil)
+;; M-<up> and M-<down> are shadowed by my personal scroll up/down
+;; function.  (M-S-<up> and M-S-<down> behave almost exactly the same
+;; way)
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
 (setq org-completion-use-ido t)

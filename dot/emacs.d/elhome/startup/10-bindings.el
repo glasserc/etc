@@ -71,16 +71,15 @@
 ;; Personal customization
 ; At present, emacs does not define bindings for these keys,
 ; but various modes do: org mode, paredit, etc
-(define-key global-map (kbd "M-<up>") 'scroll-down-one)
-(define-key global-map (kbd "M-<down>") 'scroll-up-one)
-;(define-key global-map (kbd "M-g") 'goto-line)
+(define-key me-minor-mode-map (kbd "M-<up>") 'scroll-down-one)
+(define-key me-minor-mode-map (kbd "M-<down>") 'scroll-up-one)
 ; This shadows previous count-lines-region
 (define-key esc-map "=" 'count-words)
 
 ; In theory these are reserved for major modes, but I like the python-mode
 ; bindings, so I'm making them global.
-(global-set-key [?\C-c ?>] 'increase-left-margin)
-(global-set-key [?\C-c ?<] 'decrease-left-margin)
+(define-key me-minor-mode-map [?\C-c ?>] 'increase-left-margin)
+(define-key me-minor-mode-map [?\C-c ?<] 'decrease-left-margin)
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
