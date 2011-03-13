@@ -59,8 +59,6 @@
 (require 'ethan-org)
 (require 'ethan-rst)
 (require 'ethan-python)
-(require 'ethan-php)
-(require 'ethan-haml)
 (require 'ethan-haskell)
 (require 'ethan-js)
 (require 'ethan-lisp)
