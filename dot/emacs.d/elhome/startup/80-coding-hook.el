@@ -21,6 +21,12 @@
 (defun turn-on-rainbow-mode ()
   (rainbow-mode t))
 
+;; This isn't strictly needed here, but needs to happen before we open
+;; a .el file (e.g. by el-get)
+(defun turn-on-paredit ()
+  (paredit-mode t))
+
+
 (add-hook 'coding-hook 'local-comment-auto-fill)
 (add-hook 'coding-hook 'turn-on-hl-line-mode)
 (add-hook 'coding-hook 'turn-on-save-place-mode)

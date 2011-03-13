@@ -122,9 +122,6 @@ Symbols matching the text at point are put first in the completion list."
   (interactive)
   (insert (format-time-string "%c" (current-time))))
 
-(defun turn-on-paredit ()
-  (paredit-mode t))
-
 ;; This is never used
 (defun turn-off-tool-bar ()
   (tool-bar-mode -1))
