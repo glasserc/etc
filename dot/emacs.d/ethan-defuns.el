@@ -128,9 +128,9 @@ Symbols matching the text at point are put first in the completion list."
 (defun recompile-init ()
   "Byte-compile all your dotfiles again."
   (interactive)
-  (byte-recompile-directory emacs-d 0)
+  (byte-recompile-directory user-emacs-directory 0)
   ;; TODO: remove elpa-to-submit once everything's submitted.
-  (byte-recompile-directory (emacs-d "elpa-to-submit/") 0))
+  (byte-recompile-directory (user-emacs-directory "elpa-to-submit/") 0))
 
 (defun regen-autoloads (&optional force-regen)
   "Regenerate the autoload definitions file if necessary and load it."

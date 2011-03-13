@@ -11,12 +11,10 @@
 ;;; end Emacs 23 font hacking
 
 
-(setq emacs-d (expand-file-name "~/.emacs.d/"))
-
 (defun emacs-d (filename)
-  (concat emacs-d filename))
+  (concat user-emacs-directory filename))
 
-(add-to-list 'load-path emacs-d)
+(add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path (emacs-d "src"))  ; my elisp hacks
 ; FIXME: should I have a separate repo for emacs-lisp stuff?
 ; For example, ~/src/emacs-lisp (which I do have on sundance). Not sure.
