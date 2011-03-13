@@ -45,7 +45,6 @@
 (require 'ethan-esvn)
 (require 'ethan-org)
 (require 'ethan-python)
-(require 'ethan-haskell)
 (require 'ethan-lisp)
 (require 'ethan-notmuch)
 
