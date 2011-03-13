@@ -1,1 +1,1 @@
-(autoload 'org-capture "org-capture")
+(autoload 'org-capture "org-capture" nil t)
