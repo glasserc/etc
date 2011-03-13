@@ -40,12 +40,6 @@
          ido-ignore-files)))
 ;;;
 
-;;; magit
-; Weirdness on OS X -- PATH doesn't get set or something when running emacs
-(if (file-exists-p "/usr/local/git/bin/git")
-    (setq magit-git-executable "/usr/local/git/bin/git"))
-;;; end magit
-
 ;;; wspace -- both displaying, and editing
 (require 'ethan-wspace)
 (global-ethan-wspace-mode 1)
@@ -118,50 +112,8 @@
             (unless (string-match "question" oddmuse-post)
               (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
 
-(defvar coding-hook nil
-  "hook that gets run on activation of any programming mode.")
-
-(setq cheat-executable (expand-file-name "~/.gem/ruby/1.8/bin/cheat"))
-(eval-after-load 'cheat
-  '(progn
-     ;; Just make the cheat-executable path be configurable
-     (defun cheat-command (&rest rest)
-       "Run the cheat command with the given arguments, display the output."
-       (interactive "sArguments for cheat: \n")
-       (let* ((cmd (string-join " " rest))
-              (buffer (get-buffer-create
-                       (concat "*Cheat: " cmd "*"))))
-;         (message "Running: %s" (concat cheat-executable " " cmd))
-         (shell-command (concat cheat-executable " " cmd) buffer)))
-     (defun cheat-command-to-string (&rest rest)
-       "Run the cheat command with the given arguments and return the output as a
-  string.  Display nothing."
-       (shell-command-to-string (concat cheat-executable " " (string-join " " rest))))
-     ))
-
-;; I'm not sure about this because maybe there's a better way to
-;; accomplish it, but this is how every other program on the system
-;; does compose keys, so..
-;; N.B. this might not be necessary with recent Emacs
-(define-key key-translation-map [Multi_key]
-  (lookup-key key-translation-map (kbd "C-x 8")))
-
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-;; disable C-z on X11 sessions
-(when window-system
-  (global-unset-key "\C-z"))
-
-;; save scratch: adapted from
-;; http://xxtjaxx.homelinux.net/snippet/SaveYourScratch/, which has
-;; been down for a while
-(defun save-scratch ()
-  (switch-to-buffer (get-buffer "*scratch*"))
-  (write-file "~/.emacs.d/scratch.el" nil)
-  )
-(add-hook 'kill-emacs-hook 'save-scratch)
-(when (file-exists-p "~/.emacs.d/scratch.el")
-    (setq initial-scratch-message (shell-command-to-string "cat ~/.emacs.d/scratch.el")))
 
 (require 'offlineimap)
 

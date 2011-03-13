@@ -84,3 +84,14 @@
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+;; disable C-z on X11 sessions
+(when window-system
+  (global-unset-key "\C-z"))
+
+;; I'm not sure about this because maybe there's a better way to
+;; accomplish it, but this is how every other program on the system
+;; does compose keys, so..
+;; N.B. this might not be necessary with recent Emacs
+(define-key key-translation-map [Multi_key]
+  (lookup-key key-translation-map (kbd "C-x 8")))
