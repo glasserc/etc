@@ -32,9 +32,26 @@
                      :load "undo-tree.el"
                      :after global-undo-tree-mode)
               (:name yasnippet
+
                      :after
-                     (lambda () (yas/load-directory (emacs-d "my-snippets"))))))
+                     (lambda () (yas/load-directory (emacs-d "my-snippets"))))
+
+;;; This is entirely stolen from Emacs Starter Kit as a good base of
+;;; packages to have installed.
+              (:name idle-highlight :type elpa)
+              (:name inf-ruby :type elpa)
+              ruby-mode yaml-mode gist
+              (:name find-file-in-project :type elpa)
+              (:name css-mode :type elpa)
+              ))
 
 (el-get)
+
+;; Workaround for an ELPA bug that people are reporting but I've been
+;; unable to reproduce:
+(autoload 'paredit-mode "paredit" "" t)
+
+;; Workaround for bug in the ELPA package for yaml-mode
+(autoload 'yaml-mode "yaml-mode" "" t)
 
 (provide 'ethan-el-get)

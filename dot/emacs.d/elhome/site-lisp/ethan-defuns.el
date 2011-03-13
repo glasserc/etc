@@ -211,4 +211,19 @@ Symbols matching the text at point are put first in the completion list."
 (defun turn-on-visual-line-mode ()
   (visual-line-mode 1))
 
+(require 'cl)
+(defun esk-online? ()
+  "See if we're online.
+
+Windows does not have the network-interface-list function, so we
+just have to assume it's online."
+  ;; TODO how could this work on Windows?
+  (if (and (functionp 'network-interface-list)
+           (network-interface-list))
+      (some (lambda (iface) (unless (equal "lo" (car iface))
+                         (member 'up (first (last (network-interface-info
+                                                   (car iface)))))))
+            (network-interface-list))
+    t))
+
 (provide 'ethan-defuns)

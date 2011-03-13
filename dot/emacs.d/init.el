@@ -30,7 +30,6 @@
  (expand-file-name "~/.emacs.d/elpa/package.el"))
 (when (featurep 'package)
   (package-initialize))
-(require 'ethan-elpa)
 
 (require 'ethan-el-get)
 ;;; customize stuff
