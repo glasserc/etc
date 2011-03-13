@@ -57,7 +57,6 @@
 ;(require 'ethan-cedet)
 (require 'ethan-esvn)
 (require 'ethan-org)
-(require 'ethan-rst)
 (require 'ethan-python)
 (require 'ethan-haskell)
 (require 'ethan-js)

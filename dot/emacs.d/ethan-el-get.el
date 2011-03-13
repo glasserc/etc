@@ -21,8 +21,13 @@
   (el-get))
 
 (setq el-get-sources
-      '(iedit rst-mode java-mode-indent-annotations haml-mode
+      '(iedit java-mode-indent-annotations haml-mode
                                         ;nxhtml
+              (:name rst-mode
+                     :after (lambda ()
+                              (setq auto-mode-alist
+                                    (cons '("\\.rst$" . rst-mode)
+                                          auto-mode-alist))))
               (:name undo-tree
                      :load "undo-tree.el"
                      :after global-undo-tree-mode)
