@@ -34,6 +34,8 @@
 ;; (M-S-<up> and M-S-<down> behave almost exactly the same way)
 (define-key org-mode-map [(meta up)]    nil)
 (define-key org-mode-map [(meta down)]  nil)
+; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
+
 (setq org-completion-use-ido t)
 (setq org-tag-alist '((:startgroup)
                       ("@work" . ?w)
