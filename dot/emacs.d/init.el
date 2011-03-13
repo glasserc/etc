@@ -43,7 +43,6 @@
 (require 'ethan-registers)
 ;(require 'ethan-cedet)
 (require 'ethan-esvn)
-(require 'ethan-python)
 (require 'ethan-lisp)
 (require 'ethan-notmuch)
 
