@@ -11,12 +11,6 @@
 (defun turn-on-save-place-mode ()
   (setq save-place t))
 
-(defun turn-on-paredit ()
-  (paredit-mode t))
-
-(defun turn-off-tool-bar ()
-  (tool-bar-mode -1))
-
 (defun add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"

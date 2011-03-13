@@ -1,5 +1,8 @@
-;;; ethan-lisp.el --- Lisp customizations, wholly stolen from the
+;;; Lisp customizations, wholly stolen from the
 ;;; Emacs Starter Kit
+
+;;; This should be loaded by default, right? I don't use clojure-mode
+;;; or scheme-mode, so this might be broken in those cases.
 
 (define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
 (define-key lisp-mode-shared-map (kbd "C-c l") "lambda")
@@ -39,12 +42,6 @@
   (interactive)
   (message "Deprecated in favour of M-x swank-clojure-project. Install swank-clojure from ELPA."))
 
-;;; Enhance Lisp Modes
-
-(eval-after-load 'paredit
-  ;; need a binding that works in the terminal
-  '(define-key paredit-mode-map (kbd "M-)") 'paredit-forward-slurp-sexp))
-
 (dolist (x '(scheme emacs-lisp lisp clojure))
   (when window-system
     (font-lock-add-keywords
@@ -54,13 +51,3 @@
    (intern (concat (symbol-name x) "-mode-hook")) 'turn-on-paredit)
   (add-hook
    (intern (concat (symbol-name x) "-mode-hook")) 'run-coding-hook))
-
-(eval-after-load 'clojure-mode
-  '(font-lock-add-keywords
-    'clojure-mode `(("(\\(fn\\>\\)"
-                     (0 (progn (compose-region (match-beginning 1)
-                                               (match-end 1) "ƒ")
-                               nil))))))
-
-(provide 'ethan-lisp)
-;; starter-kit-lisp.el ends here
