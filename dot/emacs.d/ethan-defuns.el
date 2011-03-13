@@ -189,26 +189,6 @@ Symbols matching the text at point are put first in the completion list."
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
-
-; Handy function when I just did a git reset or something that touched
-; a bunch of files at once
-;; FIXME: remove "filter"
-(defun revert-all ()
-  "Revert all unchanged buffers."
-  (interactive)
-  (let ((buffers (buffer-list)))
-    (filter (lambda (buffer)
-              (if (not (buffer-modified-p buffer))
-                  (progn
-                    (condition-case revert-error
-                        (save-excursion
-                          (save-window-excursion
-                            (switch-to-buffer buffer)
-                            (revert-buffer t t t)))
-                      (error (message "Reverting %s failed: %s" buffer revert-error))))
-                )) buffers)
-    ))
-
 ;;; travelogue
 (defun find-blog-entry-for-now (base)
   (let* ((target (concat base (format-time-string "%Y/%m/%d/%T.rst")))
