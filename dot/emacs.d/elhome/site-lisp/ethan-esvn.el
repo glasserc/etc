@@ -4,6 +4,9 @@
 ;; and the original code badly needs cleanup, but I still use it, and
 ;; it has to go somewhere..
 
+;; So wait, why do I need both a major-mode and a function to enable
+;; esvn-mode?
+
 (require 'esvn)
 (define-derived-mode journal-mode text-mode "Journal"
   "Major mode for editing Ethan's diary."
