@@ -11,5 +11,3 @@
              (?r (file . ,(emacs-d "ethan-registers.el")))
              (?t (file . ,(expand-file-name "~/src/org-files/todo.org")))))
   (set-register (car r) (cadr r)))
-
-(provide 'ethan-registers)
