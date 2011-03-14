@@ -1,9 +1,8 @@
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
+(setq el-get-new nil)
 (unless (file-exists-p "~/.emacs.d/el-get/el-get")
-  (save-excursion
-    (find-file-literally "~/.emacs.d/el-get-install.el")
-    (end-of-buffer)
-    (eval-last-sexp)))
+  (setq el-get-new t)
+  (load "~/.emacs.d/el-get-install.el"))
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (require 'el-get)
@@ -49,7 +48,9 @@
               (:name css-mode :type elpa)
               ))
 
-(el-get)
+(if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
+    (el-get 'sync)
+  (el-get))
 
 ;; Workaround for bug in the ELPA package for yaml-mode
 (autoload 'yaml-mode "yaml-mode" "" t)
