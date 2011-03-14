@@ -1,18 +1,18 @@
 [submodule "dot/emacs.d/contrib/org-mode.git"]
-	path = dot/emacs.d/contrib/org-mode.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/org-mode.git
 	url = git://repo.or.cz/org-mode.git
 [submodule "dot/emacs.d/contrib/phpunit-el.git"]
-	path = dot/emacs.d/contrib/phpunit-el.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/phpunit-el.git
 	url = git://github.com/ieure/phpunit-el.git
 [submodule "dot/emacs.d/contrib/ethan-wspace.git"]
-	path = dot/emacs.d/contrib/ethan-wspace.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git
 	url = git://github.com/glasserc/ethan-wspace.git
 [submodule "dot/emacs.d/contrib/magit.git"]
-	path = dot/emacs.d/contrib/magit.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/magit.git
 	url = http://github.com/philjackson/magit.git
 [submodule "dot/emacs.d/contrib/rainbow.git"]
-	path = dot/emacs.d/contrib/rainbow.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/rainbow.git
 	url = git://git.naquadah.org/rainbow.git
 [submodule "dot/emacs.d/contrib/offlineimap-el.git"]
-	path = dot/emacs.d/contrib/offlineimap-el.git
+	path = dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git
 	url = git://git.naquadah.org/offlineimap-el.git
