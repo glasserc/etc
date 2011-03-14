@@ -15,8 +15,6 @@
   (concat user-emacs-directory filename))
 
 (add-to-list 'load-path user-emacs-directory)
-(add-to-list 'load-path (emacs-d "/elpa-to-submit"))
-;; Everything in contrib, maybe?
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
