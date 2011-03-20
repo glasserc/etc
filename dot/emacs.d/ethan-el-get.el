@@ -26,7 +26,8 @@
          ;; OK, all the other crap
          paredit
          iedit java-mode-indent-annotations haml-mode
-         whole-line-or-region
+         (:name whole-line-or-region
+                :after whole-line-or-region-mode)
          (:name cheat
                 :type git
                 :url "https://github.com/emacsmirror/cheat.git"
