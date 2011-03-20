@@ -31,6 +31,10 @@
                 :type git
                 :url "https://github.com/emacsmirror/cheat.git"
                 :features "cheat")
+         (:name oddmuse
+                :type git
+                :url "https://github.com/emacsmirror/oddmuse.git"
+                :features "oddmuse")
          ;;nxhtml
          (:name rst-mode
                 :after (lambda ()
