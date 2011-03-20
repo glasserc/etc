@@ -26,7 +26,12 @@
          ;; OK, all the other crap
          paredit
          iedit java-mode-indent-annotations haml-mode
-                                        ;nxhtml
+         whole-line-or-region
+         (:name cheat
+                :type git
+                :url "https://github.com/emacsmirror/cheat.git"
+                :features "cheat")
+         ;;nxhtml
          (:name rst-mode
                 :after (lambda ()
                          (setq auto-mode-alist
