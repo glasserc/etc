@@ -88,7 +88,7 @@ Symbols matching the text at point are put first in the completion list."
 (defun regen-autoloads (&optional force-regen)
   "Regenerate the autoload definitions file if necessary and load it."
   (interactive "P")
-  (let ((autoload-dir (emacs-d "/elpa-to-submit"))
+  (let ((autoload-dir (emacs-d "elhome/site-lisp/elpa-to-submit"))
         (generated-autoload-file autoload-file))
     (when (or force-regen
               (not (file-exists-p autoload-file))
