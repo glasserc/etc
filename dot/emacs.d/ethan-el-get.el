@@ -41,7 +41,13 @@
          (:name ruby-electric
                 :type git
                 :url "https://github.com/emacsmirror/ruby-electric.git")
+         ;; espresso got merged upstream; what about this??
+         (:name moz
+                :type http
+                :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
+
          ;;nxhtml
+
          (:name rst-mode
                 :after (lambda ()
                          (setq auto-mode-alist
