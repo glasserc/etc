@@ -35,6 +35,12 @@
          (:name oddmuse
                 :type git
                 :url "https://github.com/emacsmirror/oddmuse.git")
+         (:name javadoc-help
+                :type git
+                :url "https://github.com/emacsmirror/javadoc-help.git")
+         (:name ruby-electric
+                :type git
+                :url "https://github.com/emacsmirror/ruby-electric.git")
          ;;nxhtml
          (:name rst-mode
                 :after (lambda ()
