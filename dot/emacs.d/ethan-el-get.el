@@ -46,6 +46,16 @@
                 :type http
                 :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
 
+         ;; pulling from emacs-starter-kit/master?? What could
+         ;; possibly go wrong??
+         (:name pcmpl-rake
+                :type http
+                :url "https://github.com/technomancy/emacs-starter-kit/raw/master/elpa-to-submit/pcmpl-rake.el")
+
+         (:name eshell-vc
+                :type http
+                :url "https://github.com/technomancy/emacs-starter-kit/raw/master/elpa-to-submit/eshell-vc.el")
+
          ;;nxhtml
 
          (:name rst-mode
