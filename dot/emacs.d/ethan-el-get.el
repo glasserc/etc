@@ -30,12 +30,10 @@
                 :after whole-line-or-region-mode)
          (:name cheat
                 :type git
-                :url "https://github.com/emacsmirror/cheat.git"
-                :features "cheat")
+                :url "https://github.com/emacsmirror/cheat.git")
          (:name oddmuse
                 :type git
-                :url "https://github.com/emacsmirror/oddmuse.git"
-                :features "oddmuse")
+                :url "https://github.com/emacsmirror/oddmuse.git")
          ;;nxhtml
          (:name rst-mode
                 :after (lambda ()
