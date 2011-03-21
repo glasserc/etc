@@ -28,5 +28,3 @@
 (require 'ethan-misc)
 (require 'ethan-esvn)
 (require 'ethan-lisp)
-
-(regen-autoloads)
