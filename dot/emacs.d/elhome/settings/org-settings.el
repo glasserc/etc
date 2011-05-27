@@ -3,11 +3,22 @@
 (setq org-log-done t)
 (setq org-clock-into-drawer t)
 (setq org-footnote-section nil)
+;; Visual-line mode wraps tags because they're followed by "...".
+;; This hack leaves one extra space after the tags, so that they don't
+;; wrap.
+;; P.S. This is totally a hack.
+(setq org-tags-column -76)
+
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
 ;; Automatically compute the list of files to use in the agenda.
 ;; I keep someday.org files, can't include those. Maybe a better
 ;; approach is needed?
+;; Lots of files don't actually contain todo items.  contacts.org,
+;; etc.  Maybe we should just use the add-agenda/subtract-agenda
+;; commands.
+;; notes.org, coding.org, todo.org, writing.org, music.org?
+;; purchases.org?  Does that belong in an agenda?  (I don't think so.)
 (setq all-org-files (directory-files org-directory t ".org$" t))
 (let
     ((org-dir (expand-file-name org-directory)))
