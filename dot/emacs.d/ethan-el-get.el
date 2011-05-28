@@ -75,7 +75,4 @@
     (el-get 'sync)
   (el-get))
 
-;; Workaround for bug in the ELPA package for yaml-mode
-(autoload 'yaml-mode "yaml-mode" "" t)
-
 (provide 'ethan-el-get)
