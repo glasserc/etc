@@ -1,5 +1,5 @@
 #! /bin/bash
-. ~/bin/backups/shared
+. ~/etc/bin/backups/shared
 
 KEY_PATH=/media/Personal/ethan
 RSYNC="rsync -avz --delete --exclude-from=$HOME/bin/backups/excludes"
@@ -12,12 +12,12 @@ initialize () {
     git clone ~/.config/etc-extended
     hg clone ~/writing
 
-    git clone ~/bin
+    #git clone ~/bin
     git clone ~/etc
 }
 
 update_backup () {
-    for repo in bin etc; do
+    for repo in etc; do
         cd ~/$repo
         git push $KEY_PATH/$repo master | grep "^!"
     done
