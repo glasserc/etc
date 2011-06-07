@@ -1,2 +1,0 @@
-# I always forget the command to do this
-rsync -avz ethan@192.168.1.10:~/music/ ~/music
