@@ -1,0 +1,87 @@
+#! /usr/bin/python
+#
+# link-to-dotfiles: create/maintain symlink farm to dot files kept in
+#   a git repo
+#
+# Usage:
+#
+# Given this script at ~/bin/link-to-dotfiles, and a directory called
+# ~/etc/dot with files like ~/etc/dot/foo
+#
+# $ cd ~
+# $ ~/bin/link-to-dotfiles ~/etc/dot
+#
+# will generate a symlink at ~/.foo which points to ~/etc/dot/foo.
+#
+# If you have a file called foo:bar, a directory will be created
+# ~/.foo with ~/.foo/bar symlinked to ~/etc/dot/foo:bar. This is nice
+# if you have one or two "private" files that go in a "public" or
+# non-private directory.
+#
+# ~/etc/dot/config, if it exists, will be treated specially,
+# corresponding to the special role ~/.config has in the XDG spec. Any
+# files in ~/etc/dot/config will be symlinked in to ~/.config with
+# their real names -- ~/.config/foo will point to
+# ~/etc/dot/config/foo.
+
+import os.path
+import sys
+import re
+
+def usage():
+    print "Usage: %s ~/path/to/dotfiles"%(sys.argv[0],)
+    sys.exit(127)
+
+def exclude(child):
+    for pattern in EXCLUDE_PATTERNS:
+        if pattern.search(child):
+            return True
+    return False
+
+
+def link_all(src, target, prefix, config_special=True):
+    for filename in os.listdir(src):
+        child = os.path.join(src, filename)
+        if exclude(child):
+            continue
+
+        if config_special and filename == "config":
+            config_dir = os.path.join(target, '.config')
+            if not os.path.exists(config_dir): # OS X or other weird system
+                os.mkdir(config_dir)
+            link_all(child, config_dir, prefix='',
+                     config_special=False)
+            continue
+
+        linktarget = os.path.abspath(child)
+        parts = filename.split(':')
+        dest = os.path.join(target, prefix+parts[0], *parts[1:])
+
+        try:
+            # FIXME: sorta hacky
+            os.makedirs(os.path.dirname(dest))
+        except OSError:
+            pass
+
+        if os.path.exists(dest):
+            if os.path.islink(dest): # if it's a link
+                link = os.readlink(dest)
+                if link == linktarget: # and it points to the right place
+                    continue  # previously existing; don't change it
+                else:
+                    raise ValueError, "Error when symlinking %s to %s: file exists, and points to %s"%(dest, linktarget, link)
+            else: # not a link -- directory, regular file
+                raise ValueError, "can't symlink %s to %s: file exists"% (dest, linktarget)
+        os.symlink(linktarget, dest)
+
+if len(sys.argv) < 2:
+    usage()
+
+EXCLUDE_PATTERNS = [
+    re.compile("~$"),
+]
+
+SRC = sys.argv[1]
+TARGET = os.path.abspath('.')
+
+link_all(SRC, TARGET, '.')

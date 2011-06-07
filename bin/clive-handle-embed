@@ -1,0 +1,6 @@
+#! /bin/bash
+
+# Convenient script to strip the youtube URL out of the "embed Youtube
+# HTML" that comes from right-clicking the Flash widget.
+
+perl -n -e 'm{src="([^"]+)"} && print $1;' | xargs clive

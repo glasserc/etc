@@ -1,0 +1,46 @@
+#! /bin/bash
+. ~/bin/backups/shared
+
+KEY_PATH=/media/Personal/ethan
+RSYNC="rsync -avz --delete --exclude-from=$HOME/bin/backups/excludes"
+
+TARGETS="~/Documents ~/.config/secrets ~/.config/etc-extended ~/writing"
+
+initialize () {
+    cd $KEY_PATH
+    git clone ~/.config/secrets
+    git clone ~/.config/etc-extended
+    hg clone ~/writing
+
+    git clone ~/bin
+    git clone ~/etc
+}
+
+update_backup () {
+    for repo in bin etc; do
+        cd ~/$repo
+        git push $KEY_PATH/$repo master | grep "^!"
+    done
+
+    for repo in secrets etc-extended; do
+        cd ~/.config/$repo
+        git push $KEY_PATH/$repo master | grep "^!"
+    done
+
+    cd ~
+    rsync -avz Documents src $KEY_PATH
+}
+
+hackish_copy () {
+    cd ~
+    $RSYNC ~/Documents ~/src ~/.config/secrets ~/.config/etc-extended ~/writing $KEY_PATH
+}
+hackish_copy
+
+# case "$1" in
+# initialize)
+#         initialize
+#         ;;
+# *)
+#         update_backup
+# esac

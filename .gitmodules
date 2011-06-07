@@ -16,3 +16,9 @@
 [submodule "dot/emacs.d/contrib/offlineimap-el.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git
 	url = git://git.naquadah.org/offlineimap-el.git
+[submodule "contrib/rst2wp"]
+	path = bin/contrib/rst2wp
+	url = git@github.com:glasserc/rst2wp.git
+[submodule "contrib/fatcopy"]
+	path = bin/contrib/fatcopy
+	url = git@github.com:glasserc/fatcopy.git

@@ -1,0 +1,39 @@
+#! /bin/bash
+
+# Adapted from org-git-sync.sh, at http://doc.norang.ca/org-mode.html
+function usage(){
+    echo "Usage: $0 gitrepo [--remote REMOTE]"
+    echo
+    echo "Updates git status with newly-added and deleted files, and then commits."
+    echo "Suitable for use as a cronjob:"
+    echo
+    echo "   0 * * * * ~/bin/autocommit.git ~/src/org-files >/dev/null"
+    echo
+    echo "Note that this will add any files kept in this git repo! If you want to keep"
+    echo "other files in the repo without having them committed, arrange for git"
+    echo "to ignore them -- see gitignore(5)."
+}
+
+if [ $# -lt 1 ]; then
+    usage
+    exit 1
+fi
+
+GITREPO=$1
+REMOTE=
+case "$2" in
+    --remote)
+        REMOTE=$3
+        ;;
+esac
+cd $GITREPO
+
+# Do a pull and push to make sure that we're in sync with the upstream repo
+git pull -q
+
+git ls-files --deleted -z | xargs -0 --no-run-if-empty git rm -q
+git add . > /dev/null 2>&1
+git commit -m "autocommit at $(date)"
+
+# This is problematic; needs a -q option. What if it fails somehow?
+git push $REMOTE >/dev/null 2>&1
