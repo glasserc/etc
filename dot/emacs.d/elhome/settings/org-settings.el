@@ -15,6 +15,7 @@
 ;; commands.
 ;; notes.org, coding.org, todo.org, writing.org, music.org?
 ;; purchases.org?  Does that belong in an agenda?  (I don't think so.)
+;; But we still want to be able to refile there!
 (setq all-org-files (directory-files org-directory t ".org$" t))
 (let
     ((org-dir (expand-file-name org-directory)))
@@ -25,7 +26,6 @@
                          all-org-files))))
 
 (setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
-(setq org-use-fast-todo-selection t)
 
 ;; Still messing around with this.
 (load (concat org-directory "/feeds-list.el"))
