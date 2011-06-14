@@ -94,3 +94,23 @@
            :lfmt 'orgtbl-to-rst-line
            )))
     (orgtbl-to-generic table (org-combine-plists params2 params))))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-archive-mark-done nil)
+ '(org-capture-templates
+   (quote
+    (("t" "todo" entry
+      (file+headline "~/src/org-files/incoming.org" "New")
+      "* TODO %?
+%u
+%a"))))
+ '(org-drawers
+   (quote
+    ("PROPERTIES" "CLOCK" "DETAILS")))
+ '(org-refile-targets
+   (quote
+    ((org-agenda-files :level . 1)))))

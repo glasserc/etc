@@ -13,13 +13,6 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(mouse-yank-at-point t)
- '(org-agenda-restore-windows-after-quit t)
- '(org-archive-mark-done nil)
- '(org-capture-templates (quote (("t" "todo" entry (file+headline "~/src/org-files/incoming.org" "New") "* TODO %?
-%u
-%a"))))
- '(org-drawers (quote ("PROPERTIES" "CLOCK" "DETAILS")))
- '(org-refile-targets (quote ((org-agenda-files :level . 1))))
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
  '(uniquify-separator "/")
