@@ -1,8 +1,4 @@
 (message "Running org-settings")
-(setq org-directory "~/src/org-files")
-(setq org-log-done t)
-(setq org-clock-into-drawer t)
-(setq org-footnote-section nil)
 ;; Visual-line mode wraps tags because they're followed by "...".
 ;; This hack leaves one extra space after the tags, so that they don't
 ;; wrap.
@@ -108,9 +104,14 @@
       "* TODO %?
 %u
 %a"))))
+ '(org-clock-into-drawer t)
+ '(org-directory "~/src/org-files")
  '(org-drawers
    (quote
     ("PROPERTIES" "CLOCK" "DETAILS")))
+ '(org-footnote-section nil)
+ '(org-log-done
+   (quote time))
  '(org-refile-targets
    (quote
     ((org-agenda-files :level . 1)))))
