@@ -25,8 +25,6 @@
                               (concat org-dir "/feeds.org")
                          all-org-files))))
 
-(setq org-todo-keywords '((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))
-
 ;; Still messing around with this.
 (load (concat org-directory "/feeds-list.el"))
 
@@ -35,21 +33,15 @@
 ;;org-track-ordered-property-with-tag
 ;;org-agenda-dim-blocked-tasks   ; Except, I want "BLOCKING" tasks to match too
 ;;org-log-into-drawer
-;;org-tag-alist
+;; org-tag-alist  -- I'm not sure about "SOMEDAY"
+;; org-outline-path-complete-in-steps
 
 ;; M-<up> and M-<down> are shadowed by my personal scroll up/down
 ;; function.  (M-S-<up> and M-S-<down> behave almost exactly the same
 ;; way)
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
-(setq org-completion-use-ido t)
-(setq org-tag-alist '((:startgroup)
-                      ("@work" . ?w)
-                      ("@home" . ?h)
-                      (:endgroup)
-                      ("SOMEDAY" . ?s)  ; Not sure about this
-                      ))
-
+;; Not in customize: computed automatically
 (setq org-default-notes-file (concat org-directory "/notes.org"))
 
 ;; Fix weirdness with org-mode and yasnippet (both use TAB)
@@ -105,6 +97,7 @@
 %u
 %a"))))
  '(org-clock-into-drawer t)
+ '(org-completion-use-ido t)
  '(org-directory "~/src/org-files")
  '(org-drawers
    (quote
@@ -114,4 +107,14 @@
    (quote time))
  '(org-refile-targets
    (quote
-    ((org-agenda-files :level . 1)))))
+    ((org-agenda-files :level . 1))))
+ '(org-tag-alist
+   (quote
+    ((:startgroup)
+     ("@work" . 119)
+     ("@home" . 104)
+     (:endgroup)
+     ("SOMEDAY" . 115))))
+ '(org-todo-keywords
+   (quote
+    ((sequence "TODO(t)" "BLOCKING" "WORKING" "|" "DELEGATED(D)" "DONE(d)" "WONTFIX(W)")))))
