@@ -9,3 +9,5 @@
    (intern (concat (symbol-name x) "-mode-hook")) 'turn-on-paredit)
   (add-hook
    (intern (concat (symbol-name x) "-mode-hook")) 'run-coding-hook))
+
+(provide 'ethan-lisp)
