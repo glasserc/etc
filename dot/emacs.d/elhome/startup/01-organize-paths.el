@@ -19,3 +19,4 @@
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (emacs-d "backups")))))
+(setq tramp-backup-directory-alist backup-directory-alist)
