@@ -16,6 +16,8 @@
 ;; notes.org, coding.org, todo.org, writing.org, music.org?
 ;; purchases.org?  Does that belong in an agenda?  (I don't think so.)
 ;; But we still want to be able to refile there!
+
+(setq org-directory "~/src/org-files")  ; not in custom because:
 (setq all-org-files (directory-files org-directory t ".org$" t))
 (let
     ((org-dir (expand-file-name org-directory)))
@@ -98,7 +100,6 @@
 %a"))))
  '(org-clock-into-drawer t)
  '(org-completion-use-ido t)
- '(org-directory "~/src/org-files")
  '(org-drawers
    (quote
     ("PROPERTIES" "CLOCK" "DETAILS")))
