@@ -97,7 +97,11 @@
       (file+headline "~/src/org-files/incoming.org" "New")
       "* TODO %?
 %u
-%a"))))
+%a")
+     ("b" "Book to purchase" entry
+      (file+headline "~/src/org-files/purchases.org" "Books")
+      "* TODO %?
+%x"))))
  '(org-clock-into-drawer t)
  '(org-completion-use-ido t)
  '(org-drawers
