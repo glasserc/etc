@@ -32,7 +32,13 @@
          (:name haml-mode :features nil)  ; autoload's fine, thanks
          (:name whole-line-or-region
                 :after whole-line-or-region-mode)
-         cheat oddmuse javadoc-help ruby-electric
+         (:name cheat
+                :type git
+                :url "http://github.com/emacsmirror/cheat.git")
+         oddmuse
+         (:name javadoc-help
+                :type git
+                :url "http://github.com/emacsmirror/javadoc-help.git") ruby-electric
          ;; espresso got merged upstream; what about this??
          (:name moz
                 :type http
