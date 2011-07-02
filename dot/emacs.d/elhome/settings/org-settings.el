@@ -84,6 +84,9 @@
            :lfmt 'orgtbl-to-rst-line
            )))
     (orgtbl-to-generic table (org-combine-plists params2 params))))
+
+(add-to-list 'Info-default-directory-list "~/.emacs.d/elhome/site-lisp/upstream/org-mode.git/doc")
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
