@@ -62,6 +62,8 @@
                                (cons '("\\.rst$" . rst-mode)
                                      auto-mode-alist))))
          (:name undo-tree
+                :type git
+                :url "http://www.dr-qubit.org/git/undo-tree.git"
                 :load "undo-tree.el"
                 :after global-undo-tree-mode)
          (:name yasnippet
