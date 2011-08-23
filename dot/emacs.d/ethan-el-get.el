@@ -77,6 +77,8 @@
               ruby-mode yaml-mode gist
               (:name find-file-in-project :type elpa)
               (:name css-mode :type elpa)
+              (:name scratch :after (lambda () (autoload 'scratch "scratch.el" nil t)))
+              twittering-mode
               ))
 
 (if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
