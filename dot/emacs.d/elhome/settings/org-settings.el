@@ -27,8 +27,6 @@
                               (concat org-dir "/feeds.org")
                          all-org-files))))
 
-;; Still messing around with this.
-(load (concat org-directory "/feeds-list.el"))
 
 ;; customize?
 ;;org-enforce-todo-dependencies
