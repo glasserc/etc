@@ -83,7 +83,7 @@
            )))
     (orgtbl-to-generic table (org-combine-plists params2 params))))
 
-(add-to-list 'Info-default-directory-list "~/.emacs.d/elhome/site-lisp/upstream/org-mode.git/doc")
+(add-to-list 'Info-default-directory-list (expand-file-name "~/.emacs.d/elhome/site-lisp/upstream/org-mode.git/doc"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
