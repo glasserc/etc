@@ -7,25 +7,34 @@
 
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
-;; Automatically compute the list of files to use in the agenda.
-;; I keep someday.org files, can't include those. Maybe a better
-;; approach is needed?
-;; Lots of files don't actually contain todo items.  contacts.org,
-;; etc.  Maybe we should just use the add-agenda/subtract-agenda
-;; commands.
-;; notes.org, coding.org, todo.org, writing.org, music.org?
-;; purchases.org?  Does that belong in an agenda?  (I don't think so.)
-;; But we still want to be able to refile there!
+;; Compute all org files.
+;; These represent our refile targets.
+(setq org-directory "~/src/org-files")  ; not in custom because we use
+                                        ; its value
+(setq org-all-org-files (directory-files org-directory t ".org$" t))
+;; Agenda files are a specific subset of these:
+;; - todo.org: generic shit-to-do
+;; - incoming.org: shit I saw and wanted to deal with later
+;; - writing.org: things to write about
+;; - contacts.org: notes about people, including reminders to interact
+;; with them.
+;; - coding.org: things to hack on, mostly non-urgent
 
-(setq org-directory "~/src/org-files")  ; not in custom because:
-(setq all-org-files (directory-files org-directory t ".org$" t))
-(let
-    ((org-dir (expand-file-name org-directory)))
-     (setq org-agenda-files (remove
-                             (concat org-dir "/someday.org")
-                             (remove
-                              (concat org-dir "/feeds.org")
-                         all-org-files))))
+;; Also present are:
+;; - music.org: albums to listen to, etc.
+;; - house.org: clocked hours spent around the house
+;; - someday.org: mulch pile for stuff I'd like to mess around with
+;; someday
+;; - purchases.org: similar, but things I'd like to buy
+;;
+;; The unifying theme here is that these files represent non-urgent
+;; things -- stuff I can pull up or let mulch at will.  Agenda files
+;; are "what I need to work on".
+
+;; Not in customize: computed automatically.
+;; Note that this probably isn't used, since my capture templates
+;; specify files.
+(setq org-default-notes-file (concat org-directory "/incoming.org"))
 
 
 ;; customize?
@@ -40,9 +49,6 @@
 ;; function.  (M-S-<up> and M-S-<down> behave almost exactly the same
 ;; way)
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
-
-;; Not in customize: computed automatically
-(setq org-default-notes-file (concat org-directory "/notes.org"))
 
 ;; Fix weirdness with org-mode and yasnippet (both use TAB)
 ;; yasnippet config from org-mode mailing list
@@ -90,6 +96,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   (quote
+    ("~/src/org-files/coding.org" "~/src/org-files/contacts.org" "/home/ethan/src/org-files/writing.org" "/home/ethan/src/org-files/incoming.org" "/home/ethan/src/org-files/todo.org")))
  '(org-agenda-restore-windows-after-quit t)
  '(org-archive-mark-done nil)
  '(org-capture-templates
