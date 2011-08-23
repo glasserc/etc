@@ -129,6 +129,7 @@
      ("@work" . 119)
      ("@home" . 104)
      (:endgroup)
+     ("internet" . 105)
      ("SOMEDAY" . 115))))
  '(org-todo-keywords
    (quote
