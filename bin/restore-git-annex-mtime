@@ -1,0 +1,46 @@
+#! /usr/bin/env python
+
+import os.path
+import sys
+import re
+import ctypes
+
+WORM_RE = re.compile("\\.git/annex/objects/(.+)/WORM-s(\\d+)-m(\\d+)-.+")
+def get_real_mtime(fname):
+    target = os.readlink(fname)
+    match = WORM_RE.match(target)
+    if not match:
+        return None
+
+    return int(match.group(3))
+
+def walk_dirtree(root):
+    for root, dirs, files in os.walk(root):
+        print root, dirs, files
+        for item in dirs[:]:
+            if item.startswith('.'):
+                dirs.remove(item)
+
+        for item in files:
+            fname = os.path.join(root, item)
+            if os.path.islink(fname):
+                realtime = get_real_mtime(fname)
+                #print fname, os.path.getmtime(fname), get_real_mtime(fname)
+                #os.utime(fname, (realtime, realtime))
+                set_link_mtime(fname, realtime)
+
+# This is super non-portable; patches welcome
+class c_timespec(ctypes.Structure):
+    _fields_ = [('tv_sec', ctypes.c_long),   # FIXME: time_t; will break on 64-bit?
+                ('tv_nsec', ctypes.c_long)]
+
+libc = ctypes.cdll.LoadLibrary("libc.so.6")
+lutimes = libc.lutimes
+c_two_timespecs = c_timespec*2
+lutimes.argtypes = [ctypes.c_char_p, c_two_timespecs]
+def set_link_mtime(fname, mtime):
+    # WORM just stores mtime to second precision, so ns = 0
+    mtimespec = c_timespec(mtime, 0)
+    libc.lutimes(fname, c_two_timespecs(mtimespec, mtimespec))
+
+if __name__ == '__main__': walk_dirtree('.')
