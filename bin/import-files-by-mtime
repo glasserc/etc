@@ -10,6 +10,11 @@ indicates a directory (%Y/%m/%d/basename.jpg).  Otherwise the format
 is assumed to specify a full name (%Y/%m/%d.jpg).  You may also use
 '%f' to mean 'the old file basename'.
 
+The -e option lets you confirm mtime information against the EXIF tags
+stored in the file.  The confirmation allows up to 4 seconds of skew.
+If there is a disagreement, EXIF information is preferred, and a warning
+is printed about the file.
+
 Test:
 mkdir repo; touch -d "last Thursday" file1; touch -d "2008-01-03" fILE2
 import-files-by-mtime -l -n repo/ f*
@@ -67,7 +72,8 @@ class ImportFiles(object):
                 pass   # close enough
             else:
                 print "Warning: mtime and exif are different for {0}: mtime {1}, exif {2}, diff {3}".format(fname, mtime, ts, repr(mtime-ts))
-
+                print "Using exif information"
+                mtime = ts
         return mtime
 
     def get_time_exif(self, fname):
