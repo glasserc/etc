@@ -75,10 +75,11 @@ def set_link_mtime(fname, mtime):
     # declaration above doesn't work.  I don't envy you, but patches welcome.
     assert os.lstat(fname).st_mtime == mtime
 
-    # Update the time on the pointed-to file too, why not?
+    # If the file exists in this repository, update the time on it too.
     # N.B.  This might fail because the file is kept in a directory
     # that doesn't have write permissions.  Then what?
-    os.utime(fname, (mtime, mtime))
+    if os.path.exists(os.readlink(fname)):
+        os.utime(fname, (mtime, mtime))
 
 
 if __name__ == '__main__':
