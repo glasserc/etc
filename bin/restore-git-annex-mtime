@@ -8,6 +8,17 @@ data.  This program uses the information stored by the WORM backend to
 restore the mtimes of git-annex files and symlinks.
 
 http://git-annex.branchable.com/bugs/softlink_mtime/
+
+This program is suitable for running as a post-checkout hook, with a file like the following:
+
+--8<-------
+
+#! /bin/bash
+/home/ethan/etc/bin/restore-git-annex-mtime
+
+--8<-------
+
+Note that post-checkout hooks are not copied by default when you clone a repository, so you'll need to put this in every repository you work with.
 '''
 
 import os.path
@@ -70,4 +81,5 @@ def set_link_mtime(fname, mtime):
     os.utime(fname, (mtime, mtime))
 
 
-if __name__ == '__main__': walk_dirtree('.')
+if __name__ == '__main__':
+    walk_dirtree('.')
