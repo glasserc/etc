@@ -9,6 +9,11 @@ The -f (--format) option defaults to %Y/%m/%d/.  The trailing '/',
 indicates a directory (%Y/%m/%d/basename.jpg).  Otherwise the format
 is assumed to specify a full name (%Y/%m/%d.jpg).  You may also use
 '%f' to mean 'the old file basename'.
+
+Test:
+mkdir repo; touch -d "last Thursday" file1; touch -d "2008-01-03" fILE2
+import-files-by-mtime -l -n repo/ f*
+find repo
 """
 
 import os
@@ -31,6 +36,9 @@ class ImportFiles(object):
     parser.add_argument('-n', '--dry-run', action='store_true', default=False,
                         help='simulate; print what would be done')
 
+    parser.add_argument('-l', '--lowercase', action='store_true', default=False,
+                        help="make new filenames lowercase")
+
     def new_filename(self, fname):
         format = self.format
         if "%f" in self.format:
@@ -52,12 +60,17 @@ class ImportFiles(object):
                 # If the new_filename ends with a /, interpret this as the
                 # directory, and compute the full name.
                 new_dir = new_file
-                new_file = os.path.join(new_dir, os.path.basename(file))
             else:
                 # Otherwise, new_filename is a full path, compute the directory.
                 # FIXME: is this confusing?  Maybe we shouldn't allow
                 # this unless user explicitly confirms?
                 new_dir = os.path.dirname(new_file)
+
+            new_basename = os.path.basename(file)
+            if self.lowercase:
+                new_basename = new_basename.lower()
+
+            new_file = os.path.join(new_dir, new_basename)
 
             print "Moving", file, 'to', new_file
 
