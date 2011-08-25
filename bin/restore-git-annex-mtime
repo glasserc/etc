@@ -1,4 +1,14 @@
 #! /usr/bin/env python
+'''restore mtimes on files stored in git-annex
+
+git-annex, when using the WORM backend, stores mtimes of files, but
+does not restore these mtimes.  For some uses, this can be
+inconvenient, especially if the mtime represents useful chronological
+data.  This program uses the information stored by the WORM backend to
+restore the mtimes of git-annex files and symlinks.
+
+http://git-annex.branchable.com/bugs/softlink_mtime/
+'''
 
 import os.path
 import sys
@@ -53,5 +63,11 @@ def set_link_mtime(fname, mtime):
     # If this assertion fails for you, maybe something in the type
     # declaration above doesn't work.  I don't envy you, but patches welcome.
     assert os.lstat(fname).st_mtime == mtime
+
+    # Update the time on the pointed-to file too, why not?
+    # N.B.  This might fail because the file is kept in a directory
+    # that doesn't have write permissions.  Then what?
+    os.utime(fname, (mtime, mtime))
+
 
 if __name__ == '__main__': walk_dirtree('.')
