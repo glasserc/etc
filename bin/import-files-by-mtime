@@ -21,6 +21,11 @@ import os.path
 import sys
 import datetime
 import argparse
+import EXIF
+
+EXIF_TS_FORMAT = "%Y:%m:%d %H:%M:%S"
+DATETIME_SKEW_MIN = datetime.timedelta(seconds=-4)
+DATETIME_SKEW_MAX = datetime.timedelta(seconds=4)
 
 class ImportFiles(object):
     parser = argparse.ArgumentParser(description=
@@ -39,15 +44,44 @@ class ImportFiles(object):
     parser.add_argument('-l', '--lowercase', action='store_true', default=False,
                         help="make new filenames lowercase")
 
+    parser.add_argument('-e', '--confirm-exif', action='store_true', default=False,
+                        help='confirm mtime against EXIF tags')
+
     def new_filename(self, fname):
         format = self.format
         if "%f" in self.format:
             format = format.replace('%f', os.path.basename(fname))
 
-        ts = os.path.getmtime(fname)
-        time = datetime.datetime.fromtimestamp(ts)
+        time = self.get_time(fname)
+
         #print "file", fname, "time", time, 'format', self.format
         return time.strftime(format)
+
+    def get_time(self, fname):
+        name, ext = os.path.splitext(fname)
+        mtime = self.get_time_mtime(fname)
+
+        if self.confirm_exif and ext.lower() in ['.jpg', '.jpeg']:
+            ts = self.get_time_exif(fname)
+            if DATETIME_SKEW_MIN < (mtime - ts) < DATETIME_SKEW_MAX:
+                pass   # close enough
+            else:
+                print "Warning: mtime and exif are different for {0}: mtime {1}, exif {2}, diff {3}".format(fname, mtime, ts, repr(mtime-ts))
+
+        return mtime
+
+    def get_time_exif(self, fname):
+        f = file(fname, 'rb')
+        tags = EXIF.process_file(f)
+        f.close()
+        if 'EXIF DateTimeOriginal' in tags:
+            ts = datetime.datetime.strptime(str(tags['EXIF DateTimeOriginal']), EXIF_TS_FORMAT)
+            return ts
+
+    def get_time_mtime(self, fname):
+        ts = os.path.getmtime(fname)
+        time = datetime.datetime.fromtimestamp(ts)
+        return time
 
     def run(self, args):
         options = self.parser.parse_args(args, self)
