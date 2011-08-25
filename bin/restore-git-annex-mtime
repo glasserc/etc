@@ -38,9 +38,20 @@ libc = ctypes.cdll.LoadLibrary("libc.so.6")
 lutimes = libc.lutimes
 c_two_timespecs = c_timespec*2
 lutimes.argtypes = [ctypes.c_char_p, c_two_timespecs]
-def set_link_mtime(fname, mtime):
+def _set_link_mtime(fname, mtime):
+    '''lutime version.  lutime is provided by glibc and so this ought
+    to work on Linux and BSD (so hopefully OS X?).  Obviously Windows
+    is way out of the question.'''
     # WORM just stores mtime to second precision, so ns = 0
     mtimespec = c_timespec(mtime, 0)
     libc.lutimes(fname, c_two_timespecs(mtimespec, mtimespec))
+
+
+def set_link_mtime(fname, mtime):
+    _set_link_mtime(fname, mtime)
+    # Sanity check to make sure that mtime was correctly updated.
+    # If this assertion fails for you, maybe something in the type
+    # declaration above doesn't work.  I don't envy you, but patches welcome.
+    assert os.lstat(fname).st_mtime == mtime
 
 if __name__ == '__main__': walk_dirtree('.')
