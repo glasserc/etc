@@ -1,0 +1,71 @@
+#! /usr/bin/env python
+
+"""Imports files by date into a 'repository' organized by timestamp
+
+For example, you might use this to organize your photo collection into
+~/Pictures/YYYY/MM/DD/image-1111.jpg.
+
+The -f (--format) option defaults to %Y/%m/%d/.  The trailing '/',
+indicates a directory (%Y/%m/%d/basename.jpg).  Otherwise the format
+is assumed to specify a full name (%Y/%m/%d.jpg).  You may also use
+'%f' to mean 'the old file basename'.
+"""
+
+import os
+import os.path
+import sys
+import datetime
+import argparse
+
+class ImportFiles(object):
+    parser = argparse.ArgumentParser(description=
+                                     "Import files into a 'repository' organized by timestamp.")
+    parser.add_argument('repository', type=str,
+                        help='repository to import files into')
+
+    parser.add_argument('filename', type=str, nargs='+',
+                        help='files to import into the repository')
+
+    parser.add_argument('-f', '--format', type=str, nargs='?', default="%Y/%m/%d/",
+                        help="""date format to use (default %%Y/%%m/%%d/); %%f means file basename. Be sure to put a / at the end if you mean this to be a directory!""")
+    parser.add_argument('-n', '--dry-run', action='store_true', default=False,
+                        help='simulate; print what would be done')
+
+    def new_filename(self, fname):
+        format = self.format
+        if "%f" in self.format:
+            format = format.replace('%f', os.path.basename(fname))
+
+        ts = os.path.getmtime(fname)
+        time = datetime.datetime.fromtimestamp(ts)
+        #print "file", fname, "time", time, 'format', self.format
+        return time.strftime(format)
+
+    def run(self, args):
+        options = self.parser.parse_args(args, self)
+        for file in self.filename:
+            new_file = os.path.join(self.repository, self.new_filename(file))
+
+            # Find the directory and the full name for the file
+            # target.
+            if new_file.endswith('/'):
+                # If the new_filename ends with a /, interpret this as the
+                # directory, and compute the full name.
+                new_dir = new_file
+                new_file = os.path.join(new_dir, os.path.basename(file))
+            else:
+                # Otherwise, new_filename is a full path, compute the directory.
+                # FIXME: is this confusing?  Maybe we shouldn't allow
+                # this unless user explicitly confirms?
+                new_dir = os.path.dirname(new_file)
+
+            print "Moving", file, 'to', new_file
+
+            if not self.dry_run:
+                if not os.path.exists(new_dir):
+                    os.makedirs(new_dir)
+
+                os.rename(file, new_file)
+
+if __name__ == '__main__':
+    ImportFiles().run(sys.argv[1:])
