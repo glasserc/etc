@@ -68,12 +68,13 @@ class ImportFiles(object):
 
         if self.confirm_exif and ext.lower() in ['.jpg', '.jpeg']:
             ts = self.get_time_exif(fname)
-            if DATETIME_SKEW_MIN < (mtime - ts) < DATETIME_SKEW_MAX:
-                pass   # close enough
-            else:
-                print "Warning: mtime and exif are different for {0}: mtime {1}, exif {2}, diff {3}".format(fname, mtime, ts, repr(mtime-ts))
-                print "Using exif information"
-                mtime = ts
+            if ts:
+                if DATETIME_SKEW_MIN < (mtime - ts) < DATETIME_SKEW_MAX:
+                    pass   # close enough
+                else:
+                    print "Warning: mtime and exif are different for {0}: mtime {1}, exif {2}, diff {3}".format(fname, mtime, ts, repr(mtime-ts))
+                    print "Using exif information"
+                    mtime = ts
         return mtime
 
     def get_time_exif(self, fname):
