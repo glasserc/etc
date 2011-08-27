@@ -1,0 +1,38 @@
+#! /usr/bin/env python
+'''restore mtimes on JPEG images based on their EXIF tags
+
+Just 'cause I'm super OCD about mtimes!
+'''
+
+import os.path
+import sys
+import datetime
+import EXIF
+
+EXIF_TS_FORMAT = "%Y:%m:%d %H:%M:%S"
+def get_time_exif(fname):
+    f = file(fname, 'rb')
+    tags = EXIF.process_file(f)
+    f.close()
+    if 'EXIF DateTimeOriginal' in tags:
+        ts = datetime.datetime.strptime(str(tags['EXIF DateTimeOriginal']), EXIF_TS_FORMAT)
+        return ts
+
+def walk_dirtree(root):
+    for root, dirs, files in os.walk(root):
+        #print root, dirs, files
+        for item in dirs[:]:
+            if item.startswith('.'):
+                dirs.remove(item)
+
+        for item in files:
+            fname = os.path.join(root, item)
+            (basename, ext) = os.path.splitext(fname)
+            if ext.lower() in ['.jpg', '.jpeg'] and not os.path.islink(fname):
+                realtime = get_time_exif(fname)
+                #print fname, os.path.getmtime(fname), get_real_mtime(fname)
+                realtime = int(realtime.strftime("%s"))
+                os.utime(fname, (realtime, realtime))
+
+if __name__ == '__main__':
+    walk_dirtree('.')
