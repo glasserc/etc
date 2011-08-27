@@ -122,7 +122,7 @@
    (quote time))
  '(org-refile-targets
    (quote
-    ((org-agenda-files :level . 1))))
+    ((all-org-files :level . 1))))
  '(org-tag-alist
    (quote
     ((:startgroup)
