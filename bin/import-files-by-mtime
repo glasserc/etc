@@ -24,6 +24,7 @@ find repo
 import os
 import os.path
 import sys
+import shutil
 import datetime
 import argparse
 import EXIF
@@ -41,13 +42,19 @@ class ImportFiles(object):
     parser.add_argument('filename', type=str, nargs='+',
                         help='files to import into the repository')
 
-    parser.add_argument('-f', '--format', type=str, nargs='?', default="%Y/%m/%d/",
+    parser.add_argument('-F', '--format', type=str, nargs='?', default="%Y/%m/%d/",
                         help="""date format to use (default %%Y/%%m/%%d/); %%f means file basename. Be sure to put a / at the end if you mean this to be a directory!""")
     parser.add_argument('-n', '--dry-run', action='store_true', default=False,
                         help='simulate; print what would be done')
 
     parser.add_argument('-l', '--lowercase', action='store_true', default=False,
                         help="make new filenames lowercase")
+
+    parser.add_argument('-c', '--copy', action='store_true', default=False,
+                        help="copy instead of moving")
+
+    parser.add_argument('-R', '--replace', action='store_true', default=False,
+                        help="replace existing files")
 
     parser.add_argument('-e', '--confirm-exif', action='store_true', default=False,
                         help='confirm mtime against EXIF tags')
@@ -113,13 +120,23 @@ class ImportFiles(object):
 
             new_file = os.path.join(new_dir, new_basename)
 
-            print "Moving", file, 'to', new_file
+            if os.path.exists(new_file) and not self.replace:
+                print "Skipping", file, "because", new_file, "already exists"
+                continue
+
+            if self.copy:
+                print "Copying", file, 'to', new_file
+            else:
+                print "Moving", file, 'to', new_file
 
             if not self.dry_run:
                 if not os.path.exists(new_dir):
                     os.makedirs(new_dir)
 
-                os.rename(file, new_file)
+                if self.copy:
+                    shutil.copy2(file, new_file)
+                else:
+                    shutil.move(file, new_file)
 
 if __name__ == '__main__':
     ImportFiles().run(sys.argv[1:])
