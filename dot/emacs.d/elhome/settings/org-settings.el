@@ -90,6 +90,10 @@
     (orgtbl-to-generic table (org-combine-plists params2 params))))
 
 (add-to-list 'Info-default-directory-list (expand-file-name "~/.emacs.d/elhome/site-lisp/upstream/org-mode.git/doc"))
+;; Force refresh of Info-directory-list, since it might have been
+;; generated before this addition.
+(setq Info-directory-list nil)
+(info-initialize)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -122,7 +126,7 @@
    (quote time))
  '(org-refile-targets
    (quote
-    ((all-org-files :level . 1))))
+    ((org-all-org-files :level . 1))))
  '(org-tag-alist
    (quote
     ((:startgroup)
