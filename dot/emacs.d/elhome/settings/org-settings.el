@@ -37,6 +37,9 @@
 (setq org-default-notes-file (concat org-directory "/incoming.org"))
 
 
+;; Org-Babel: embed code into your org files and then execute.
+;; I use this just enough that I may as well require it.
+(require 'ob-python)
 ;; customize?
 ;;org-enforce-todo-dependencies
 ;;org-track-ordered-property-with-tag
