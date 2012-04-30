@@ -1,2 +1,4 @@
 #! /bin/bash
 # Shared definitions for writing backup programs
+
+EXCLUDES="$HOME/etc/bin/backups/excludes"

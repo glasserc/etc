@@ -2,7 +2,7 @@
 . ~/etc/bin/backups/shared
 
 KEY_PATH=/media/Personal/ethan
-RSYNC="rsync -avz --delete --exclude-from=$HOME/bin/backups/excludes"
+RSYNC="rsync -avz --delete --exclude-from=$EXCLUDES"
 
 TARGETS="~/Documents ~/.config/secrets ~/.config/etc-extended ~/writing"
 

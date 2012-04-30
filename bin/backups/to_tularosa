@@ -8,4 +8,4 @@ eval `ssh-agent`
 ssh-add ~/.ssh/id_dsa_tularosa >/dev/null 2>&1
 
 time rsync -az ~/ backups@tularosa.local:/c/backups/ethan/homedir/ \
-    --exclude-from=$HOME/etc/bin/backups/excludes
+    --exclude-from=$EXCLUDES
