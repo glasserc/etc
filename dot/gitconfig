@@ -8,7 +8,7 @@
 
 [user]
 ; FIXME: This'll be odd when I use git for work again
-        email = Ethan Glasser-Camp <ethan.glasser.camp@betacantrips.com>
+        email = ethan@betacantrips.com
 ; FIXME -- could be user-agnostic
 [core]
         excludesfile = /home/ethan/.config/git/gitignore
