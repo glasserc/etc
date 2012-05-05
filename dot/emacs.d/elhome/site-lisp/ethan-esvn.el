@@ -21,7 +21,6 @@
   (when (string-match "writing/" (buffer-file-name))
     (set (make-local-variable 'esvn-default-commit-message) "Edit.")
     (set (make-local-variable 'esvn-default-add-message) "Begin.")
-    (set (make-local-variable 'esvn-svn-command) "hg")
     (esvn-mode t)))
 
 ;(add-hook 'find-file-not-found-hooks 'enable-esvn)
