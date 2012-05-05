@@ -32,14 +32,6 @@
 
 ;; FIXME: switching major modes turns this off??
 
-(defvar esvn-mode nil)
-(make-variable-buffer-local 'esvn-mode)
-(defvar esvn-mode-map nil "Bindings for esvn mode.")
-
-(defvar esvn-svn-command "svn"
-  "*Command name to use when calling the version control system.")
-(make-variable-buffer-local 'esvn-svn-command)
-
 (defgroup esvn-group nil "Group for esvn customization stuff."
   :version "21.4.20" :prefix 'esvn-)
 
@@ -63,55 +55,48 @@ If empty, try esvn-default-add-message, esvn-default-autocommit-message, and
 esvn-default-commit-message in that order."
   :type '(string) :group 'esvn-group)
 
-(make-variable-buffer-local 'esvn-default-commit-message)
-(make-variable-buffer-local 'esvn-default-autocommit-message)
-(make-variable-buffer-local 'esvn-default-add-message)
-(make-variable-buffer-local 'esvn-default-autocommit-add-message)
+(defcustom esvn-svn-command "svn"
+  "*Command name to use when calling the version control system."
+  :type '(string) :group 'esvn-group)
+
+;;;###autoload
+(define-minor-mode esvn-mode
+  "Provide a command to semi-automatically commit whatever you're working on.
+
+This might be useful for your creative writing projects that you're working on in emacs."
+  nil " E" 
+  '(([?\C-c ?\C-c] . esvn-commit))
+
+  (if esvn-mode
+      (add-hook 'find-file-not-found-hooks 'esvn-new-file)
+    (remove-hook 'find-file-not-found-hooks 'esvn-new-file)))
+
+;; (make-variable-buffer-local 'esvn-svn-command)
+;; (make-variable-buffer-local 'esvn-default-commit-message)
+;; (make-variable-buffer-local 'esvn-default-autocommit-message)
+;; (make-variable-buffer-local 'esvn-default-add-message)
+;; (make-variable-buffer-local 'esvn-default-autocommit-add-message)
+
 (defvar esvn-buffer-file-status nil
   "Status of file associated with a buffer.
 
-This can be the symbol :new, which means \"not in SVN\"; the symbol
-:committed, which means \"in SVN\"; or nil, which means \"unknown\".")
+This can be the symbol :new, which means \"not in SVN (needs to be
+added)\"; the symbol :committed, which means \"in SVN (doesn't need
+to be added)\"; or nil, which means \"unknown\".")
 (make-variable-buffer-local 'esvn-buffer-file-status)
 
 (setq esvn-error-types 
       '((esvn-stat-failed . "svn stat failed")
 	(esvn-bad-commit-message . "Bad commit message")))
 
-(if (fboundp 'define-error)
-    (progn (mapcar (lambda (elem) (define-error (car elem) (cdr elem)))
-		esvn-error-types)
-	   (defun esvn-error (symbol string)
-	     (error symbol string)))
-  (progn (mapcar (lambda (elem) (set (car elem) (cdr elem)))
-	      esvn-error-types)
-	 (defun esvn-error (symbol string)
-	   (error "%s: %s" (eval symbol) string))))
+(mapcar (lambda (elem) (set (car elem) (cdr elem)))
+        esvn-error-types)
+(defun esvn-error (symbol string)
+  (error "%s: %s" (eval symbol) string))
 
 (defun esvn-new-file ()
   "Function to mark a new file as \"new\", for later adding."
   (setq esvn-buffer-file-status :new))
-
-(add-hook 'find-file-not-found-hooks 'esvn-new-file)
-
-(when (not esvn-mode-map)
-  (setq esvn-mode-map (make-sparse-keymap))
-  ;(define-key esvn-mode-map [?\C-c ?\C-d] 'esvn-diff)
-  (define-key esvn-mode-map [?\C-c ?\C-c] 'esvn-commit))
-
-(or (assq 'esvn-mode minor-mode-alist)
-    (setq minor-mode-alist
-          (cons '(esvn-mode " E") minor-mode-alist)))
-
-(or (assq 'esvn-mode minor-mode-map-alist)
-    (setq minor-mode-map-alist
-	  (push (cons 'esvn-mode esvn-mode-map) minor-mode-map-alist)))
-
-(defun esvn-mode (&optional arg)
-  (interactive "P")
-  (setq esvn-mode
-	(if (null arg) (not esvn-mode)
-	  (> (prefix-numeric-value arg) 0))))
 
 (defun esvn-default-message (adding autocommit)
   "Get the default message to commit this file."
