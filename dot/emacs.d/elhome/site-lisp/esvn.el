@@ -22,7 +22,9 @@
 ;; semi-automatically commit whatever writing you're working on. By
 ;; default, it provides one function, esvn-commit, which prompts for
 ;; a commit message before committing just the file you're working
-;; on. If run with a prefix argument, it just commits.
+;; on. If run with a prefix argument, it just commits. It uses VC-Mode
+;; functionality, so it should work with whatever VC system you
+;; normally use.
 ;;
 ;; You can bind a function like esvn-save-or-autocommit to C-x C-s, to
 ;; ensure that you're always committing whatever you've been
@@ -32,6 +34,7 @@
 
 ;; FIXME: switching major modes turns this off??
 
+(require 'log-edit)
 (defgroup esvn-group nil "Group for esvn customization stuff."
   :version "21.4.20" :prefix 'esvn-)
 
@@ -55,10 +58,6 @@ If nil, esvn will try esvn-default-add-message, esvn-default-autocommit-message,
 esvn-default-commit-message in that order."
   :type '(string) :group 'esvn-group)
 
-(defcustom esvn-svn-command "svn"
-  "*Command name to use when calling the version control system."
-  :type '(string) :group 'esvn-group)
-
 ;;;###autoload
 (define-minor-mode esvn-mode
   "Provide a command to semi-automatically commit whatever you're working on.
@@ -70,14 +69,6 @@ This might be useful for your creative writing projects that you're working on i
   (if esvn-mode
       (add-hook 'find-file-not-found-hooks 'esvn-new-file)
     (remove-hook 'find-file-not-found-hooks 'esvn-new-file)))
-
-(defvar esvn-buffer-file-status nil
-  "Status of file associated with a buffer.
-
-This can be the symbol :new, which means \"not in SVN (needs to be
-added)\"; the symbol :committed, which means \"in SVN (doesn't need
-to be added)\"; or nil, which means \"unknown\".")
-(make-variable-buffer-local 'esvn-buffer-file-status)
 
 (setq esvn-error-types
       '((esvn-stat-failed . "svn stat failed")
@@ -98,7 +89,7 @@ to be added)\"; or nil, which means \"unknown\".")
   ;; autocommit-message, or the default message.
   (or
    (when (and adding autocommit) esvn-default-autocommit-add-message)
-   (when adding (cons esvn-default-add-message choices))
+   (when adding esvn-default-add-message)
    (when autocommit esvn-default-autocommit-message)
    esvn-default-commit-message))
 
@@ -118,32 +109,6 @@ use esvn-default-commit-message."
         defmsg
       response)))
 
-(defun esvn-execvp (&rest args)
-  "Simulate C's execvp() function.
-
-Quote each argument seperately, join with spaces and call shell-command-to-string to run in a shell."
-  (let ((cmd (mapconcat 'shell-quote-argument args " ")))
-    (shell-command-to-string cmd)))
-
-(defun esvn-get-buffer-file-status ()
-  "Find out whether the file corresponding to the buffer is in SVN.
-
-On success, returns :new or :committed."
-  (let* ((svnout (esvn-execvp esvn-svn-command "stat" buffer-file-name))
-         (fields (split-string svnout)))
-    (when (< (length fields) 1) ; no stat output -- file not there?
-      (esvn-error 'esvn-stat-failed "file not there"))
-
-    (let ((status (car fields))
-          (file (car (cdr fields))))
-
-      (cond ((string= status "?") :new)
-            ((string= status "A") :committed) ; no need to add
-            ((string= status "M") :committed)))))
-
-(defun last-line (string)
-  (car (last (split-string string "\n" t))))
-
 (defun esvn-commit (autocommit)
   "Commit the local buffer.
 
@@ -151,20 +116,15 @@ If autocommit is true, automatically commit using the default message (either
 esvn-default-add-message or esvn-default-commit-message)."
   (interactive "P")
   (save-buffer)
-  (when (not esvn-buffer-file-status)
-    (setq esvn-buffer-file-status (esvn-get-buffer-file-status)))
-  (let ((adding (eq esvn-buffer-file-status :new)))
-    (when adding
-      (message (esvn-execvp esvn-svn-command "add" buffer-file-name)))
+  (let ((adding (not (vc-backend buffer-file-name))))
     (let ((response (if autocommit (esvn-default-message adding autocommit)
                       (esvn-get-commit-message adding autocommit))))
       (when (string= response "")
         (esvn-error 'esvn-bad-commit-message "No message given"))
-      (let ((output (esvn-execvp esvn-svn-command "commit" "-m" response buffer-file-name)))
-        (if (= (length output) 0)
-            (message "Committed %s" buffer-file-name)
-          (message (last-line output))))
-      (setq esvn-buffer-file-status :committed))))
+      (when adding
+        (vc-register nil nil response))
+      (when (vc-call checkin (list  buffer-file-name) nil response)
+          (message "Committed %s" buffer-file-name)))))
 
 (defun esvn-save-or-autocommit (save)
   "Save or autocommit, based on prefix arg. Prefix arg means save; otherwise, autocommit."
