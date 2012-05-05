@@ -71,12 +71,6 @@ This might be useful for your creative writing projects that you're working on i
       (add-hook 'find-file-not-found-hooks 'esvn-new-file)
     (remove-hook 'find-file-not-found-hooks 'esvn-new-file)))
 
-;; (make-variable-buffer-local 'esvn-svn-command)
-;; (make-variable-buffer-local 'esvn-default-commit-message)
-;; (make-variable-buffer-local 'esvn-default-autocommit-message)
-;; (make-variable-buffer-local 'esvn-default-add-message)
-;; (make-variable-buffer-local 'esvn-default-autocommit-add-message)
-
 (defvar esvn-buffer-file-status nil
   "Status of file associated with a buffer.
 
