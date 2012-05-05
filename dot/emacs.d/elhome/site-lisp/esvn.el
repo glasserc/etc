@@ -38,20 +38,20 @@
 (defcustom esvn-default-commit-message ""
   "*Default commit message."
   :type '(string) :group 'esvn-group)
-(defcustom esvn-default-add-message ""
+(defcustom esvn-default-add-message nil
   "*Default commit message if adding a file.
 
-If empty, try esvn-default-commit-message."
+If nil, esvn will try esvn-default-commit-message."
   :type '(string) :group 'esvn-group)
-(defcustom esvn-default-autocommit-message ""
+(defcustom esvn-default-autocommit-message nil
   "*Default commit message if autocommitting (committing without user intervention).
 
-If empty, try esvn-default-commit-message."
+If nil, esvn will try esvn-default-commit-message."
   :type '(string) :group 'esvn-group)
-(defcustom esvn-default-autocommit-add-message ""
+(defcustom esvn-default-autocommit-add-message nil
   "*Default commit message if adding a file while autocommitting.
 
-If empty, try esvn-default-add-message, esvn-default-autocommit-message, and
+If nil, esvn will try esvn-default-add-message, esvn-default-autocommit-message, and
 esvn-default-commit-message in that order."
   :type '(string) :group 'esvn-group)
 
@@ -100,14 +100,13 @@ to be added)\"; or nil, which means \"unknown\".")
 
 (defun esvn-default-message (adding autocommit)
   "Get the default message to commit this file."
-  (let* ((choices (cons esvn-default-commit-message '()))
-         (choices (if autocommit (cons esvn-default-autocommit-message choices)
-                    choices))
-         (choices (if adding (cons esvn-default-add-message choices) choices))
-         (choices (if (and adding autocommit)
-                      (cons esvn-default-autocommit-add-message choices)
-                    choices)))
-    (find "" choices :test-not 'string=)))
+  ;; Take the most specific of: autocommit-add-message, add-message,
+  ;; autocommit-message, or the default message.
+  (or
+   (when (and adding autocommit) esvn-default-autocommit-add-message)
+   (when adding (cons esvn-default-add-message choices))
+   (when autocommit esvn-default-autocommit-message)
+   esvn-default-commit-message))
 
 (defun esvn-get-commit-message (adding autocommit)
   "Get a commit message from the user.
