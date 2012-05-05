@@ -32,7 +32,8 @@
 ;;
 ;; [1] http://bitbucketlabs.net/flashbake/
 
-;; FIXME: switching major modes turns this off??
+;; FIXME: switching major modes turns this off. This seems to be the
+;; case for most minor modes, and I'm not sure how to change it.
 
 (require 'log-edit)
 (defgroup esvn-group nil "Group for esvn customization stuff."
