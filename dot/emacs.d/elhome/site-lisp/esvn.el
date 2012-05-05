@@ -1,6 +1,36 @@
-; esvn-mode: pennyante SVN mode for emacs
-; version 0.1.3
-; FIXME: switching major modes turns this off??
+;;; esvn-mode.el --- like maniac-mode, but for committing
+
+;; Copyright (C) 2006-2012 Ethan Glasser-Camp
+;;
+;; This package is released under a BSD license.
+
+;; Author: Ethan Glasser-Camp <ethan@betacantrips.com>
+;; Keywords: automatic, commit, VCS
+;; Version: 0.1.3
+
+;;; Commentary:
+;; The intersection of creative writing and version control is a weird
+;; space where programmers try to write tools for
+;; authors. Flashbake[1] is a good example of this kind of tool;
+;; instead of providing a simplified interface to a version control
+;; system, it automatically commits every few minutes, with relatively
+;; content-free commit messages based on whatever context the software
+;; notices. esvn is also in this tradition, but in a more ham-fisted
+;; way.
+;;
+;; esvn is a minor mode that also helps to seamlessly and
+;; semi-automatically commit whatever writing you're working on. By
+;; default, it provides one function, esvn-commit, which prompts for
+;; a commit message before committing just the file you're working
+;; on. If run with a prefix argument, it just commits.
+;;
+;; You can bind a function like esvn-save-or-autocommit to C-x C-s, to
+;; ensure that you're always committing whatever you've been
+;; writing.
+;;
+;; [1] http://bitbucketlabs.net/flashbake/
+
+;; FIXME: switching major modes turns this off??
 
 (defvar esvn-mode nil)
 (make-variable-buffer-local 'esvn-mode)
