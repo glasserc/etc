@@ -35,10 +35,10 @@
 (defgroup esvn-group nil "Group for esvn customization stuff."
   :version "21.4.20" :prefix 'esvn-)
 
-(defcustom esvn-default-commit-message "" 
+(defcustom esvn-default-commit-message ""
   "*Default commit message."
   :type '(string) :group 'esvn-group)
-(defcustom esvn-default-add-message "" 
+(defcustom esvn-default-add-message ""
   "*Default commit message if adding a file.
 
 If empty, try esvn-default-commit-message."
@@ -64,7 +64,7 @@ esvn-default-commit-message in that order."
   "Provide a command to semi-automatically commit whatever you're working on.
 
 This might be useful for your creative writing projects that you're working on in emacs."
-  nil " E" 
+  nil " E"
   '(([?\C-c ?\C-c] . esvn-commit))
 
   (if esvn-mode
@@ -85,9 +85,9 @@ added)\"; the symbol :committed, which means \"in SVN (doesn't need
 to be added)\"; or nil, which means \"unknown\".")
 (make-variable-buffer-local 'esvn-buffer-file-status)
 
-(setq esvn-error-types 
+(setq esvn-error-types
       '((esvn-stat-failed . "svn stat failed")
-	(esvn-bad-commit-message . "Bad commit message")))
+        (esvn-bad-commit-message . "Bad commit message")))
 
 (mapcar (lambda (elem) (set (car elem) (cdr elem)))
         esvn-error-types)
@@ -101,12 +101,12 @@ to be added)\"; or nil, which means \"unknown\".")
 (defun esvn-default-message (adding autocommit)
   "Get the default message to commit this file."
   (let* ((choices (cons esvn-default-commit-message '()))
-	 (choices (if autocommit (cons esvn-default-autocommit-message choices)
-		    choices))
-	 (choices (if adding (cons esvn-default-add-message choices) choices))
-	 (choices (if (and adding autocommit) 
-		      (cons esvn-default-autocommit-add-message choices) 
-		    choices)))
+         (choices (if autocommit (cons esvn-default-autocommit-message choices)
+                    choices))
+         (choices (if adding (cons esvn-default-add-message choices) choices))
+         (choices (if (and adding autocommit)
+                      (cons esvn-default-autocommit-add-message choices)
+                    choices)))
     (find "" choices :test-not 'string=)))
 
 (defun esvn-get-commit-message (adding autocommit)
@@ -116,13 +116,13 @@ If adding a file for the first time, use esvn-default-add-message
 as the default. If not adding, or if that variable is empty,
 use esvn-default-commit-message."
   (let* ((defmsg (esvn-default-message adding autocommit))
-	 (prompt
-	  (if (not (string= defmsg ""))
-	      (format "Commit message (default %s):" defmsg)
-	    "Commit message:"))
-	 (response (read-from-minibuffer (concat prompt " "))))
+         (prompt
+          (if (not (string= defmsg ""))
+              (format "Commit message (default %s):" defmsg)
+            "Commit message:"))
+         (response (read-from-minibuffer (concat prompt " "))))
     (if (string= response "")
-	defmsg
+        defmsg
       response)))
 
 (defun esvn-execvp (&rest args)
@@ -137,16 +137,16 @@ Quote each argument seperately, join with spaces and call shell-command-to-strin
 
 On success, returns :new or :committed."
   (let* ((svnout (esvn-execvp esvn-svn-command "stat" buffer-file-name))
-	 (fields (split-string svnout)))
+         (fields (split-string svnout)))
     (when (< (length fields) 1) ; no stat output -- file not there?
       (esvn-error 'esvn-stat-failed "file not there"))
 
     (let ((status (car fields))
-	  (file (car (cdr fields))))
+          (file (car (cdr fields))))
 
       (cond ((string= status "?") :new)
-	    ((string= status "A") :committed) ; no need to add
-	    ((string= status "M") :committed)))))
+            ((string= status "A") :committed) ; no need to add
+            ((string= status "M") :committed)))))
 
 (defun last-line (string)
   (car (last (split-string string "\n" t))))
@@ -154,7 +154,7 @@ On success, returns :new or :committed."
 (defun esvn-commit (autocommit)
   "Commit the local buffer.
 
-If autocommit is true, automatically commit using the default message (either 
+If autocommit is true, automatically commit using the default message (either
 esvn-default-add-message or esvn-default-commit-message)."
   (interactive "P")
   (save-buffer)
@@ -164,13 +164,13 @@ esvn-default-add-message or esvn-default-commit-message)."
     (when adding
       (message (esvn-execvp esvn-svn-command "add" buffer-file-name)))
     (let ((response (if autocommit (esvn-default-message adding autocommit)
-		      (esvn-get-commit-message adding autocommit))))
+                      (esvn-get-commit-message adding autocommit))))
       (when (string= response "")
-	(esvn-error 'esvn-bad-commit-message "No message given"))
+        (esvn-error 'esvn-bad-commit-message "No message given"))
       (let ((output (esvn-execvp esvn-svn-command "commit" "-m" response buffer-file-name)))
-	(if (= (length output) 0)
-	    (message "Committed %s" buffer-file-name)
-	  (message (last-line output))))
+        (if (= (length output) 0)
+            (message "Committed %s" buffer-file-name)
+          (message (last-line output))))
       (setq esvn-buffer-file-status :committed))))
 
 (defun esvn-save-or-autocommit (save)
