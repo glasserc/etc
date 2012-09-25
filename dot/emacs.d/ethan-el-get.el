@@ -82,8 +82,10 @@
               twittering-mode
               ))
 
+(setq my-packages (mapcar 'el-get-source-name el-get-sources))
+
 (if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
-    (el-get 'sync)
-  (el-get))
+    (el-get 'sync my-packages)
+  (el-get my-packages))
 
 (provide 'ethan-el-get)
