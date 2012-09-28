@@ -19,7 +19,7 @@
          ;; of paths)
 	rainbow-mode ;; required by coding-hook which is set up by elhome
          (:name elhome
-                :after elhome-init)
+                :after (elhome-init))
 
          package                   ; this is ELPA
          (:name idle-highlight :type elpa)
@@ -28,11 +28,11 @@
          paredit
          iedit java-mode-indent-annotations
          (:name sml-modeline
-                :after sml-modeline-mode)
+                :after (sml-modeline-mode))
          browse-kill-ring
          (:name haml-mode :features nil)  ; autoload's fine, thanks
          (:name whole-line-or-region
-                :after whole-line-or-region-mode)
+                :after (whole-line-or-region-mode))
          (:name cheat
                 :type git
                 :url "http://github.com/emacsmirror/cheat.git")
@@ -58,19 +58,18 @@
          ;;nxhtml
 
          (:name rst-mode
-                :after (lambda ()
-                         (setq auto-mode-alist
-                               (cons '("\\.rst$" . rst-mode)
-                                     auto-mode-alist))))
+                :after (setq auto-mode-alist
+			     (cons '("\\.rst$" . rst-mode)
+				   auto-mode-alist)))
          (:name undo-tree
                 :type git
                 :url "http://www.dr-qubit.org/git/undo-tree.git"
                 :load "undo-tree.el"
-                :after global-undo-tree-mode)
+                :after (global-undo-tree-mode))
          (:name yasnippet
                 :compile "yasnippet.el"
                 :after
-                (lambda () (yas/load-directory (emacs-d "my-snippets"))))
+                (yas/load-directory (emacs-d "my-snippets")))
 
 ;;; This is entirely stolen from Emacs Starter Kit as a good base of
 ;;; packages to have installed.
@@ -78,7 +77,7 @@
               ruby-mode yaml-mode gist
               (:name find-file-in-project :type elpa)
               (:name css-mode :type elpa)
-              (:name scratch :after (lambda () (autoload 'scratch "scratch.el" nil t)))
+              (:name scratch :after (autoload 'scratch "scratch.el" nil t))
               twittering-mode
               ))
 
