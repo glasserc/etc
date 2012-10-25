@@ -4,7 +4,11 @@ The expected use of this repository is:
 - symlink every ~/etc/dot/foo to ~/.foo except ~/.config
 - symlink every ~/etc/dot/config/foo to ~/.config/foo
 
-I don't have a script to generate/refresh these symlink farms yet, sorry!
+Included in this repo is a script to do this. To run:
+
+cd ~; ~/etc/bin/link-to-dotfiles ~/etc/dot
+
+- To clone all the submodules (bin/contrib, and dot/emacs.d/elhome/site-lisp/upstream), do: git submodule init; git submodule update
 
 - git submodule init
 - git submodule update
