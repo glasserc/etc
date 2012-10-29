@@ -3,13 +3,19 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -59,6 +65,7 @@ init_colors(){
     # sequences will expand to empty strings, and do nothing.
     export GREEN="\[\033[01;32m\]"
     export YELLOW="\[\033[01;33m\]"
+    export BLUE="\[\033[01;34m\]"
     export RS="\[\033[00m\]"
 }
 
@@ -71,7 +78,7 @@ unset color_prompt force_color_prompt
 
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
 GITPS1='$(__git_ps1 ":%s")'
-export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:\w${RS}${YELLOW}${GITPS1}${RS}\\$ "
+export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:${BLUE}\w${RS}${YELLOW}${GITPS1}${RS}\\$ "
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
