@@ -28,7 +28,7 @@
 ;; Ido: don't ignore project.git, but ignore .git itself.
 (let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
   ;; remove .git/ from completion-ignored-extensions, because it matches endings
-  (mapc '(lambda (extension)
+  (mapc #'(lambda (extension)
            (setq completion-ignored-extensions
                  (remove extension completion-ignored-extensions)))
         vcs-extensions)
@@ -36,7 +36,7 @@
         (append
          ;; But do ignore files that are just .git, .hg, .svn, etc.
          ;; generate regexes that are ^.git, etc.
-         (mapcar '(lambda (arg) (concat "^" arg)) vcs-extensions)
+         (mapcar #'(lambda (arg) (concat "^" arg)) vcs-extensions)
          ido-ignore-files)))
 ;;;
 
