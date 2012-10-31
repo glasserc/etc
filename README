@@ -6,6 +6,9 @@ The expected use of this repository is:
 
 I don't have a script to generate/refresh these symlink farms yet, sorry!
 
+- git submodule init
+- git submodule update
+
 This set of configuration files has primitive support for machine-specific
 customization. Drop a file in ~/.config/etc.machine/`hostname`.rc and it'll get
 sourced from bashrc.
@@ -14,4 +17,3 @@ Additional niceties include:
 
 * strip_empty_stanzas.py, which filters the output of "mr status" to remove
   "on branch master / nothing to commit" blocks.
-
