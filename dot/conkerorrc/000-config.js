@@ -3,7 +3,10 @@ url_completion_use_history = true;
 url_remoting_fn = load_url_in_new_buffer;
 xkcd_add_title = true;
 
+// This isn't perfect -- doesn't show up correct in completions
 webjumps['goog'] = webjumps['gg'] = webjumps['google'];
+
+
 require('page-modes/google-search-results.js');
 google_search_bind_number_shortcuts();
 

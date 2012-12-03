@@ -3,4 +3,5 @@ wikipedia_webjumps_format = "wp-%s"; // controls the names of the webjumps.  def
 define_wikipedia_webjumps("en", "fr"); // For English, German and French.
 // define_wikipedia_webjumps(); // To make use of ALL of the webjumps (200+).
 
+// Presumably this isn't correct either
 webjumps['wp'] = webjumps['wp-en'];
