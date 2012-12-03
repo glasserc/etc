@@ -6,6 +6,8 @@ xkcd_add_title = true;
 // This isn't perfect -- doesn't show up correct in completions
 webjumps['goog'] = webjumps['gg'] = webjumps['google'];
 
+// Default webjump
+read_url_handler_list = [read_url_make_default_webjump_handler('google')];
 
 require('page-modes/google-search-results.js');
 google_search_bind_number_shortcuts();
