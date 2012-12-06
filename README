@@ -13,6 +13,8 @@ cd ~; ~/etc/bin/link-to-dotfiles ~/etc/dot
 - git submodule init
 - git submodule update
 
+Among other things, this pulls in org-mode, which needs to be built to generate autoloads. Do: cd ~/etc/dot/emacs.d/elhome/site-lisp/upstream/org-mode.git; make
+
 This set of configuration files has primitive support for machine-specific
 customization. Drop a file in ~/.config/etc.machine/`hostname`.rc and it'll get
 sourced from bashrc.
