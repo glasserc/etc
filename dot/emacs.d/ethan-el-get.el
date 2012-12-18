@@ -32,6 +32,7 @@
          browse-kill-ring
          (:name haml-mode :features nil)  ; autoload's fine, thanks
          (:name whole-line-or-region
+                :features whole-line-or-region
                 :after (whole-line-or-region-mode))
          (:name cheat
                 :type git
