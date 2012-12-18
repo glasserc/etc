@@ -17,7 +17,7 @@
          ;; Do this stuff first to init settings and stuff that might be needed
          ;; in installing/initing other packages (specifically, config
          ;; of paths)
-	rainbow-mode ;; required by coding-hook which is set up by elhome
+        rainbow-mode ;; required by coding-hook which is set up by elhome
          (:name elhome
                 :after (elhome-init))
 
