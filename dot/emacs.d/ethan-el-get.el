@@ -60,8 +60,8 @@
 
          (:name rst-mode
                 :after (setq auto-mode-alist
-			     (cons '("\\.rst$" . rst-mode)
-				   auto-mode-alist)))
+                             (cons '("\\.rst$" . rst-mode)
+                                   auto-mode-alist)))
          (:name undo-tree
                 :type git
                 :url "http://www.dr-qubit.org/git/undo-tree.git"
