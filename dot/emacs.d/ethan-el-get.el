@@ -68,7 +68,7 @@
               ruby-mode yaml-mode gist
               (:name find-file-in-project :type elpa)
               (:name css-mode :type elpa)
-              (:name scratch :after (autoload 'scratch "scratch.el" nil t))
+              (:name scratch)
               twittering-mode
               ))
 
