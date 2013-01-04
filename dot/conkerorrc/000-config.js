@@ -7,6 +7,11 @@ xkcd_add_title = true;
 webjumps['goog'] = webjumps['gg'] = webjumps['google'];
 
 // Default webjump
+function possibly_valid_url (str) {
+    return /^\s*[^\/\s]*(\/|\s*$)/.test(str)
+        && /[:\/\.]/.test(str);
+}
+
 read_url_handler_list = [read_url_make_default_webjump_handler('google')];
 
 require('page-modes/google-search-results.js');
