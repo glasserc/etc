@@ -60,13 +60,15 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 init_colors(){
-    # FIXME: more colors; better names; actually learn ANSI escape sequences
+    # FIXME: more colors; better names
+    # This is taken from http://mywiki.wooledge.org/BashFAQ/037
     # The intent is that if this function doesn't get run, all these escape
     # sequences will expand to empty strings, and do nothing.
-    export GREEN="\[\033[01;32m\]"
-    export YELLOW="\[\033[01;33m\]"
-    export BLUE="\[\033[01;34m\]"
-    export RS="\[\033[00m\]"
+    export BOLD=$(     tput bold   || tput md      )
+    export GREEN=$(    tput setaf 2|| tput AF 2    )
+    export YELLOW=$(   tput setaf 3|| tput AF 3    )
+    export BLUE=$(     tput setaf 4|| tput AF 4    )
+    export RS=$(       tput sgr0 || tput me      )
 }
 
 if [ "$color_prompt" = yes ]; then
@@ -78,7 +80,7 @@ unset color_prompt force_color_prompt
 
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
 GITPS1='$(__git_ps1 ":%s")'
-export PS1="${GREEN}${debian_chroot:+($debian_chroot)}\u@\h:${BLUE}\w${RS}${YELLOW}${GITPS1}${RS}\\$ "
+export PS1="\[${BOLD}${GREEN}\]${debian_chroot:+($debian_chroot)}\u@\h:\[${BLUE}\]\w\[${RS}${YELLOW}\]${GITPS1}\[${RS}\]\\$ "
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
