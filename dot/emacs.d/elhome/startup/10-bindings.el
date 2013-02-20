@@ -77,7 +77,7 @@
 (define-key esc-map "=" 'count-words)
 
 ;; Let's try this
-(define-key me-minor-mode-map (kbd "M-y") 'eagc-browse-kill-ring)
+(define-key me-minor-mode-map (kbd "M-y") 'browse-kill-ring)
 
 ; In theory these are reserved for major modes, but I like the python-mode
 ; bindings, so I'm making them global.
