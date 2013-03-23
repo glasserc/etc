@@ -19,6 +19,7 @@
          ;; of paths)
         rainbow-mode ;; required by coding-hook which is set up by elhome
          (:name elhome
+                :depends (initsplit rainbow-mode)
                 :after (elhome-init))
 
          package                   ; this is ELPA
