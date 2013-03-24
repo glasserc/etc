@@ -14,9 +14,11 @@ function possibly_valid_url (str) {
 
 read_url_handler_list = [read_url_make_default_webjump_handler('google')];
 
+add_hook("mode_line_hook", mode_line_adder(buffer_count_widget), true);
+
 require('page-modes/google-search-results.js');
 google_search_bind_number_shortcuts();
 
 // specify download directory
 cwd = get_home_directory();
-cwd.append("Desktop");
+cwd.append("Downloads");
