@@ -68,15 +68,6 @@ Symbols matching the text at point are put first in the completion list."
 
 ;; Other
 
-(defun eagc-browse-kill-ring ()
-  (interactive)
-  (when (eq last-command 'yank)
-    ;; Ideally browse-kill-ring would replace just-yanked text with
-    ;; whatever you insert. Unfortunately I don't see an easy way to
-    ;; do that so just delete it.
-    (delete-region (point) (mark)))
-  (browse-kill-ring))
-
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
