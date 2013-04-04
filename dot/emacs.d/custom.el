@@ -7,6 +7,7 @@
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(css-indent-level 2)
+ '(css-indent-offset 2)
  '(display-buffer-reuse-frames t)
  '(echo-keystrokes 0.1)
  '(ediff-window-setup-function
