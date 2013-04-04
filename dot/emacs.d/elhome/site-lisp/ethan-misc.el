@@ -117,4 +117,6 @@
 
 (require 'offlineimap)
 
+(winner-mode 1)
+
 (provide 'ethan-misc)
