@@ -48,6 +48,7 @@
                 :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
 
          ;;nxhtml
+         jinja2-mode
 
          (:name rst-mode
                 :after (setq auto-mode-alist
@@ -68,9 +69,9 @@
               (:name inf-ruby :type elpa)
               ruby-mode yaml-mode gist
               (:name find-file-in-project :type elpa)
-              (:name css-mode :type elpa)
               (:name scratch)
               twittering-mode
+              (:name less-css-mode :type elpa)
               ))
 
 (setq my-packages (mapcar 'el-get-source-name el-get-sources))
