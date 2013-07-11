@@ -36,6 +36,15 @@
 ;; specify files.
 (setq org-default-notes-file (concat org-directory "/incoming.org"))
 
+;; Make windmove work in org-mode: (from org-mode manual)
+;; I'm not sure this is the way I want to fix this, since I hardly
+;; ever use priorities on tasks, so maybe I just want to always use
+;; windmove unconditionally?
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
 
 ;; Org-Babel: embed code into your org files and then execute.
 ;; I use this just enough that I may as well require it.
