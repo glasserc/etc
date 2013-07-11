@@ -106,3 +106,8 @@
 ;; alternate keybindings.
 ;;(define-key me-minor-mode-map (kbd "C-c C-_") 'winner-undo)
 ;;(define-key me-minor-mode-map (kbd "C-c M-_") 'winner-redo)
+
+;; Multiple-cursors
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)

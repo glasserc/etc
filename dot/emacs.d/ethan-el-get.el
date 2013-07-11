@@ -1,10 +1,10 @@
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
+(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
 (unless (file-exists-p "~/.emacs.d/el-get/el-get")
   (setq el-get-new t)
   (load "~/.emacs.d/el-get-install.el"))
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (require 'el-get)
 
 ;; It sucks that we can't put these in organize-paths, but I want them
@@ -63,7 +63,7 @@
                 :compile "yasnippet.el"
                 :after
                 (yas/load-directory (emacs-d "my-snippets")))
-
+         multiple-cursors
 ;;; This is entirely stolen from Emacs Starter Kit as a good base of
 ;;; packages to have installed.
               (:name inf-ruby :type elpa)
@@ -74,6 +74,7 @@
               (:name less-css-mode :type elpa)
               ))
 
+(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
 (setq my-packages (mapcar 'el-get-source-name el-get-sources))
 
 (if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
