@@ -23,7 +23,11 @@
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; This is almost always a typo.
+(global-set-key (kbd "C-x C-b") 'ido-switch-buffer)
+
+;; This mode is very rarely useful.
+(global-set-key (kbd "C-x C-S-b") 'ibuffer)
 
 ;; Window switching. (C-x o goes to the next window)
 (windmove-default-keybindings) ;; Shift+direction
@@ -50,7 +54,6 @@
 
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c e") 'eval-and-replace)
-
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
 
