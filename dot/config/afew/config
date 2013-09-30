@@ -2,12 +2,22 @@
 #[ClassifyingFilter]
 [KillThreadsFilter]
 [ListMailsFilter]
-[ArchiveSentMailsFilter]
+[SentMailsFilter]
 [InboxFilter]
 
+# Explicitly remove unread tag so that they get marked read
+[Filter.000]
+query = "tag:sent"
+tags = -unread
+
 # open source mailing lists I follow
-[HeaderMatchingFilter.1]
+[HeaderMatchingFilter.100]
 header = To
+pattern = user@couchdb.apache.org
+tags = -inbox;+couchdb
+
+[HeaderMatchingFilter.101]
+header = Cc
 pattern = user@couchdb.apache.org
 tags = -inbox;+couchdb
 
@@ -16,9 +26,19 @@ header = List-ID
 pattern = ledger-cli.googlegroups.com
 tags = -inbox;+ledger
 
-[HeaderMatchingFilter.3]
+[HeaderMatchingFilter.300]
 header = To
 pattern = emacs-orgmode@gnu.org
+tags = -inbox;+org-mode
+
+[HeaderMatchingFilter.301]
+header = Cc
+pattern = emacs-orgmode@gnu.org
+tags = -inbox;+org-mode
+
+[HeaderMatchingFilter.302]
+header = List-Id
+pattern = emacs-orgmode.gnu.org
 tags = -inbox;+org-mode
 
 [HeaderMatchingFilter.4]
