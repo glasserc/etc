@@ -18,11 +18,16 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initsplit-pretty-print t)
+ '(mail-envelope-from
+   (quote header))
  '(mail-host-address "betacantrips.com")
+ '(mail-specify-envelope-from t)
  '(mouse-yank-at-point t)
  '(rainbow-html-colors-major-mode-list
    (quote
     (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
+ '(send-mail-function
+   (quote sendmail-send-it))
  '(sendmail-program "/usr/bin/msmtp")
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style
