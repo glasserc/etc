@@ -20,6 +20,9 @@
  '(initsplit-pretty-print t)
  '(mail-host-address "betacantrips.com")
  '(mouse-yank-at-point t)
+ '(rainbow-html-colors-major-mode-list
+   (quote
+    (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
  '(sendmail-program "/usr/bin/msmtp")
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style
