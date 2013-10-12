@@ -16,6 +16,7 @@
 
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp/"))
+(add-to-list 'load-path (expand-file-name  "~/.local/share/emacs/site-lisp/"))
 
 (setq autoload-file (emacs-d "loaddefs.el"))
 (require 'ethan-el-get)
