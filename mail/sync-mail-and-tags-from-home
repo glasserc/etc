@@ -1,0 +1,16 @@
+#! /usr/bin/env python
+
+HOME = '66.114.71.21'
+EXPORTED_TAGS = '~/Mail/.notmuch/exported-tags'
+LINKSYNC = '~/etc/mail/linksync.py'
+
+import subprocess
+
+subprocess.check_call([LINKSYNC, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS])
+subprocess.check_call(['ssh', HOME,
+                       "{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS)])
+subprocess.check_call(["smd-pull", "sync-tags"])
+subprocess.check_call(["smd-pull", "pull-mail"])
+subprocess.check_call([LINKSYNC, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS])
+subprocess.check_call(['ssh', HOME,
+                       "{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS)])
