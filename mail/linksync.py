@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # Copyright 2013, David Bremner <david@tethera.net>
 
 # Licensed under the same terms as notmuch.
