@@ -156,81 +156,86 @@ else:
 
 q_new = notmuch.Query(db, querystr)
 q_new.set_sort(notmuch.Query.SORT.UNSORTED)
-for msg in q_new.search_messages():
 
-    # silently ignore empty tags
-    db_tags = set(filter (lambda tag: tag != '' and not skiptags.match(tag),
-                          msg.get_tags()))
+def sync_tags():
+    for msg in q_new.search_messages():
 
-    message_id = msg.get_message_id()
+        # silently ignore empty tags
+        db_tags = set(filter (lambda tag: tag != '' and not skiptags.match(tag),
+                              msg.get_tags()))
 
-    mangled_id = mangle_message_id(message_id)
+        message_id = msg.get_message_id()
 
-    disk_ids.discard(mangled_id)
+        mangled_id = mangle_message_id(message_id)
 
-    missing_on_disk = db_tags.difference(disk_tags[mangled_id])
-    missing_in_db = disk_tags[mangled_id].difference(db_tags)
-    if not missing_in_db and not missing_on_disk:
-        continue
+        disk_ids.discard(mangled_id)
 
-    if sync_from_links:
-        msg.freeze()
-
-    filename = msg.get_filename()
-
-    if len(missing_on_disk) > 0:
-        if opts.link_style == 'adaptive':
-            statinfo = os.stat (filename)
-            symlink = (statinfo.st_size > opts.threshold)
-        else:
-            symlink = opts.link_style == 'symbolic'
-
-    for tag in missing_on_disk:
+        missing_on_disk = db_tags.difference(disk_tags[mangled_id])
+        missing_in_db = disk_tags[mangled_id].difference(db_tags)
+        if not missing_in_db and not missing_on_disk:
+            continue
 
         if sync_from_links:
-            log("Removing tag {} from {}".format(tag, message_id))
-            if not opts.dry_run:
-                msg.remove_tag(tag,sync_maildir_flags=False)
-        else:
-            tagdir = dir_for_tag (tag)
+            msg.freeze()
 
-            if not opts.dry_run:
-                mk_tag_dir (tagdir)
+        filename = msg.get_filename()
 
-            newlink = path_for_msg (tagdir, msg)
+        if len(missing_on_disk) > 0:
+            if opts.link_style == 'adaptive':
+                statinfo = os.stat (filename)
+                symlink = (statinfo.st_size > opts.threshold)
+            else:
+                symlink = opts.link_style == 'symbolic'
 
-            log("Linking {} to {}".format(filename, newlink))
-            if not opts.dry_run:
-                if symlink:
-                    os.symlink(filename, newlink)
-                else:
-                    os.link(filename, newlink)
+        for tag in missing_on_disk:
+
+            if sync_from_links:
+                log("Removing tag {} from {}".format(tag, message_id))
+                if not opts.dry_run:
+                    msg.remove_tag(tag,sync_maildir_flags=False)
+            else:
+                tagdir = dir_for_tag (tag)
+
+                if not opts.dry_run:
+                    mk_tag_dir (tagdir)
+
+                newlink = path_for_msg (tagdir, msg)
+
+                log("Linking {} to {}".format(filename, newlink))
+                if not opts.dry_run:
+                    if symlink:
+                        os.symlink(filename, newlink)
+                    else:
+                        os.link(filename, newlink)
 
 
-    for tag in missing_in_db:
+        for tag in missing_in_db:
+            if sync_from_links:
+                log("Adding {} to message {}".format(tag, message_id))
+                if not opts.dry_run:
+                    msg.add_tag(tag,sync_maildir_flags=False)
+            else:
+                tagdir = dir_for_tag (tag)
+                unlink_message(tagdir,msg)
+
         if sync_from_links:
-            log("Adding {} to message {}".format(tag, message_id))
-            if not opts.dry_run:
-                msg.add_tag(tag,sync_maildir_flags=False)
-        else:
-            tagdir = dir_for_tag (tag)
-            unlink_message(tagdir,msg)
+            msg.thaw()
 
-    if sync_from_links:
-        msg.thaw()
+    # everything remaining in disk_ids is a deleted message
+    # unless we are syncing back to the database, in which case
+    # it just might not currently have any non maildir tags.
 
-# everything remaining in disk_ids is a deleted message
-# unless we are syncing back to the database, in which case
-# it just might not currently have any non maildir tags.
-
-if not sync_from_links:
-    for root, subFolders, files in os.walk(tagroot):
-        for filename in files:
-            mangled_id = filename.split(':')[0]
-            if mangled_id in disk_ids:
-                os.unlink(os.path.join(root, filename))
+    if not sync_from_links:
+        for root, subFolders, files in os.walk(tagroot):
+            for filename in files:
+                mangled_id = filename.split(':')[0]
+                if mangled_id in disk_ids:
+                    os.unlink(os.path.join(root, filename))
 
 
-db.close()
+    db.close()
 
-# currently empty directories are not pruned.
+    # currently empty directories are not pruned.
+
+if __name__ == '__main__':
+    sync_tags()
