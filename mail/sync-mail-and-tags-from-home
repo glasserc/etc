@@ -5,12 +5,20 @@ EXPORTED_TAGS = '~/Mail/.notmuch/exported-tags'
 LINKSYNC = '~/etc/mail/linksync.py'
 
 import subprocess
+import os.path
+import stat
 
-subprocess.check_call([LINKSYNC, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS])
+LINKSYNC_E = os.path.expanduser(LINKSYNC)
+EXPORTED_TAGS_E = os.path.expanduser(EXPORTED_TAGS)
+if not stat.S_IXUSR & os.stat(LINKSYNC_E).st_mode:
+    print("Probably can't execute linksync.py. Please run:")
+    print("  chmod u+x {}".format(LINKSYNC_E))
+
+subprocess.check_call([LINKSYNC_E, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS_E])
 subprocess.check_call(['ssh', HOME,
                        "{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS)])
 subprocess.check_call(["smd-pull", "sync-tags"])
 subprocess.check_call(["smd-pull", "pull-mail"])
-subprocess.check_call([LINKSYNC, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS])
+subprocess.check_call([LINKSYNC_E, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS_E])
 subprocess.check_call(['ssh', HOME,
                        "{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS)])
