@@ -170,6 +170,8 @@ for msg in q_new.search_messages():
 
     missing_on_disk = db_tags.difference(disk_tags[mangled_id])
     missing_in_db = disk_tags[mangled_id].difference(db_tags)
+    if not missing_in_db and not missing_on_disk:
+        continue
 
     if sync_from_links:
         msg.freeze()
