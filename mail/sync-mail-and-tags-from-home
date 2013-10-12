@@ -3,10 +3,12 @@
 HOME = '66.114.71.21'
 EXPORTED_TAGS = '~/Mail/.notmuch/exported-tags'
 LINKSYNC = '~/etc/mail/linksync.py'
+SETUP_PATH = '~/etc/setup_path'
 
 import subprocess
 import os.path
 import stat
+import time
 
 LINKSYNC_E = os.path.expanduser(LINKSYNC)
 EXPORTED_TAGS_E = os.path.expanduser(EXPORTED_TAGS)
@@ -15,12 +17,20 @@ if not stat.S_IXUSR & os.stat(LINKSYNC_E).st_mode:
     print("  chmod u+x {}".format(LINKSYNC_E))
 
 def call(argv):
-    return subprocess.check_call(argv,
-                                 stderr=subprocess.STDOUT)
+    start = time.time()
+    ret = subprocess.check_call(argv,
+                                stderr=subprocess.STDOUT)
+    end = time.time()
+    print "Calling {} took {}s".format(argv, end - start)
+    return ret
+
+def remote_call(cmd):
+    return call(['ssh', HOME, '. ' + SETUP_PATH + '; ' + cmd])
 
 call([LINKSYNC_E, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS_E])
-call(['ssh', HOME, "{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS)])
-call(["smd-pull", "sync-tags"])
+remote_call("{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS))
 call(["smd-pull", "pull-mail"])
+call(['notmuch', 'new'])
+call(["smd-pull", "sync-tags"])
 call([LINKSYNC_E, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS_E])
-call(['ssh', HOME, "{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS)])
+remote_call("{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS))
