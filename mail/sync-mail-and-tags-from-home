@@ -14,11 +14,13 @@ if not stat.S_IXUSR & os.stat(LINKSYNC_E).st_mode:
     print("Probably can't execute linksync.py. Please run:")
     print("  chmod u+x {}".format(LINKSYNC_E))
 
-subprocess.check_call([LINKSYNC_E, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS_E])
-subprocess.check_call(['ssh', HOME,
-                       "{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS)])
-subprocess.check_call(["smd-pull", "sync-tags"])
-subprocess.check_call(["smd-pull", "pull-mail"])
-subprocess.check_call([LINKSYNC_E, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS_E])
-subprocess.check_call(['ssh', HOME,
-                       "{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS)])
+def call(argv):
+    return subprocess.check_call(argv,
+                                 stderr=subprocess.STDOUT)
+
+call([LINKSYNC_E, '-l', 'hard', '-d', 'disk', EXPORTED_TAGS_E])
+call(['ssh', HOME, "{} -l hard -d disk {}".format(LINKSYNC, EXPORTED_TAGS)])
+call(["smd-pull", "sync-tags"])
+call(["smd-pull", "pull-mail"])
+call([LINKSYNC_E, '-l', 'hard', '-d', 'notmuch', EXPORTED_TAGS_E])
+call(['ssh', HOME, "{} -l hard -d notmuch {}".format(LINKSYNC, EXPORTED_TAGS)])
