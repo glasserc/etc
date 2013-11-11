@@ -82,10 +82,15 @@
 ;; Let's try this
 (define-key me-minor-mode-map (kbd "M-y") 'browse-kill-ring)
 
-; In theory these are reserved for major modes, but I like the python-mode
-; bindings, so I'm making them global.
-(define-key me-minor-mode-map [?\C-c ?>] 'increase-left-margin)
-(define-key me-minor-mode-map [?\C-c ?<] 'decrease-left-margin)
+;; In theory these are reserved for major modes, but I like the python-mode
+;; bindings (python-indent-shift-left and
+;; python-indent-shift-right) and want to use them in other
+;; places. Unfortunately, those bindings are only good in
+;; python-mode. increase-left-margin and decrease-left-margin are OK
+;; substitutes in other contexts, so make them global. They reflow the
+;; text, so let python-mode override them.
+(global-set-key [?\C-c ?>] 'increase-left-margin)
+(global-set-key [?\C-c ?<] 'decrease-left-margin)
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
