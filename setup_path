@@ -1,33 +1,31 @@
+add_to_path() {
+    local dir="$1"
+    if [[ $PATH != *:"$dir":* && $PATH != "$dir":* && PATH != *:"$dir" ]] ; then
+        PATH="$dir:$PATH"
+    fi
+}
+
 # Set up $PATH appropriately, using user's private bin if it exists,
 # plus ~/etc/bin since I merged ~/bin into ~/etc.
-for bin in "$HOME/bin" "$HOME/etc/bin"; do
+for bin in "$HOME"/bin "$HOME"/etc/bin "$HOME"/.gem/ruby/*/bin \
+    "$HOME"/.cabal/bin "$HOME"/local/bin "$HOME"/.local/bin ; do
+    if [ -d "$bin" ] ; then
+        add_to_path "$bin"
+    fi
+
     if [ -d "$bin/contrib/" ] ; then
+        # Check for a contrib directory; any present should be added.
         for contrib_dir in $bin/contrib/*; do
             if [ -d "$contrib_dir/bin" ]; then
-                PATH="$contrib_dir/bin:$PATH"
+                add_to_path "$contrib_dir/bin"
             else
-                PATH="$contrib_dir:$PATH"
+                add_to_path "$contrib_dir"
             fi
         done
     fi
 
-    # set PATH so it includes user's private bin if it exists
-    if [ -d "$bin" ] ; then
-        PATH="$bin:$PATH"
-    fi
 done
 
-if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
-   PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
-fi
-
-# Still playing with this; where do I want to put hand-compiled software?
-if [ -d "$HOME/local/bin" ] ; then
-   PATH="$HOME/local/bin:$PATH"
-fi
-if [ -d "$HOME/.local/bin" ] ; then
-   PATH="$HOME/.local/bin:$PATH"
-fi
 if [ -d "$HOME/local/lib" ] ; then
    export LD_LIBRARY_PATH="$HOME/local/lib"
 fi
