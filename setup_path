@@ -28,12 +28,11 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
    PATH="$HOME/.local/bin:$PATH"
 fi
-if [ -d "$HOME/local/lib" ] ; then
-   export LD_LIBRARY_PATH="$HOME/local/lib"
-fi
-if [ -d "$HOME/.local/lib" ] ; then
-   export LD_LIBRARY_PATH="$HOME/.local/lib"
-fi
+for ld_path in "$HOME/local/lib" "$HOME/.local/lib"; do
+    if [ -d "$ld_path" ] ; then
+        export LD_LIBRARY_PATH="$ld_path"
+    fi
+done
 
 # Seems like I don't actually need this; pip install --user does the
 # right thing?
