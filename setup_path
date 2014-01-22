@@ -35,5 +35,7 @@ if [ -d "$HOME/.local/lib" ] ; then
    export LD_LIBRARY_PATH="$HOME/.local/lib"
 fi
 
-PYTHONPATH=~/local/lib/python2.7/site-packages
-export PYTHONPATH
+# Seems like I don't actually need this; pip install --user does the
+# right thing?
+#PYTHONPATH=~/.local/lib/python2.7/site-packages
+#export PYTHONPATH
