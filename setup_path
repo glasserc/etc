@@ -1,9 +1,12 @@
 add_to_path() {
     path="$1"
     if [ -d "$path" ]; then
-        if [[ ! ($PATH = *:$path:* || $PATH = $path:* || $PATH = *:$path) ]]; then
-            PATH="$path":"$PATH"
-        fi
+        case "$PATH" in
+          *:$path:*|*:$path|$path:*)
+            return
+          ;;
+        esac
+        PATH="$path":"$PATH"
     fi
 }
 
