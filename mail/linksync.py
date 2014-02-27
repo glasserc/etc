@@ -161,8 +161,9 @@ def sync_tags():
     for msg in q_new.search_messages():
 
         # silently ignore empty tags
-        db_tags = set(filter (lambda tag: tag != '' and not skiptags.match(tag),
-                              msg.get_tags()))
+        db_tags = set([tag for tag in msg.get_tags()
+                       if tag != '' and not skiptags.match(tag)])
+
 
         message_id = msg.get_message_id()
 

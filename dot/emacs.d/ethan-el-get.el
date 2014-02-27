@@ -6,6 +6,9 @@
   (load "~/.emacs.d/el-get-install.el"))
 
 (require 'el-get)
+(require 'package)
+(add-to-list 'package-archives
+             '("marmalade" . "http://marmalade-repo.org/packages/"))
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
@@ -64,14 +67,13 @@
                 :after
                 (yas/load-directory (emacs-d "my-snippets")))
          multiple-cursors
-;;; This is entirely stolen from Emacs Starter Kit as a good base of
-;;; packages to have installed.
               (:name inf-ruby :type elpa)
               ruby-mode yaml-mode gist
               (:name find-file-in-project :type elpa)
               (:name scratch)
               twittering-mode
               (:name less-css-mode :type elpa)
+;              (:name elpy :after (elpy-enable))
               ))
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
@@ -80,5 +82,33 @@
 (if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
     (el-get 'sync my-packages)
   (el-get my-packages))
+
+(package-initialize)
+(unless (package-installed-p 'elpy)
+  (package-install 'elpy))
+(elpy-enable)
+;; Doesn't cause problems
+;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
+;;                                        (remove 'auto-complete-mode
+;;                                                (remove 'flymake-mode
+;;                                                        (remove 'highlight-indentation-mode
+;;                                                                elpy-default-minor-modes)))))
+
+
+;; Causes problems
+;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
+;;                                        (remove 'auto-complete-mode-thethethes
+;;                                                (remove 'flymake-mode-etsheszhtes
+;;                                                        (remove 'highlight-indentation-mode
+;;                                                                elpy-default-minor-modes)))))
+
+;; Doesn't cause problems
+;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
+;;                                        (remove 'auto-complete-mode-thethethes
+;;                                                (remove 'flymake-mode
+;;                                                        (remove 'highlight-indentation-mode
+;;                                                                elpy-default-minor-modes)))))
+(setq elpy-default-minor-modes (remove 'flymake-mode elpy-default-minor-modes))
+
 
 (provide 'ethan-el-get)

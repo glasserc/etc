@@ -14,6 +14,7 @@
  '(echo-keystrokes 0.1)
  '(ediff-window-setup-function
    (quote ediff-setup-windows-plain))
+ '(elpy-rpc-backend "jedi")
  '(ido-max-directory-size 36864)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -35,6 +36,7 @@
    nil
    (uniquify))
  '(uniquify-separator "/")
+ '(virtualenv-root "~/Jobs/Pave/core/.local_venv/")
  '(visible-bell t)
  '(x-select-enable-clipboard t))
 (custom-set-faces
