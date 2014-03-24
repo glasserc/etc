@@ -67,12 +67,13 @@
                 ;; :after
                 ;; (yas/load-directory (emacs-d "my-snippets")))
          multiple-cursors
-              (:name inf-ruby :type elpa)
-              ruby-mode yaml-mode gist
-              (:name find-file-in-project :type elpa)
-              (:name scratch)
-              twittering-mode
-              (:name less-css-mode :type elpa)
+         magit
+         (:name inf-ruby :type elpa)
+         ruby-mode yaml-mode gist
+         (:name find-file-in-project :type elpa)
+         (:name scratch)
+         twittering-mode
+         (:name less-css-mode :type elpa)
 ;              (:name elpy :after (elpy-enable))
               ))
 
