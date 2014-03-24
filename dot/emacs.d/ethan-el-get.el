@@ -63,9 +63,9 @@
                 :load "undo-tree.el"
                 :after (global-undo-tree-mode))
          (:name yasnippet
-                :compile "yasnippet.el"
-                :after
-                (yas/load-directory (emacs-d "my-snippets")))
+                :compile "yasnippet.el")
+                ;; :after
+                ;; (yas/load-directory (emacs-d "my-snippets")))
          multiple-cursors
               (:name inf-ruby :type elpa)
               ruby-mode yaml-mode gist
