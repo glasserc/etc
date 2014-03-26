@@ -63,9 +63,9 @@
                 :load "undo-tree.el"
                 :after (global-undo-tree-mode))
          (:name yasnippet
-                :compile "yasnippet.el")
-                ;; :after
-                ;; (yas/load-directory (emacs-d "my-snippets")))
+                :compile "yasnippet.el"
+                :load "yasnippet.el"
+                :after (yas-global-mode))
          multiple-cursors
          magit
          (:name inf-ruby :type elpa)
@@ -75,7 +75,7 @@
          twittering-mode
          (:name less-css-mode :type elpa)
 ;              (:name elpy :after (elpy-enable))
-              ))
+         ))
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
 (setq my-packages (mapcar 'el-get-source-name el-get-sources))
