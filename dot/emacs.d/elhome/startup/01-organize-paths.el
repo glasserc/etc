@@ -19,4 +19,10 @@
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (emacs-d "backups")))))
+;; Don't clutter up directories with #files#
+(let ((auto-save-directory (emacs-d "autosaves/")))
+  (make-directory auto-save-directory)
+  (setq auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
+                                         (".*" ,(expand-file-name (emacs-d "autosaves/")) t))))
+
 (setq tramp-backup-directory-alist backup-directory-alist)
