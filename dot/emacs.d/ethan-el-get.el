@@ -9,6 +9,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
@@ -66,6 +68,7 @@
                 :compile "yasnippet.el"
                 :load "yasnippet.el"
                 :after (yas-global-mode))
+         java-snippets
          multiple-cursors
          magit
          (:name inf-ruby :type elpa)
