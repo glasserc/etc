@@ -23,6 +23,7 @@
    (quote header))
  '(mail-host-address "betacantrips.com")
  '(mail-specify-envelope-from t)
+ '(mode-require-final-newline nil)
  '(mouse-yank-at-point t)
  '(rainbow-html-colors-major-mode-list
    (quote
