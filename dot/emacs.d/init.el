@@ -29,3 +29,4 @@
 (require 'ethan-misc)
 (require 'ethan-esvn)
 (require 'ethan-lisp)
+(require 'ethan-java)
