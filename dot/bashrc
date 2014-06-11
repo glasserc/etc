@@ -132,14 +132,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-alias erh='sudo afp_client mount -a "No User Authent" 192.168.19.17:10gen_db_backup /media/erh '
-alias unerh='sudo afp_client unmount /media/erh'
-
-function afpcli () {
-    afpcmd "afp://;AUTH=No User Authent:@$1"
-}
-# -----
-
 status(){
     (
         cd
