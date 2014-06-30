@@ -68,7 +68,7 @@
                 :compile "yasnippet.el"
                 :load "yasnippet.el"
                 :after (yas-global-mode))
-         java-snippets
+         (:name java-snippets :type elpa)
          multiple-cursors
          magit
          (:name inf-ruby :type elpa)
