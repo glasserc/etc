@@ -76,6 +76,7 @@
          (:name find-file-in-project :type elpa)
          (:name scratch)
          twittering-mode
+         (:name delight :type emacswiki :features delight)
          (:name less-css-mode :type elpa)
 ;              (:name elpy :after (elpy-enable))
          ))
