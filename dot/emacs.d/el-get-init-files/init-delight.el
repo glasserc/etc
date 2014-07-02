@@ -8,7 +8,7 @@
       (js-mode "JS" :major)
       (flyspell-mode " ⚜" flyspell) ; looks kinda like a fly
       (yas-minor-mode " ¥" yasnippet)
-      (undo-tree-mode "⎌" undo-tree)
+      (undo-tree-mode " ⎌" undo-tree)
       (rainbow-mode)
       (visual-line-mode nil simple)
       (whole-line-or-region-mode nil whole-line-or-region))))
