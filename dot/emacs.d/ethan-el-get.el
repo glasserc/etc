@@ -9,6 +9,8 @@
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
@@ -64,17 +66,20 @@
                 :after (global-undo-tree-mode))
          (:name yasnippet
                 :compile "yasnippet.el"
-                :after
-                (yas/load-directory (emacs-d "my-snippets")))
+                :load "yasnippet.el"
+                :after (yas-global-mode))
+         (:name java-snippets :type elpa)
          multiple-cursors
-              (:name inf-ruby :type elpa)
-              ruby-mode yaml-mode gist
-              (:name find-file-in-project :type elpa)
-              (:name scratch)
-              twittering-mode
-              (:name less-css-mode :type elpa)
+         magit
+         (:name inf-ruby :type elpa)
+         ruby-mode yaml-mode gist
+         (:name find-file-in-project :type elpa)
+         (:name scratch)
+         twittering-mode
+         (:name delight :type emacswiki :features delight)
+         (:name less-css-mode :type elpa)
 ;              (:name elpy :after (elpy-enable))
-              ))
+         ))
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
 (setq my-packages (mapcar 'el-get-source-name el-get-sources))

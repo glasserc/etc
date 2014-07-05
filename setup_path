@@ -17,6 +17,7 @@ PRIVATE_BIN="$HOME/etc/bin"
 if [ -d "$PRIVATE_BIN/contrib/" ] ; then
     for contrib_dir in "$PRIVATE_BIN"/contrib/*; do
         add_to_path "$contrib_dir"
+        add_to_path "$contrib_dir"/bin
     done
 fi
 

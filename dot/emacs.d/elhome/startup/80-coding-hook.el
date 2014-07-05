@@ -39,6 +39,9 @@
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'coding-hook))
 
+;; FIXME: take this out if CSS ever starts being a programming language
+(add-hook 'css-mode-hook 'run-coding-hook)
+
 ;; Cosmetic
 
 (defun pretty-lambdas ()

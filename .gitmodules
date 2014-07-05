@@ -7,9 +7,6 @@
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git
 	url = git://github.com/glasserc/ethan-wspace.git
-[submodule "dot/emacs.d/elhome/site-lisp/upstream/magit.git"]
-	path = dot/emacs.d/elhome/site-lisp/upstream/magit.git
-	url = http://github.com/philjackson/magit.git
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git
 	url = git://git.naquadah.org/offlineimap-el.git
