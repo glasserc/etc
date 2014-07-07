@@ -1,9 +1,9 @@
 # -*- mode: snippet; require-final-newline: nil -*-
 # name: Recurring communication tasks for a week
 # key: week-comm
+# expand-env: ((week-range (concat (begin-of-week) " to " (end-of-week))))
 # type: snippet
 # --
-** standup for week of $1
+** standup for week of ${1:`week-range`}
 ** emails for week of $1
-** Hipchat for week of $1
-$0
+** Hipchat for week of $1$0
