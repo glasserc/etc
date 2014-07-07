@@ -1,0 +1,9 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Recurring communication tasks for a week
+# key: week-comm
+# type: snippet
+# --
+** standup for week of $1
+** emails for week of $1
+** Hipchat for week of $1
+$0

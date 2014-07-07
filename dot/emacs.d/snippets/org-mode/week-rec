@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: Recurring recreational tasks for a given week
+# key: week-rec
+# type: snippet
+# --
+** Tor.com for week of $1
+** random web for week of $1
+** Twitter for week of $1
+** personal email for week of $1
+** lunch for week of $1
+$0
