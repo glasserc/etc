@@ -54,6 +54,7 @@
 
          ;;nxhtml
          jinja2-mode
+         wgrep
 
          (:name rst-mode
                 :after (setq auto-mode-alist
@@ -71,6 +72,7 @@
          (:name java-snippets :type elpa)
          multiple-cursors
          magit
+         haskell-mode
          (:name inf-ruby :type elpa)
          ruby-mode yaml-mode gist
          (:name find-file-in-project :type elpa)
