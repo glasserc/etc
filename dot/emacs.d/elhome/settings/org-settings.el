@@ -128,6 +128,7 @@
       (file+headline "~/src/org-files/purchases.org" "Books")
       "* TODO %?
 %x"))))
+ '(org-clock-history-length 10)
  '(org-clock-into-drawer t)
  '(org-completion-use-ido t)
  '(org-drawers
