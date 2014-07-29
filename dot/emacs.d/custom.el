@@ -30,7 +30,8 @@
     (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
  '(safe-local-variable-values
    (quote
-    ((nxml-child-indent . 4))))
+    ((require-final-newline)
+     (nxml-child-indent . 4))))
  '(send-mail-function
    (quote sendmail-send-it))
  '(sendmail-program "/usr/bin/msmtp")
