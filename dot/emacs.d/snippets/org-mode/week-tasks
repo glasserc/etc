@@ -5,3 +5,4 @@
 # type: snippet
 # --
 ** org for week of ${1:`week-range`}
+** rebasing PRs for week of $1
