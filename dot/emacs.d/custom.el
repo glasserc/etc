@@ -16,6 +16,7 @@
    (quote ediff-setup-windows-plain))
  '(elpy-rpc-backend "jedi")
  '(ido-max-directory-size 36864)
+ '(imenu-auto-rescan-maxout 150000)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initsplit-pretty-print t)
