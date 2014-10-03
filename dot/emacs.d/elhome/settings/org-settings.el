@@ -131,8 +131,11 @@
    (quote
     ("PROPERTIES" "CLOCK" "DETAILS")))
  '(org-footnote-section nil)
+ '(org-goto-interface
+   (quote outline-path-completion))
  '(org-log-done
    (quote time))
+ '(org-outline-path-complete-in-steps nil)
  '(org-refile-targets
    (quote
     ((org-all-org-files :level . 1))))

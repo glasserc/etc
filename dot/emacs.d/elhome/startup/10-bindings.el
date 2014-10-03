@@ -14,6 +14,7 @@
 (global-set-key (kbd "C-%") 'iedit-mode)
 
 ;; Jump to a definition in the current file. (This is awesome.)
+;; In org-mode, you should probably use org-goto instead.
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; File finding
