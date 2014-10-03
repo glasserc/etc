@@ -21,7 +21,6 @@ if [ -d "$PRIVATE_BIN/contrib/" ] ; then
     done
 fi
 
-
 # ~/local is a mistake, should move to ~/.local
 for bin in "$PRIVATE_BIN" "$HOME"/.gem/ruby/*/bin "$HOME"/.cabal/bin \
            "$HOME"/.local/bin "$HOME"/local/bin; do
