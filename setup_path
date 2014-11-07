@@ -33,6 +33,10 @@ for ld_path in "$HOME/local/lib" "$HOME/.local/lib"; do
     fi
 done
 
+for bin in /opt/*/bin /opt/*/*/bin; do
+    add_to_path "$bin"
+done
+
 # Seems like I don't actually need this; pip install --user does the
 # right thing?
 #PYTHONPATH=~/.local/lib/python2.7/site-packages
