@@ -81,7 +81,21 @@
          (:name delight :type emacswiki :features delight)
          (:name less-css-mode :type elpa)
 ;              (:name elpy :after (elpy-enable))
+         (:name cedet
+                :post-init
+                (load (expand-file-name "cedet-devel-load.el" pdir)))
+         ;; (:name malabar-mode :type elpa
+         ;;        :repo ("marmalade" . "http://marmalade-repo.org/packages/")
+         ;;        :load "malabar-mode.el"
+         ;;        :after (add-to-list 'auto-mode-alist '("\\.java" . malabar-mode)))
          ))
+
+;; CEDET/semantic/malabar stuff
+;(require 'semantic)
+;(require 'cedet)
+;(load "semantic/loaddefs.el")
+;(semantic-mode 1)
+
 
 (setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
 (setq my-packages (mapcar 'el-get-source-name el-get-sources))
@@ -94,6 +108,15 @@
 (unless (package-installed-p 'elpy)
   (package-install 'elpy))
 (elpy-enable)
+
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+(semantic-mode 1)
+(require 'malabar-mode)
+(add-to-list 'auto-mode-alist '("\\.java" . malabar-mode))
+
 ;; Doesn't cause problems
 ;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
 ;;                                        (remove 'auto-complete-mode
