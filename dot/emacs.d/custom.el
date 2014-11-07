@@ -31,7 +31,8 @@
     (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
  '(safe-local-variable-values
    (quote
-    ((require-final-newline)
+    ((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
+     (require-final-newline)
      (nxml-child-indent . 4))))
  '(send-mail-function
    (quote sendmail-send-it))
