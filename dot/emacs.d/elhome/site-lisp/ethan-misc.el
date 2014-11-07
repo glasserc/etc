@@ -45,16 +45,16 @@
 (global-ethan-wspace-mode 1)
 
 ;;; color theme
-(require 'color-theme)
-(setq color-theme-is-global t)
-(if (functionp 'color-theme-initialize)
-    (color-theme-initialize))
-(color-theme-charcoal-black)
+;; (require 'color-theme)
+;; (setq color-theme-is-global t)
+;; (if (functionp 'color-theme-initialize)
+;;     (color-theme-initialize))
+;; (color-theme-charcoal-black)
 ;;; end color theme
 
 ;; CUA Rectangle stuff
-(setq cua-enable-cua-keys nil)           ;; only for rectangles
-(cua-mode t)
+;; (setq cua-enable-cua-keys nil)           ;; only for rectangles
+;; (cua-mode t)
 
 ;;; abbrev
 (setq abbrev-file-name (emacs-d "abbrev_defs.el"))
