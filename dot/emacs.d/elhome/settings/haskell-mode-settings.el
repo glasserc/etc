@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(haskell-mode-hook
    (quote
-    (capitalized-words-mode imenu-add-menubar-index turn-on-eldoc-mode turn-on-haskell-decl-scan turn-on-haskell-doc turn-on-haskell-indentation turn-on-haskell-unicode-input-method))))
+    (capitalized-words-mode imenu-add-menubar-index turn-on-eldoc-mode turn-on-haskell-decl-scan turn-on-haskell-doc turn-on-haskell-indentation))))
 
 (eval-after-load "haskell-mode"
   '(progn
