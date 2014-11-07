@@ -20,3 +20,13 @@
 
 (eval-after-load "haskell-cabal"
     '(define-key haskell-cabal-mode-map (kbd "C-c C-c") 'haskell-compile))
+
+;; ghc-mod isn't quite ready for prime time, it seems. Plus all its
+;; bindings shadow existing keybindings..
+;; (let
+;;     ((ghc-insert-key "\e\C-t")
+;;      (ghc-toggle-key "\C-c\ec")
+;;      (ghc-sort-key "\C-c\es")
+;;      (ghc-type-key "\C-c\et")
+;;      (ghc-info-key "\C-c\ei"))
+;;   (ghc-init))
