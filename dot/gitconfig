@@ -24,3 +24,4 @@
 # -C /home/ethan/.config/etc-extended/msmtprc
 [rerere]
         enabled = true
+        autoupdate = true
