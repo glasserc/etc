@@ -22,3 +22,5 @@
 [sendemail]
         smtpserver = /usr/bin/msmtp
 # -C /home/ethan/.config/etc-extended/msmtprc
+[rerere]
+        enabled = true
