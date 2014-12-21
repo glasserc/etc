@@ -37,6 +37,11 @@
  '(send-mail-function
    (quote sendmail-send-it))
  '(sendmail-program "/usr/bin/msmtp")
+ '(sql-postgres-login-params
+   (quote
+    ((user :default "ethan")
+     (database :default "ethan")
+     port server)))
  '(transient-mark-mode t)
  '(uniquify-buffer-name-style
    (quote reverse)
