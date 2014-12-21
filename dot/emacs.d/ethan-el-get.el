@@ -109,10 +109,19 @@
   (package-install 'elpy))
 (elpy-enable)
 
-(setq auto-install-elpa-packages '(ace-jump-mode))
+(setq auto-install-elpa-packages
+      '(ace-jump-mode
+        calmer-forest-theme
+        afternoon-theme
+        underwater-theme
+        lush-theme
+        warm-night-theme
+        dark-krystal-theme))
 (dolist (package auto-install-elpa-packages)
   (unless (package-installed-p package)
     (package-install package)))
+
+(load-theme lush t)
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode
