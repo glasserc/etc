@@ -109,6 +109,11 @@
   (package-install 'elpy))
 (elpy-enable)
 
+(setq auto-install-elpa-packages '(ace-jump-mode))
+(dolist (package auto-install-elpa-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
+
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode
                                   global-semantic-idle-summary-mode

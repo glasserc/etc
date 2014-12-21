@@ -120,3 +120,10 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; Ace Jump Mode
+(define-key me-minor-mode-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key me-minor-mode-map (kbd "C-c C-SPC") 'ace-jump-mode)
+;; This shadows pop-global-mark, which was advised by org-mode.
+;; TODO: replicate this advice or something.
+(define-key me-minor-mode-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
