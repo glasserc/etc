@@ -118,4 +118,8 @@
 
 (winner-mode 1)
 
+;;; More are in init-delight.el
+(diminish 'auto-fill-function "§")
+(diminish 'isearch-mode "➜")
+
 (provide 'ethan-misc)
