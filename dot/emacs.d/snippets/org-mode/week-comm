@@ -5,7 +5,7 @@
 # type: snippet
 # --
 ** standup for week of ${1:`week-range`}
-** emails for week of $1
+** writing emails for week of $1
 ** skim PRs for the week of $1
 ** Hipchat for week of $1
 ** clocktable email for week of $1$0
