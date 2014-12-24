@@ -118,9 +118,6 @@
 
 (winner-mode 1)
 
-;;; More are in init-delight.el
-(diminish 'auto-fill-function "§")
-(diminish 'isearch-mode "➜")
 ;; Remove vc-mode from mode-line-format
 (setq mode-line-format-without-vc
       (remove-if

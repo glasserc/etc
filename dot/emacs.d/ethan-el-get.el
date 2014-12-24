@@ -111,6 +111,7 @@
 
 (setq auto-install-elpa-packages
       '(ace-jump-mode
+        rich-minority
         calmer-forest-theme
         afternoon-theme
         underwater-theme
@@ -122,6 +123,7 @@
     (package-install package)))
 
 (load-theme lush t)
+(rich-minority-mode 1)
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode

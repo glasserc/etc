@@ -30,6 +30,9 @@
  '(rainbow-html-colors-major-mode-list
    (quote
     (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
+ '(rm-blacklist
+   (quote
+    (" hl-p" " Rbow" " yas" " Undo-Tree" " WLR" " Paredit" " Fill" " Isearch" " me" " ElDoc" " Fly" " Wrap" " Ind" " Doc" " MRev")))
  '(safe-local-variable-values
    (quote
     ((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
