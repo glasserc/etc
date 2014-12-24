@@ -122,7 +122,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-(load-theme lush t)
+(load-theme 'lush t)
 (rich-minority-mode 1)
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
