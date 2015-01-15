@@ -6,3 +6,4 @@
 # --
 ** reading emails for week of ${1:`week-range`}
 ** writing emails for week of $1
+** follow-up on PRs for week of $1
