@@ -34,11 +34,12 @@ def makedirs(options, target_dir, already_created=None):
     already_created[target_dir] = True
 
 def move_file(options, src_file, target_dir):
+    basename = os.path.basename(src_file)
     if options.dry_run or options.verbose:
         print("Moving {} to {}".format(src_file, target_dir))
 
     if not options.dry_run:
-        os.rename(src_file, os.path.join(target_dir, src_file))
+        os.rename(src_file, os.path.join(target_dir, basename))
 
 
 def main():
