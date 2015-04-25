@@ -3,7 +3,7 @@
 (setq el-get-new nil)
 (unless (file-exists-p "~/.emacs.d/el-get/el-get")
   (setq el-get-new t)
-  (load "~/.emacs.d/el-get-install.el"))
+  (load "~/.emacs.d/bootstrap/el-get-install.el"))
 
 (require 'el-get)
 (require 'package)
