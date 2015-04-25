@@ -27,7 +27,7 @@
                 :depends (initsplit rainbow-mode)
                 :after (elhome-init))
 
-         package                   ; this is ELPA
+         ;package                   ; this is ELPA
          (:name idle-highlight :type elpa)
 
          ;; OK, all the other crap
@@ -154,7 +154,6 @@
 ;;                                                (remove 'flymake-mode
 ;;                                                        (remove 'highlight-indentation-mode
 ;;                                                                elpy-default-minor-modes)))))
-(setq elpy-default-minor-modes (remove 'flymake-mode elpy-default-minor-modes))
-
+;; (setq elpy-default-minor-modes (remove 'flymake-mode elpy-default-minor-modes))
 
 (provide 'ethan-el-get)
