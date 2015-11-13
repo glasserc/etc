@@ -16,6 +16,8 @@
  '(ediff-window-setup-function
    (quote ediff-setup-windows-plain))
  '(elpy-rpc-backend "jedi")
+ '(eshell-cmpl-autolist t)
+ '(eshell-cmpl-cycle-completions nil)
  '(ido-max-directory-size 36864)
  '(imenu-auto-rescan-maxout 150000)
  '(indent-tabs-mode nil)
