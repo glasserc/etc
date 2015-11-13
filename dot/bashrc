@@ -79,6 +79,7 @@ unset color_prompt force_color_prompt
 
 
 # git branch in prompt from http://log.damog.net/2008/12/two-git-tips/
+. /usr/lib/git-core/git-sh-prompt
 GITPS1='$(__git_ps1 ":%s")'
 export PS1="\[${BOLD}${GREEN}\]${debian_chroot:+($debian_chroot)}\u@\h:\[${BLUE}\]\w\[${RS}${BOLD}${YELLOW}\]${GITPS1}\[${RS}\]\\$ "
 
