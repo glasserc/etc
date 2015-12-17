@@ -7,7 +7,7 @@ Just 'cause I'm super OCD about mtimes!
 import os.path
 import sys
 import datetime
-import EXIF
+import exifread
 
 EXIF_TS_FORMAT = "%Y:%m:%d %H:%M:%S"
 def get_time_exif(fname):
