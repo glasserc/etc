@@ -8,14 +8,4 @@
   :PROPERTIES:
   :CATEGORY: ${1:$(upcase yas-text)}
   :ARCHIVE: %s_archive::* $1
-  :TEST: ${1:$(upcase yas-text)}
   :END:
-test $1 ! ${1:$(upcase yas-text)} ! $1
-test ! ${1:$(upcase yas-text)}
-test : ${1:$(upcase yas-text)}
-test: ${1:$(upcase yas-text)}
-:test : ${1:$(upcase yas-text)}
-:test: ${1:$(upcase yas-text)}
-:TEST: ${1:$(upcase yas-text)}
-:CATEGORY: ${1:$(upcase yas-text)}
-:category: ${1:$(upcase yas-text)}
