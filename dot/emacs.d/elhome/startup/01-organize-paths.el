@@ -9,6 +9,9 @@
    bookmark-default-file (concat tmp "emacs.bmk")
    recentf-save-file (concat tmp "recentf")
    auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")
+   semanticdb-default-save-directory (concat tmp "semanticdb")
+   srecode-map-save-file (emacs-d "cache/srecode-map.el")
+   eshell-directory-name (concat tmp "eshell")
    *cheat-directory* (concat tmp "cheat")
    *cheat-sheets-cache-file* (concat tmp "cheat/sheets")))
 
