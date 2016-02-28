@@ -27,7 +27,7 @@ import sys
 import shutil
 import datetime
 import argparse
-import EXIF
+import exifread
 
 EXIF_TS_FORMAT = "%Y:%m:%d %H:%M:%S"
 DATETIME_SKEW_MIN = datetime.timedelta(seconds=-4)
@@ -86,7 +86,7 @@ class ImportFiles(object):
 
     def get_time_exif(self, fname):
         f = file(fname, 'rb')
-        tags = EXIF.process_file(f)
+        tags = exifread.process_file(f)
         f.close()
         if 'EXIF DateTimeOriginal' in tags:
             ts = datetime.datetime.strptime(str(tags['EXIF DateTimeOriginal']), EXIF_TS_FORMAT)
