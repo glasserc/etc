@@ -8,6 +8,7 @@
  '(browse-kill-ring-replace-yank t)
  '(column-number-mode t)
  '(compilation-scroll-output t)
+ '(counsel-mode t)
  '(css-indent-level 2)
  '(css-indent-offset 2)
  '(custom-theme-directory "~/.emacs.d/themes/")
@@ -23,6 +24,8 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initsplit-pretty-print t)
+ '(ivy-extra-directories nil)
+ '(ivy-mode t)
  '(mail-envelope-from
    (quote header))
  '(mail-host-address "betacantrips.com")
