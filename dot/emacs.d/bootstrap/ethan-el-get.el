@@ -32,7 +32,7 @@
 
          ;; OK, all the other crap
          paredit
-         iedit java-mode-indent-annotations
+         java-mode-indent-annotations
          (:name sml-modeline
                 :after (sml-modeline-mode))
          browse-kill-ring

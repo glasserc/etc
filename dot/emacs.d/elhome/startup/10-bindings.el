@@ -17,9 +17,6 @@
 (global-set-key (kbd "C-x l") 'counsel-locate)
 (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 
-;; iedit is like an interactive query-replace.
-(global-set-key (kbd "C-%") 'iedit-mode)
-
 ;; Jump to a definition in the current file. (This is awesome.)
 ;; In org-mode, you should probably use org-goto instead.
 (global-set-key (kbd "C-x C-i") 'imenu)
@@ -122,8 +119,10 @@
 
 ;; Multiple-cursors
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/unmark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/unmark-previous-like-this)
+(global-set-key (kbd "C-%") 'mc/mark-all-dwim)
 
 
 ;; Avy, which replaces ace-jump-mode
