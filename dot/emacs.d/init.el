@@ -2,13 +2,10 @@
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
 
-;;; Emacs 23 font hacking
-(setq default-emacs-font "Terminus-13")
-
+(setq default-font "Terminus-13")
 (if (>= emacs-major-version 23)
-    (progn (set-frame-font default-emacs-font t)
-           (add-to-list 'default-frame-alist (cons 'font default-emacs-font))))
-;;; end Emacs 23 font hacking
+    (progn (set-frame-font default-font t)
+           (add-to-list 'default-frame-alist (cons 'font default-font))))
 
 
 (defun emacs-d (filename)
