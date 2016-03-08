@@ -120,7 +120,8 @@
         swiper
         counsel
         avy
-        ace-window))
+        ace-window
+        git-timemachine))
 (dolist (package auto-install-elpa-packages)
   (unless (package-installed-p package)
     (package-install package)))
