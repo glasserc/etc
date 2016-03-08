@@ -87,9 +87,6 @@
 ; This shadows previous count-lines-region
 (define-key esc-map "=" 'count-words)
 
-;; Let's try this
-(define-key me-minor-mode-map (kbd "M-y") 'browse-kill-ring)
-
 ;; In theory these are reserved for major modes, but I like the python-mode
 ;; bindings (python-indent-shift-left and
 ;; python-indent-shift-right) and want to use them in other
