@@ -125,9 +125,11 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-;; Ace Jump Mode
-(define-key me-minor-mode-map (kbd "C-c SPC") 'ace-jump-mode)
-(define-key me-minor-mode-map (kbd "C-c C-SPC") 'ace-jump-mode)
-;; This shadows pop-global-mark, which was advised by org-mode.
-;; TODO: replicate this advice or something.
-(define-key me-minor-mode-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
+;; Avy, which replaces ace-jump-mode
+(define-key me-minor-mode-map (kbd "C-:") 'avy-goto-char)
+(define-key me-minor-mode-map (kbd "C-'") 'avy-goto-char-2)
+(define-key me-minor-mode-map (vector 'remap 'goto-line) 'avy-goto-line)
+(define-key me-minor-mode-map (kbd "M-g w") 'avy-goto-word-1)
+(define-key me-minor-mode-map (kbd "M-g e") 'avy-goto-word-0)
+(define-key me-minor-mode-map (vector 'remap 'other-window) 'ace-window)

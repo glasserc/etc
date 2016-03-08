@@ -110,14 +110,17 @@
 (elpy-enable)
 
 (setq auto-install-elpa-packages
-      '(ace-jump-mode
-        rich-minority
+      '(rich-minority
         calmer-forest-theme
         afternoon-theme
         underwater-theme
         lush-theme
         warm-night-theme
-        dark-krystal-theme))
+        dark-krystal-theme
+        swiper
+        counsel
+        avy
+        ace-window))
 (dolist (package auto-install-elpa-packages)
   (unless (package-installed-p package)
     (package-install package)))
