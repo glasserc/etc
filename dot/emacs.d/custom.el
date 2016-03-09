@@ -18,6 +18,9 @@
  '(custom-theme-directory "~/.emacs.d/themes/")
  '(display-buffer-reuse-frames t)
  '(echo-keystrokes 0.1)
+ '(ediff-diff-options "-w")
+ '(ediff-split-window-function
+   (quote split-window-horizontally))
  '(ediff-window-setup-function
    (quote ediff-setup-windows-plain))
  '(elpy-rpc-backend "jedi")

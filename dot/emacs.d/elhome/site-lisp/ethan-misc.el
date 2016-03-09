@@ -98,6 +98,7 @@
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 
 (setq diff-switches "-u")
+(add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
 ;; text mode
 (add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
