@@ -58,9 +58,6 @@
          (:name whole-line-or-region
                 :features whole-line-or-region
                 :after (whole-line-or-region-mode))
-         (:name cheat
-                :type git
-                :url "http://github.com/emacsmirror/cheat.git")
          oddmuse
          (:name javadoc-help
                 :type git
