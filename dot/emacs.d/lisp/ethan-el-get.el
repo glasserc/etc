@@ -10,6 +10,15 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (defun turn-on-rainbow-mode ()
+    (rainbow-mode 1))
+  (add-hook 'prog-mode-hook 'turn-on-rainbow-mode)
+  ;; FIXME: why does css-mode not inherit from prog-mode???
+  (add-hook 'css-mode-hook 'turn-on-rainbow-mode))
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -29,9 +38,8 @@
          ;; Do this stuff first to init settings and stuff that might be needed
          ;; in installing/initing other packages (specifically, config
          ;; of paths)
-        rainbow-mode ;; required by coding-hook which is set up by elhome
          (:name elhome
-                :depends (initsplit rainbow-mode)
+                :depends (initsplit)
                 :after (elhome-init))
 
          ;package                   ; this is ELPA

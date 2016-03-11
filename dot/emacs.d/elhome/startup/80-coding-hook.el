@@ -16,11 +16,6 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-;; Make this autoload maybe?
-(require 'rainbow-mode)
-(defun turn-on-rainbow-mode ()
-  (rainbow-mode t))
-
 ;; This isn't strictly needed here, but needs to happen before we open
 ;; a .el file (e.g. by el-get)
 (defun turn-on-paredit ()
@@ -33,7 +28,6 @@
 (add-hook 'coding-hook 'pretty-lambdas)
 (add-hook 'coding-hook 'add-watchwords)
 (add-hook 'coding-hook 'idle-highlight)
-(add-hook 'coding-hook 'turn-on-rainbow-mode)
 
 (defun run-coding-hook ()
   "Enable things that are convenient across all coding buffers."
