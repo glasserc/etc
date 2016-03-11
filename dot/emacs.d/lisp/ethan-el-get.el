@@ -53,6 +53,10 @@
 
 (use-package multiple-cursors :ensure t)
 
+(use-package yasnippet
+  :ensure t
+  :config (yas-global-mode))
+
 (use-package java-snippets
   :ensure t
   :config (java-snippets-initialize))
@@ -106,10 +110,6 @@
                 :after (setq auto-mode-alist
                              (cons '("\\.rst$" . rst-mode)
                                    auto-mode-alist)))
-         (:name yasnippet
-                :compile "yasnippet.el"
-                :load "yasnippet.el"
-                :after (yas-global-mode))
          magit
          haskell-mode
          gist
