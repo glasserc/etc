@@ -104,7 +104,6 @@
          ruby-mode yaml-mode gist
          (:name find-file-in-project :type elpa)
          (:name scratch)
-         twittering-mode
          (:name less-css-mode :type elpa)
          ))
 
