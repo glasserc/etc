@@ -37,6 +37,9 @@
 (use-package haml-mode
   :ensure t)
 
+(use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
+  :ensure t)
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -68,7 +71,6 @@
          (:name whole-line-or-region
                 :features whole-line-or-region
                 :after (whole-line-or-region-mode))
-         oddmuse
          (:name javadoc-help
                 :type git
                 :url "http://github.com/emacsmirror/javadoc-help.git") ruby-electric
