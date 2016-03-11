@@ -40,6 +40,11 @@
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
   :ensure t)
 
+(use-package whole-line-or-region
+  :ensure t
+  :config
+  (whole-line-or-region-mode))
+
 ;; Hide some modeline lighters.
 (use-package delight
   :ensure t
@@ -74,9 +79,6 @@
          ;; OK, all the other crap
          paredit
          java-mode-indent-annotations
-         (:name whole-line-or-region
-                :features whole-line-or-region
-                :after (whole-line-or-region-mode))
          (:name javadoc-help
                 :type git
                 :url "http://github.com/emacsmirror/javadoc-help.git") ruby-electric
