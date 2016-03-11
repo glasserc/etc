@@ -29,6 +29,11 @@
   :config
   (global-undo-tree-mode))
 
+(use-package sml-modeline
+  :ensure t
+  :config
+  (sml-modeline-mode))
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -57,8 +62,6 @@
          ;; OK, all the other crap
          paredit
          java-mode-indent-annotations
-         (:name sml-modeline
-                :after (sml-modeline-mode))
          (:name haml-mode :features nil)  ; autoload's fine, thanks
          (:name whole-line-or-region
                 :features whole-line-or-region
