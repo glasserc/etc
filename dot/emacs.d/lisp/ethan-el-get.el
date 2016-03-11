@@ -45,6 +45,12 @@
   :config
   (whole-line-or-region-mode))
 
+(use-package jinja2-mode :ensure t)
+(use-package ruby-mode :ensure t)
+(use-package yaml-mode :ensure t)
+(use-package less-css-mode :ensure t)
+(use-package inf-ruby :ensure t)
+
 ;; Hide some modeline lighters.
 (use-package delight
   :ensure t
@@ -87,7 +93,6 @@
                 :type http
                 :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
 
-         jinja2-mode
          wgrep
 
          (:name rst-mode
@@ -102,11 +107,9 @@
          multiple-cursors
          magit
          haskell-mode
-         (:name inf-ruby :type elpa)
-         ruby-mode yaml-mode gist
+         gist
          (:name find-file-in-project :type elpa)
          (:name scratch)
-         (:name less-css-mode :type elpa)
          ))
 
 ;; CEDET/semantic/malabar stuff
