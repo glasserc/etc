@@ -1,6 +1,3 @@
-(defvar coding-hook nil
-  "hook that gets run on activation of any programming mode.")
-
 (defun local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t))
@@ -22,19 +19,19 @@
   (paredit-mode t))
 
 
-(add-hook 'coding-hook 'local-comment-auto-fill)
-(add-hook 'coding-hook 'turn-on-hl-line-mode)
-(add-hook 'coding-hook 'turn-on-save-place-mode)
-(add-hook 'coding-hook 'pretty-lambdas)
-(add-hook 'coding-hook 'add-watchwords)
-(add-hook 'coding-hook 'idle-highlight)
+(add-hook 'prog-mode-hook 'local-comment-auto-fill)
+(add-hook 'prog-mode-hook 'turn-on-hl-line-mode)
+(add-hook 'prog-mode-hook 'turn-on-save-place-mode)
+(add-hook 'prog-mode-hook 'pretty-lambdas)
+(add-hook 'prog-mode-hook 'add-watchwords)
+(add-hook 'prog-mode-hook 'idle-highlight)
 
-(defun run-coding-hook ()
+(defun run-prog-mode-hook ()
   "Enable things that are convenient across all coding buffers."
-  (run-hooks 'coding-hook))
+  (run-hooks 'prog-mode-hook))
 
 ;; FIXME: take this out if CSS ever starts being a programming language
-(add-hook 'css-mode-hook 'run-coding-hook)
+(add-hook 'css-mode-hook 'run-prog-mode-hook)
 
 ;; Cosmetic
 
