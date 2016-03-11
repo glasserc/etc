@@ -37,7 +37,3 @@
 
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
-
-(defun clojure-project ()
-  (interactive)
-  (message "Deprecated in favour of M-x swank-clojure-project. Install swank-clojure from ELPA."))
