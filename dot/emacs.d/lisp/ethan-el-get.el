@@ -63,8 +63,6 @@
                 :depends (initsplit)
                 :after (elhome-init))
 
-         ;package                   ; this is ELPA
-
          ;; OK, all the other crap
          paredit
          java-mode-indent-annotations
@@ -79,7 +77,6 @@
                 :type http
                 :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
 
-         ;;nxhtml
          jinja2-mode
          wgrep
 
@@ -102,14 +99,6 @@
          twittering-mode
          (:name delight :type emacswiki :features delight)
          (:name less-css-mode :type elpa)
-;              (:name elpy :after (elpy-enable))
-         ;; (:name cedet
-         ;;        :post-init
-         ;;        (load (expand-file-name "cedet-devel-load.el" pdir)))
-         ;; (:name malabar-mode :type elpa
-         ;;        :repo ("marmalade" . "http://marmalade-repo.org/packages/")
-         ;;        :load "malabar-mode.el"
-         ;;        :after (add-to-list 'auto-mode-alist '("\\.java" . malabar-mode)))
          ))
 
 ;; CEDET/semantic/malabar stuff
