@@ -40,6 +40,14 @@
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
   :ensure t)
 
+;; Hide some modeline lighters.
+(use-package delight
+  :ensure t
+  :config
+  (delight
+    '((emacs-lisp-mode "EL" :major)
+      (js-mode "JS" :major))))
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -97,7 +105,6 @@
          (:name find-file-in-project :type elpa)
          (:name scratch)
          twittering-mode
-         (:name delight :type emacswiki :features delight)
          (:name less-css-mode :type elpa)
          ))
 
