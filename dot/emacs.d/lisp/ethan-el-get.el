@@ -54,7 +54,6 @@
          java-mode-indent-annotations
          (:name sml-modeline
                 :after (sml-modeline-mode))
-         browse-kill-ring
          (:name haml-mode :features nil)  ; autoload's fine, thanks
          (:name whole-line-or-region
                 :features whole-line-or-region
