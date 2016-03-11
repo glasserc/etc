@@ -53,6 +53,11 @@
 
 (use-package multiple-cursors :ensure t)
 
+(use-package java-snippets
+  :ensure t
+  :config (java-snippets-initialize))
+(use-package find-file-in-project :ensure t)
+
 ;; Hide some modeline lighters.
 (use-package delight
   :ensure t
@@ -105,11 +110,9 @@
                 :compile "yasnippet.el"
                 :load "yasnippet.el"
                 :after (yas-global-mode))
-         (:name java-snippets :type elpa)
          magit
          haskell-mode
          gist
-         (:name find-file-in-project :type elpa)
          (:name scratch)
          ))
 
