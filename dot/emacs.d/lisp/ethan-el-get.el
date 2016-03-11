@@ -51,6 +51,8 @@
 (use-package less-css-mode :ensure t)
 (use-package inf-ruby :ensure t)
 
+(use-package multiple-cursors :ensure t)
+
 ;; Hide some modeline lighters.
 (use-package delight
   :ensure t
@@ -104,7 +106,6 @@
                 :load "yasnippet.el"
                 :after (yas-global-mode))
          (:name java-snippets :type elpa)
-         multiple-cursors
          magit
          haskell-mode
          gist
