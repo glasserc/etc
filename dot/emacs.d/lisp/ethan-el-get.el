@@ -24,6 +24,11 @@
   :config
   (add-hook 'prog-mode-hook 'idle-highlight-mode))
 
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode))
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -75,11 +80,6 @@
                 :after (setq auto-mode-alist
                              (cons '("\\.rst$" . rst-mode)
                                    auto-mode-alist)))
-         (:name undo-tree
-                :type git
-                :url "http://www.dr-qubit.org/git/undo-tree.git"
-                :load "undo-tree.el"
-                :after (global-undo-tree-mode))
          (:name yasnippet
                 :compile "yasnippet.el"
                 :load "yasnippet.el"
