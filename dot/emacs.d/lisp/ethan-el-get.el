@@ -19,6 +19,11 @@
   ;; FIXME: why does css-mode not inherit from prog-mode???
   (add-hook 'css-mode-hook 'turn-on-rainbow-mode))
 
+(use-package idle-highlight-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook 'idle-highlight-mode))
+
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 (setq el-get-new nil)
@@ -43,7 +48,6 @@
                 :after (elhome-init))
 
          ;package                   ; this is ELPA
-         (:name idle-highlight :type elpa)
 
          ;; OK, all the other crap
          paredit
