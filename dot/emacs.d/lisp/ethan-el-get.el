@@ -50,6 +50,7 @@
 (use-package yaml-mode :ensure t)
 (use-package less-css-mode :ensure t)
 (use-package inf-ruby :ensure t)
+(use-package ruby-electric :ensure t)
 
 (use-package multiple-cursors :ensure t)
 
@@ -69,6 +70,9 @@
   (delight
     '((emacs-lisp-mode "EL" :major)
       (js-mode "JS" :major))))
+
+(use-package scratch :ensure t)
+(use-package gist :ensure t)
 
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -98,7 +102,7 @@
          java-mode-indent-annotations
          (:name javadoc-help
                 :type git
-                :url "http://github.com/emacsmirror/javadoc-help.git") ruby-electric
+                :url "http://github.com/emacsmirror/javadoc-help.git")
          ;; espresso got merged upstream; what about this??
          (:name moz
                 :type http
@@ -112,8 +116,6 @@
                                    auto-mode-alist)))
          magit
          haskell-mode
-         gist
-         (:name scratch)
          ))
 
 ;; CEDET/semantic/malabar stuff
