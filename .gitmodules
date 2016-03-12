@@ -1,15 +1,9 @@
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/org-mode.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/org-mode.git
 	url = git://repo.or.cz/org-mode.git
-[submodule "dot/emacs.d/elhome/site-lisp/upstream/phpunit-el.git"]
-	path = dot/emacs.d/elhome/site-lisp/upstream/phpunit-el.git
-	url = git://github.com/ieure/phpunit-el.git
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git
 	url = git://github.com/glasserc/ethan-wspace.git
-[submodule "dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git"]
-	path = dot/emacs.d/elhome/site-lisp/upstream/offlineimap-el.git
-	url = git://git.naquadah.org/offlineimap-el.git
 [submodule "contrib/rst2wp"]
 	path = bin/contrib/rst2wp
 	url = git@github.com:glasserc/rst2wp.git

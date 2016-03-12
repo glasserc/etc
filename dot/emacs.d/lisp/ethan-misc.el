@@ -112,9 +112,6 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
-
-(require 'offlineimap)
-
 (winner-mode 1)
 
 ;; Remove vc-mode from mode-line-format
