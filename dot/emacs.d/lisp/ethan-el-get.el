@@ -47,6 +47,11 @@
   :config
   (whole-line-or-region-mode))
 
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable))
+
 (use-package jinja2-mode :ensure t)
 (use-package ruby-mode :ensure t)
 (use-package yaml-mode :ensure t)
@@ -93,10 +98,6 @@
 ;(require 'cedet)
 ;(load "semantic/loaddefs.el")
 ;(semantic-mode 1)
-
-(unless (package-installed-p 'elpy)
-  (package-install 'elpy))
-(elpy-enable)
 
 (setq auto-install-elpa-packages
       '(rich-minority
