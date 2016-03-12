@@ -23,7 +23,8 @@
 (let ((auto-save-directory (emacs-d "autosaves/")))
   (unless (file-directory-p auto-save-directory)
     (make-directory auto-save-directory))
-  (setq auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
-                                         (".*" ,(expand-file-name (emacs-d "autosaves/")) t))))
+  (add-to-list 'auto-save-file-name-transforms
+               `(".*" ,(expand-file-name auto-save-directory) t)
+               'append))
 
 (provide 'ethan-organize-paths)
