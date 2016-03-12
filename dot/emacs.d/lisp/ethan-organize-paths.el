@@ -2,6 +2,7 @@
 ;; I should probably be able to make this introspect or something
 (let ((tmp "~/.emacs.d/cache/"))
   (setq
+   egc-cache-directory tmp
    oddmuse-directory (concat tmp "oddmuse")
    save-place-file (concat tmp "places")
    tramp-persistency-file-name (concat tmp "tramp")
@@ -20,7 +21,7 @@
   (concat "~/.emacs.d/cache/session." SESSION-ID))
 
 ;; Don't clutter up directories with #files#
-(let ((auto-save-directory (emacs-d "autosaves/")))
+(let ((auto-save-directory (concat egc-cache-directory "autosaves/")))
   (unless (file-directory-p auto-save-directory)
     (make-directory auto-save-directory))
   (add-to-list 'auto-save-file-name-transforms
