@@ -90,7 +90,16 @@
   :config (elhome-init))
 
 (use-package swiper :ensure t)
-(use-package counsel :ensure t)
+(use-package counsel
+  :ensure t
+  :config
+  ;; Make counsel behave a little bit more like ido.
+  ;;
+  ;; RET should enter directories without ending the find-file.  C-j
+  ;; can be preserved to open a directory in dired, in case that's
+  ;; necessary.
+  (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
+  (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
 (use-package avy :ensure t)
 (use-package ace-window :ensure t)
 

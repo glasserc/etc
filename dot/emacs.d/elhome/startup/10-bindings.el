@@ -30,8 +30,6 @@
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
 ;; This is almost always a typo.
 (global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
-;; (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
-;; (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done)
 
 ;; This mode is very rarely useful.
 (global-set-key (kbd "C-x C-S-b") 'ibuffer)
