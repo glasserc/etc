@@ -106,10 +106,6 @@ Symbols matching the text at point are put first in the completion list."
   (interactive)
   (insert (format-time-string "%c" (current-time))))
 
-;; This is never used
-(defun turn-off-tool-bar ()
-  (tool-bar-mode -1))
-
 (defun esk-paredit-nonlisp ()
   "Turn on paredit mode for non-lisps."
   (interactive)
@@ -191,21 +187,6 @@ Symbols matching the text at point are put first in the completion list."
 ;; used in text-mode-hook
 (defun turn-on-visual-line-mode ()
   (visual-line-mode 1))
-
-(require 'cl)
-(defun esk-online? ()
-  "See if we're online.
-
-Windows does not have the network-interface-list function, so we
-just have to assume it's online."
-  ;; TODO how could this work on Windows?
-  (if (and (functionp 'network-interface-list)
-           (network-interface-list))
-      (some (lambda (iface) (unless (equal "lo" (car iface))
-                         (member 'up (first (last (network-interface-info
-                                                   (car iface)))))))
-            (network-interface-list))
-    t))
 
 ;;; My own defuns
 ;; Used in org-mode snippets week-rec and week-comm
