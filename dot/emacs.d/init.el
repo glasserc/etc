@@ -12,7 +12,6 @@
   (concat user-emacs-directory filename))
 
 (add-to-list 'load-path (emacs-d "lisp"))
-(add-to-list 'load-path (emacs-d "bootstrap"))
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp/"))
 (add-to-list 'load-path (expand-file-name  "~/.local/share/emacs/site-lisp/"))
 
