@@ -9,6 +9,7 @@
    bookmark-default-file (concat tmp "emacs.bmk")
    recentf-save-file (concat tmp "recentf")
    auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")
+   pcache-directory (concat tmp "pcache")
    *cheat-directory* (concat tmp "cheat")
    *cheat-sheets-cache-file* (concat tmp "cheat/sheets")))
 
