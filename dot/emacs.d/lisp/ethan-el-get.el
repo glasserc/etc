@@ -99,7 +99,6 @@
 
          ;; OK, all the other crap
          paredit
-         java-mode-indent-annotations
          (:name javadoc-help
                 :type git
                 :url "http://github.com/emacsmirror/javadoc-help.git")
