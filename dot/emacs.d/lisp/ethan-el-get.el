@@ -105,11 +105,6 @@
 
          ;; OK, all the other crap
          paredit
-
-         (:name rst-mode
-                :after (setq auto-mode-alist
-                             (cons '("\\.rst$" . rst-mode)
-                                   auto-mode-alist)))
          ))
 
 ;; CEDET/semantic/malabar stuff
