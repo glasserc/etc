@@ -10,22 +10,20 @@
    recentf-save-file (concat tmp "recentf")
    auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")
    url-cookie-file (concat tmp "url/cookies")
-   pcache-directory (concat tmp "pcache")))
+   pcache-directory (concat tmp "pcache")
+   ;; Don't clutter up directories with files~
+   backup-directory-alist `(("." . ,(concat tmp "backups")))
+   tramp-backup-directory-alist backup-directory-alist))
 
 ;; overrride the default function....
 (defun emacs-session-filename (SESSION-ID)
   (concat "~/.emacs.d/cache/session." SESSION-ID))
 
-;; Don't clutter up directories with files~
-(setq backup-directory-alist `(("." . ,(expand-file-name
-                                        (emacs-d "backups")))))
 ;; Don't clutter up directories with #files#
 (let ((auto-save-directory (emacs-d "autosaves/")))
   (unless (file-directory-p auto-save-directory)
     (make-directory auto-save-directory))
   (setq auto-save-file-name-transforms `(("\\`/[^/]*:\\([^/]*/\\)*\\([^/]*\\)\\'" "/tmp/\\2" t)
                                          (".*" ,(expand-file-name (emacs-d "autosaves/")) t))))
-
-(setq tramp-backup-directory-alist backup-directory-alist)
 
 (provide 'ethan-organize-paths)
