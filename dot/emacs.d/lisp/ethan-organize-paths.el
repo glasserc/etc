@@ -9,6 +9,7 @@
    bookmark-default-file (concat tmp "emacs.bmk")
    recentf-save-file (concat tmp "recentf")
    auto-save-list-file-prefix (concat tmp "auto-save-list/saves-")
+   url-cookie-file (concat tmp "url/cookies")
    pcache-directory (concat tmp "pcache")))
 
 ;; overrride the default function....

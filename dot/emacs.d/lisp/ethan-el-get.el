@@ -106,10 +106,6 @@
 
 (load-theme 'lush t)
 
-;; It sucks that we can't put these in organize-paths, but I want them
-;; to work even in the first call to el-get
-(setq url-cookie-file (emacs-d "cache/url/cookies"))
-
 ;; CEDET/semantic/malabar stuff
 ;(require 'semantic)
 ;(require 'cedet)
