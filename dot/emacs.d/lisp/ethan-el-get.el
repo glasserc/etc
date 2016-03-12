@@ -83,15 +83,6 @@
   :ensure t
   :config (elhome-init))
 
-;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(setq el-get-new nil)
-(unless (file-exists-p "~/.emacs.d/el-get/el-get")
-  (setq el-get-new t)
-  (load "~/.emacs.d/bootstrap/el-get-install.el"))
-
-(require 'el-get)
-
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
 (setq bcc-cache-directory (emacs-d "cache/byte-cache"))
