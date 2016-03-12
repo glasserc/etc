@@ -37,6 +37,8 @@
 (use-package haml-mode
   :ensure t)
 
+(use-package haskell-mode :ensure t)
+
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
   :ensure t)
 
@@ -74,6 +76,9 @@
 
 (use-package scratch :ensure t)
 (use-package gist :ensure t)
+(use-package moz :ensure t)
+(use-package wgrep :ensure t)
+(use-package magit :ensure t)
 
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -100,19 +105,11 @@
 
          ;; OK, all the other crap
          paredit
-         ;; espresso got merged upstream; what about this??
-         (:name moz
-                :type http
-                :url "http://download.savannah.gnu.org/releases-noredirect/espresso/moz.el")
-
-         wgrep
 
          (:name rst-mode
                 :after (setq auto-mode-alist
                              (cons '("\\.rst$" . rst-mode)
                                    auto-mode-alist)))
-         magit
-         haskell-mode
          ))
 
 ;; CEDET/semantic/malabar stuff
