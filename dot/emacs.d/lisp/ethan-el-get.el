@@ -61,6 +61,7 @@
 (use-package java-snippets
   :ensure t
   :config (java-snippets-initialize))
+(use-package javadoc-lookup :ensure t)
 (use-package find-file-in-project :ensure t)
 
 ;; Hide some modeline lighters.
@@ -99,9 +100,6 @@
 
          ;; OK, all the other crap
          paredit
-         (:name javadoc-help
-                :type git
-                :url "http://github.com/emacsmirror/javadoc-help.git")
          ;; espresso got merged upstream; what about this??
          (:name moz
                 :type http
