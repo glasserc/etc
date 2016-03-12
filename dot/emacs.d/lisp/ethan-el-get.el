@@ -84,9 +84,20 @@
 (use-package moz :ensure t)
 (use-package wgrep :ensure t)
 (use-package magit :ensure t)
+(use-package git-timemachine :ensure t)
 (use-package elhome
   :ensure t
   :config (elhome-init))
+;(use-package calmer-forest-theme :ensure t)
+;(use-package afternoon-theme :ensure t)
+;(use-package underwater-theme :ensure t)
+(use-package lush-theme :ensure t)
+;(use-package warm-night-theme :ensure t)
+;(use-package dark-krystal-theme :ensure t)
+(use-package swiper :ensure t)
+(use-package counsel :ensure t)
+(use-package avy :ensure t)
+(use-package ace-window :ensure t)
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
@@ -99,25 +110,10 @@
 ;(load "semantic/loaddefs.el")
 ;(semantic-mode 1)
 
-(setq auto-install-elpa-packages
-      '(rich-minority
-        calmer-forest-theme
-        afternoon-theme
-        underwater-theme
-        lush-theme
-        warm-night-theme
-        dark-krystal-theme
-        swiper
-        counsel
-        avy
-        ace-window
-        git-timemachine))
-(dolist (package auto-install-elpa-packages)
-  (unless (package-installed-p package)
-    (package-install package)))
-
-(load-theme 'lush t)
-(rich-minority-mode 1)
+(use-package rich-minority
+  :ensure t
+  :config
+  (rich-minority-mode 1))
 
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semanticdb-minor-mode
