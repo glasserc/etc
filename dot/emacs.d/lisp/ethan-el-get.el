@@ -53,7 +53,7 @@
 (use-package less-css-mode :ensure t)
 (use-package inf-ruby :ensure t)
 (use-package ruby-electric :ensure t)
-
+(use-package paredit :ensure t)
 (use-package multiple-cursors :ensure t)
 
 (use-package yasnippet
@@ -102,9 +102,6 @@
          (:name elhome
                 :depends (initsplit)
                 :after (elhome-init))
-
-         ;; OK, all the other crap
-         paredit
          ))
 
 ;; CEDET/semantic/malabar stuff
