@@ -26,3 +26,5 @@
                                          (".*" ,(expand-file-name (emacs-d "autosaves/")) t))))
 
 (setq tramp-backup-directory-alist backup-directory-alist)
+
+(provide 'ethan-organize-paths)
