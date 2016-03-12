@@ -1,6 +1,3 @@
-[submodule "dot/emacs.d/elhome/site-lisp/upstream/org-mode.git"]
-	path = dot/emacs.d/elhome/site-lisp/upstream/org-mode.git
-	url = git://repo.or.cz/org-mode.git
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git"]
 	path = dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git
 	url = git://github.com/glasserc/ethan-wspace.git
