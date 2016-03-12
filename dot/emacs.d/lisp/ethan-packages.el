@@ -148,4 +148,4 @@
 ;;                                                                elpy-default-minor-modes)))))
 ;; (setq elpy-default-minor-modes (remove 'flymake-mode elpy-default-minor-modes))
 
-(provide 'ethan-el-get)
+(provide 'ethan-packages)

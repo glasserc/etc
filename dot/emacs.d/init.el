@@ -18,7 +18,7 @@
 (require 'ethan-organize-paths)
 
 (setq autoload-file (emacs-d "loaddefs.el"))
-(require 'ethan-el-get)
+(require 'ethan-packages)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
