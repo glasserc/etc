@@ -108,7 +108,6 @@
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
-(setq bcc-cache-directory (emacs-d "cache/byte-cache"))
 (setq url-cookie-file (emacs-d "cache/url/cookies"))
 
 ;; CEDET/semantic/malabar stuff
