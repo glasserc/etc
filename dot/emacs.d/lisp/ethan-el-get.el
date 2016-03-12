@@ -88,16 +88,23 @@
 (use-package elhome
   :ensure t
   :config (elhome-init))
-;(use-package calmer-forest-theme :ensure t)
-;(use-package afternoon-theme :ensure t)
-;(use-package underwater-theme :ensure t)
-(use-package lush-theme :ensure t)
-;(use-package warm-night-theme :ensure t)
-;(use-package dark-krystal-theme :ensure t)
+
 (use-package swiper :ensure t)
 (use-package counsel :ensure t)
 (use-package avy :ensure t)
 (use-package ace-window :ensure t)
+
+;; By default, use-package "loads" or "requires" themes, which causes
+;; them to take effect immediately. We don't want that; we just want
+;; them to be available for use with load-theme.
+(use-package calmer-forest-theme :ensure t :defer t)
+(use-package afternoon-theme :ensure t :defer t)
+(use-package underwater-theme :ensure t :defer t)
+(use-package lush-theme :ensure t :defer t)
+(use-package warm-night-theme :ensure t :defer t)
+(use-package dark-krystal-theme :ensure t :defer t)
+
+(load-theme 'lush t)
 
 ;; It sucks that we can't put these in organize-paths, but I want them
 ;; to work even in the first call to el-get
