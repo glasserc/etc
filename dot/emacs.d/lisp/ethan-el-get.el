@@ -79,6 +79,9 @@
 (use-package moz :ensure t)
 (use-package wgrep :ensure t)
 (use-package magit :ensure t)
+(use-package elhome
+  :ensure t
+  :config (elhome-init))
 
 ;; keep a copy of el-get-install.el somewhere and exec it if this directory doesn't exist
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
@@ -94,29 +97,11 @@
 (setq bcc-cache-directory (emacs-d "cache/byte-cache"))
 (setq url-cookie-file (emacs-d "cache/url/cookies"))
 
-(setq el-get-sources
-      '(
-         ;; Do this stuff first to init settings and stuff that might be needed
-         ;; in installing/initing other packages (specifically, config
-         ;; of paths)
-         (:name elhome
-                :depends (initsplit)
-                :after (elhome-init))
-         ))
-
 ;; CEDET/semantic/malabar stuff
 ;(require 'semantic)
 ;(require 'cedet)
 ;(load "semantic/loaddefs.el")
 ;(semantic-mode 1)
-
-
-(setq el-get-user-package-directory "~/.emacs.d/el-get-init-files")
-(setq my-packages (mapcar 'el-get-source-name el-get-sources))
-
-(if (or el-get-new (not (file-exists-p "~/.emacs.d/el-get/elhome")))
-    (el-get 'sync my-packages)
-  (el-get my-packages))
 
 (unless (package-installed-p 'elpy)
   (package-install 'elpy))
