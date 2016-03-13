@@ -43,5 +43,3 @@
            :lfmt 'orgtbl-to-rst-line
            )))
     (orgtbl-to-generic table (org-combine-plists params2 params))))
-
-(add-to-list 'Info-default-directory-list (expand-file-name "~/.emacs.d/elhome/site-lisp/upstream/org-mode.git/doc"))
