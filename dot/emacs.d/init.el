@@ -1,6 +1,9 @@
 ;; Doing this early to avoid visual anomalies (like in emacs-starter-kit)
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
+;; Turn on the menu bar for exploring new modes
+(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
+
 
 (setq default-font "Terminus-13")
 (if (>= emacs-major-version 23)

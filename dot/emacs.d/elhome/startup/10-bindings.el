@@ -1,9 +1,6 @@
 ;; Taken from the Emacs Starter Kit
 (global-set-key (kbd "C-x \\") 'align-regexp)
 
-;; Turn on the menu bar for exploring new modes
-(global-set-key (kbd "C-<f10>") 'menu-bar-mode)
-
 ;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
 
