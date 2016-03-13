@@ -37,6 +37,4 @@
 (require 'ethan-communication)
 (require 'ethan-bindings)
 (require 'ethan-enabled-commands)   ;; FIXME: merge with bindings?
-(require 'ethan-java)
-(require 'ethan-lisp)
 (require 'ethan-rst)

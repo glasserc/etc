@@ -58,6 +58,8 @@
                                   global-semantic-mru-bookmark-mode))
 
 
+(require 'ethan-java)
+(require 'ethan-lisp)
 (require 'ethan-python)
 
 (provide 'ethan-programming)
