@@ -37,6 +37,8 @@
 
 (use-package rainbow-mode
   :config
+  (csetq rainbow-html-colors-major-mode-list
+         '(html-mode css-mode php-mode nxml-mode xml-mode less-css-mode))
   (defun turn-on-rainbow-mode ()
     (rainbow-mode 1))
   (add-hook 'prog-mode-hook 'turn-on-rainbow-mode)

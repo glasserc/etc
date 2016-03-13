@@ -31,9 +31,6 @@
  '(mail-specify-envelope-from t)
  '(mode-require-final-newline nil)
  '(mouse-yank-at-point t)
- '(rainbow-html-colors-major-mode-list
-   (quote
-    (html-mode css-mode php-mode nxml-mode xml-mode less-css-mode)))
  '(rm-blacklist
 ;; Some of these can be defined specially -- see for example
 ;; flyspell-mode-line-string and undo-tree-mode-lighter -- but keep
