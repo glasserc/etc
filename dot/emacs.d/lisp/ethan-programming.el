@@ -8,11 +8,18 @@
 (defun turn-on-save-place-mode ()
   (setq save-place t))
 
+;; Cosmetic
+(defun pretty-lambdas ()
+  (font-lock-add-keywords
+   nil `(("(?\\(lambda\\>\\)"
+          (0 (progn (compose-region (match-beginning 1) (match-end 1)
+                                    ,(make-char 'greek-iso8859-7 107))
+                    nil))))))
+
 (defun add-watchwords ()
   (font-lock-add-keywords
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
-
 
 (add-hook 'prog-mode-hook 'local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-hl-line-mode)
@@ -27,14 +34,6 @@
 ;; FIXME: take this out if CSS ever starts being a programming language
 (add-hook 'css-mode-hook 'run-prog-mode-hook)
 
-;; Cosmetic
-
-(defun pretty-lambdas ()
-  (font-lock-add-keywords
-   nil `(("(?\\(lambda\\>\\)"
-          (0 (progn (compose-region (match-beginning 1) (match-end 1)
-                                    ,(make-char 'greek-iso8859-7 107))
-                    nil))))))
 
 ;; CEDET/semantic/malabar stuff
 ;; I don't use CEDET, but these were settings I found useful
