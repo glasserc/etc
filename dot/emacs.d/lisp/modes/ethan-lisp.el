@@ -33,6 +33,9 @@
 
 (define-key emacs-lisp-mode-map (kbd "M-.") 'find-function-at-point)
 
+;; For debugging Emacs modes
+(global-set-key (kbd "C-c p") 'message-point)
+
 ;;; Clojure
 
 (eval-after-load 'find-file-in-project
