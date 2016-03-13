@@ -296,51 +296,6 @@
   (("C-x g" . magit-status)))
 (use-package git-timemachine)
 
-(use-package swiper
-  ;; Use swiper searches by default.
-  :bind
-  (("C-s" . swiper)
-   ("C-r" . swiper)
-   ("C-c C-r" . ivy-resume)
-   ("<f6>" . ivy-resume)
-   ("<f2> i" . counsel-info-lookup-symbol)
-   ("<f2> u" . counsel-unicode-char)
-   ("C-c g" . counsel-git)
-   ("C-c j" . counsel-git-grep)
-   ("C-c k" . counsel-ag)
-   ("C-x l" . counsel-locate)
-   ("C-S-o" . counsel-rhythmbox)
-   ("C-x f" . ivy-recentf)  ;; although see ivy-use-virtual-buffers
-   ;; This is almost always a typo.
-   ("C-x C-b" . ivy-switch-buffer))
-  :config
-  (csetq ivy-extra-directories nil)
-  (ivy-mode))
-(use-package counsel
-  :config
-  ;; Make counsel behave a little bit more like ido.
-  ;;
-  ;; RET should enter directories without ending the find-file.  C-j
-  ;; can be preserved to open a directory in dired, in case that's
-  ;; necessary.
-  (counsel-mode t)
-  (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
-  (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
-
-;; Avy, which replaces ace-jump-mode
-(use-package avy
-  :bind
-  (("C-:" . avy-goto-char)
-   ("C-'" . avy-goto-char-2)
-   ([remap goto-line] . avy-goto-line)
-   ("M-g w" . avy-goto-word-1)
-   ("M-g e" . avy-goto-word-0)
-   ([remap other-window] . ace-window))
-  :config
-  (csetq avy-background t)
-  (csetq avy-keys '(97 111 101 117 105 100 104 116 115)))
-(use-package ace-window)
-
 ;; By default, use-package "loads" or "requires" themes, which causes
 ;; them to take effect immediately. We don't want that; we just want
 ;; them to be available for use with load-theme.
