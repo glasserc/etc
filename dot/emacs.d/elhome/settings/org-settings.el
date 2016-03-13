@@ -1,4 +1,3 @@
-(message "Running org-settings")
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
 
 
