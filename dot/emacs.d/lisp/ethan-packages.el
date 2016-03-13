@@ -57,6 +57,11 @@
   :config
   (sml-modeline-mode))
 
+(use-package persistent-scratch
+  :config
+  (csetq persistent-scratch-save-file (emacs-d "scratch.el"))
+  (persistent-scratch-setup-default))
+
 (use-package org
   :pin org
   :bind
