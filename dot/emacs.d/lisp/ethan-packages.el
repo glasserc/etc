@@ -273,7 +273,7 @@
 (use-package yasnippet
   :config (yas-global-mode))
 
-(use-package find-file-in-project :ensure t)
+(use-package find-file-in-project)
 
 ;; Hide some modeline lighters.
 (use-package delight
