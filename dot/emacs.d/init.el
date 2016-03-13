@@ -29,5 +29,6 @@
 (require 'ethan-defuns)
 (require 'ethan-misc)
 (require 'ethan-esvn)
+(require 'ethan-navigation)
 (require 'ethan-programming)
 (require 'ethan-java)
