@@ -58,7 +58,11 @@
   (sml-modeline-mode))
 
 (use-package org
-  :pin org)
+  :pin org
+  :bind
+  (("C-c c" . org-capture)
+   ("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)))
 
 (use-package haml-mode
   :mode "\\.haml\\'")
@@ -92,7 +96,13 @@
      '(("(\\|)" . 'esk-paren-face))))
   (add-hook
    (intern (concat (symbol-name x) "-mode-hook")) 'turn-on-paredit)))
-(use-package multiple-cursors)
+(use-package multiple-cursors
+  :bind
+  (("C->" . mc/mark-next-like-this)
+   ("C-c C->" . mc/unmark-next-like-this)
+   ("C-<" . mc/mark-previous-like-this)
+   ("C-c C-<" . mc/unmark-previous-like-this)
+   ("C-%" . mc/mark-all-dwim)))
 
 (use-package yasnippet
   :config (yas-global-mode))
@@ -110,12 +120,31 @@
 (use-package gist)
 (use-package moz)
 (use-package wgrep)
-(use-package magit)
+(use-package magit
+  ;; So good!
+  :bind
+  (("C-x g" . magit-status)))
 (use-package git-timemachine)
 (use-package elhome
   :config (elhome-init))
 
 (use-package swiper
+  ;; Use swiper searches by default.
+  :bind
+  (("C-s" . swiper)
+   ("C-r" . swiper)
+   ("C-c C-r" . ivy-resume)
+   ("<f6>" . ivy-resume)
+   ("<f2> i" . counsel-info-lookup-symbol)
+   ("<f2> u" . counsel-unicode-char)
+   ("C-c g" . counsel-git)
+   ("C-c j" . counsel-git-grep)
+   ("C-c k" . counsel-ag)
+   ("C-x l" . counsel-locate)
+   ("C-S-o" . counsel-rhythmbox)
+   ("C-x f" . ivy-recentf)  ;; although see ivy-use-virtual-buffers
+   ;; This is almost always a typo.
+   ("C-x C-b" . ivy-switch-buffer))
   :config
   (csetq ivy-extra-directories nil)
   (ivy-mode))
@@ -129,7 +158,16 @@
   (counsel-mode t)
   (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
   (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
+
+;; Avy, which replaces ace-jump-mode
 (use-package avy
+  :bind
+  (("C-:" . avy-goto-char)
+   ("C-'" . avy-goto-char-2)
+   ([remap goto-line] . avy-goto-line)
+   ("M-g w" . avy-goto-word-1)
+   ("M-g e" . avy-goto-word-0)
+   ([remap other-window] . ace-window))
   :config
   (csetq avy-background t)
   (csetq avy-keys '(97 111 101 117 105 100 104 116 115)))

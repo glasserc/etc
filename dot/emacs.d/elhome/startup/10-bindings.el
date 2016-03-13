@@ -4,19 +4,6 @@
 ;; Turn on the menu bar for exploring new modes
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
-;; Use swiper searches by default.
-(global-set-key "\C-s" 'swiper)
-(global-set-key "\C-r" 'swiper)
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-(global-set-key (kbd "<f6>") 'ivy-resume)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c k") 'counsel-ag)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
-
 ;; Jump to a definition in the current file. (This is awesome.)
 ;; In org-mode, you should probably use org-goto instead.
 (global-set-key (kbd "C-x C-i") 'imenu)
@@ -24,12 +11,9 @@
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-x f") 'ivy-recentf) ;; although see ivy-use-virtual-buffers
 (global-set-key (kbd "C-c y") 'bury-buffer)
 (global-set-key (kbd "C-c r") 'revert-buffer)
 (global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-;; This is almost always a typo.
-(global-set-key (kbd "C-x C-b") 'ivy-switch-buffer)
 
 ;; This mode is very rarely useful.
 (global-set-key (kbd "C-x C-S-b") 'ibuffer)
@@ -62,19 +46,11 @@
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
 
-;; So good!
-(global-set-key (kbd "C-x g") 'magit-status)
-
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
     (let ((case-fold-search isearch-case-fold-search))
       (occur (if isearch-regexp isearch-string (regexp-quote isearch-string))))))
-
-;; Org
-(define-key global-map "\C-cc" 'org-capture)
-(define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map "\C-ca" 'org-agenda)
 
 ;; Personal customization
 ; At present, emacs does not define bindings for these keys,
@@ -116,19 +92,3 @@
 ;; alternate keybindings.
 ;;(define-key me-minor-mode-map (kbd "C-c C-_") 'winner-undo)
 ;;(define-key me-minor-mode-map (kbd "C-c M-_") 'winner-redo)
-
-;; Multiple-cursors
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/unmark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/unmark-previous-like-this)
-(global-set-key (kbd "C-%") 'mc/mark-all-dwim)
-
-
-;; Avy, which replaces ace-jump-mode
-(define-key me-minor-mode-map (kbd "C-:") 'avy-goto-char)
-(define-key me-minor-mode-map (kbd "C-'") 'avy-goto-char-2)
-(define-key me-minor-mode-map (vector 'remap 'goto-line) 'avy-goto-line)
-(define-key me-minor-mode-map (kbd "M-g w") 'avy-goto-word-1)
-(define-key me-minor-mode-map (kbd "M-g e") 'avy-goto-word-0)
-(define-key me-minor-mode-map (vector 'remap 'other-window) 'ace-window)
