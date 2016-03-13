@@ -35,6 +35,7 @@
 (require 'ethan-navigation)
 (require 'ethan-programming)
 (require 'ethan-communication)
+(require 'ethan-bindings)
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-rst)
