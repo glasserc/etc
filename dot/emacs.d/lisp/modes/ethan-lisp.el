@@ -41,4 +41,14 @@
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
 
+(use-package paredit
+  :config
+  (dolist (x '(scheme emacs-lisp lisp clojure))
+    (when window-system
+      (font-lock-add-keywords
+       (intern (concat (symbol-name x) "-mode"))
+       '(("(\\|)" . 'esk-paren-face))))
+    (add-hook
+     (intern (concat (symbol-name x) "-mode-hook")) 'paredit-mode)))
+
 (provide 'ethan-lisp)
