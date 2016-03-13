@@ -71,8 +71,3 @@
 ;; disable C-x C-c because I keep hitting it by accident and I hardly
 ;; ever close emacs. Normally it's save-buffers-kill-terminal.
 (global-unset-key (kbd "C-x C-c"))
-
-;; Somehow I thought org-mode conflicted with winner; here's some
-;; alternate keybindings.
-;;(define-key me-minor-mode-map (kbd "C-c C-_") 'winner-undo)
-;;(define-key me-minor-mode-map (kbd "C-c M-_") 'winner-redo)
