@@ -4,10 +4,6 @@
 ;; Turn on the menu bar for exploring new modes
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
-;; Jump to a definition in the current file. (This is awesome.)
-;; In org-mode, you should probably use org-goto instead.
-(global-set-key (kbd "C-x C-i") 'imenu)
-
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 (global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
