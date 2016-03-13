@@ -76,7 +76,15 @@
 (use-package less-css-mode)
 (use-package inf-ruby)
 (use-package ruby-electric)
-(use-package paredit)
+(use-package paredit
+  :config
+  (dolist (x '(scheme emacs-lisp lisp clojure))
+  (when window-system
+    (font-lock-add-keywords
+     (intern (concat (symbol-name x) "-mode"))
+     '(("(\\|)" . 'esk-paren-face))))
+  (add-hook
+   (intern (concat (symbol-name x) "-mode-hook")) 'turn-on-paredit)))
 (use-package multiple-cursors)
 
 (use-package yasnippet
