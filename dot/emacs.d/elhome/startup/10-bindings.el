@@ -68,13 +68,6 @@
 (when window-system
   (global-unset-key "\C-z"))
 
-;; I'm not sure about this because maybe there's a better way to
-;; accomplish it, but this is how every other program on the system
-;; does compose keys, so..
-;; N.B. this might not be necessary with recent Emacs
-(define-key key-translation-map [Multi_key]
-  (lookup-key key-translation-map (kbd "C-x 8")))
-
 ;; disable C-x C-c because I keep hitting it by accident and I hardly
 ;; ever close emacs. Normally it's save-buffers-kill-terminal.
 (global-unset-key (kbd "C-x C-c"))
