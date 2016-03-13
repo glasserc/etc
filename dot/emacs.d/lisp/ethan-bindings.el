@@ -35,3 +35,5 @@
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
+
+(provide 'ethan-bindings)
