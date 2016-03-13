@@ -36,6 +36,28 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
+;; CEDET/semantic/malabar stuff
+;; I don't use CEDET, but these were settings I found useful
+;(require 'semantic)
+;(require 'cedet)
+;(load "semantic/loaddefs.el")
+;(semantic-mode 1)
+;(global-ede-mode t)
+; (semantic-load-enable-excessive-code-helpers)
+; (require 'semantic-ia)
+; (setq semanticdb-default-save-directory (emacs-d "cache/semanticdb"))
+;; Some kind of weird bug with exuberent-ctags in python-mode?
+;;(semantic-load-enable-primary-exuberent-ctags-support)
+;;(require 'semantic-gcc)
+;(semantic-mode 1)
+;(require 'malabar-mode)
+;(add-to-list 'auto-mode-alist '("\\.java" . malabar-mode))
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+
+
 (require 'ethan-python)
 
 (provide 'ethan-programming)

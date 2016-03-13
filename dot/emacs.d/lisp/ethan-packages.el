@@ -304,53 +304,8 @@
 
 (load-theme 'lush t)
 
-;; CEDET/semantic/malabar stuff
-;; I don't use CEDET, but these were settings I found useful
-;(require 'semantic)
-;(require 'cedet)
-;(load "semantic/loaddefs.el")
-;(semantic-mode 1)
-;(global-ede-mode t)
-; (semantic-load-enable-excessive-code-helpers)
-; (require 'semantic-ia)
-; (setq semanticdb-default-save-directory (emacs-d "cache/semanticdb"))
-;; Some kind of weird bug with exuberent-ctags in python-mode?
-;;(semantic-load-enable-primary-exuberent-ctags-support)
-;;(require 'semantic-gcc)
-
 (use-package rich-minority
   :config
   (rich-minority-mode 1))
-
-(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
-                                  global-semanticdb-minor-mode
-                                  global-semantic-idle-summary-mode
-                                  global-semantic-mru-bookmark-mode))
-;(semantic-mode 1)
-;(require 'malabar-mode)
-;(add-to-list 'auto-mode-alist '("\\.java" . malabar-mode))
-
-;; Doesn't cause problems
-;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
-;;                                        (remove 'auto-complete-mode
-;;                                                (remove 'flymake-mode
-;;                                                        (remove 'highlight-indentation-mode
-;;                                                                elpy-default-minor-modes)))))
-
-
-;; Causes problems
-;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
-;;                                        (remove 'auto-complete-mode-thethethes
-;;                                                (remove 'flymake-mode-etsheszhtes
-;;                                                        (remove 'highlight-indentation-mode
-;;                                                                elpy-default-minor-modes)))))
-
-;; Doesn't cause problems
-;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
-;;                                        (remove 'auto-complete-mode-thethethes
-;;                                                (remove 'flymake-mode
-;;                                                        (remove 'highlight-indentation-mode
-;;                                                                elpy-default-minor-modes)))))
-;; (setq elpy-default-minor-modes (remove 'flymake-mode elpy-default-minor-modes))
 
 (provide 'ethan-packages)
