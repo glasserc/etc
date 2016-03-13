@@ -32,6 +32,9 @@
 
 (setq use-package-always-ensure t)
 
+(eval-when-compile
+  (require 'ethan-custom))
+
 (use-package rainbow-mode
   :config
   (defun turn-on-rainbow-mode ()
@@ -118,7 +121,10 @@
   ;; necessary.
   (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
   (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
-(use-package avy)
+(use-package avy
+  :config
+  (csetq avy-background t)
+  (csetq avy-keys '(97 111 101 117 105 100 104 116 115)))
 (use-package ace-window)
 
 ;; By default, use-package "loads" or "requires" themes, which causes

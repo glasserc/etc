@@ -3,10 +3,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(avy-background t)
- '(avy-keys
-   (quote
-    (97 111 101 117 105 100 104 116 115)))
  '(bookmark-save-flag 0)
  '(browse-kill-ring-highlight-current-entry t)
  '(browse-kill-ring-replace-yank t)
