@@ -30,8 +30,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(setq use-package-always-ensure t)
+
 (use-package rainbow-mode
-  :ensure t
   :config
   (defun turn-on-rainbow-mode ()
     (rainbow-mode 1))
@@ -40,82 +41,70 @@
   (add-hook 'css-mode-hook 'turn-on-rainbow-mode))
 
 (use-package idle-highlight-mode
-  :ensure t
   :config
   (add-hook 'prog-mode-hook 'idle-highlight-mode))
 
 (use-package undo-tree
-  :ensure t
   :config
   (global-undo-tree-mode))
 
 (use-package sml-modeline
-  :ensure t
   :config
   (sml-modeline-mode))
 
 (use-package org
-  :ensure t
   :pin org)
 
-(use-package haml-mode
-  :ensure t)
+(use-package haml-mode)
 
-(use-package haskell-mode :ensure t)
+(use-package haskell-mode)
 
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
-  :ensure t)
+)
 
 (use-package whole-line-or-region
-  :ensure t
   :config
   (whole-line-or-region-mode))
 
 (use-package elpy
-  :ensure t
   :config
   (elpy-enable))
 
-(use-package jinja2-mode :ensure t)
-(use-package ruby-mode :ensure t)
-(use-package yaml-mode :ensure t)
-(use-package less-css-mode :ensure t)
-(use-package inf-ruby :ensure t)
-(use-package ruby-electric :ensure t)
-(use-package paredit :ensure t)
-(use-package multiple-cursors :ensure t)
+(use-package jinja2-mode)
+(use-package ruby-mode)
+(use-package yaml-mode)
+(use-package less-css-mode)
+(use-package inf-ruby)
+(use-package ruby-electric)
+(use-package paredit)
+(use-package multiple-cursors)
 
 (use-package yasnippet
-  :ensure t
   :config (yas-global-mode))
 
 (use-package java-snippets
-  :ensure t
   :config (java-snippets-initialize))
 (use-package javadoc-lookup :ensure t)
 (use-package find-file-in-project :ensure t)
 
 ;; Hide some modeline lighters.
 (use-package delight
-  :ensure t
   :config
   (delight
     '((emacs-lisp-mode "EL" :major)
       (js-mode "JS" :major))))
 
-(use-package scratch :ensure t)
-(use-package gist :ensure t)
-(use-package moz :ensure t)
-(use-package wgrep :ensure t)
-(use-package magit :ensure t)
-(use-package git-timemachine :ensure t)
+(use-package scratch)
+(use-package gist)
+(use-package moz)
+(use-package wgrep)
+(use-package magit)
+(use-package git-timemachine)
 (use-package elhome
-  :ensure t
   :config (elhome-init))
 
-(use-package swiper :ensure t)
+(use-package swiper)
 (use-package counsel
-  :ensure t
   :config
   ;; Make counsel behave a little bit more like ido.
   ;;
@@ -124,18 +113,18 @@
   ;; necessary.
   (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
   (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
-(use-package avy :ensure t)
-(use-package ace-window :ensure t)
+(use-package avy)
+(use-package ace-window)
 
 ;; By default, use-package "loads" or "requires" themes, which causes
 ;; them to take effect immediately. We don't want that; we just want
 ;; them to be available for use with load-theme.
-(use-package calmer-forest-theme :ensure t :defer t)
-(use-package afternoon-theme :ensure t :defer t)
-(use-package underwater-theme :ensure t :defer t)
-(use-package lush-theme :ensure t :defer t)
-(use-package warm-night-theme :ensure t :defer t)
-(use-package dark-krystal-theme :ensure t :defer t)
+(use-package calmer-forest-theme :defer t)
+(use-package afternoon-theme :defer t)
+(use-package underwater-theme :defer t)
+(use-package lush-theme :defer t)
+(use-package warm-night-theme :defer t)
+(use-package dark-krystal-theme :defer t)
 
 (load-theme 'lush t)
 
@@ -146,7 +135,6 @@
 ;(semantic-mode 1)
 
 (use-package rich-minority
-  :ensure t
   :config
   (rich-minority-mode 1))
 
