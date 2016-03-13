@@ -35,3 +35,5 @@
           (0 (progn (compose-region (match-beginning 1) (match-end 1)
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
+
+(provide 'ethan-programming)
