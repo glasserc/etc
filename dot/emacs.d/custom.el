@@ -8,7 +8,6 @@
  '(browse-kill-ring-replace-yank t)
  '(column-number-mode t)
  '(compilation-scroll-output t)
- '(counsel-mode t)
  '(css-indent-level 2)
  '(css-indent-offset 2)
  '(custom-theme-directory "~/.emacs.d/themes/")
@@ -19,7 +18,6 @@
    (quote split-window-horizontally))
  '(ediff-window-setup-function
    (quote ediff-setup-windows-plain))
- '(elpy-rpc-backend "jedi")
  '(eshell-cmpl-autolist t)
  '(eshell-cmpl-cycle-completions nil)
  '(ido-max-directory-size 36864)
@@ -27,8 +25,6 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(initsplit-pretty-print t)
- '(ivy-extra-directories nil)
- '(ivy-mode t)
  '(mail-envelope-from
    (quote header))
  '(mail-host-address "betacantrips.com")

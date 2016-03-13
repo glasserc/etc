@@ -71,6 +71,7 @@
 
 (use-package elpy
   :config
+  (csetq elpy-rpc-backend "jedi")
   (elpy-enable))
 
 (use-package jinja2-mode)
@@ -111,7 +112,10 @@
 (use-package elhome
   :config (elhome-init))
 
-(use-package swiper)
+(use-package swiper
+  :config
+  (csetq ivy-extra-directories nil)
+  (ivy-mode))
 (use-package counsel
   :config
   ;; Make counsel behave a little bit more like ido.
@@ -119,6 +123,7 @@
   ;; RET should enter directories without ending the find-file.  C-j
   ;; can be preserved to open a directory in dired, in case that's
   ;; necessary.
+  (counsel-mode t)
   (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
   (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
 (use-package avy
