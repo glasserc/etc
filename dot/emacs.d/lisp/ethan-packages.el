@@ -41,9 +41,7 @@
          '(html-mode css-mode php-mode nxml-mode xml-mode less-css-mode))
   (defun turn-on-rainbow-mode ()
     (rainbow-mode 1))
-  (add-hook 'prog-mode-hook 'turn-on-rainbow-mode)
-  ;; FIXME: why does css-mode not inherit from prog-mode???
-  (add-hook 'css-mode-hook 'turn-on-rainbow-mode))
+  (add-hook 'prog-mode-hook 'turn-on-rainbow-mode))
 
 (use-package idle-highlight-mode
   :config
