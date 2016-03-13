@@ -91,7 +91,7 @@
 (add-hook 'ediff-after-quit-hook-internal 'winner-undo)
 
 ;; text mode
-(add-to-list 'text-mode-hook 'turn-on-visual-line-mode)
+(add-to-list 'text-mode-hook 'visual-line-mode)
 (add-to-list 'text-mode-hook 'turn-on-flyspell)
 
 ;; Get around the emacswiki spam protection

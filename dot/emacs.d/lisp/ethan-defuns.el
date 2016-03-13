@@ -142,10 +142,6 @@
   (interactive "p")
   (scroll-down 1))
 
-;; used in text-mode-hook
-(defun turn-on-visual-line-mode ()
-  (visual-line-mode 1))
-
 ;;; My own defuns
 ;; Used in org-mode snippets week-rec and week-comm
 (defun begin-of-week ()
