@@ -82,9 +82,6 @@
 (use-package yasnippet
   :config (yas-global-mode))
 
-(use-package java-snippets
-  :config (java-snippets-initialize))
-(use-package javadoc-lookup :ensure t)
 (use-package find-file-in-project :ensure t)
 
 ;; Hide some modeline lighters.
