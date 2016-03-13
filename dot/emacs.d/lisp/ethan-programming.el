@@ -36,4 +36,6 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
+(require 'ethan-python)
+
 (provide 'ethan-programming)
