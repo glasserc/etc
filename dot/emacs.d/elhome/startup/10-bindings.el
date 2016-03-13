@@ -4,21 +4,6 @@
 ;; Turn on the menu bar for exploring new modes
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
-;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
-
-;; This mode is very rarely useful.
-(global-set-key (kbd "C-x C-S-b") 'ibuffer)
-
-;; Window switching. (C-x o goes to the next window)
-(windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
-
 ;; Start eshell or switch to it if it's active.
 (global-set-key (kbd "C-x m") 'eshell)
 
@@ -31,9 +16,6 @@
 ;; If you want to be able to M-x without meta (phones, etc)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 
-;; Fetch the contents at a URL, display it raw.
-(global-set-key (kbd "C-x C-h") 'view-url)
-
 ;; Help should search more than just commands.
 (global-set-key [remap apropos-command] 'apropos)
 
@@ -43,11 +25,6 @@
 (global-set-key (kbd "C-c p") 'message-point)
 
 
-;; Personal customization
-; At present, emacs does not define bindings for these keys,
-; but various modes do: org mode, paredit, etc
-(define-key me-minor-mode-map (kbd "M-<up>") 'scroll-down-one)
-(define-key me-minor-mode-map (kbd "M-<down>") 'scroll-up-one)
 ; This shadows previous count-lines-region
 (define-key esc-map "=" 'count-words)
 
@@ -63,11 +40,3 @@
 
 ;;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
-
-;; disable C-z on X11 sessions
-(when window-system
-  (global-unset-key "\C-z"))
-
-;; disable C-x C-c because I keep hitting it by accident and I hardly
-;; ever close emacs. Normally it's save-buffers-kill-terminal.
-(global-unset-key (kbd "C-x C-c"))
