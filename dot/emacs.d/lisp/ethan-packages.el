@@ -129,12 +129,12 @@
 (use-package paredit
   :config
   (dolist (x '(scheme emacs-lisp lisp clojure))
-  (when window-system
-    (font-lock-add-keywords
-     (intern (concat (symbol-name x) "-mode"))
-     '(("(\\|)" . 'esk-paren-face))))
-  (add-hook
-   (intern (concat (symbol-name x) "-mode-hook")) 'paredit-mode)))
+    (when window-system
+      (font-lock-add-keywords
+       (intern (concat (symbol-name x) "-mode"))
+       '(("(\\|)" . 'esk-paren-face))))
+    (add-hook
+     (intern (concat (symbol-name x) "-mode-hook")) 'paredit-mode)))
 (use-package multiple-cursors
   :bind
   (("C->" . mc/mark-next-like-this)
