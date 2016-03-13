@@ -95,7 +95,7 @@
      (intern (concat (symbol-name x) "-mode"))
      '(("(\\|)" . 'esk-paren-face))))
   (add-hook
-   (intern (concat (symbol-name x) "-mode-hook")) 'turn-on-paredit)))
+   (intern (concat (symbol-name x) "-mode-hook")) 'paredit-mode)))
 (use-package multiple-cursors
   :bind
   (("C->" . mc/mark-next-like-this)

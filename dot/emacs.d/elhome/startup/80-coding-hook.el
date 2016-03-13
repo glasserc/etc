@@ -13,11 +13,6 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-;; This isn't strictly needed here, but needs to happen before we open
-;; a .el file (e.g. by el-get)
-(defun turn-on-paredit ()
-  (paredit-mode t))
-
 
 (add-hook 'prog-mode-hook 'local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-hl-line-mode)
