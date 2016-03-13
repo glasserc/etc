@@ -1,10 +1,5 @@
 (setq notmuch-search-oldest-first nil)
 
-;; This should probably go in offlineimap-settings
-(setq offlineimap-enable-mode-line-p
-      '(member
-        major-mode
-        '(offlineimap-mode notmuch-hello-mode)))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
