@@ -13,7 +13,7 @@
 
 (add-to-list 'load-path (emacs-d "lisp"))
 (add-to-list 'load-path (emacs-d "lisp/ethan-wspace.git/lisp"))
-(add-to-list 'load-path (emacs-d "lisp/programming"))
+(add-to-list 'load-path (emacs-d "lisp/modes"))
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp/"))
 (add-to-list 'load-path (expand-file-name  "~/.local/share/emacs/site-lisp/"))
 
