@@ -34,8 +34,8 @@
 ;; Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x C-h") 'view-url)
 
-;; Help should search more than just commands
-(global-set-key (kbd "C-h a") 'apropos)
+;; Help should search more than just commands.
+(global-set-key [remap apropos-command] 'apropos)
 
 ;; Should be able to eval-and-replace anywhere.
 (global-set-key (kbd "C-c e") 'eval-and-replace)
