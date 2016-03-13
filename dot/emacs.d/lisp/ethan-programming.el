@@ -34,6 +34,11 @@
 ;; FIXME: take this out if CSS ever starts being a programming language
 (add-hook 'css-mode-hook 'run-prog-mode-hook)
 
+(use-package magit
+  ;; So good!
+  :bind
+  (("C-x g" . magit-status)))
+(use-package git-timemachine)
 
 ;; CEDET/semantic/malabar stuff
 ;; I don't use CEDET, but these were settings I found useful

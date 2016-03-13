@@ -286,11 +286,6 @@
 (use-package gist)
 (use-package moz)
 (use-package wgrep)
-(use-package magit
-  ;; So good!
-  :bind
-  (("C-x g" . magit-status)))
-(use-package git-timemachine)
 
 ;; By default, use-package "loads" or "requires" themes, which causes
 ;; them to take effect immediately. We don't want that; we just want
