@@ -60,7 +60,8 @@
 (use-package org
   :pin org)
 
-(use-package haml-mode)
+(use-package haml-mode
+  :mode "\\.haml\\'")
 
 (use-package haskell-mode)
 
