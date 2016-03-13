@@ -324,8 +324,6 @@
   :bind
   (("C-x g" . magit-status)))
 (use-package git-timemachine)
-(use-package elhome
-  :config (elhome-init))
 
 (use-package swiper
   ;; Use swiper searches by default.
