@@ -79,7 +79,7 @@
 
 (use-package jinja2-mode)
 (use-package ruby-mode)
-(use-package yaml-mode)
+(use-package yaml-mode :mode "\\.ya?ml\\'")
 (use-package less-css-mode)
 (use-package inf-ruby)
 (use-package ruby-electric)
