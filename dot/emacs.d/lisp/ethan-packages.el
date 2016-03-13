@@ -204,9 +204,6 @@
    ("C-c l" . org-store-link)
    ("C-c a" . org-agenda)))
 
-(use-package haml-mode
-  :mode "\\.haml\\'")
-
 (use-package haskell-mode
   :config
   (csetq haskell-compile-cabal-build-command "cd %s && cabal build --ghc-option=-ferror-spans && hlint src/")
@@ -256,11 +253,7 @@
   (whole-line-or-region-mode))
 
 (use-package jinja2-mode)
-(use-package ruby-mode)
 (use-package yaml-mode :mode "\\.ya?ml\\'")
-(use-package less-css-mode)
-(use-package inf-ruby)
-(use-package ruby-electric)
 
 (use-package multiple-cursors
   :bind

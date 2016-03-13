@@ -39,6 +39,13 @@
   :bind
   (("C-x g" . magit-status)))
 (use-package git-timemachine)
+(use-package ruby-mode)
+(use-package inf-ruby)
+(use-package ruby-electric)
+(use-package less-css-mode)
+(use-package haml-mode
+  :mode "\\.haml\\'")
+
 
 ;; CEDET/semantic/malabar stuff
 ;; I don't use CEDET, but these were settings I found useful
