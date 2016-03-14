@@ -32,8 +32,9 @@
 ;; Personal customization
 ; At present, emacs does not define bindings for these keys,
 ; but various modes do: org mode, paredit, etc
-(define-key me-minor-mode-map (kbd "M-<up>") 'scroll-down-one)
-(define-key me-minor-mode-map (kbd "M-<down>") 'scroll-up-one)
+(bind-keys*
+ ("M-<up>" . scroll-down-one)
+ ("M-<down>" . scroll-up-one))
 
 ;; disable C-z on X11 sessions
 (when window-system
