@@ -71,6 +71,7 @@
 
 (use-package swiper
   ;; Use swiper searches by default.
+  :diminish ivy-mode
   :bind
   (("C-s" . swiper)
    ("C-r" . swiper)
@@ -97,6 +98,7 @@
   (csetq ivy-extra-directories nil)
   (ivy-mode))
 (use-package counsel :demand t
+  :diminish counsel-mode
   :config
   ;; I'm not sure counsel needs this to use counsel-imenu
   (set-default 'imenu-auto-rescan t)

@@ -47,6 +47,7 @@
   :config (global-ethan-wspace-mode 1))
 
 (use-package undo-tree
+  :diminish undo-tree-mode
   :config
   (global-undo-tree-mode))
 
@@ -64,6 +65,7 @@
                 (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post))))))
 
 (use-package whole-line-or-region
+  :diminish whole-line-or-region-mode
   :config
   (whole-line-or-region-mode))
 
@@ -79,6 +81,7 @@
    ("C-%" . mc/mark-all-dwim)))
 
 (use-package yasnippet
+  :diminish yas-global-mode
   :config
   (csetq yas/wrap-around-region t)
   (csetq yas/prompt-functions '(yas/x-prompt yas/ido-prompt))
@@ -95,8 +98,8 @@
 (use-package moz)
 (use-package wgrep)
 
-(use-package rich-minority
-  :config
-  (rich-minority-mode 1))
+;; (use-package rich-minority
+;;   :config
+;;   (rich-minority-mode 1))
 
 (provide 'ethan-packages)

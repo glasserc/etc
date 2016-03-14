@@ -73,6 +73,7 @@ I guess this is how you do list unpacking in emacs-lisp."
 
 ;; text mode
 (add-to-list 'text-mode-hook 'visual-line-mode)
+(eval-after-load "simple" '(diminish 'visual-line-mode))
 (add-to-list 'text-mode-hook 'turn-on-flyspell)
 
 

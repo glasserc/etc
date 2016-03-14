@@ -34,7 +34,7 @@
 ;; flyspell-mode-line-string and undo-tree-mode-lighter -- but keep
 ;; them all here for consistency.
    (quote
-    (" hl-p" " Rbow" " yas" " Undo-Tree" " WLR" " Paredit" " Fill" " Isearch" " me" " ElDoc" " Fly" " Wrap" " Ind" " Doc" " MRev")))
+    (" hl-p" " Fly" " Ind" " Doc" " MRev")))
  '(safe-local-variable-values
    (quote
     ((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)

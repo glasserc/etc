@@ -1,6 +1,8 @@
 (defun local-comment-auto-fill ()
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (auto-fill-mode t))
+;; not the mode -- see minor-mode-alist
+(eval-after-load "simple" '(diminish 'auto-fill-function))
 
 (defun turn-on-hl-line-mode ()
   (if window-system (hl-line-mode t)))
@@ -24,12 +26,14 @@
 (add-hook 'prog-mode-hook 'add-watchwords)
 
 (use-package rainbow-mode
+  :diminish rainbow-mode
   :config
   (csetq rainbow-html-colors-major-mode-list
          '(html-mode css-mode php-mode nxml-mode xml-mode less-css-mode))
   (add-hook 'prog-mode-hook 'rainbow-mode))
 
 (use-package idle-highlight-mode
+  :diminish hi-lock-mode    ;; used underneath the hood
   :config
   (add-hook 'prog-mode-hook 'idle-highlight-mode))
 

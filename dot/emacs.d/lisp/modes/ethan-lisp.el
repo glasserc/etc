@@ -22,7 +22,10 @@
 
 ;;; Emacs Lisp
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(use-package eldoc
+  :diminish eldoc-mode
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode))
 (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
 
 (defun esk-remove-elc-on-save ()
@@ -52,6 +55,7 @@
   '(add-to-list 'ffip-patterns "*.clj"))
 
 (use-package paredit
+  :diminish 'paredit-mode
   :config
   (dolist (x '(scheme emacs-lisp lisp clojure))
     (when window-system
