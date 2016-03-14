@@ -87,8 +87,14 @@
    ;; This is almost always a typo.
    ("C-x C-b" . ivy-switch-buffer))
   :config
-  (csetq ivy-extra-directories nil)
+  ;; setup recentf so that it adds its hook to find-file.
+  ;; This lets ivy-use-virtual-buffers work.
+  (csetq recentf-max-saved-items 100)
+  (csetq recentf-max-menu-items 15)
   (csetq ivy-use-virtual-buffers t)
+  (recentf-mode 1)
+
+  (csetq ivy-extra-directories nil)
   (ivy-mode))
 (use-package counsel :demand t
   :config
