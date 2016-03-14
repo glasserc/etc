@@ -85,12 +85,6 @@
 (add-to-list 'text-mode-hook 'visual-line-mode)
 (add-to-list 'text-mode-hook 'turn-on-flyspell)
 
-;; Get around the emacswiki spam protection
-(add-hook 'oddmuse-mode-hook
-          (lambda ()
-            (unless (string-match "question" oddmuse-post)
-              (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post)))))
-
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
 (winner-mode 1)

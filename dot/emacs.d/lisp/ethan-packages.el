@@ -45,7 +45,12 @@
   (persistent-scratch-setup-default))
 
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
-)
+  :config
+  ;; Get around the emacswiki spam protection
+  (add-hook 'oddmuse-mode-hook
+            (lambda ()
+              (unless (string-match "question" oddmuse-post)
+                (setq oddmuse-post (concat "uihnscuskc=1;" oddmuse-post))))))
 
 (use-package whole-line-or-region
   :config
