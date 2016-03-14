@@ -49,6 +49,4 @@
 
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 
-(winner-mode 1)
-
 (provide 'ethan-misc)
