@@ -88,6 +88,7 @@
    ("C-x C-b" . ivy-switch-buffer))
   :config
   (csetq ivy-extra-directories nil)
+  (csetq ivy-use-virtual-buffers t)
   (ivy-mode))
 (use-package counsel :demand t
   :config

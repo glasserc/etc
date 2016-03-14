@@ -20,9 +20,6 @@
 ;; I don't use imenu, but it's a better default
 (set-default 'imenu-auto-rescan t)
 
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
-
 ;; Ido: don't ignore project.git, but ignore .git itself.
 (let ((vcs-extensions '(".svn/" ".hg/" ".git/" ".bzr/")))
   ;; remove .git/ from completion-ignored-extensions, because it matches endings
