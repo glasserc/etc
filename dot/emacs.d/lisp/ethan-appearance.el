@@ -22,4 +22,18 @@
 
 (load-theme 'lush t)
 
+;; Remove vc-mode from mode-line-format
+(setq mode-line-format-without-vc
+      (remove-if
+       (lambda (elt) (and (listp elt) (equal 'vc-mode (car elt))))
+       mode-line-format))
+
+;; Move mode-line-misc-info before mode-line-modes by removing the
+;; things at the end and slapping it at the end.
+(set-default 'mode-line-format
+      (append (remove 'mode-line-modes (remove 'mode-line-end-spaces mode-line-format-without-vc))
+              '(mode-line-modes mode-line-end-spaces)))
+
+(which-function-mode t)
+
 (provide 'ethan-appearance)
