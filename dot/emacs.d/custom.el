@@ -4,8 +4,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(bookmark-save-flag 0)
- '(browse-kill-ring-highlight-current-entry t)
- '(browse-kill-ring-replace-yank t)
  '(column-number-mode t)
  '(compilation-scroll-output t)
  '(css-indent-level 2)
