@@ -39,13 +39,6 @@
 (add-hook 'find-file-hook 'elide-head)
 ;;; end elide-head
 
-;;; desktop-mode config
-; I don't expect to ever use it, but it's nice to
-; have.  Save session with desktop-save, then read using desktop-read.
-; desktop-save doesn't overwrite it's previous save.. not sure why or
-; how to fix. Maybe desktop-save-mode?
-(set-default 'desktop-path (list (expand-file-name "~/.emacs.d/")))
-;;; end desktop-mode
 
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 

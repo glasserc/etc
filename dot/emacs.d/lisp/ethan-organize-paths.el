@@ -14,7 +14,13 @@
    pcache-directory (concat tmp "pcache")
    ;; Don't clutter up directories with files~
    backup-directory-alist `(("." . ,(concat tmp "backups")))
-   tramp-backup-directory-alist backup-directory-alist))
+   tramp-backup-directory-alist backup-directory-alist
+   ;; desktop-mode config
+   ;; I don't expect to ever use it, but it's nice to
+   ;; have.  Save session with desktop-save, then read using desktop-read.
+   ;; desktop-save doesn't overwrite it's previous save.. not sure why or
+   ;; how to fix. Maybe desktop-save-mode?
+   desktop-path (list user-emacs-directory)))
 
 ;; overrride the default function....
 (defun emacs-session-filename (SESSION-ID)
