@@ -68,7 +68,14 @@
    ("C-%" . mc/mark-all-dwim)))
 
 (use-package yasnippet
-  :config (yas-global-mode))
+  :config
+  (csetq yas/wrap-around-region t)
+  (csetq yas/prompt-functions '(yas/x-prompt yas/ido-prompt))
+
+  (yas-global-mode)
+  ;; This takes a long time
+  ;;(yas/load-directory (concat yasnippet-directory "/snippets"))
+  )
 
 (use-package find-file-in-project)
 

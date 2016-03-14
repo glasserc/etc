@@ -58,12 +58,6 @@
 (add-hook 'find-file-hook 'elide-head)
 ;;; end elide-head
 
-;; This takes a long time
-;(yas/load-directory (concat yasnippet-directory "/snippets"))
-
-(setq yas/wrap-around-region t
-      yas/prompt-functions '(yas/x-prompt yas/ido-prompt))
-
 ;;; desktop-mode config
 ; I don't expect to ever use it, but it's nice to
 ; have.  Save session with desktop-save, then read using desktop-read.
