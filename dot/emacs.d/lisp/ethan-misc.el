@@ -40,10 +40,6 @@
 (require 'ethan-wspace)
 (global-ethan-wspace-mode 1)
 
-;; CUA Rectangle stuff
-;; (setq cua-enable-cua-keys nil)           ;; only for rectangles
-;; (cua-mode t)
-
 ;;; abbrev
 (setq abbrev-file-name (emacs-d "abbrev_defs.el"))
 (read-abbrev-file abbrev-file-name t)
