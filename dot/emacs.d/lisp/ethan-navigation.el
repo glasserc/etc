@@ -29,9 +29,10 @@
  ("C-x C-o" . (lambda () (interactive) (other-window 2)))) ;; forward two
 (windmove-default-keybindings) ;; Shift+direction
 
+(use-package seq :defer t)
 (use-package crux
-  :bind (("C-x C-h" . crux-view-url))
-  )
+  :commands crux-sudo-edit
+  :bind (("C-x C-h" . crux-view-url)))
 
 ;; Personal customization
 ;; scroll-up-one, M-down, maybe I should get rid of this, but I got used

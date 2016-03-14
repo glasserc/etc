@@ -1,11 +1,4 @@
 ;; These are taken from the Emacs Starter Kit
-;; I don't like this exactly, but I want to write something like this
-(defun sudo-edit (&optional arg)
-  (interactive "p")
-  (if (or arg (not buffer-file-name))
-      (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
-    (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
-
 (defun insert-date ()
   "Insert a time-stamp according to locale's date and time format."
   (interactive)
