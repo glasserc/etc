@@ -36,6 +36,22 @@
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
 
+(defun eval-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (backward-kill-sexp)
+  (condition-case nil
+      (prin1 (eval (read (current-kill 0)))
+             (current-buffer))
+    (error (message "Invalid expression")
+           (insert (current-kill 0)))))
+
+;; Should be able to eval-and-replace anywhere.
+;; I never use this, but maybe it's because it's useful to debug other
+;; emacs modes?
+(global-set-key (kbd "C-c e") 'eval-and-replace)
+
+
 ;;; Clojure
 
 (eval-after-load 'find-file-in-project
