@@ -16,6 +16,8 @@
            turn-on-haskell-doc
            turn-on-haskell-indentation
            subword-mode))
+  (eval-after-load "haskell-cabal"
+    '(bind-key "C-c C-c" 'haskell-compile haskell-cabal-mode-map))
 ;; ghc-mod isn't quite ready for prime time, it seems. Plus all its
 ;; bindings shadow existing keybindings..
 ;; (let
@@ -35,8 +37,6 @@
    ("C-c C-b" . haskell-interactive-switch)
    ("C-c C-t" . haskell-process-do-type)
    ("C-c C-i" . haskell-process-do-info)
-   ("M-." . haskell-mode-jump-to-def)
-   :map haskell-cabal-mode-map
-   ("C-c C-c" . haskell-compile)))
+   ("M-." . haskell-mode-jump-to-def)))
 
 (provide 'ethan-haskell)
