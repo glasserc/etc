@@ -9,6 +9,12 @@
 (if (>= emacs-major-version 23)
     (progn (set-frame-font default-font t)
            (add-to-list 'default-frame-alist (cons 'font default-font))))
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+
+(xterm-mouse-mode t)
 
 
 (defun emacs-d (filename)

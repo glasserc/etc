@@ -148,4 +148,8 @@
 
 (winner-mode 1)
 
+;; Revert automatically. Only reverts nonmodified files. This might cause
+;; a lot of network traffic when used with tramp?
+(global-auto-revert-mode 1)
+
 (provide 'ethan-navigation)
