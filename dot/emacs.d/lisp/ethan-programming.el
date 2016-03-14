@@ -5,9 +5,6 @@
 (defun turn-on-hl-line-mode ()
   (if window-system (hl-line-mode t)))
 
-(defun turn-on-save-place-mode ()
-  (setq save-place t))
-
 ;; Cosmetic
 (defun pretty-lambdas ()
   (font-lock-add-keywords
@@ -23,7 +20,6 @@
 
 (add-hook 'prog-mode-hook 'local-comment-auto-fill)
 (add-hook 'prog-mode-hook 'turn-on-hl-line-mode)
-(add-hook 'prog-mode-hook 'turn-on-save-place-mode)
 (add-hook 'prog-mode-hook 'pretty-lambdas)
 (add-hook 'prog-mode-hook 'add-watchwords)
 
@@ -33,6 +29,12 @@
 
 ;; FIXME: take this out if CSS ever starts being a programming language
 (add-hook 'css-mode-hook 'run-prog-mode-hook)
+
+(use-package saveplace
+  :config
+  (defun turn-on-save-place-mode ()
+    (setq save-place t))
+  (add-hook 'prog-mode-hook 'turn-on-save-place-mode))
 
 (use-package magit
   ;; So good!
