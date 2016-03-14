@@ -30,12 +30,13 @@
            (setq completion-ignored-extensions
                  (remove extension completion-ignored-extensions)))
         vcs-extensions)
-  (setq ido-ignore-files
-        (append
-         ;; But do ignore files that are just .git, .hg, .svn, etc.
-         ;; generate regexes that are ^.git, etc.
-         (mapcar #'(lambda (arg) (concat "^" arg)) vcs-extensions)
-         ido-ignore-files)))
+  ;; (setq ido-ignore-files
+  ;;       (append
+  ;;        ;; But do ignore files that are just .git, .hg, .svn, etc.
+  ;;        ;; generate regexes that are ^.git, etc.
+  ;;        (mapcar #'(lambda (arg) (concat "^" arg)) vcs-extensions)
+  ;;        ido-ignore-files))
+  )
 ;;;
 
 ;;; wspace -- both displaying, and editing
