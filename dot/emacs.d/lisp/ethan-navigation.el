@@ -98,16 +98,20 @@
   (ivy-mode))
 (use-package counsel :demand t
   :config
-  ;; Make counsel behave a little bit more like ido.
-  ;;
-  ;; RET should enter directories without ending the find-file.  C-j
-  ;; can be preserved to open a directory in dired, in case that's
-  ;; necessary.
+  ;; I'm not sure counsel needs this to use counsel-imenu
+  (set-default 'imenu-auto-rescan t)
   (counsel-mode t)
+
   :bind
-  (:map counsel-find-file-map
-  ("C-j" . ivy-done)
-  ("RET" . ivy-alt-done)))
+  (("C-x C-i" . counsel-imenu)
+   ;; Make counsel behave a little bit more like ido.
+   ;;
+   ;; RET should enter directories without ending the find-file.  C-j
+   ;; can be preserved to open a directory in dired, in case that's
+   ;; necessary.
+   :map counsel-find-file-map
+   ("C-j" . ivy-done)
+   ("RET" . ivy-alt-done)))
 
 ;; Avy, which replaces ace-jump-mode
 (use-package avy

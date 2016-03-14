@@ -9,7 +9,4 @@
 ;; a lot of network traffic when used with tramp?
 (global-auto-revert-mode 1)
 
-;; I don't use imenu, but it's a better default
-(set-default 'imenu-auto-rescan t)
-
 (provide 'ethan-misc)
