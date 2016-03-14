@@ -34,6 +34,7 @@
 (require 'ethan-esvn)
 (require 'ethan-navigation)
 (require 'ethan-programming)
+(require 'ethan-writing)
 (require 'ethan-communication)
 (require 'ethan-bindings)
 (require 'ethan-enabled-commands)   ;; FIXME: merge with bindings?

@@ -16,9 +16,6 @@
 ;; Help should search more than just commands.
 (global-set-key [remap apropos-command] 'apropos)
 
-; This shadows previous count-lines-region
-(define-key esc-map "=" 'count-words)
-
 ;; In theory these are reserved for major modes, but I like the python-mode
 ;; bindings (python-indent-shift-left and
 ;; python-indent-shift-right) and want to use them in other
