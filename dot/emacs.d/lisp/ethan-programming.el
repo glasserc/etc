@@ -101,6 +101,8 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
+;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
+
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-python)

@@ -39,7 +39,4 @@
 (add-hook 'find-file-hook 'elide-head)
 ;;; end elide-head
 
-
-;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
-
 (provide 'ethan-misc)
