@@ -31,8 +31,17 @@
 
 (use-package seq :defer t)
 (use-package crux
-  :commands crux-sudo-edit crux-insert-date
-  :bind (("C-x C-h" . crux-view-url)))
+  ;; crux has a bunch of useful commands, not entirely specific to
+  ;; navigation.  N.B. once loaded, crux-reopen-as-root is added to
+  ;; find-file-hook, so files will be automatically opened as root.
+  :commands
+  crux-sudo-edit crux-insert-date
+  crux-rename-file-and-buffer
+  crux-delete-file-and-buffer
+  :bind (("C-x C-h" . crux-view-url)
+         ("C-^" . crux-top-join-lines)
+         ("C-c e" . crux-eval-and-replace)
+         ("M-o" . crux-smart-open-line)))
 
 ;; Personal customization
 ;; scroll-up-one, M-down, maybe I should get rid of this, but I got used
