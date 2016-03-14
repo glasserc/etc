@@ -29,7 +29,7 @@
 (load custom-file)
 ;;; customize stuff
 
-(require 'ethan-defuns)
+(require 'ethan-appearance)
 (require 'ethan-misc)
 (require 'ethan-esvn)
 (require 'ethan-navigation)
