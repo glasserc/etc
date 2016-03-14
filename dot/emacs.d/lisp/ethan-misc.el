@@ -17,10 +17,6 @@
 ;; I don't use imenu, but it's a better default
 (set-default 'imenu-auto-rescan t)
 
-;;; wspace -- both displaying, and editing
-(require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
-
 ;;; abbrev
 (setq abbrev-file-name (emacs-d "abbrev_defs.el"))
 (read-abbrev-file abbrev-file-name t)

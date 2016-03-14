@@ -35,6 +35,10 @@
 (eval-when-compile
   (require 'ethan-custom))
 
+(use-package ethan-wspace
+  :load-path "lisp/ethan-wspace.git/lisp"
+  :config (global-ethan-wspace-mode 1))
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode))
