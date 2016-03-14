@@ -12,9 +12,4 @@
 ;; I don't use imenu, but it's a better default
 (set-default 'imenu-auto-rescan t)
 
-;;; abbrev
-(setq abbrev-file-name (emacs-d "abbrev_defs.el"))
-(read-abbrev-file abbrev-file-name t)
-(setq abbrev-mode t)   ; not really sure about this... RST has some abbrevs too
-
 (provide 'ethan-misc)
