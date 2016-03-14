@@ -35,16 +35,6 @@
 (eval-when-compile
   (require 'ethan-custom))
 
-(use-package rainbow-mode
-  :config
-  (csetq rainbow-html-colors-major-mode-list
-         '(html-mode css-mode php-mode nxml-mode xml-mode less-css-mode))
-  (add-hook 'prog-mode-hook 'rainbow-mode))
-
-(use-package idle-highlight-mode
-  :config
-  (add-hook 'prog-mode-hook 'idle-highlight-mode))
-
 (use-package undo-tree
   :config
   (global-undo-tree-mode))

@@ -23,6 +23,16 @@
 (add-hook 'prog-mode-hook 'pretty-lambdas)
 (add-hook 'prog-mode-hook 'add-watchwords)
 
+(use-package rainbow-mode
+  :config
+  (csetq rainbow-html-colors-major-mode-list
+         '(html-mode css-mode php-mode nxml-mode xml-mode less-css-mode))
+  (add-hook 'prog-mode-hook 'rainbow-mode))
+
+(use-package idle-highlight-mode
+  :config
+  (add-hook 'prog-mode-hook 'idle-highlight-mode))
+
 (defun run-prog-mode-hook ()
   "Enable things that are convenient across all coding buffers."
   (run-hooks 'prog-mode-hook))
