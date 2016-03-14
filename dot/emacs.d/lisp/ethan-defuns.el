@@ -1,9 +1,4 @@
 ;; These are taken from the Emacs Starter Kit
-(defun recompile-init ()
-  "Byte-compile all your dotfiles again."
-  (interactive)
-  (byte-recompile-directory user-emacs-directory 0))
-
 ;; I don't like this exactly, but I want to write something like this
 (defun sudo-edit (&optional arg)
   (interactive "p")

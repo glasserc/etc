@@ -57,6 +57,11 @@
 (bind-key "C-c e" 'eval-and-replace)
 
 
+(defun recompile-init ()
+  "Byte-compile all your dotfiles again."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0))
+
 ;;; Clojure
 
 (eval-after-load 'find-file-in-project
