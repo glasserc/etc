@@ -33,9 +33,9 @@
   (add-hook 'prog-mode-hook 'rainbow-mode))
 
 (use-package idle-highlight-mode
-  :diminish hi-lock-mode    ;; used underneath the hood
   :config
-  (add-hook 'prog-mode-hook 'idle-highlight-mode))
+  (add-hook 'prog-mode-hook 'idle-highlight-mode)
+  (eval-after-load "hi-lock" '(diminish 'hi-lock-mode)))
 
 (defun run-prog-mode-hook ()
   "Enable things that are convenient across all coding buffers."
