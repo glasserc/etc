@@ -48,6 +48,12 @@
 (use-package haml-mode
   :mode "\\.haml\\'")
 
+;; lorem-ipsum. Although it isn't the only time, mostly I use this
+;; when programming.
+(use-package lorem-ipsum
+  :commands lorem-ipsum-insert-paragraphs
+  :config
+  (defalias 'lorem 'lorem-ipsum-insert-paragraphs))
 
 ;; CEDET/semantic/malabar stuff
 ;; I don't use CEDET, but these were settings I found useful
