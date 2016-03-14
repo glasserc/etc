@@ -8,7 +8,6 @@
  '(compilation-scroll-output t)
  '(css-indent-level 2)
  '(css-indent-offset 2)
- '(custom-theme-directory "~/.emacs.d/themes/")
  '(display-buffer-reuse-frames t)
  '(echo-keystrokes 0.1)
  '(ediff-diff-options "-w")
@@ -18,7 +17,6 @@
    (quote ediff-setup-windows-plain))
  '(eshell-cmpl-autolist t)
  '(eshell-cmpl-cycle-completions nil)
- '(ido-max-directory-size 36864)
  '(imenu-auto-rescan-maxout 150000)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
@@ -48,7 +46,6 @@
    nil
    (uniquify))
  '(uniquify-separator "/")
- '(virtualenv-root "~/Jobs/Pave/core/.local_venv/")
  '(visible-bell t)
  '(x-select-enable-clipboard t))
 (custom-set-faces
