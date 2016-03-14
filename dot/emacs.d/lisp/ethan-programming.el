@@ -61,6 +61,10 @@
 (use-package less-css-mode)
 (use-package haml-mode
   :mode "\\.haml\\'")
+(use-package wilt
+  :commands wilt-mode
+  :config
+  (add-hook 'prog-mode-hook 'wilt-mode))
 
 ;; lorem-ipsum. Although it isn't the only time, mostly I use this
 ;; when programming.
