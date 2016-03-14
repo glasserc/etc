@@ -1,3 +1,5 @@
+(require 'thingatpt)
+
 ;; Set up registers. Stolen from Emacs-Starter-Kit.
 
 ;; Registers allow you to jump to a file or other location

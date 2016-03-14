@@ -1,6 +1,4 @@
 ;; These are taken from the Emacs Starter Kit
-(require 'thingatpt)
-
 (defun recompile-init ()
   "Byte-compile all your dotfiles again."
   (interactive)
