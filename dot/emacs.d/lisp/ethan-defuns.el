@@ -1,9 +1,3 @@
-;; These are taken from the Emacs Starter Kit
-(defun insert-date ()
-  "Insert a time-stamp according to locale's date and time format."
-  (interactive)
-  (insert (format-time-string "%c" (current-time))))
-
 (defun toggle-fullscreen ()
   (interactive)
   ;; TODO: this only works for X. patches welcome for other OSes.

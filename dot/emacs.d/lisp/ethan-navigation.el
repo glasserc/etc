@@ -31,7 +31,7 @@
 
 (use-package seq :defer t)
 (use-package crux
-  :commands crux-sudo-edit
+  :commands crux-sudo-edit crux-insert-date
   :bind (("C-x C-h" . crux-view-url)))
 
 ;; Personal customization
