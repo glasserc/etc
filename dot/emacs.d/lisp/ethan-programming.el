@@ -99,5 +99,6 @@
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-python)
+(require 'ethan-haskell)
 
 (provide 'ethan-programming)
