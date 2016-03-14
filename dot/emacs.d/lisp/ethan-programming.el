@@ -96,6 +96,11 @@
 
 (bind-key "M-/" 'hippie-expand)
 
+(setq diff-switches "-u")
+(add-hook 'ediff-after-quit-hook-internal 'winner-undo)
+
+(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-python)

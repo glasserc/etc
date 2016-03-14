@@ -74,11 +74,6 @@
 
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 
-(setq diff-switches "-u")
-(add-hook 'ediff-after-quit-hook-internal 'winner-undo)
-
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
-
 (winner-mode 1)
 
 ;; Remove vc-mode from mode-line-format
