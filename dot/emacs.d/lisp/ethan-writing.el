@@ -63,5 +63,6 @@
 I guess this is how you do list unpacking in emacs-lisp."
   (encode-time seconds minutes hour (+ desired-dow (- day dow)) month year zone))
 
+(require 'ethan-org)
 
 (provide 'ethan-writing)
