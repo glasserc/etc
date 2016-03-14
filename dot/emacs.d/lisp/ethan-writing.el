@@ -46,5 +46,22 @@
   (shell-command-on-region begin end "wc"))
 (bind-key "M-=" 'count-words)
 
+;; Used in org-mode snippets week-rec and week-comm
+(defun begin-of-week ()
+  "Return the date corresponding to the Monday of the current week as a string."
+  (let ((monday-time (apply 'day-of-week-helper 1 (decode-time (current-time)))))
+    (format-time-string "%Y-%m-%d" monday-time)))
+
+(defun end-of-week ()
+  "Return the date corresponding to the Friday of the current week as a string."
+  (let ((friday-time (apply 'day-of-week-helper 5 (decode-time (current-time)))))
+    (format-time-string "%Y-%m-%d" friday-time)))
+
+(defun day-of-week-helper (desired-dow seconds minutes hour day month year dow dst zone)
+  "Return a time corresponding to the given DOW in the given decoded time.
+
+I guess this is how you do list unpacking in emacs-lisp."
+  (encode-time seconds minutes hour (+ desired-dow (- day dow)) month year zone))
+
 
 (provide 'ethan-writing)
