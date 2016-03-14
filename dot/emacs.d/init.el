@@ -5,7 +5,8 @@
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 
-(setq default-font "Terminus-13")
+;;(setq default-font "Terminus-13")  ;; seems to look better on darker bgs
+(setq default-font "DejaVuSansMono 11")
 (if (>= emacs-major-version 23)
     (progn (set-frame-font default-font t)
            (add-to-list 'default-frame-alist (cons 'font default-font))))
