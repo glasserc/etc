@@ -70,17 +70,6 @@
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0)))
 
-;; scroll-up-one, M-down, maybe I should get rid of this, but I got used
-;; to it when I was using XEmacs
-(defun scroll-up-one (arg)
-  (interactive "p")
-  (scroll-up 1))
-
-;; scroll-down-one, ditto
-(defun scroll-down-one (arg)
-  (interactive "p")
-  (scroll-down 1))
-
 ;;; My own defuns
 ;; Used in org-mode snippets week-rec and week-comm
 (defun begin-of-week ()

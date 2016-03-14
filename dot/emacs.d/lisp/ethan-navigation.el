@@ -31,8 +31,19 @@
 (bind-key "C-x C-h" 'view-url)
 
 ;; Personal customization
-; At present, emacs does not define bindings for these keys,
-; but various modes do: org mode, paredit, etc
+;; scroll-up-one, M-down, maybe I should get rid of this, but I got used
+;; to it when I was using XEmacs
+;; At present, emacs does not define bindings for these keys,
+;; but various modes do: org mode, paredit, etc
+(defun scroll-up-one (arg)
+  (interactive "p")
+  (scroll-up 1))
+
+;; scroll-down-one, ditto
+(defun scroll-down-one (arg)
+  (interactive "p")
+  (scroll-down 1))
+
 (bind-keys*
  ("M-<up>" . scroll-down-one)
  ("M-<down>" . scroll-up-one))
