@@ -38,4 +38,3 @@
 (require 'ethan-communication)
 (require 'ethan-bindings)
 (require 'ethan-enabled-commands)   ;; FIXME: merge with bindings?
-(require 'ethan-rst)
