@@ -76,13 +76,6 @@
 (set-default 'desktop-path (list (expand-file-name "~/.emacs.d/")))
 ;;; end desktop-mode
 
-;; Some modes
-(setq auto-mode-alist
-      (append
-       '(
-         ("writing/"             . text-mode)
-         ("\\.mdwn$"             . mdwn-mode)
-         ) auto-mode-alist))
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
 
 (setq diff-switches "-u")
