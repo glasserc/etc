@@ -10,9 +10,20 @@
   :config
   (sml-modeline-mode))
 
+(use-package elide-head
+  :config
+  (add-to-list 'elide-head-headers-to-hide
+               ;; AGPL
+               '("Copyright (C) 2008 10gen Inc\\." . "If not, see <http"))
+  (add-to-list 'elide-head-headers-to-hide
+               ;; APL
+               '("Copyright (C) 2008 10gen Inc\\." . "under the License\\."))
+  (add-hook 'find-file-hook 'elide-head))
+
 ;; By default, use-package "loads" or "requires" themes, which causes
 ;; them to take effect immediately. We don't want that; we just want
 ;; them to be available for use with load-theme.
+
 (use-package calmer-forest-theme :defer t)
 (use-package afternoon-theme :defer t)
 (use-package underwater-theme :defer t)

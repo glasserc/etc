@@ -17,17 +17,4 @@
 (read-abbrev-file abbrev-file-name t)
 (setq abbrev-mode t)   ; not really sure about this... RST has some abbrevs too
 
-;;; elide-head
-(require 'elide-head)
-
-(setq elide-head-headers-to-hide
-      (append
-       '(("Copyright (C) 2008 10gen Inc\\." . "If not, see <http")   ; AGPL
-         ("Copyright (C) 2008 10gen Inc\\." . "under the License\\.") ; APL
-         )
-       elide-head-headers-to-hide))
-
-(add-hook 'find-file-hook 'elide-head)
-;;; end elide-head
-
 (provide 'ethan-misc)
