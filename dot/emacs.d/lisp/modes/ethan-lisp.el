@@ -4,11 +4,13 @@
 ;;; This should be loaded by default, right? I don't use clojure-mode
 ;;; or scheme-mode, so this might be broken in those cases.
 
-(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "C-c l") "lambda")
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-(define-key lisp-mode-shared-map (kbd "C-\\") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "C-c v") 'eval-buffer)
+(bind-key "TAB" 'lisp-complete-symbol read-expression-map)
+(bind-keys
+ :map lisp-mode-shared-map
+ ("C-c l" . "lambda")
+ ("RET" . reindent-then-newline-and-indent)
+ ("C-\\" . lisp-complete-symbol)
+ ("C-c v" . eval-buffer))
 
 (defface esk-paren-face
    '((((class color) (background dark))
@@ -37,7 +39,7 @@
 (defun message-point ()
   (interactive)
   (message "%s" (point)))
-(global-set-key (kbd "C-c p") 'message-point)
+(bind-key "C-c p" 'message-point)
 
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
@@ -52,7 +54,7 @@
 ;; Should be able to eval-and-replace anywhere.
 ;; I never use this, but maybe it's because it's useful to debug other
 ;; emacs modes?
-(global-set-key (kbd "C-c e") 'eval-and-replace)
+(bind-key "C-c e" 'eval-and-replace)
 
 
 ;;; Clojure

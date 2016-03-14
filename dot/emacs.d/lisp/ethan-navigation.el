@@ -12,22 +12,23 @@
   (set-register (car r) (cadr r)))
 
 ;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+(bind-keys
+ ("C-x M-f" . ido-find-file-other-window)
+ ("C-x C-M-f" . find-file-in-project)
+ ("C-c y" . bury-buffer)
+ ("C-c r" . revert-buffer)
+ ("M-`" . file-cache-minibuffer-complete)
 
-;; This mode is very rarely useful.
-(global-set-key (kbd "C-x C-S-b") 'ibuffer)
+ ;; This mode is very rarely useful.
+ ("C-x C-S-b" . ibuffer)
 
-;; Window switching. (C-x o goes to the next window)
+ ;; Window switching. (C-x o goes to the next window)
+ ("C-x O" . (lambda () (interactive) (other-window -1))) ;; back one
+ ("C-x C-o" . (lambda () (interactive) (other-window 2)))) ;; forward two
 (windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
 
 ;; Fetch the contents at a URL, display it raw.
-(global-set-key (kbd "C-x C-h") 'view-url)
+(bind-key "C-x C-h" 'view-url)
 
 ;; Personal customization
 ; At present, emacs does not define bindings for these keys,
@@ -72,8 +73,10 @@
   ;; can be preserved to open a directory in dired, in case that's
   ;; necessary.
   (counsel-mode t)
-  (define-key counsel-find-file-map (kbd "C-j") 'ivy-done)
-  (define-key counsel-find-file-map (kbd "RET") 'ivy-alt-done))
+  :bind
+  (:map counsel-find-file-map
+  ("C-j" . ivy-done)
+  ("RET" . ivy-alt-done)))
 
 ;; Avy, which replaces ace-jump-mode
 (use-package avy
