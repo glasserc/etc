@@ -80,7 +80,7 @@
   :config
   (csetq ivy-extra-directories nil)
   (ivy-mode))
-(use-package counsel
+(use-package counsel :demand t
   :config
   ;; Make counsel behave a little bit more like ido.
   ;;
