@@ -35,7 +35,6 @@
 ;;; customize stuff
 
 (require 'ethan-appearance)
-(require 'ethan-misc)
 (require 'ethan-esvn)
 (require 'ethan-navigation)
 (require 'ethan-programming)
