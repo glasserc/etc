@@ -14,8 +14,7 @@
 ;; Thanks to
 ;; http://stackoverflow.com/questions/20603578/emacs-does-not-see-new-installation-of-org-mode/20616703#20616703.
 ;; Without this, use-package will try to require org and succeed.
-(eval-when-compile
-  (require 'cl))
+(require 'cl)
 (setq load-path (remove-if (lambda (x) (string-match-p "org$" x)) load-path))
 ;; Second, trick emacs into forgetting about the fact that org is
 ;; a "built-in" package by removing it from package--builtins.
