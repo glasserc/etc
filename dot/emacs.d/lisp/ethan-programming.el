@@ -70,6 +70,7 @@
                                   global-semantic-idle-summary-mode
                                   global-semantic-mru-bookmark-mode))
 
+(global-set-key (kbd "M-/") 'hippie-expand)
 
 (require 'ethan-java)
 (require 'ethan-lisp)
