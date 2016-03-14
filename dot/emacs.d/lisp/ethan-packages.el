@@ -35,6 +35,13 @@
 (eval-when-compile
   (require 'ethan-custom))
 
+;; Hide some modeline lighters.
+(use-package delight
+  :config
+  (delight
+    '((emacs-lisp-mode "EL" :major)
+      (js-mode "JS" :major))))
+
 (use-package ethan-wspace
   :load-path "lisp/ethan-wspace.git/lisp"
   :config (global-ethan-wspace-mode 1))
@@ -82,13 +89,6 @@
   )
 
 (use-package find-file-in-project)
-
-;; Hide some modeline lighters.
-(use-package delight
-  :config
-  (delight
-    '((emacs-lisp-mode "EL" :major)
-      (js-mode "JS" :major))))
 
 (use-package scratch)
 (use-package gist)
