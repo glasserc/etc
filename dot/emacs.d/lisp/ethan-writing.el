@@ -44,8 +44,7 @@
         (region-end)
       (point-max))))
   (shell-command-on-region begin end "wc"))
-; This shadows previous count-lines-region
-(define-key esc-map "=" 'count-words)
+(bind-key "M-=" 'count-words)
 
 
 (provide 'ethan-writing)
