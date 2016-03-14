@@ -71,6 +71,11 @@ I guess this is how you do list unpacking in emacs-lisp."
          ("\\.mdwn$"             . mdwn-mode)
          ) auto-mode-alist))
 
+;; text mode
+(add-to-list 'text-mode-hook 'visual-line-mode)
+(add-to-list 'text-mode-hook 'turn-on-flyspell)
+
+
 (require 'ethan-org)
 (require 'ethan-rst)
 
