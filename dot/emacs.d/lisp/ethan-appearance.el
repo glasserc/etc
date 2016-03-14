@@ -30,8 +30,10 @@
 (use-package lush-theme :defer t)
 (use-package warm-night-theme :defer t)
 (use-package dark-krystal-theme :defer t)
+(use-package color-theme-modern)  ;; replace-colorthemes
+(use-package organic-green-theme :defer t)
 
-(load-theme 'lush t)
+(load-theme 'feng-shui t)
 
 (ansi-color-for-comint-mode-on)
 (show-paren-mode 1)
