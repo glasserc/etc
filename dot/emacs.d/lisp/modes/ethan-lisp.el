@@ -34,6 +34,9 @@
 (define-key emacs-lisp-mode-map (kbd "M-.") 'find-function-at-point)
 
 ;; For debugging Emacs modes
+(defun message-point ()
+  (interactive)
+  (message "%s" (point)))
 (global-set-key (kbd "C-c p") 'message-point)
 
 (defun eval-and-replace ()
