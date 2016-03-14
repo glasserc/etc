@@ -98,8 +98,4 @@
 (use-package moz)
 (use-package wgrep)
 
-;; (use-package rich-minority
-;;   :config
-;;   (rich-minority-mode 1))
-
 (provide 'ethan-packages)

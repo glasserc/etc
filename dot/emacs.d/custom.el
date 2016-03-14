@@ -29,12 +29,6 @@
  '(mail-specify-envelope-from t)
  '(mode-require-final-newline nil)
  '(mouse-yank-at-point t)
- '(rm-blacklist
-;; Some of these can be defined specially -- see for example
-;; flyspell-mode-line-string and undo-tree-mode-lighter -- but keep
-;; them all here for consistency.
-   (quote
-    (" hl-p" " Fly" " Ind" " Doc" " MRev")))
  '(safe-local-variable-values
    (quote
     ((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
