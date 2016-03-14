@@ -88,4 +88,6 @@
   (csetq avy-keys '(97 111 101 117 105 100 104 116 115)))
 (use-package ace-window)
 
+(put 'set-goal-column 'disabled nil)
+
 (provide 'ethan-navigation)
