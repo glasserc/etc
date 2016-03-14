@@ -35,7 +35,6 @@
 
 (ansi-color-for-comint-mode-on)
 (show-paren-mode 1)
-(size-indication-mode t)
 
 ;; Remove vc-mode from mode-line-format
 (setq mode-line-format-without-vc
