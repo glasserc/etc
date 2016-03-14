@@ -16,6 +16,8 @@
            turn-on-haskell-doc
            turn-on-haskell-indentation
            subword-mode))
+  (eval-after-load "haskell-doc"
+    '(diminish 'haskell-doc-mode))
   (eval-after-load "haskell-cabal"
     '(bind-key "C-c C-c" 'haskell-compile haskell-cabal-mode-map))
 ;; ghc-mod isn't quite ready for prime time, it seems. Plus all its
