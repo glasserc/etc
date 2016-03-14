@@ -49,10 +49,6 @@
   :config
   (global-undo-tree-mode))
 
-(use-package sml-modeline
-  :config
-  (sml-modeline-mode))
-
 (use-package persistent-scratch
   :config
   (csetq persistent-scratch-save-file (emacs-d "scratch.el"))
@@ -279,18 +275,6 @@
 (use-package gist)
 (use-package moz)
 (use-package wgrep)
-
-;; By default, use-package "loads" or "requires" themes, which causes
-;; them to take effect immediately. We don't want that; we just want
-;; them to be available for use with load-theme.
-(use-package calmer-forest-theme :defer t)
-(use-package afternoon-theme :defer t)
-(use-package underwater-theme :defer t)
-(use-package lush-theme :defer t)
-(use-package warm-night-theme :defer t)
-(use-package dark-krystal-theme :defer t)
-
-(load-theme 'lush t)
 
 (use-package rich-minority
   :config
