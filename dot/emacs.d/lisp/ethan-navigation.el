@@ -86,7 +86,10 @@
    ("C-S-o" . counsel-rhythmbox)
    ("C-x f" . ivy-recentf)  ;; although see ivy-use-virtual-buffers
    ;; This is almost always a typo.
-   ("C-x C-b" . ivy-switch-buffer))
+   ("C-x C-b" . ivy-switch-buffer)
+   :map ivy-minibuffer-map
+   ("<next>" . ivy-scroll-up-command)
+   ("<prior>" . ivy-scroll-down-command))
   :config
   ;; setup recentf so that it adds its hook to find-file.
   ;; This lets ivy-use-virtual-buffers work.
