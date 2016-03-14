@@ -61,4 +61,4 @@
      (:inherit diff-changed :foreground "red"))))
  '(hl-line
    ((t
-     (:background "#444444")))))
+     (:background "gainsboro")))))
