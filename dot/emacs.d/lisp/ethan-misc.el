@@ -2,7 +2,6 @@
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
-(ansi-color-for-comint-mode-on)
 
 (xterm-mouse-mode t)
 
@@ -10,8 +9,6 @@
 ;; a lot of network traffic when used with tramp?
 (global-auto-revert-mode 1)
 
-(show-paren-mode 1)
-(size-indication-mode t)
 ;; I don't think I'll actually use this, but it doesn't hurt
 (setq recentf-max-saved-items 100
       recentf-max-menu-items 15)
