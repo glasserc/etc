@@ -11,14 +11,6 @@
   (interactive)
   (insert (format-time-string "%c" (current-time))))
 
-(defun esk-paredit-nonlisp ()
-  "Turn on paredit mode for non-lisps."
-  (interactive)
-  (unless paredit-mode
-    (set (make-local-variable 'paredit-space-delimiter-chars)
-         (list ?\"))
-    (paredit-mode 1)))
-
 (defun toggle-fullscreen ()
   (interactive)
   ;; TODO: this only works for X. patches welcome for other OSes.

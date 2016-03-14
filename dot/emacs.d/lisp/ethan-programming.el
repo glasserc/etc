@@ -55,6 +55,14 @@
   :config
   (defalias 'lorem 'lorem-ipsum-insert-paragraphs))
 
+(defun esk-paredit-nonlisp ()
+  "Turn on paredit mode for non-lisps."
+  (interactive)
+  (unless paredit-mode
+    (set (make-local-variable 'paredit-space-delimiter-chars)
+         (list ?\"))
+    (paredit-mode 1)))
+
 ;; CEDET/semantic/malabar stuff
 ;; I don't use CEDET, but these were settings I found useful
 ;(require 'semantic)
