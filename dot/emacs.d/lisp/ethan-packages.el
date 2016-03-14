@@ -30,6 +30,8 @@
   (package-install 'use-package))
 
 (setq use-package-always-ensure t)
+(require 'diminish)
+(require 'bind-key)
 
 (eval-when-compile
   (require 'ethan-custom))
