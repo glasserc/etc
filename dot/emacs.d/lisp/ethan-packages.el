@@ -74,6 +74,8 @@
 (use-package yaml-mode :mode "\\.ya?ml\\'")
 
 (use-package multiple-cursors
+  :config
+  (csetq mc/list-file (emacs-d "mc-lists.el"))
   :bind
   (("C->" . mc/mark-next-like-this)
    ("C-c C->" . mc/unmark-next-like-this)
