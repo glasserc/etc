@@ -15,15 +15,6 @@
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-;; Buffer-related
-
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 ;; Other
 
 (defun recompile-init ()
