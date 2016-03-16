@@ -1,3 +1,7 @@
+(use-package java-snippets
+  :config (java-snippets-initialize))
+(use-package javadoc-lookup :ensure t)
+
 (defun egc-java-mode-fix-inner-class-offsets ()
   "Mess with the c-offsets-alist to make inner classes indent correctly.
 

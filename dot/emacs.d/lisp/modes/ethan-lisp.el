@@ -4,11 +4,13 @@
 ;;; This should be loaded by default, right? I don't use clojure-mode
 ;;; or scheme-mode, so this might be broken in those cases.
 
-(define-key read-expression-map (kbd "TAB") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "C-c l") "lambda")
-(define-key lisp-mode-shared-map (kbd "RET") 'reindent-then-newline-and-indent)
-(define-key lisp-mode-shared-map (kbd "C-\\") 'lisp-complete-symbol)
-(define-key lisp-mode-shared-map (kbd "C-c v") 'eval-buffer)
+(bind-key "TAB" 'lisp-complete-symbol read-expression-map)
+(bind-keys
+ :map lisp-mode-shared-map
+ ("C-c l" . "lambda")
+ ("RET" . reindent-then-newline-and-indent)
+ ("C-\\" . lisp-complete-symbol)
+ ("C-c v" . eval-buffer))
 
 (defface esk-paren-face
    '((((class color) (background dark))
@@ -20,7 +22,10 @@
 
 ;;; Emacs Lisp
 
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(use-package eldoc
+  :diminish eldoc-mode
+  :config
+  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode))
 (add-hook 'emacs-lisp-mode-hook 'esk-remove-elc-on-save)
 
 (defun esk-remove-elc-on-save ()
@@ -33,11 +38,31 @@
 
 (define-key emacs-lisp-mode-map (kbd "M-.") 'find-function-at-point)
 
+;; For debugging Emacs modes
+(defun message-point ()
+  (interactive)
+  (message "%s" (point)))
+(bind-key "C-c p" 'message-point)
+
+(defun recompile-init ()
+  "Byte-compile all your dotfiles again."
+  (interactive)
+  (byte-recompile-directory user-emacs-directory 0))
+
 ;;; Clojure
 
 (eval-after-load 'find-file-in-project
   '(add-to-list 'ffip-patterns "*.clj"))
 
-(defun clojure-project ()
-  (interactive)
-  (message "Deprecated in favour of M-x swank-clojure-project. Install swank-clojure from ELPA."))
+(use-package paredit
+  :diminish 'paredit-mode
+  :config
+  (dolist (x '(scheme emacs-lisp lisp clojure))
+    (when window-system
+      (font-lock-add-keywords
+       (intern (concat (symbol-name x) "-mode"))
+       '(("(\\|)" . 'esk-paren-face))))
+    (add-hook
+     (intern (concat (symbol-name x) "-mode-hook")) 'paredit-mode)))
+
+(provide 'ethan-lisp)

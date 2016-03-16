@@ -12,7 +12,7 @@ import exifread
 EXIF_TS_FORMAT = "%Y:%m:%d %H:%M:%S"
 def get_time_exif(fname):
     f = file(fname, 'rb')
-    tags = EXIF.process_file(f)
+    tags = exifread.process_file(f)
     f.close()
     if 'EXIF DateTimeOriginal' in tags:
         ts = datetime.datetime.strptime(str(tags['EXIF DateTimeOriginal']), EXIF_TS_FORMAT)
