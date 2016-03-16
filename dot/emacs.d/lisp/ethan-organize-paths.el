@@ -20,7 +20,10 @@
    ;; have.  Save session with desktop-save, then read using desktop-read.
    ;; desktop-save doesn't overwrite it's previous save.. not sure why or
    ;; how to fix. Maybe desktop-save-mode?
-   desktop-path (list user-emacs-directory)))
+   desktop-path (list user-emacs-directory)
+   semanticdb-default-save-directory (concat tmp "semanticdb")
+   srecode-map-save-file (emacs-d "cache/srecode-map.el")
+   eshell-directory-name (concat tmp "eshell")))
 
 ;; overrride the default function....
 (defun emacs-session-filename (SESSION-ID)
