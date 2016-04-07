@@ -9,3 +9,5 @@ dot/emacs.d/elpa/
 loaddefs.el*
 scratch.el*
 dot/emacs.d/el-get
+dot/config/fish/*_history
+dot/config/fish/fishd*
