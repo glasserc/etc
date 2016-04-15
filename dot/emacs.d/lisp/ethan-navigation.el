@@ -32,8 +32,15 @@
 (use-package seq :defer t)
 (use-package crux
   ;; crux has a bunch of useful commands, not entirely specific to
-  ;; navigation.  N.B. once loaded, crux-reopen-as-root is added to
-  ;; find-file-hook, so files will be automatically opened as root.
+  ;; navigation.
+
+  :config
+  ;; Once loaded, crux-reopen-as-root is added to find-file-hook, so
+  ;; files will be automatically opened as root.  I prefer files only
+  ;; open as root when I ask them to be opened as root. This is the
+  ;; same reason I don't do "sudo sh"...
+  (remove-hook 'find-file-hook 'crux-reopen-as-root)
+
   :commands
   crux-sudo-edit crux-insert-date
   crux-rename-file-and-buffer
