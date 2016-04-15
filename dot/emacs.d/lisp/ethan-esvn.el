@@ -26,9 +26,4 @@
 ;(add-hook 'find-file-not-found-hooks 'enable-esvn)
 (add-hook 'find-file-hooks 'enable-esvn)
 
-(setq auto-mode-alist
-      (cons
-       '("writing/journal/"     . journal-mode)
-         auto-mode-alist))
-
 (provide 'ethan-esvn)
