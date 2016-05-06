@@ -1,4 +1,8 @@
 function fish_prompt --description 'Write out the prompt'
+    # Capture last cmd status so we can test against it later.
+    # Other commands will stomp on $status.
+    set -l last_status $status
+
     # Just calculate this once, to save a few cycles when displaying the prompt
     if not set -q __fish_prompt_hostname
         set -g __fish_prompt_hostname (hostname|cut -d . -f 1)
@@ -17,6 +21,10 @@ function fish_prompt --description 'Write out the prompt'
         case '*'
             set color_cwd $fish_color_cwd
             set suffix '>'
+    end
+
+    if test $last_status -ne 0
+        echo -n -s (set_color $fish_color_error) $last_status (set_color normal) ' '
     end
 
     echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
