@@ -65,6 +65,13 @@
   :commands wilt-mode
   :config
   (add-hook 'prog-mode-hook 'wilt-mode))
+(use-package fish-mode
+  :mode "\\.fish\\'"
+  :config
+  (defun indent-four-spaces ()
+    (setq tab-width 4))
+  (add-hook 'fish-mode-hook
+            'indent-four-spaces))
 
 ;; lorem-ipsum. Although it isn't the only time, mostly I use this
 ;; when programming.
