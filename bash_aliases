@@ -11,3 +11,22 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 nmam() {
     notmuch show --format=mbox "$*" | git am
 }
+
+WORK=~/Jobs/some-company
+WORK_EMAIL=eglassercamp@example.com
+
+git_get_work_email() {
+    cd "$WORK"
+    for x in *; do
+        if [[ ! (-d $x && -d $x/.git) ]] ; then continue; fi
+        (cd "$x"; echo -n "$x: "; git config user.email)
+    done
+}
+
+git_set_work_email() {
+    cd "$WORK"
+    for x in *; do
+        if [[ ! (-d $x && -d $x/.git) ]] ; then continue; fi
+        (cd "$x" && git config user.email "$WORK_EMAIL")
+    done
+}
