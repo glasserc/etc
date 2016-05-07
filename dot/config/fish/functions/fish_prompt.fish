@@ -19,7 +19,8 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     if test $last_status -ne 0
-        echo -n -s (set_color $fish_color_error) $last_status (set_color normal) ' '
+        echo -n -s (set_color $fish_color_error) $last_status (set_color normal)
+        set -g __need_space true
     end
 
     # Just show operation status in the prompt.
@@ -41,10 +42,21 @@ function fish_prompt --description 'Write out the prompt'
                 case '*'; echo U
             end)
 
+            __need_space
             echo -n -s (set_color -o $fish_color_error) $operation (set_color normal)
+            set -g __need_space true
         end
     end
 
+    set -g __need_space ''
     echo -n -s "$suffix "
 
+end
+
+set -g __need_space ''
+function __need_space
+    if test -n $__need_space
+        echo -n -s ' '
+        set __need_space ''
+    end
 end
