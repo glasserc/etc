@@ -37,18 +37,19 @@ function fish_prompt --description 'Write out the prompt'
     if test -n "$repo_info"
         set -l rbc (__fish_git_prompt_operation_branch_bare $repo_info)
         set -l r $rbc[1]
-        set -l operation (
-        test -n $r
-        and switch $r
-            case '|REBASE*'; echo R
-            case '|AM*'; echo A
-            case '|MERGING*'; echo M
-            case '|REVERTING*'; echo R
-            case '|BISECTING*'; echo B
-            case '*'; echo U
-        end)
+        if test -n $r
+            set -l operation (
+            switch $r
+                case '|REBASE*'; echo R
+                case '|AM*'; echo A
+                case '|MERGING*'; echo M
+                case '|REVERTING*'; echo R
+                case '|BISECTING*'; echo B
+                case '*'; echo U
+            end)
 
-        echo -n -s (set_color -o $fish_color_error) $operation (set_color normal)
+            echo -n -s (set_color -o $fish_color_error) $operation (set_color normal)
+        end
     end
 
     echo -n -s "$suffix "
