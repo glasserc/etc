@@ -1,7 +1,13 @@
+set -g __last_pwd ""
 function fish_prompt --description 'Write out the prompt'
     # Capture last cmd status so we can test against it later.
     # Other commands will stomp on $status.
     set -l last_status $status
+
+    if test $__last_pwd != $PWD
+        echo "Now $PWD"
+    end
+    set -g __last_pwd $PWD
 
     # Just calculate this once, to save a few cycles when displaying the prompt
     if not set -q __fish_prompt_hostname
