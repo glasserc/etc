@@ -27,5 +27,19 @@ function fish_prompt --description 'Write out the prompt'
         echo -n -s (set_color $fish_color_error) $last_status (set_color normal) ' '
     end
 
-    echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color normal) "$suffix "
+    echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color normal)
+
+    # Just show operation status in the prompt.
+    # We don't want the whole git prompt, but there's some useful
+    # functions defined that we want to use.
+    __fish_git_prompt >/dev/null  # to load __fish_git_prompt_operation_branch_bare
+    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+    if test -n "$repo_info"
+        set -l rbc (__fish_git_prompt_operation_branch_bare $repo_info)
+        set -l r $rbc[1]
+        echo -n -s (set_color $fish_color_error) $r (set_color normal)
+    end
+
+    echo -n -s "$suffix "
+
 end
