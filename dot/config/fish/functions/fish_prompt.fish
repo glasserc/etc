@@ -48,6 +48,12 @@ function fish_prompt --description 'Write out the prompt'
         end
     end
 
+    if test $CMD_DURATION -gt 5000
+        __need_space
+        echo -n -s $CMD_DURATION 'ms'
+        set -g __need_space true
+    end
+
     set -g __need_space ''
     echo -n -s "$suffix "
 

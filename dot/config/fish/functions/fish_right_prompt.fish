@@ -20,10 +20,6 @@ function fish_right_prompt
 
     echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color normal)
 
-    if test $CMD_DURATION -gt 5000
-        echo -n -s ' ' $CMD_DURATION 'ms'
-    end
-
     __show_only_git_branch
 end
 
