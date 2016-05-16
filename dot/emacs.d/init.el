@@ -35,6 +35,17 @@
 (load custom-file)
 ;;; customize stuff
 
+(setq my-credentials-file (expand-file-name "~/.config/secrets/secrets.el"))
+
+(defun lookup-secret (name-of-secret)
+  "Look up a secret from a secrets.el file kept in `my-credentials-file'.
+
+This lets you keep some important values in a different repository."
+  ;; See https://github.com/jorgenschaefer/circe/wiki/Configuration
+  (with-temp-buffer
+    (insert-file-contents-literally my-credentials-file)
+    (plist-get (read (buffer-string)) name-of-secret)))
+
 (require 'ethan-appearance)
 (require 'ethan-esvn)
 (require 'ethan-navigation)
