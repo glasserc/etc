@@ -1,4 +1,5 @@
 (use-package org
+  :ensure org-plus-contrib
   :pin org
   :config
   ;; Visual-line mode wraps tags because they're followed by "...".
@@ -22,6 +23,7 @@
   ;; Org-Babel: embed code into your org files and then execute.
   ;; I use this just enough that I may as well require it.
   (require 'ob-python)
+
   ;; Fix weirdness with org-mode and yasnippet (both use TAB)
   ;; yasnippet config from org-mode mailing list
   (defun yas/org-very-safe-expand ()
@@ -139,6 +141,13 @@
 ;; function.  (M-S-<up> and M-S-<down> behave almost exactly the same
 ;; way)
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
+
+  ;; org-contacts: manage contacts as org items
+  (require 'org-contacts)
+
+  (csetq org-contacts-files
+         '("/home/ethan/src/org-files/contacts.org"))
+  (csetq org-contacts-matcher "-historical")
 
   :bind
   (("C-c c" . org-capture)
