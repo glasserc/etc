@@ -63,7 +63,7 @@
   :mode "\\.haml\\'")
 (use-package wilt
   :commands wilt-mode
-  :config
+  :init
   (add-hook 'prog-mode-hook 'wilt-mode))
 (use-package fish-mode
   :mode "\\.fish\\'"

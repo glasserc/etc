@@ -1,4 +1,8 @@
 ;; Doing this early to avoid visual anomalies (like in emacs-starter-kit)
+
+;; This is done in ethan-packages, but package.el likes to add this here
+;;(package-initialize)
+
 (tool-bar-mode -1)
 ;(menu-bar-mode -1)  ; This could be useful (should install Lacarte instead)
 ;; Turn on the menu bar for exploring new modes
