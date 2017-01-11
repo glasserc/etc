@@ -116,7 +116,8 @@
   (csetq org-goto-interface 'outline-path-completion)
   (csetq org-log-done 'time)
   (csetq org-outline-path-complete-in-steps nil)
-  (csetq org-refile-targets '((org-all-org-files :level . 1)))
+  (csetq org-refile-targets '((org-all-org-files :level . 1)
+                              (nil :level . 1)))
   (csetq org-tag-alist
          '((:startgroup)
            ("@work" . 119)
