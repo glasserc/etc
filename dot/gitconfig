@@ -9,6 +9,7 @@
 [user]
 ; FIXME: This'll be odd when I use git for work again
         email = ethan@betacantrips.com
+	signingKey = 0A87C4AA
 ; FIXME -- could be user-agnostic
 [core]
         excludesfile = /home/ethan/.config/git/gitignore
@@ -27,3 +28,7 @@
         autoupdate = true
 [push]
 	default = simple
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/bin/gpg2
