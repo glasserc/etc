@@ -1,9 +1,0 @@
-# -*- mode: snippet; require-final-newline: nil -*-
-# name: Recurring tasks for a week
-# key: week-tasks
-# expand-env: ((week-range (concat (begin-of-week) " to " (end-of-week))))
-# type: snippet
-# --
-** org for week of ${1:`week-range`}
-** rebasing PRs for week of $1
-** git for week of $1
