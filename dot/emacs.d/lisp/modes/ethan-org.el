@@ -143,6 +143,8 @@
 ; M-/ is my dabbrev-command -- should bind it to org-complete, and org-completion-fallback-command
 
   ;; org-contacts: manage contacts as org items
+  ;; This basically just provides the org-contacts function, which
+  ;; isn't as useful as an org agenda view
   (require 'org-contacts)
 
   (csetq org-contacts-files
