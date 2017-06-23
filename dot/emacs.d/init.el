@@ -74,8 +74,6 @@
     (setq auto-save-file-name-transforms
           `((".*" ,auto-save-directory t)))))
 
-(require 'ethan-organize-paths)
-
 (require 'ethan-packages)
 ;;; customize stuff
 (setq custom-file "~/.emacs.d/custom.el")
