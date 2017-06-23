@@ -2,7 +2,6 @@
 ;; FIXME: Move all of these to no-littering.
 (let ((tmp "~/.emacs.d/cache/"))
   (setq
-   oddmuse-directory (concat tmp "oddmuse")
    url-cookie-file (concat tmp "url/cookies")
    pcache-directory (concat tmp "pcache")
    tramp-backup-directory-alist backup-directory-alist
