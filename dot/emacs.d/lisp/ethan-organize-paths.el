@@ -3,7 +3,6 @@
 (let ((tmp "~/.emacs.d/cache/"))
   (setq
    url-cookie-file (concat tmp "url/cookies")
-   tramp-backup-directory-alist backup-directory-alist
    srecode-map-save-file (emacs-d "cache/srecode-map.el")))
 
 (provide 'ethan-organize-paths)
