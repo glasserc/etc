@@ -34,3 +34,5 @@
 	program = /usr/bin/gpg2
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+[includeIf "gitdir:**/org-files/.git"]
+	path = /home/ethan/etc/gitconfig-org-files
