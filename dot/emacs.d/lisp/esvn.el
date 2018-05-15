@@ -123,8 +123,8 @@ esvn-default-add-message or esvn-default-commit-message)."
       (when (string= response "")
         (esvn-error 'esvn-bad-commit-message "No message given"))
       (when adding
-        (vc-register nil nil response))
-      (when (vc-call checkin (list  buffer-file-name) nil response)
+        (vc-register nil response))
+      (when (vc-call checkin (list buffer-file-name) response)
           (message "Committed %s" buffer-file-name)))))
 
 (defun esvn-save-or-autocommit (save)
