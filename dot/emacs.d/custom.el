@@ -41,10 +41,7 @@
      (database :default "ethan")
      port server)))
  '(transient-mark-mode t)
- '(uniquify-buffer-name-style
-   (quote reverse)
-   nil
-   (uniquify))
+ '(uniquify-buffer-name-style (quote reverse) nil (uniquify))
  '(uniquify-separator "/")
  '(visible-bell t)
  '(x-select-enable-clipboard t))
@@ -53,12 +50,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(diff-added
-   ((t
-     (:inherit diff-changed :foreground "green"))))
- '(diff-removed
-   ((t
-     (:inherit diff-changed :foreground "red"))))
- '(hl-line
-   ((t
-     (:background "gainsboro")))))
+ '(diff-added ((t (:inherit diff-changed :foreground "green"))))
+ '(diff-removed ((t (:inherit diff-changed :foreground "red"))))
+ '(hl-line ((t (:background "gainsboro")))))
