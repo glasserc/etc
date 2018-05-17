@@ -63,6 +63,8 @@
              )))
       (orgtbl-to-generic table (org-combine-plists params2 params))))
 
+  ;; I don't tend to indent text inside headlines.
+  (csetq org-adapt-indentation nil)
   ;; Compute all org files.
   ;; These represent our refile targets.
   (setq org-directory "~/src/org-files")  ; not in custom because we use
