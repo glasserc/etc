@@ -52,4 +52,6 @@
  ;; If there is more than one, they won't work right.
  '(diff-added ((t (:inherit diff-changed :foreground "green"))))
  '(diff-removed ((t (:inherit diff-changed :foreground "red"))))
- '(hl-line ((t (:background "gainsboro")))))
+ '(hl-line ((t (:background "gainsboro"))))
+ '(org-scheduled ((t (:foreground "dark blue"))))
+ '(org-scheduled-today ((t (:foreground "blue")))))
