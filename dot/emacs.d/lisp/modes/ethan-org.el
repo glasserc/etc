@@ -106,7 +106,7 @@
             (file+headline "~/src/org-files/incoming.org" "New")
             "* TODO %?
 %u
-%(and )")
+%a")
            ("b" "Book to purchase" entry
             (file+headline "~/src/org-files/purchases.org" "Books")
             "* TODO %?
