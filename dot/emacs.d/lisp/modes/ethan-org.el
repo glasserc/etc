@@ -65,42 +65,129 @@
 
   ;; I don't tend to indent text inside headlines.
   (csetq org-adapt-indentation nil)
-  ;; Compute all org files.
-  ;; These represent our refile targets.
-  (setq org-directory "~/src/org-files")  ; not in custom because we use
-                                        ; its value
-  (setq org-all-org-files (directory-files org-directory t ".org$" t))
-  ;; Agenda files are a specific subset of these:
-  ;; - todo.org: generic shit-to-do
-  ;; - incoming.org: shit I saw and wanted to deal with later
-  ;; - writing.org: things to write about
-  ;; - contacts.org: notes about people, including reminders to interact
-  ;; with them.
-  ;; - coding.org: things to hack on, mostly non-urgent
+  ;; Org files are mostly in my personal org files repository,
+  ;; ~/src/org-files. This repository has autocommit.git set up so as
+  ;; to use git as a transport layer to synchronize everything across
+  ;; my machines.
+  (csetq org-directory "~/src/org-files")
+  (defun org-personal-org-files-make-absolute (filename)
+    (concat org-directory "/" filename))
+  (setq org-personal-org-files (directory-files org-directory nil ".org$" t))
 
-  ;; Also present are:
-  ;; - music.org: albums to listen to, etc.
-  ;; - house.org: clocked hours spent around the house
+  ;; Files currently in this directory are, in decreasing order of importance:
+  ;; - todo.org: generic shit-to-do
+  ;; - incoming.org: capture target
+  ;; - notes.org: random "yellow sticky notes" that aren't associated
+  ;; with any specific action
+  ;; - reminders.org: actions that have a timeframe associated with
+  ;; them and are not really relevant until then
+  ;; - writing.org: things to write about
+  ;; - coding.org: things to hack on
   ;; - someday.org: mulch pile for stuff I'd like to mess around with
   ;; someday
-  ;; - purchases.org: similar, but things I'd like to buy
-  ;;
-  ;; The unifying theme here is that these files represent non-urgent
-  ;; things -- stuff I can pull up or let mulch at will.  Agenda files
-  ;; are "what I need to work on".
+  ;; - contacts.org: notes about people, including reminders to interact
+  ;; with them
+  ;; - purchases.org: things I want to spend money on, but only a
+  ;; little at a time
+  ;; - music.org: similar, but focused on music, and with some notes
+  ;; about bands whose music I won't buy because it's owned by a major
+  ;; label
 
-  ;; Not in customize: computed automatically.
-  ;; Note that this probably isn't used, since my capture templates
-  ;; specify files.
-  (setq org-default-notes-file (concat org-directory "/incoming.org"))
-  (csetq org-agenda-files
-         '("~/src/org-files/coding.org"
-           "~/src/org-files/contacts.org"
-           "/home/ethan/src/org-files/writing.org"
-           "/home/ethan/src/org-files/incoming.org"
-           "/home/ethan/src/org-files/todo.org"))
+  ;; contacts.org, purchases.org, and music.org are all files that are
+  ;; only relevant in specific contexts -- I review contacts.org
+  ;; periodically to make sure I'm keeping my more distant social
+  ;; relationships, and purchases.org and music.org are both
+  ;; "wishlists"/backlogs of stuff I want to buy when I have the budget.
+  (setq org-default-notes-file (org-personal-org-files-make-absolute "incoming.org"))
+  (setq org-personal-org-files-not-for-agenda
+        '("contacts.org" "purchases.org" "music.org"))
+  (setq org-personal-org-files-for-agenda
+        (seq-remove
+         #'(lambda (filename) (member filename org-personal-org-files-not-for-agenda))
+         org-personal-org-files))
+
+  (defvar org-employer-org-files
+    (file-expand-wildcards "~/Jobs/*/org-files/*.org")
+    "Org files specific to an employer.")
+  (defvar org-project-org-files
+    (file-expand-wildcards "~/src/*/org-files/*.org")
+    "Org files specific to a project.")
+
+  (setq org-agenda-files
+        (append
+         org-employer-org-files
+         org-project-org-files
+         (seq-map #'org-personal-org-files-make-absolute org-personal-org-files-for-agenda)
+         ))
+  (setq org-all-org-files
+        (append
+         org-employer-org-files
+         org-project-org-files
+         (seq-map #'org-personal-org-files-make-absolute org-personal-org-files)
+         ))
+  (csetq org-refile-targets '((org-all-org-files :level . 1)
+                              (nil :level . 1)))
+
+  (csetq org-enforce-todo-dependencies nil)
+  ;;(csetq org-agenda-dim-blocked-tasks t)
   (csetq org-agenda-restore-windows-after-quit t)
-  (csetq org-archive-mark-done nil)
+  (defun org-agenda-music-amount-in-past (entry)
+    "Calculate how far in the past `entry' is.
+
+The org docstrings say that priorities take deadlines and
+timestamps into account, but they don't as far as I can tell. Try
+to remedy this by bringing entries that are in the past
+towards the top of a category.
+
+Returns the number of days in the past that the entry is."
+    (let*
+        ((entry-marker (get-text-property 1 'org-marker entry))
+         (entry-time (org-entry-get entry-marker "SCHEDULED"))
+         (entry-time-future-distance
+          (when entry-time
+            (-
+             (time-to-days (apply #'encode-time (org-parse-time-string entry-time)))
+             (time-to-days (current-time))))))
+      (if (and entry-time (< entry-time-future-distance 0))
+          (- entry-time-future-distance)
+        0)))
+  (defun org-agenda-compare-music (a b)
+    (let* ((a-prio (org-agenda-music-amount-in-past a))
+           (b-prio (org-agenda-music-amount-in-past b)))
+      (cond
+       ((< a-prio b-prio) -1)
+       ((> a-prio b-prio) 1))
+      ))
+  (defun org-agenda-music-is-overdue-flag (txt)
+    "Add a little ! notifier for tags that have been bumped due to being overdue."
+    (if (< 0 (org-agenda-music-amount-in-past txt))
+        "! " ""))
+  (defun org-agenda-music-skip-one-breadcrumb ()
+    "Get breadcrumbs but skip the first, treating it as a \"category\"."
+    (org-with-point-at (org-get-at-bol 'org-marker)
+      (let* ((s (org-display-outline-path nil nil "___" t))
+             (path (unless (eq "" s) (split-string s "___")))
+             (skipped (when path (cdr path)))
+             (new-path (when skipped (string-join skipped " - "))))
+        (if new-path
+            (concat new-path " - ")
+          ""))))
+  (csetq org-agenda-custom-commands
+         `(("r" . "Review certain files")
+           ("rc" "Review contacts" agenda ""
+            ((org-agenda-files (list (org-personal-org-files-make-absolute "contacts.org")))))
+           ("rm" "Review music" todo ""
+            ((org-agenda-files (list (org-personal-org-files-make-absolute "music.org")))
+             (org-agenda-sorting-strategy
+              '(todo-state-down
+                user-defined-down
+                ))
+             (org-agenda-cmp-user-defined #'org-agenda-compare-music)
+             ;; Inserting the breadcrumb before the item is a little
+             ;; distracting. Instead we should list it on the right
+             ;; side as additional context or something else.
+             (org-agenda-prefix-format '((todo . " %i %-12:c%(org-agenda-music-skip-one-breadcrumb)%(org-agenda-music-is-overdue-flag txt)")))
+             ))))
   (csetq org-capture-templates
          '(("t" "todo" entry
             (file+headline "~/src/org-files/incoming.org" "New")
@@ -120,8 +207,6 @@
   (csetq org-goto-interface 'outline-path-completion)
   (csetq org-log-done 'time)
   (csetq org-outline-path-complete-in-steps nil)
-  (csetq org-refile-targets '((org-all-org-files :level . 1)
-                              (nil :level . 1)))
   (csetq org-tag-alist
          '((:startgroup)
            ("@work" . 119)
