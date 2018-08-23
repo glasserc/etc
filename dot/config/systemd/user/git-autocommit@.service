@@ -1,0 +1,8 @@
+[Unit]
+Description=Autocommit for %I
+RefuseManualStart=no
+RefuseManualStop=yes
+
+[Service]
+Type=oneshot
+ExecStart=/home/ethan/etc/bin/autocommit.git %I

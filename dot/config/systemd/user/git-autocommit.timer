@@ -1,0 +1,12 @@
+[Unit]
+Description=Autocommit personal org-files
+RefuseManualStart=no
+RefuseManualStop=no
+
+[Timer]
+Unit=git-autocommit@-home-ethan-src-org\x2dfiles.service
+OnBootSec= 5min
+OnUnitActiveSec= 15min
+
+[Install]
+WantedBy=default.target
