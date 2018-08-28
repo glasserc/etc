@@ -21,8 +21,21 @@ function fish_right_prompt
     echo -n -s (set_color $color_cwd) (prompt_pwd) (set_color normal)
 
     __show_only_git_branch
+    show_nix_status
 end
 
 function __show_only_git_branch
     __fish_git_prompt " %s"
+end
+
+function show_nix_status
+    if set -q IN_NIX_SHELL
+        set -l letter N
+        set -l color blue
+        switch $IN_NIX_SHELL
+            case impure
+                set color green
+        end
+        echo -n -s ' ' (set_color $color) $letter (set_color normal)
+    end
 end
