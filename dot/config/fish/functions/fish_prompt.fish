@@ -26,22 +26,10 @@ function fish_prompt --description 'Write out the prompt'
     # Just show operation status in the prompt.
     # We don't want the whole git prompt, but there's some useful
     # functions defined that we want to use.
-    __fish_git_prompt >/dev/null  # to load __fish_git_prompt_operation_branch_bare
-    set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+    set -l repo_info (command git rev-parse --git-dir ^/dev/null)
     if test -n "$repo_info"
-        set -l rbc (__fish_git_prompt_operation_branch_bare $repo_info)
-        set -l r $rbc[1]
-        if test -n $r
-            set -l operation (
-            switch $r
-                case '|REBASE*'; echo R
-                case '|AM*'; echo A
-                case '|MERGING*'; echo M
-                case '|REVERTING*'; echo R
-                case '|BISECTING*'; echo B
-                case '*'; echo U
-            end)
-
+        set -l operation (__ethan_git_prompt_short_operation $repo_info)
+        if test -n $operation
             __need_space
             echo -n -s (set_color -o $fish_color_error) $operation (set_color normal)
             set -g __need_space true
@@ -65,4 +53,44 @@ function __need_space
         echo -n -s ' '
         set __need_space ''
     end
+end
+
+# Taken from fish_git_prompt.fish so as not to require invoking
+# __fish_prompt just to get it. All operations are slow for large git
+# repositories such as gecko-git, so only do what's necessary for the
+# left prompt here.
+# The complete status is shown in the right prompt, but this serves as
+# a quick reminder for when in the middle of some operation.
+# This is based on __fish_git_prompt_operation_branch_bare, but
+# without the branch stuff or detached head checks which I don't care
+# about here.
+function __ethan_git_prompt_short_operation --description "Ethan's copy of __fish_git_prompt helper, returns one-letter current Git operation"
+    # This function is passed the full repo_info array
+    set -l git_dir $argv[1]
+
+    set -l operation
+
+    if test -d $git_dir/rebase-merge
+        set operation "R"
+    else
+        if test -d $git_dir/rebase-apply
+            if test -f $git_dir/rebase-apply/rebasing
+                set operation "R"
+            else if test -f $git_dir/rebase-apply/applying
+                set operation "A"
+            else
+                set operation "A"
+            end
+        else if test -f $git_dir/MERGE_HEAD
+            set operation "M"
+        else if test -f $git_dir/CHERRY_PICK_HEAD
+            set operation "C"
+        else if test -f $git_dir/REVERT_HEAD
+            set operation "V"
+        else if test -f $git_dir/BISECT_LOG
+            set operation "B"
+        end
+    end
+
+    echo $operation
 end
