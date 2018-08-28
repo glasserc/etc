@@ -19,6 +19,8 @@
                       (kbd "M-/") (key-binding (kbd "M-/")))
                     )))))
 
+(use-package python-docstring)
+
 ;; Doesn't cause problems
 ;; (setq elpy-default-minor-modes (remove 'eldoc-etheteh-mode
 ;;                                        (remove 'auto-complete-mode

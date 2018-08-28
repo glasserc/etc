@@ -116,7 +116,16 @@
 
 (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 
+(use-package flycheck
+  :ensure t
+  :init
+  (global-flycheck-mode))
+
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
+
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix$")
 
 (require 'ethan-java)
 (require 'ethan-lisp)
