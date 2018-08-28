@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 
 # Adapted from org-git-sync.sh, at http://doc.norang.ca/org-mode.html
 function usage(){
@@ -29,11 +29,11 @@ esac
 cd $GITREPO
 
 # Do a pull and push to make sure that we're in sync with the upstream repo
-git pull -q
+git pull 2>&1
 
 git ls-files --deleted -z | xargs -0 --no-run-if-empty git rm -q
 git add . > /dev/null 2>&1
 git commit -m "autocommit at $(date)"
 
 # This is problematic; needs a -q option. What if it fails somehow?
-git push $REMOTE >/dev/null 2>&1
+git push $REMOTE 2>&1
