@@ -34,8 +34,6 @@
 
 (require 'package)
 (add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
 ;; I think GNU ELPA has an `org` package, but this one may be more up
 ;; to date?
