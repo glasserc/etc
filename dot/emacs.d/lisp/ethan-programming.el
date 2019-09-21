@@ -73,6 +73,9 @@
   (add-hook 'fish-mode-hook
             'indent-four-spaces))
 
+(use-package sql-indent)
+(use-package sql)
+
 ;; lorem-ipsum. Although it isn't the only time, mostly I use this
 ;; when programming.
 (use-package lorem-ipsum
