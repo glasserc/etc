@@ -131,5 +131,6 @@
 (require 'ethan-lisp)
 (require 'ethan-python)
 (require 'ethan-haskell)
+(require 'ethan-beancount)   ;; not really a mode, but whatever
 
 (provide 'ethan-programming)
