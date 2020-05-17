@@ -4,7 +4,7 @@ RefuseManualStart=no
 RefuseManualStop=no
 
 [Timer]
-Unit=git-autocommit@-home-ethan-src-org\x2dfiles.service
+Unit=git-autocommit@src-org\x2dfiles.service
 OnBootSec= 5min
 OnUnitActiveSec= 15min
 
