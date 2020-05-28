@@ -38,3 +38,5 @@
 	user = glasserc
 [includeIf "gitdir:**/org-files/.git"]
 	path = /home/ethan/etc/gitconfig-org-files
+[github]
+	user = glasserc
