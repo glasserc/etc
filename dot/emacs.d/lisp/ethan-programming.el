@@ -130,6 +130,9 @@
   :ensure t
   :mode "\\.nix$")
 
+;; Seems like this is the standard in the JS world
+(csetq js-indent-level 2)
+
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-python)
