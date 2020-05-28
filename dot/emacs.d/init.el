@@ -38,7 +38,7 @@
 ;; I think GNU ELPA has an `org` package, but this one may be more up
 ;; to date?
 (add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
+             '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
 ;; Work around built-in org-mode so we can load from ELPA.
