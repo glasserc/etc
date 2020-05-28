@@ -80,8 +80,8 @@
   ;; Use swiper searches by default.
   :diminish ivy-mode
   :bind
-  (("C-s" . swiper)
-   ("C-r" . swiper)
+  (("C-s" . counsel-grep-or-swiper)
+   ("C-r" . counsel-grep-or-swiper)
    ("C-c C-r" . ivy-resume)
    ("<f6>" . ivy-resume)
    ("<f2> i" . counsel-info-lookup-symbol)
