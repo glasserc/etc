@@ -32,12 +32,6 @@
             :user "glasserc/freenode"
             :pass znc-password
             :tls t
-            :port (6667 . 6697))
-           ("Mozilla"
-            :host ,znc-address
-            :user "glasserc/mozilla"
-            :pass znc-password
-            :tls t
             :port (6667 . 6697)))))
 
 (provide 'ethan-communication)
