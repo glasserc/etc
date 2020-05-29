@@ -69,4 +69,8 @@
 (use-package moz)
 (use-package wgrep)
 
+(use-package beancount
+  :load-path "/home/ethan/tmp/software/beancount/editors/emacs"
+  :mode "\\.beancount$")
+
 (provide 'ethan-packages)
