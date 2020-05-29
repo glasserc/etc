@@ -73,4 +73,7 @@
   :load-path "/home/ethan/tmp/software/beancount/editors/emacs"
   :mode "\\.beancount$")
 
+(use-package envrc
+  :ensure t)
+
 (provide 'ethan-packages)
