@@ -31,12 +31,12 @@
 [commit]
 	gpgsign = true
 [gpg]
-[url "git@github.com:"]
-	insteadOf = https://github.com/
 [github]
 	user = glasserc
 ; Cargo update does not like this. We rarely clone from HTTPS URLs anyhow
 ; See https://github.com/rust-lang/cargo/issues/3381
+; [url "git@github.com:"]
+; 	insteadOf = https://github.com/
 ; [url "ssh://git@github.com/"]
 ; 	insteadOf = https://github.com/
 [includeIf "gitdir:**/org-files/.git"]
