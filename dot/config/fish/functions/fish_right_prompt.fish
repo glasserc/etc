@@ -6,7 +6,6 @@ function fish_right_prompt
     #echo -n $__fish_prompt_hostname
 
     set -l color_cwd
-    set -l suffix
     switch $USER
         case root toor
             if set -q fish_color_cwd_root
