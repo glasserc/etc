@@ -54,6 +54,10 @@
   ;; So good!
   :bind
   (("C-x g" . magit-status)))
+
+(use-package forge
+  :after magit
+  :ensure t)
 (use-package git-timemachine)
 (use-package ruby-mode)
 (use-package inf-ruby)
