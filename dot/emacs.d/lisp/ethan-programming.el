@@ -137,6 +137,9 @@
 ;; Seems like this is the standard in the JS world
 (csetq js-indent-level 2)
 
+(use-package elm-mode
+  :ensure t)
+
 (require 'ethan-java)
 (require 'ethan-lisp)
 (require 'ethan-python)
