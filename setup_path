@@ -27,12 +27,6 @@ for bin in "$PRIVATE_BIN" "$HOME"/.gem/ruby/*/bin "$HOME"/.cabal/bin \
     add_to_path "$bin"
 done
 
-for ld_path in "$HOME/local/lib" "$HOME/.local/lib"; do
-    if [ -d "$ld_path" ] ; then
-        export LD_LIBRARY_PATH="$ld_path"
-    fi
-done
-
 for bin in /opt/*/bin /opt/*/*/bin; do
     add_to_path "$bin"
 done
