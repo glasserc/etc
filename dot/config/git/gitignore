@@ -6,3 +6,8 @@ db/nohup.out
 .#*
 # emacs autosaves -- this might not match all of them
 *#
+# direnv files.
+# .envrc describes what environment variables to load.
+.envrc
+# .direnv is where certain local environments are set up using 'layout python' etc.
+.direnv
