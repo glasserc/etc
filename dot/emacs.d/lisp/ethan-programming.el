@@ -76,6 +76,7 @@
     (setq tab-width 4))
   (add-hook 'fish-mode-hook
             'indent-four-spaces))
+(use-package envrc)
 
 (use-package sql-indent)
 (use-package sql)
