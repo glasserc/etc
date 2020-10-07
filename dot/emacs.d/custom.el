@@ -25,7 +25,6 @@
  '(mail-host-address "betacantrips.com")
  '(mail-specify-envelope-from t)
  '(mode-require-final-newline nil)
- '(mouse-yank-at-point t)
  '(safe-local-variable-values
    (quote
     ((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
