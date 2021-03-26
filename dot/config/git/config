@@ -43,5 +43,7 @@
 	path = /home/ethan/etc/gitconfig-org-files
 [pull]
 	rebase = true
+[init]
+	defaultBranch = main
 [rebase]
 	autoStash = true
