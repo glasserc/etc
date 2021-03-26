@@ -41,3 +41,7 @@
 ; 	insteadOf = https://github.com/
 [includeIf "gitdir:**/org-files/.git"]
 	path = /home/ethan/etc/gitconfig-org-files
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
