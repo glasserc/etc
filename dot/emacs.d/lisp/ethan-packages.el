@@ -36,7 +36,7 @@
 (use-package whole-line-or-region
   :diminish whole-line-or-region-mode
   :config
-  (whole-line-or-region-mode))
+  (whole-line-or-region-global-mode))
 
 (use-package jinja2-mode)
 (use-package yaml-mode :mode "\\.ya?ml\\'")
