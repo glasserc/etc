@@ -50,10 +50,8 @@
     (setq save-place t))
   (add-hook 'prog-mode-hook 'turn-on-save-place-mode))
 
-(use-package magit
-  ;; So good!
-  :bind
-  (("C-x g" . magit-status)))
+;; So good!
+(use-package magit)
 
 (use-package forge
   :after magit
