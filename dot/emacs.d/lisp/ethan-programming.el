@@ -51,7 +51,9 @@
   (add-hook 'prog-mode-hook 'turn-on-save-place-mode))
 
 ;; So good!
-(use-package magit)
+(use-package magit
+  :bind
+  (("C-c g" . magit-file-dispatch)))
 
 (use-package forge
   :after magit
