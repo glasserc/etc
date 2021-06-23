@@ -55,6 +55,12 @@
   :bind
   (("C-c g" . magit-file-dispatch)))
 
+;; On a new machine, you'll probably want to set up the token using
+;; something like:
+;; (secrets-create-item "Login" "Github API key for forge" "some-token-from-github" :host "api.github.com" :user "glasserc^forge")
+;; See
+;; https://magit.vc/manual/ghub/Creating-a-Token.html#Creating-a-Token
+;; for some more information.
 (use-package forge
   :after magit
   :ensure t)
@@ -76,6 +82,7 @@
     (setq tab-width 4))
   (add-hook 'fish-mode-hook
             'indent-four-spaces))
+(use-package envrc)
 
 (use-package sql-indent)
 (use-package sql)
