@@ -86,7 +86,7 @@
    ("<f6>" . ivy-resume)
    ("<f2> i" . counsel-info-lookup-symbol)
    ("<f2> u" . counsel-unicode-char)
-   ("C-c g" . counsel-git)
+   ("C-c f" . counsel-git)
    ("C-c j" . counsel-git-grep)
    ("C-c k" . counsel-ag)
    ("C-x l" . counsel-locate)
