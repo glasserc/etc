@@ -91,7 +91,6 @@
    ("C-c k" . counsel-ag)
    ("C-x l" . counsel-locate)
    ("C-S-o" . counsel-rhythmbox)
-   ("C-x f" . ivy-recentf)  ;; although see ivy-use-virtual-buffers
    ;; This is almost always a typo.
    ("C-x C-b" . ivy-switch-buffer)
    :map ivy-minibuffer-map
