@@ -65,7 +65,10 @@
   :after magit
   :ensure t)
 (use-package git-timemachine)
-(use-package ruby-mode)
+(use-package ruby-mode
+  :custom
+  (ruby-align-chained-calls t "Conform to Teachable style")
+  (ruby-insert-encoding-magic-comment nil "This should be fixed in 28.1"))
 (use-package inf-ruby)
 (use-package ruby-electric)
 (use-package less-css-mode)
