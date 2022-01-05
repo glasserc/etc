@@ -61,6 +61,9 @@
 ;; See
 ;; https://magit.vc/manual/ghub/Creating-a-Token.html#Creating-a-Token
 ;; for some more information.
+;; Afterwards, you can just edit the entry using the password manager.
+;; You can see what is retrieved using e.g.:
+;; (auth-source-search :host "api.github.com" :user "glasserc^forge")
 (use-package forge
   :after magit
   :ensure t)
