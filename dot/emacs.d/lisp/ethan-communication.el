@@ -24,14 +24,4 @@
 (defun znc-password (nickname)
   (lookup-secret :znc-password))
 
-(use-package circe
-  :config
-  (csetq circe-network-options
-         `(("Freenode"
-            :host ,znc-address
-            :user "glasserc/freenode"
-            :pass znc-password
-            :tls t
-            :port (6667 . 6697)))))
-
 (provide 'ethan-communication)
