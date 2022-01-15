@@ -232,11 +232,11 @@ Returns the number of days in the past that the entry is."
   ;; org-contacts: manage contacts as org items
   ;; This basically just provides the org-contacts function, which
   ;; isn't as useful as an org agenda view
-  (require 'org-contacts)
+  ;; (require 'org-contacts)
 
-  (csetq org-contacts-files
-         '("/home/ethan/src/org-files/contacts.org"))
-  (csetq org-contacts-matcher "-historical")
+  ;; (csetq org-contacts-files
+  ;;        '("/home/ethan/src/org-files/contacts.org"))
+  ;; (csetq org-contacts-matcher "-historical")
 
   :bind
   (("C-c c" . org-capture)
