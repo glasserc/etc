@@ -1,6 +1,6 @@
 (use-package org
-  :ensure org-plus-contrib
-  :pin org
+  :ensure t
+  :pin gnu
   :config
   ;; Visual-line mode wraps tags because they're followed by "...".
   ;; This hack leaves one extra space after the tags, so that they don't

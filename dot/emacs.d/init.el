@@ -35,10 +35,6 @@
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-;; I think GNU ELPA has an `org` package, but this one may be more up
-;; to date?
-(add-to-list 'package-archives
-             '("org" . "https://orgmode.org/elpa/") t)
 (package-initialize)
 
 ;; Work around built-in org-mode so we can load from ELPA.
@@ -55,6 +51,7 @@
 ;; package--builtins is only initialized when a query needs it.
 (package-built-in-p 'org)   ;; prime package--builtins
 (setq package--builtins (assq-delete-all 'org package--builtins))
+(setq package--builtin-versions (assq-delete-all 'org package--builtin-versions))
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
