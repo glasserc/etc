@@ -1,6 +1,5 @@
 (use-package elpy
   :config
-  (csetq elpy-rpc-backend "jedi")
   (elpy-enable))
 
 ;; pymacs/ropemacs. I seem to recall this being a pain in the neck to
