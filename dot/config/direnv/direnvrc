@@ -1,0 +1,10 @@
+# These seem not to be set for the X session, but only fish shells?
+# Leave these in here so that emacs envrc-mode works OK
+#export ASDF_DIR=~/.config/asdf
+export ASDF_DATA_DIR=~/.config/asdf
+export PATH=/home/ethan/.config/asdf/bin:$PATH
+
+source "$(asdf direnv hook asdf)"
+
+# Uncomment the following line to make direnv silent by default.
+# export DIRENV_LOG_FORMAT=""
