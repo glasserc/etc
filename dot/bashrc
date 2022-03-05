@@ -89,7 +89,7 @@ done
 if [ -n "$GIT_PROMPT" ]; then
    . $GIT_PROMPT
    GITPS1='$(__git_ps1 ":%s")'
-   export PS1="\[${BOLD}${GREEN}\]${debian_chroot:+($debian_chroot)}\u@\h:\[${BLUE}\]\w\[${RS}${BOLD}${YELLOW}\]${GITPS1}\[${RS}\]\\$ "
+   PS1="\[${BOLD}${GREEN}\]${debian_chroot:+($debian_chroot)}\u@\h:\[${BLUE}\]\w\[${RS}${BOLD}${YELLOW}\]${GITPS1}\[${RS}\]\\$ "
 fi
 
 # If this is an xterm set the title to user@host:dir
