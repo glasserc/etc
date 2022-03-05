@@ -14,6 +14,12 @@
 (if (>= emacs-major-version 23)
     (progn (set-frame-font default-font t)
            (add-to-list 'default-frame-alist (cons 'font default-font))))
+;; Seems emacs does some initialization when it starts based on the
+;; current screen scaling parameters. If you then move to a different
+;; scale, you may need to mess with these parameters to get to
+;; something readable.
+;;(set-face-attribute 'default (selected-frame) :height 70);
+;;(set-frame-parameter nil 'scroll-bar-width 16)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
