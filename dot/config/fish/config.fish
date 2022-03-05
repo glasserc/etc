@@ -2,4 +2,6 @@
 set -g __fish_git_prompt_show_informative_status true
 set -g __fish_git_prompt_showcolorhints true
 
-eval (direnv hook fish)
+if which direnv >/dev/null
+    eval (direnv hook fish)
+end
