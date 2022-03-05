@@ -15,3 +15,19 @@ add_path ~/.local/bin
 if which direnv >/dev/null
     eval (direnv hook fish)
 end
+
+# ASDF
+# Installation instructions have you install to ~/.asdf. Move that
+# instead to ~/.config/asdf. See also
+# https://github.com/asdf-vm/asdf/issues/687 (and linked issues).
+# asdf uses ASDF_DATA_DIR to figure out where it should be installed.
+set -x ASDF_DATA_DIR ~/.config/asdf
+if test -f $ASDF_DATA_DIR
+    # Using asdf only through direnv
+    # See https://github.com/asdf-community/asdf-direnv, under "Pro-Tips".
+    source $ASDF_DATA_DIR/lib/asdf.fish
+end
+add_path $ASDF_DATA_DIR/bin
+
+# direnv installed system-wide using apt rather than managed using asdf
+#eval (asdf exec direnv hook fish)
