@@ -26,6 +26,7 @@
   (persistent-scratch-setup-default))
 
 (use-package oddmuse   ;; oddmuse is the wiki engine powering EmacsWiki
+  :ensure nil
   :config
   ;; Get around the emacswiki spam protection
   (add-hook 'oddmuse-mode-hook
@@ -66,7 +67,7 @@
 
 (use-package scratch)
 (use-package gist)
-(use-package moz)
+;(use-package moz)
 (use-package wgrep)
 
 (use-package beancount
