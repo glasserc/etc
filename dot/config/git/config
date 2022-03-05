@@ -8,6 +8,8 @@
 
 [user]
 ; FIXME: This'll be odd when I use git for work again
+; Potentially these should be overridden on per-project basis?
+        name = Ethan Glasser-Camp
         email = ethan@betacantrips.com
 	signingKey = 0A87C4AA
 ; FIXME -- could be user-agnostic
@@ -47,3 +49,5 @@
 	defaultBranch = main
 [rebase]
 	autoStash = true
+[merge]
+	conflictstyle = diff3
