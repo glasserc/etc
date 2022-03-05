@@ -15,6 +15,9 @@
   :load-path "lisp/ethan-wspace.git/lisp"
   :config (global-ethan-wspace-mode 1))
 
+(use-package envrc
+  :config (envrc-global-mode))
+
 (use-package undo-tree
   :diminish undo-tree-mode
   :config
