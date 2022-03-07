@@ -22,9 +22,6 @@ end
 # https://github.com/asdf-vm/asdf/issues/687 (and linked issues).
 # asdf uses ASDF_DATA_DIR to figure out where it should be installed.
 set -x ASDF_DATA_DIR ~/.config/asdf
-# We might need this too because of asdf-direnv?
-# See https://github.com/asdf-community/asdf-direnv/issues/102.
-set -x ASDF_DIR ~/.config/asdf
 if test -f $ASDF_DATA_DIR
     # Using asdf only through direnv
     # See https://github.com/asdf-community/asdf-direnv, under "Pro-Tips".
