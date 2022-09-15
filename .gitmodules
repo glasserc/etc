@@ -1,6 +1,6 @@
 [submodule "dot/emacs.d/elhome/site-lisp/upstream/ethan-wspace.git"]
 	path = dot/emacs.d/lisp/ethan-wspace.git
-	url = git://github.com/glasserc/ethan-wspace.git
+	url = git@github.com:glasserc/ethan-wspace.git
 [submodule "contrib/rst2wp"]
 	path = bin/contrib/rst2wp
 	url = git@github.com:glasserc/rst2wp.git
