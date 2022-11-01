@@ -102,6 +102,8 @@
   (csetq recentf-max-saved-items 100)
   (csetq recentf-max-menu-items 15)
   (csetq ivy-use-virtual-buffers t)
+  ;; I never remember C-M-j to select what I've typed.
+  (csetq ivy-use-selectable-prompt t)
   (recentf-mode 1)
 
   (csetq ivy-extra-directories nil)
