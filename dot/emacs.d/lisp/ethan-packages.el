@@ -73,8 +73,9 @@
 ;(use-package moz)
 (use-package wgrep)
 
+;; FIXME: This is a hack. Hopefully this becomes packaged in melpa or something.
 (use-package beancount
-  :load-path "/home/ethan/tmp/software/beancount/editors/emacs"
+  :load-path "/home/ethan/tmp/software/beancount-mode"
   :mode "\\.beancount$")
 
 (use-package envrc
