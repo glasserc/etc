@@ -1,7 +1,6 @@
 (use-package haskell-mode
   :config
   (csetq haskell-compile-cabal-build-command "cd %s && cabal build --ghc-option=-ferror-spans && hlint src/")
-  (csetq haskell-indent-spaces 4)
   (csetq haskell-indentation-cycle-warn nil)
   (csetq haskell-indentation-ifte-offset 4)
   (csetq haskell-indentation-layout-offset 4)
