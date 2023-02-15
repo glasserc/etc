@@ -236,6 +236,7 @@ Returns the number of days in the past that the entry is."
   (csetq org-footnote-section nil)
   (csetq org-goto-interface 'outline-path-completion)
   (csetq org-log-done 'time)
+  (csetq org-log-reschedule 'time)
   (csetq org-outline-path-complete-in-steps nil)
   (csetq org-tag-alist
          '((:startgroup)
