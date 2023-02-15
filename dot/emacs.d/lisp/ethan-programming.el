@@ -141,6 +141,13 @@
   :init
   (global-flycheck-mode))
 
+(use-package go-mode
+  :ensure t
+  :config
+  (defun allow-tabs ()
+    (setq ethan-wspace-errors (remove 'tabs ethan-wspace-errors)))
+  (add-hook 'go-mode-hook #'allow-tabs))
+
 ;(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js-mode))
 
 (use-package nix-mode
