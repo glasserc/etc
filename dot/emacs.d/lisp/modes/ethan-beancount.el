@@ -1,5 +1,5 @@
 (setq beancount-emacs-path
-      (expand-file-name "~/tmp/software/beancount/editors/emacs"))
+      (expand-file-name "~/tmp/software/beancount-mode/emacs"))
 
 (use-package beancount
   :ensure nil
