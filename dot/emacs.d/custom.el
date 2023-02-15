@@ -5,6 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(auth-sources
    '("secrets:Login" "~/.authinfo" "~/.authinfo.gpg" "~/.netrc"))
+ '(aw-scope 'frame)
  '(bookmark-save-flag 0)
  '(column-number-mode t)
  '(compilation-scroll-output t)
