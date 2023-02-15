@@ -112,12 +112,16 @@
   (defvar org-project-org-files
     (file-expand-wildcards "~/src/*/org-files/*.org")
     "Org files specific to a project.")
+  (defvar org-other-org-files
+    '("~/Documents/finances/README.org")
+    "Other files that may be present on a machine.")
 
   (setq org-agenda-files
         (append
          org-employer-org-files
          org-project-org-files
          (seq-map #'org-personal-org-files-make-absolute org-personal-org-files-for-agenda)
+         org-other-org-files
          ))
   (setq org-all-org-files
         (append
