@@ -64,9 +64,25 @@
 ;; Afterwards, you can just edit the entry using the password manager.
 ;; You can see what is retrieved using e.g.:
 ;; (auth-source-search :host "api.github.com" :user "glasserc^forge")
+;;
+;; Different versions of forge, magithub, etc. have used different
+;; logic to look up the appropriate secret. In particular, they have
+;; changed the `:user` value to be `glasserc^magithub`,
+;; `glasserc^ghub`, `glasserc^forge`, etc.
+;;
+;; These commands have been helpful for diagnosing and debugging it.
+;;
+;; (secrets-search-items "Login" :host "api.github.com")
+;; (secrets-get-secret "Login" "Github API key for Magithub")
+;; (secrets-get-attributes "Login" "Github API key for Magithub")
+;; (secrets-create-item "Login" "Github API key for Forge"
+;;   (secrets-get-secret "Login" "Github API key for Magithub")
+;;     :host "api.github.com" :user "glasserc^forge")
+
 (use-package forge
   :after magit
   :ensure t)
+
 (use-package git-timemachine)
 (use-package ruby-mode
   :custom
