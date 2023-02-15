@@ -106,8 +106,13 @@
          #'(lambda (filename) (member filename org-personal-org-files-not-for-agenda))
          org-personal-org-files))
 
+  (defvar org-employer-org-directories
+    (file-expand-wildcards "~/Jobs/*/org-files")
+    "Org directories specific to an employer.")
   (defvar org-employer-org-files
-    (file-expand-wildcards "~/Jobs/*/org-files/*.org")
+    (remove-if
+     #'(lambda (filename) (string-suffix-p "/incoming.org" filename))
+     (file-expand-wildcards "~/Jobs/*/org-files/*.org"))
     "Org files specific to an employer.")
   (defvar org-project-org-files
     (file-expand-wildcards "~/src/*/org-files/*.org")
@@ -193,7 +198,7 @@ Returns the number of days in the past that the entry is."
              (org-agenda-prefix-format '((todo . " %i %-12:c%(org-agenda-music-skip-one-breadcrumb)%(org-agenda-music-is-overdue-flag txt)")))
              ))))
   (csetq org-capture-templates
-         '(("t" "todo" entry
+         `(("t" "todo" entry
             (file+headline "~/src/org-files/incoming.org" "New")
             "* TODO %?
 %u
@@ -201,7 +206,28 @@ Returns the number of days in the past that the entry is."
            ("b" "Book to purchase" entry
             (file+headline "~/src/org-files/purchases.org" "Books")
             "* TODO %?
-%x")))
+%x")
+
+           ("m" "Album" entry
+            (file+headline "~/src/org-files/music.org" "Music")
+            "* TODO %?
+%x")
+           ("j" "Job-specific todos")
+           ,@(mapcar
+              #'(lambda (directory)
+                  (let ((employer-name (file-name-nondirectory (directory-file-name (file-name-directory directory)))))
+                    `(
+                      ,(concat "j" (downcase (substring employer-name 0 1)))
+                      ,(concat "Capture to " employer-name " incoming.org")
+                      entry
+                      (file ,(concat directory "/incoming.org"))
+                      "* TODO %?\n%u %i\n%a"
+                      ))
+                  )
+              (seq-filter #'(lambda (directory) (file-exists-p (concat directory "/incoming.org")))
+                       org-employer-org-directories)
+              )))
+
   (csetq org-clock-history-length 10)
   (csetq org-clock-into-drawer t)
   (csetq org-completion-use-ido t)
