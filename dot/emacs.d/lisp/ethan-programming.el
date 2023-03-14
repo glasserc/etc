@@ -107,7 +107,16 @@
 (use-package envrc)
 
 (use-package sql-indent)
-(use-package sql)
+(use-package sql
+  :config
+  ;; These are taken from master and presumably will show up in emacs
+  ;; 29. The defaults in emacs 28 don't support DBs with dashes in
+  ;; the names.
+  ;; I also think the prompt-regexp shouldn't have the dash in it so
+  ;; it understands continuations correctly, but that's just a hunch,
+  ;; haven't tested exhaustively.
+  (sql-set-product-feature 'postgres :prompt-regexp "^[-[:alnum:]_]*=[#>] ")
+  (sql-set-product-feature 'postgres :prompt-cont-regexp "^[-[:alnum:]_]*[-'(][#>] "))
 
 ;; lorem-ipsum. Although it isn't the only time, mostly I use this
 ;; when programming.
