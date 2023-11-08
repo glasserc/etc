@@ -73,7 +73,12 @@
     (unless (file-directory-p auto-save-directory)
       (make-directory auto-save-directory))
     (setq auto-save-file-name-transforms
-          `((".*" ,auto-save-directory t)))))
+          `((".*" ,auto-save-directory t))))
+  (let ((lock-file-directory (no-littering-expand-var-file-name "lock-files/")))
+    (unless (file-directory-p lock-file-directory)
+      (make-directory lock-file-directory))
+    (setq lock-file-name-transforms
+          `((".*" ,lock-file-directory t)))))
 
 (use-package diminish)
 
