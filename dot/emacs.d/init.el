@@ -68,12 +68,8 @@
 
 (use-package no-littering
   :config
+  (no-littering-theme-backups)
   ;; Don't clutter up directories with #files#
-  (let ((auto-save-directory (no-littering-expand-var-file-name "auto-save/")))
-    (unless (file-directory-p auto-save-directory)
-      (make-directory auto-save-directory))
-    (setq auto-save-file-name-transforms
-          `((".*" ,auto-save-directory t))))
   (let ((lock-file-directory (no-littering-expand-var-file-name "lock-files/")))
     (unless (file-directory-p lock-file-directory)
       (make-directory lock-file-directory))
