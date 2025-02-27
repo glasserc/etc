@@ -30,8 +30,10 @@
         autoupdate = true
 [push]
 	default = simple
+        followTags = true
 [commit]
 	gpgsign = true
+        verbose = true
 [gpg]
 [github]
 	user = glasserc
@@ -49,5 +51,18 @@
 	defaultBranch = main
 [rebase]
 	autoStash = true
+	updateRefs = true
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
+;; Some tweaks from https://blog.gitbutler.com/how-git-core-devs-configure-git/
+[column]
+        ui = auto
+[branch]
+        sort = -committerdate
+[tag]
+        sort = version:refname
+[diff]
+        algorithm = histogram
+        colorMoved = plain
+        mnemonicPrefix = true
+        renames = true
