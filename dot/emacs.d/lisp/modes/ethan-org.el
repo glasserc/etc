@@ -22,7 +22,9 @@
 
   ;; Org-Babel: embed code into your org files and then execute.
   ;; I use this just enough that I may as well require it.
+  ;; FIXME: Maybe use org-babel-do-load-languages https://orgmode.org/manual/Languages.html
   (require 'ob-python)
+  (require 'ob-sql)
 
   ;; Fix weirdness with org-mode and yasnippet (both use TAB)
   ;; yasnippet config from org-mode mailing list
