@@ -67,8 +67,8 @@ I guess this is how you do list unpacking in emacs-lisp."
 (setq auto-mode-alist
       (append
        '(
-         ("writing/journal/"     . journal-mode)  ;; defined in ethan-esvn
-         ("writing/"             . text-mode)
+         ("/writing/journal/"     . journal-mode)  ;; defined in ethan-esvn
+         ("/writing/"             . text-mode)
          ("\\.mdwn$"             . mdwn-mode)
          ) auto-mode-alist))
 
