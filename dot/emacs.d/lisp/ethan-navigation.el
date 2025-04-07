@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 (require 'thingatpt)
 
 ;; Set up registers. Stolen from Emacs-Starter-Kit.
