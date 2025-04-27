@@ -31,8 +31,12 @@ def walk_dirtree(root):
             if ext.lower() in ['.jpg', '.jpeg'] and not os.path.islink(fname):
                 realtime = get_time_exif(fname)
                 #print fname, os.path.getmtime(fname), get_real_mtime(fname)
-                realtime = int(realtime.strftime("%s"))
-                os.utime(fname, (realtime, realtime))
+                try:
+                    realtime = int(realtime.strftime("%s"))
+                    os.utime(fname, (realtime, realtime))
+                except:
+                    print 'Skipping ', fname
+                    pass
 
 if __name__ == '__main__':
     walk_dirtree('.')
