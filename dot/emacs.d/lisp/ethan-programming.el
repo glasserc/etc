@@ -55,6 +55,9 @@
   :bind
   (("C-c g" . magit-file-dispatch)))
 
+(use-package magit-delta
+  :hook (magit-mode . magit-delta-mode))
+
 ;; On a new machine, you'll probably want to set up the token using
 ;; something like:
 ;; (secrets-create-item "Login" "Github API key for forge" "some-token-from-github" :host "api.github.com" :user "glasserc^forge")

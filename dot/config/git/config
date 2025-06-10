@@ -15,6 +15,11 @@
 ; FIXME -- could be user-agnostic
 [core]
         excludesfile = /home/ethan/.config/git/gitignore
+        pager = delta
+[delta]
+        # no config at the moment
+[interactive]
+        diffFilter = delta --color-only
 [cola]
         fontdiff = Terminus,12,-1,5,50,0,0,0,0,0
 
