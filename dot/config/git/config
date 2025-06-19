@@ -71,3 +71,5 @@
         colorMoved = plain
         mnemonicPrefix = true
         renames = true
+[annex]
+        autocommit = false
