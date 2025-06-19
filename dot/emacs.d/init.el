@@ -36,6 +36,15 @@
 (add-to-list 'load-path (expand-file-name  "~/local/share/emacs/site-lisp/"))
 (add-to-list 'load-path (expand-file-name  "~/.local/share/emacs/site-lisp/"))
 
+;; Try to relocate eln-cache in .emacs.d/var instead of .emacs.
+;; Taken from README of https://github.com/emacscollective/no-littering
+(when (and (fboundp 'startup-redirect-eln-cache)
+           (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (startup-redirect-eln-cache
+   (convert-standard-filename
+    (expand-file-name  "var/eln-cache/" user-emacs-directory))))
+
 (setq autoload-file (emacs-d "loaddefs.el"))
 
 (require 'package)
