@@ -1,3 +1,9 @@
+# Template for systemd that runs the autocommit script to keep
+# certain low-ceremony git repos in sync.
+# Usage: create a git-autocommit-something.timer like git-autocommit.timer
+# which has Unit=git-autocommit@escaped-path.service.
+# This is necessary because systemd timers have to point to a service.
+# Re-using this file lets us minimize duplication.
 [Unit]
 Description=Autocommit for %I
 RefuseManualStart=no
