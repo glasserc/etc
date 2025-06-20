@@ -169,4 +169,8 @@
   :config
   (global-auto-revert-mode 1))
 
+;; Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49211
+;; and friends. Maybe fixed in GTK 4?
+(pgtk-use-im-context nil)
+
 (provide 'ethan-navigation)
