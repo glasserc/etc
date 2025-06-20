@@ -171,6 +171,12 @@
 
 ;; Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49211
 ;; and friends. Maybe fixed in GTK 4?
-(pgtk-use-im-context nil)
+;;(pgtk-use-im-context nil)
+;;
+;; I think this affected me most when using C->, but that seems to
+;; work now, so I'm commenting it out for now. The reported bug is
+;; about S-SPC, which I think is still affected, but C-S-SPC seems to
+;; be translated correctly, and I also don't think I have any bindings
+;; for this key in any mode?
 
 (provide 'ethan-navigation)
