@@ -26,9 +26,18 @@
  '(mail-specify-envelope-from t)
  '(mode-require-final-newline nil)
  '(safe-local-variable-values
-   '((org-time-clocksum-format :hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
-     (require-final-newline)
-     (nxml-child-indent . 4)))
+   '((lsp-haskell-server-path . "static-ls")
+     (haskell-compiler-type . cabal)
+     (haskell-indentation-layout-offset . 2)
+     (haskell-indentation-ifte-offset . 2)
+     (haskell-indentation-starter-offset . 2)
+     (haskell-indentation-left-offset . 2)
+     (org-time-clocksum-format :hours "%d" :require-hours t :minutes
+                               ":%02d" :require-minutes t)
+     (require-final-newline) (nxml-child-indent . 4)
+     (haskell-compile-cabal-build-command . "make build")
+     (haskell-compile-cabal-build-command
+      . "env GHC_OPTIONS=-fno-code make build")))
  '(select-enable-clipboard t)
  '(send-mail-function 'sendmail-send-it)
  '(sendmail-program "/usr/bin/msmtp")
